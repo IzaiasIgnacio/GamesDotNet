@@ -52,13 +52,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary2\Igdb.csproj">
-      <Project>{2b8726ae-8562-48d6-994d-63c7cc1a7198}</Project>
-      <Name>Igdb</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Games\Games.csproj">
       <Project>{AE95E0D3-6D10-4DBA-A512-CC06980846EB}</Project>
       <Name>Games</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Igdb\Igdb.csproj">
+      <Project>{2b8726ae-8562-48d6-994d-63c7cc1a7198}</Project>
+      <Name>Igdb</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
