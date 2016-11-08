@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace Igdb.Models {
+namespace Igdb.ResponseModels {
     public class ReleaseDate {
         [DataMember(Name = "platform")]
         public Platform Platform { get; set; }

@@ -2,12 +2,12 @@
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace Igdb.Models {
-    public class BaseJsonResponse {
-        [DataMember(Name = "id")]
-        public int Id { get; set; }
-
+namespace Igdb.ResponseModels {
+    public class Video {
         [DataMember(Name = "name")]
         public string Name { get; set; }
+
+        [DataMember(Name = "video_id")]
+        public string VideoId { get; set; }
     }
 }

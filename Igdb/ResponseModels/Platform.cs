@@ -1,4 +1,4 @@
-﻿namespace Igdb.Models {
+﻿namespace Igdb.ResponseModels {
     public class Platform : BaseJsonResponse {
     }
 }
