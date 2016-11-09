@@ -8,12 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Igdb.Services {
-    class RequestService {
-        public string RequestGame(GameRequest request) {
+    public class RequestService {
+        public string DoRequest(string url) {
             string resposta = string.Empty;
-            string url = @"https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields="+request.Fields+"&limit="+request.Limit+
-                "&order="+request.Order+"&search="+request.Search;
-            
             HttpWebRequest get = (HttpWebRequest)WebRequest.Create(url);
             get.AutomaticDecompression = DecompressionMethods.GZip;
             get.Accept = "application/json";
@@ -25,6 +22,20 @@ namespace Igdb.Services {
             }
 
             return resposta;
+        }
+
+        public string RequestBuscaGame(BuscaGameRequest request) {
+            string url = @"https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields="+request.Fields+"&limit="+request.Limit+
+                "&order="+request.Order+"&search="+request.Search;
+
+            return DoRequest(url);
+        }
+
+        public string RequestDadosGame(DadosGameRequest request) {
+            string resposta = string.Empty;
+            string url = @"https://igdbcom-internet-game-database-v1.p.mashape.com/games/"+request.Id+"?fields="+request.Fields;
+
+            return DoRequest(url);
         }
     }
 }

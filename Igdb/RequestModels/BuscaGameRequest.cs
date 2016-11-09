@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 namespace Igdb.RequestModels {
-    public class GameRequest {
+    public class BuscaGameRequest {
 
         private string fields;
         private int limit;
@@ -14,7 +14,7 @@ namespace Igdb.RequestModels {
         {
             get
             {
-                return "id,name,summary,storyline,developers,publishers,genres,release_dates,videos,cover.cloudinary_id";
+                return "id,name,release_dates.platform,cover.cloudinary_id";
             }
         }
         

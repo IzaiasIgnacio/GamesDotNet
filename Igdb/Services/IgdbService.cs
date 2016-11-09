@@ -11,17 +11,30 @@ using Newtonsoft.Json;
 
 namespace Igdb.Services {
     public class IgdbService {
-        public GameResponse BuscarJogo(string busca) {
+        public List<BuscaGameResponse> BuscarJogo(string busca) {
             RequestService requestService = new RequestService();
-            GameRequest request = new GameRequest {
+            BuscaGameRequest request = new BuscaGameRequest {
                 Search = busca
             };
 
-            string resposta = requestService.RequestGame(request);
+            string resposta = requestService.RequestBuscaGame(request);
 
-            List<GameResponse> response = JsonConvert.DeserializeObject<List<GameResponse>>(resposta);
+            List<BuscaGameResponse> response = JsonConvert.DeserializeObject<List<BuscaGameResponse>>(resposta);
                         
-            return null;
+            return response;
+        }
+
+        public List<DadosGameResponse> DadosJogo(int id) {
+            RequestService requestService = new RequestService();
+            DadosGameRequest request = new DadosGameRequest {
+                Id = id
+            };
+
+            string resposta = requestService.RequestDadosGame(request);
+
+            List<DadosGameResponse> response = JsonConvert.DeserializeObject<List<DadosGameResponse>>(resposta);
+
+            return response;
         }
     }
 }

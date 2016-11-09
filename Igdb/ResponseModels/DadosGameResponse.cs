@@ -4,7 +4,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace Igdb.ResponseModels {
-    public class GameResponse : BaseJsonResponse {
+    [DataContract(Name = "DadosGameResponse")]
+    public class DadosGameResponse : BaseJsonResponse {
         [DataMember(Name = "summary")]
         public string Summary { get; set; }
 

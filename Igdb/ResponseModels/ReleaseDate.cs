@@ -3,9 +3,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 namespace Igdb.ResponseModels {
+    [DataContract(Name = "ReleaseDate")]
     public class ReleaseDate {
         [DataMember(Name = "platform")]
-        public Platform Platform { get; set; }
+        public int Platform { get; set; }
 
         [DataMember(Name = "date")]
         public string Date { get; set; }

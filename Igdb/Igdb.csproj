@@ -70,9 +70,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RequestModels\DadosGameRequest.cs" />
     <Compile Include="ResponseModels\BaseJsonResponse.cs" />
-    <Compile Include="RequestModels\GameRequest.cs" />
-    <Compile Include="ResponseModels\GameResponse.cs" />
+    <Compile Include="RequestModels\BuscaGameRequest.cs" />
+    <Compile Include="ResponseModels\BuscaGameResponse.cs" />
+    <Compile Include="ResponseModels\DadosGameResponse.cs" />
     <Compile Include="ResponseModels\Cover.cs" />
     <Compile Include="ResponseModels\Developer.cs" />
     <Compile Include="ResponseModels\Genre.cs" />

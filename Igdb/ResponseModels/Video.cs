@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 namespace Igdb.ResponseModels {
+    [DataContract(Name = "Video")]
     public class Video {
         [DataMember(Name = "name")]
         public string Name { get; set; }
