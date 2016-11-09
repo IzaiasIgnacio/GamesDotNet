@@ -36,5 +36,18 @@ namespace Igdb.Services {
 
             return response;
         }
+
+        public List<DadosDeveloperPublisherResponse> DadosDeveloperPublisher(int id) {
+            RequestService requestService = new RequestService();
+            DadosDeveloperPublisherRequest request = new DadosDeveloperPublisherRequest {
+                Id = id
+            };
+
+            string resposta = requestService.RequestDadosDeveloperPublisherGame(request);
+
+            List<DadosDeveloperPublisherResponse> response = JsonConvert.DeserializeObject<List<DadosDeveloperPublisherResponse>>(resposta);
+
+            return response;
+        }
     }
 }

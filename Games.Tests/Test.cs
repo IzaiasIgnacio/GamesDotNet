@@ -25,16 +25,25 @@ namespace Igdb.Test {
         [TestMethod]
         public void TesteBuscarDadosJogo() {
             IgdbService igdb = new IgdbService();
-            List<DadosGameResponse> response = igdb.DadosJogo(428);
+            DadosGameResponse response = igdb.DadosJogo(428).FirstOrDefault();
 
-            Assert.IsNotNull(response[0].Id);
-            Assert.IsNotNull(response[0].Name);
-            Assert.IsNotNull(response[0].Developers);
-            Assert.IsNotNull(response[0].Publishers);
-            Assert.IsNotNull(response[0].Genres);
-            Assert.IsNotNull(response[0].ReleaseDates);
-            Assert.IsNotNull(response[0].Videos);
-            Assert.IsNotNull(response[0].Cover.CloudinaryId);
+            Assert.IsNotNull(response.Id);
+            Assert.IsNotNull(response.Name);
+            Assert.IsNotNull(response.Developers);
+            Assert.IsNotNull(response.Publishers);
+            Assert.IsNotNull(response.Genres);
+            Assert.IsNotNull(response.ReleaseDates);
+            Assert.IsNotNull(response.Videos);
+            Assert.IsNotNull(response.Cover.CloudinaryId);
+        }
+
+        [TestMethod]
+        public void TesteBuscarDadosDeveloperPublisher() {
+            IgdbService igdb = new IgdbService();
+            DadosDeveloperPublisherResponse response = igdb.DadosDeveloperPublisher(250).FirstOrDefault();
+
+            Assert.IsNotNull(response.Id);
+            Assert.IsNotNull(response.Name);
         }
     }
 }

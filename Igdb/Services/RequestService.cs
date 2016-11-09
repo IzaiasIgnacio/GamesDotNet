@@ -37,5 +37,12 @@ namespace Igdb.Services {
 
             return DoRequest(url);
         }
+
+        public string RequestDadosDeveloperPublisherGame(DadosDeveloperPublisherRequest request) {
+            string resposta = string.Empty;
+            string url = @"https://igdbcom-internet-game-database-v1.p.mashape.com/companies/" + request.Id + "?fields=" + request.Fields;
+
+            return DoRequest(url);
+        }
     }
 }

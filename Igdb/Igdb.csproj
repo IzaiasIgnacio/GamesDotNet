@@ -70,19 +70,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RequestModels\DadosDeveloperPublisherRequest.cs" />
     <Compile Include="RequestModels\DadosGameRequest.cs" />
     <Compile Include="ResponseModels\BaseJsonResponse.cs" />
     <Compile Include="RequestModels\BuscaGameRequest.cs" />
     <Compile Include="ResponseModels\BuscaGameResponse.cs" />
     <Compile Include="ResponseModels\DadosGameResponse.cs" />
     <Compile Include="ResponseModels\Cover.cs" />
-    <Compile Include="ResponseModels\Developer.cs" />
+    <Compile Include="ResponseModels\DeveloperPublisher.cs" />
     <Compile Include="ResponseModels\Genre.cs" />
     <Compile Include="ResponseModels\Platform.cs" />
     <Compile Include="ResponseModels\Publisher.cs" />
     <Compile Include="ResponseModels\ReleaseDate.cs" />
     <Compile Include="ResponseModels\Video.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResponseModels\DadosDeveloperPublisherResponse.cs" />
     <Compile Include="Services\IgdbService.cs" />
     <Compile Include="Services\RequestService.cs" />
   </ItemGroup>
