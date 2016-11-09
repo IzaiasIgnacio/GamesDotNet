@@ -62,5 +62,18 @@ namespace Igdb.Services {
 
             return response;
         }
+
+        public List<DadosGenreResponse> DadosGenre(int[] genres) {
+            RequestService requestService = new RequestService();
+            DadosGenreRequest request = new DadosGenreRequest {
+                Ids = genres
+            };
+
+            string resposta = requestService.RequestDadosGenre(request);
+
+            List<DadosGenreResponse> response = JsonConvert.DeserializeObject<List<DadosGenreResponse>>(resposta);
+
+            return response;
+        }
     }
 }

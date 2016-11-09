@@ -10,10 +10,8 @@ namespace Igdb.RequestModels {
         private string order;
         private string search;
 
-        public string Fields
-        {
-            get
-            {
+        public string Fields {
+            get {
                 return "id,name,release_dates.platform,cover.cloudinary_id";
             }
         }

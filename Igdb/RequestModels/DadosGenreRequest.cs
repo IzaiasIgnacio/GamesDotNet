@@ -1,5 +1,5 @@
 ﻿namespace Igdb.RequestModels {
-    public class DadosPlatformRequest {
+    public class DadosGenreRequest {
         private string fields;
         private int id;
 

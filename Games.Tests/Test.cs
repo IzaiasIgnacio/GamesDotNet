@@ -56,5 +56,15 @@ namespace Igdb.Test {
             Assert.IsNotNull(response[0].Id);
             Assert.IsNotNull(response[0].Name);
         }
+
+        [TestMethod]
+        public void TesteBuscarDadosGenre() {
+            IgdbService igdb = new IgdbService();
+            int[] genres = { 12, 15 };
+            List<DadosGenreResponse> response = igdb.DadosGenre(genres);
+
+            Assert.IsNotNull(response[0].Id);
+            Assert.IsNotNull(response[0].Name);
+        }
     }
 }

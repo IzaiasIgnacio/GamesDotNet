@@ -51,5 +51,12 @@ namespace Igdb.Services {
 
             return DoRequest(url);
         }
+
+        public string RequestDadosGenre(DadosGenreRequest request) {
+            string resposta = string.Empty;
+            string url = @"https://igdbcom-internet-game-database-v1.p.mashape.com/genres/" + string.Join(",", request.Ids) + "?fields=" + request.Fields;
+
+            return DoRequest(url);
+        }
     }
 }

@@ -72,12 +72,13 @@
   <ItemGroup>
     <Compile Include="RequestModels\DadosDeveloperPublisherRequest.cs" />
     <Compile Include="RequestModels\DadosGameRequest.cs" />
+    <Compile Include="RequestModels\DadosGenreRequest.cs" />
     <Compile Include="ResponseModels\BaseJsonResponse.cs" />
     <Compile Include="RequestModels\BuscaGameRequest.cs" />
     <Compile Include="ResponseModels\BuscaGameResponse.cs" />
     <Compile Include="ResponseModels\DadosGameResponse.cs" />
     <Compile Include="ResponseModels\Cover.cs" />
-    <Compile Include="ResponseModels\Genre.cs" />
+    <Compile Include="ResponseModels\DadosGenreResponse.cs" />
     <Compile Include="ResponseModels\DadosPlatformResponse.cs" />
     <Compile Include="ResponseModels\ReleaseDate.cs" />
     <Compile Include="ResponseModels\Video.cs" />
