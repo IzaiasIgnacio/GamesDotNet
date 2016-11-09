@@ -40,7 +40,14 @@ namespace Igdb.Services {
 
         public string RequestDadosDeveloperPublisherGame(DadosDeveloperPublisherRequest request) {
             string resposta = string.Empty;
-            string url = @"https://igdbcom-internet-game-database-v1.p.mashape.com/companies/" + request.Id + "?fields=" + request.Fields;
+            string url = @"https://igdbcom-internet-game-database-v1.p.mashape.com/companies/"+string.Join(",",request.Ids)+"?fields=" + request.Fields;
+
+            return DoRequest(url);
+        }
+
+        public string RequestDadosPlatform(DadosPlatformRequest request) {
+            string resposta = string.Empty;
+            string url = @"https://igdbcom-internet-game-database-v1.p.mashape.com/platforms/" + string.Join(",", request.Ids) + "?fields=" + request.Fields;
 
             return DoRequest(url);
         }

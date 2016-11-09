@@ -40,10 +40,21 @@ namespace Igdb.Test {
         [TestMethod]
         public void TesteBuscarDadosDeveloperPublisher() {
             IgdbService igdb = new IgdbService();
-            DadosDeveloperPublisherResponse response = igdb.DadosDeveloperPublisher(250).FirstOrDefault();
+            int[] devs = { 250, 400 };
+            List<DadosDeveloperPublisherResponse> response = igdb.DadosDeveloperPublisher(devs);
 
-            Assert.IsNotNull(response.Id);
-            Assert.IsNotNull(response.Name);
+            Assert.IsNotNull(response[0].Id);
+            Assert.IsNotNull(response[0].Name);
+        }
+
+        [TestMethod]
+        public void TesteBuscarDadosPlatform() {
+            IgdbService igdb = new IgdbService();
+            int[] plats = { 52, 4 };
+            List<DadosPlatformResponse> response = igdb.DadosPlatform(plats);
+
+            Assert.IsNotNull(response[0].Id);
+            Assert.IsNotNull(response[0].Name);
         }
     }
 }

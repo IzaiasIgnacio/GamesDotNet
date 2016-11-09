@@ -14,6 +14,6 @@ namespace Igdb.RequestModels {
             }
         }
         
-        public int Id { get; set; }
+        public int[] Ids { get; set; }
     }
 }
