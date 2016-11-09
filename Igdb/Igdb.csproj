@@ -79,7 +79,6 @@
     <Compile Include="ResponseModels\Cover.cs" />
     <Compile Include="ResponseModels\Genre.cs" />
     <Compile Include="ResponseModels\DadosPlatformResponse.cs" />
-    <Compile Include="ResponseModels\Publisher.cs" />
     <Compile Include="ResponseModels\ReleaseDate.cs" />
     <Compile Include="ResponseModels\Video.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
