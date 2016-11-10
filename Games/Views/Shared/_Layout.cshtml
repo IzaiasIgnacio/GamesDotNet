@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title</title>
+        <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <script src="~/Scripts/modernizr-2.6.2.js"></script>
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+        <link href="~/Content/themes/base/all.css" rel="stylesheet" />
+        <script src="~/Scripts/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Games", "Index", "Home", new { @class = "navbar-brand" })
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active">@Html.ActionLink("Coleção", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Wishlist", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Watchlist", "Index", "Home")</li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><img src="~/Content/Lighthouse.jpg" height="15" /></li>
+                        <li><img src="~/Content/Lighthouse.jpg" height="15" /></li>
+                        <li><img src="~/Content/Lighthouse.jpg" height="15" /></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container body-content">
+            @RenderBody()
+        </div>
+    </body>
+</html>
