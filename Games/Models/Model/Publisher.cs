@@ -1,4 +1,4 @@
-﻿namespace Games.Models {
+﻿namespace Games.Models.Model {
     public class Publisher {
     }
 }

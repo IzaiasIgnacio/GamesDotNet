@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Games.Models {
+namespace Games.Models.Model {
     public class Game {
         public int Id { get; set; }
         public string Titulo { get; set; }
@@ -17,7 +17,7 @@ namespace Games.Models {
         public enum formato { Fisíco, Digital };
         public string LinkGiantbomb { get; set; }
         public int Indice { get; set; }
-        public Plataforma Plataforma { get; set; }
+        public Platform Plataforma { get; set; }
         public Loja Loja { get; set; }
         public Publisher Publisher { get; set; }
         public Developer Developer { get; set; }
