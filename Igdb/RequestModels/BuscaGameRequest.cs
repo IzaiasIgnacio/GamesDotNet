@@ -4,12 +4,6 @@ using Newtonsoft.Json;
 
 namespace Igdb.RequestModels {
     public class BuscaGameRequest {
-
-        private string fields;
-        private int limit;
-        private string order;
-        private string search;
-
         public string Fields {
             get {
                 return "id,name,release_dates.platform,cover.cloudinary_id";

@@ -5,25 +5,6 @@ using System.Web;
 
 namespace Games.Models {
     public class Game {
-        private int id;
-        private string titulo;
-        private decimal nota;
-        private DateTime lancamento;
-        private decimal preco;
-        private decimal metacritic;
-        private Boolean completo;
-        private string descricao;
-        public enum formato {Fisíco,Digital};
-        private decimal tamanho;
-        private string linkGiantbomb;
-        private int indice;
-        private Plataforma plataforma;
-        private Loja loja;
-        private Publisher publisher;
-        private Developer developer;
-        private Classificacao classificacao;
-        private Situacao situacao;
-
         public int Id { get; set; }
         public string Titulo { get; set; }
         public decimal Nota { get; set; }
@@ -33,6 +14,7 @@ namespace Games.Models {
         public Boolean Completo { get; set; }
         public string Descricao { get; set; }
         public decimal Tamanho { get; set; }
+        public enum formato { Fisíco, Digital };
         public string LinkGiantbomb { get; set; }
         public int Indice { get; set; }
         public Plataforma Plataforma { get; set; }

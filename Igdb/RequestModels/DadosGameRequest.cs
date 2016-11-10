@@ -4,10 +4,6 @@ using Newtonsoft.Json;
 
 namespace Igdb.RequestModels {
     public class DadosGameRequest {
-
-        private string fields;
-        private int id;
-
         public string Fields {
             get {
                 return "id,name,summary,storyline,developers,publishers,genres,release_dates,videos,cover.cloudinary_id";
