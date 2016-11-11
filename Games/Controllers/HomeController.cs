@@ -12,6 +12,10 @@ namespace Games.Controllers {
         public ActionResult Index() {
             GameListView view = new GameListView();
             view.ListaPlatform = ListaPlatform;
+
+            GameRepository gameRepository = new GameRepository();
+            view.ListaJogos = gameRepository.ListarJogos();
+
             return View(view);
         }
     }
