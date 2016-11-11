@@ -7,12 +7,11 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace Games.Controllers {
-    public class HomeController : Controller {
+    public class HomeController : BaseController {
         // GET: Home
         public ActionResult Index() {
             GameListView view = new GameListView();
-            PlatformRepository platformRepository = new PlatformRepository();
-            view.ListaPlatform = platformRepository.Listar();
+            view.ListaPlatform = ListaPlatform;
             return View(view);
         }
     }
