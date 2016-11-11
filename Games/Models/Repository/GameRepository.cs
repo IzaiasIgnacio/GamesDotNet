@@ -22,5 +22,10 @@ namespace Games.Models.Repository {
             GameEntity game = db.game.Find(id);
             return game;
         }
+
+        public List<GameEntity> ListarJogos() {
+            List<GameEntity> ListaJogos = db.game.ToList();
+            return ListaJogos;
+        }
     }
 }
