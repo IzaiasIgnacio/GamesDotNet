@@ -1,6 +1,5 @@
-﻿@model Games.Models.ViewModel.LayoutView
-<ul class="nav navbar-nav navbar-right">
+﻿<ul class="nav navbar-nav navbar-right">
     @foreach (var platform in Model.ListaPlatform) {
-        <li>@Html.ActionLink(platform.name, "Index", "Home")</li>
+        <li><a href="/Home/Index">@platform.name</a></li>
     }
 </ul>

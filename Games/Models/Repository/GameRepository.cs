@@ -7,6 +7,7 @@ using System.Web;
 
 namespace Games.Models.Repository {
     public class GameRepository : BaseRepository {
+
         public void Adicionar(DadosGameResponse dadosGame) {
             GameEntity game = new GameEntity();
             game.name = dadosGame.Name;
@@ -27,5 +28,6 @@ namespace Games.Models.Repository {
             List<GameEntity> ListaJogos = db.game.ToList();
             return ListaJogos;
         }
+
     }
 }

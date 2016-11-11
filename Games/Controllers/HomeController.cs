@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Games.Controllers {
     public class HomeController : BaseController {
-        // GET: Home
+
         public ActionResult Index() {
             GameListView view = new GameListView();
             GameRepository gameRepository = new GameRepository();
@@ -16,5 +16,6 @@ namespace Games.Controllers {
 
             return View(view);
         }
+
     }
 }

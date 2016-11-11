@@ -6,7 +6,9 @@ using System.Linq;
 using System.Web;
 
 namespace Games.Models.ViewModel {
+
     public class LayoutView {
         public List<platform> ListaPlatform { get; set; }
     }
+
 }

@@ -201,7 +201,6 @@
     <Compile Include="Models\Repository\PlatformRepository.cs" />
     <Compile Include="Models\Repository\GameRepository.cs" />
     <Compile Include="Models\ViewModel\LayoutView.cs" />
-    <Compile Include="Models\ViewModel\BaseView.cs" />
     <Compile Include="Models\ViewModel\GameView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\Test.cs" />

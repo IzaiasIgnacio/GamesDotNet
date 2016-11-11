@@ -11,10 +11,13 @@ namespace Games.Controllers {
     public class BaseController : Controller {
 
         public List<platform> ListaPlatform;
-        public BaseController() {
+
+        public ActionResult ExibirMenuPlatforms() {
             PlatformRepository platformRepository = new PlatformRepository();
             LayoutView view = new LayoutView();
             view.ListaPlatform = platformRepository.Listar();
+            return PartialView("PlatformMenuView", view);
         }
     }
+
 }
