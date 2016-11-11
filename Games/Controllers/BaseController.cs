@@ -13,7 +13,8 @@ namespace Games.Controllers {
         public List<platform> ListaPlatform;
         public BaseController() {
             PlatformRepository platformRepository = new PlatformRepository();
-            ListaPlatform = platformRepository.Listar();
+            LayoutView view = new LayoutView();
+            view.ListaPlatform = platformRepository.Listar();
         }
     }
 }

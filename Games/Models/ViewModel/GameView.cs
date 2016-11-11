@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 
 namespace Games.Models.ViewModel {
-    public class GameListView : BaseView {
+    public class GameListView {
         public List<GameEntity> ListaJogos { get; set; }
     }
 
