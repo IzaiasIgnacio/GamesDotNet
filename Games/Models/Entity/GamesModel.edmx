@@ -1,0 +1,636 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GamesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="developerPublisher">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="game">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="nota" Type="nchar" MaxLength="10" />
+          <Property Name="release_date" Type="date" />
+          <Property Name="preco" Type="decimal" Precision="2" Scale="0" />
+          <Property Name="metacritic" Type="int" />
+          <Property Name="completo" Type="int" Nullable="false" />
+          <Property Name="summary" Type="text" />
+          <Property Name="formato" Type="varchar" MaxLength="50" />
+          <Property Name="tamanho" Type="nchar" MaxLength="10" />
+          <Property Name="id_store" Type="int" />
+          <Property Name="id_rating" Type="int" />
+        </EntityType>
+        <EntityType Name="game_developerPublisher">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_game" Type="int" Nullable="false" />
+          <Property Name="id_developerPublisher" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="game_gender">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_game" Type="int" Nullable="false" />
+          <Property Name="id_gender" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="game_platform">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_game" Type="int" Nullable="false" />
+          <Property Name="id_platform" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="gender">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="gender" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="platform">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rating">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rating" Type="nvarchar" MaxLength="50" />
+          <Property Name="idade" Type="int" />
+          <Property Name="id_regiao" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="region">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="store">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_game_developerPublisher_developerPublisher">
+          <End Role="developerPublisher" Type="Self.developerPublisher" Multiplicity="1" />
+          <End Role="game_developerPublisher" Type="Self.game_developerPublisher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="developerPublisher">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game_developerPublisher">
+              <PropertyRef Name="id_developerPublisher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_developerPublisher_game">
+          <End Role="game" Type="Self.game" Multiplicity="1" />
+          <End Role="game_developerPublisher" Type="Self.game_developerPublisher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="game">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game_developerPublisher">
+              <PropertyRef Name="id_game" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_gender_game">
+          <End Role="game" Type="Self.game" Multiplicity="1" />
+          <End Role="game_gender" Type="Self.game_gender" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="game">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game_gender">
+              <PropertyRef Name="id_game" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_gender_gender">
+          <End Role="gender" Type="Self.gender" Multiplicity="1" />
+          <End Role="game_gender" Type="Self.game_gender" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gender">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game_gender">
+              <PropertyRef Name="id_gender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_platform_game">
+          <End Role="game" Type="Self.game" Multiplicity="1" />
+          <End Role="game_platform" Type="Self.game_platform" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="game">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game_platform">
+              <PropertyRef Name="id_game" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_platform_platform">
+          <End Role="platform" Type="Self.platform" Multiplicity="1" />
+          <End Role="game_platform" Type="Self.game_platform" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="platform">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game_platform">
+              <PropertyRef Name="id_platform" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_rating">
+          <End Role="rating" Type="Self.rating" Multiplicity="0..1" />
+          <End Role="game" Type="Self.game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rating">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game">
+              <PropertyRef Name="id_rating" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_store">
+          <End Role="store" Type="Self.store" Multiplicity="0..1" />
+          <End Role="game" Type="Self.game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="store">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game">
+              <PropertyRef Name="id_store" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rating_region">
+          <End Role="region" Type="Self.region" Multiplicity="1" />
+          <End Role="rating" Type="Self.rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="region">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="rating">
+              <PropertyRef Name="id_regiao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GamesModelStoreContainer">
+          <EntitySet Name="developerPublisher" EntityType="Self.developerPublisher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="game" EntityType="Self.game" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="game_developerPublisher" EntityType="Self.game_developerPublisher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="game_gender" EntityType="Self.game_gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="game_platform" EntityType="Self.game_platform" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="gender" EntityType="Self.gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="platform" EntityType="Self.platform" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rating" EntityType="Self.rating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="region" EntityType="Self.region" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="store" EntityType="Self.store" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_game_developerPublisher_developerPublisher" Association="Self.FK_game_developerPublisher_developerPublisher">
+            <End Role="developerPublisher" EntitySet="developerPublisher" />
+            <End Role="game_developerPublisher" EntitySet="game_developerPublisher" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_developerPublisher_game" Association="Self.FK_game_developerPublisher_game">
+            <End Role="game" EntitySet="game" />
+            <End Role="game_developerPublisher" EntitySet="game_developerPublisher" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_gender_game" Association="Self.FK_game_gender_game">
+            <End Role="game" EntitySet="game" />
+            <End Role="game_gender" EntitySet="game_gender" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_gender_gender" Association="Self.FK_game_gender_gender">
+            <End Role="gender" EntitySet="gender" />
+            <End Role="game_gender" EntitySet="game_gender" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_platform_game" Association="Self.FK_game_platform_game">
+            <End Role="game" EntitySet="game" />
+            <End Role="game_platform" EntitySet="game_platform" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_platform_platform" Association="Self.FK_game_platform_platform">
+            <End Role="platform" EntitySet="platform" />
+            <End Role="game_platform" EntitySet="game_platform" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_rating" Association="Self.FK_game_rating">
+            <End Role="rating" EntitySet="rating" />
+            <End Role="game" EntitySet="game" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_store" Association="Self.FK_game_store">
+            <End Role="store" EntitySet="store" />
+            <End Role="game" EntitySet="game" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rating_region" Association="Self.FK_rating_region">
+            <End Role="region" EntitySet="region" />
+            <End Role="rating" EntitySet="rating" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GamesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="developerPublisher">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="game_developerPublisher" Relationship="Self.FK_game_developerPublisher_developerPublisher" FromRole="developerPublisher" ToRole="game_developerPublisher" />
+        </EntityType>
+        <EntityType Name="GameEntity">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nota" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="release_date" Type="DateTime" Precision="0" />
+          <Property Name="preco" Type="Decimal" Precision="2" Scale="0" />
+          <Property Name="metacritic" Type="Int32" />
+          <Property Name="completo" Type="Int32" Nullable="false" />
+          <Property Name="summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="formato" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tamanho" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="id_store" Type="Int32" />
+          <Property Name="id_rating" Type="Int32" />
+          <NavigationProperty Name="game_developerPublisher" Relationship="Self.FK_game_developerPublisher_game" FromRole="game" ToRole="game_developerPublisher" />
+          <NavigationProperty Name="game_gender" Relationship="Self.FK_game_gender_game" FromRole="game" ToRole="game_gender" />
+          <NavigationProperty Name="game_platform" Relationship="Self.FK_game_platform_game" FromRole="game" ToRole="game_platform" />
+          <NavigationProperty Name="store" Relationship="Self.FK_game_store" FromRole="game" ToRole="store" />
+          <NavigationProperty Name="rating" Relationship="GamesModel.FK_game_rating" FromRole="game" ToRole="rating" />
+        </EntityType>
+        <EntityType Name="game_developerPublisher">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_game" Type="Int32" Nullable="false" />
+          <Property Name="id_developerPublisher" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="developerPublisher" Relationship="Self.FK_game_developerPublisher_developerPublisher" FromRole="game_developerPublisher" ToRole="developerPublisher" />
+          <NavigationProperty Name="game" Relationship="Self.FK_game_developerPublisher_game" FromRole="game_developerPublisher" ToRole="game" />
+        </EntityType>
+        <EntityType Name="game_gender">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_game" Type="Int32" Nullable="false" />
+          <Property Name="id_gender" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="game" Relationship="Self.FK_game_gender_game" FromRole="game_gender" ToRole="game" />
+          <NavigationProperty Name="gender" Relationship="Self.FK_game_gender_gender" FromRole="game_gender" ToRole="gender" />
+        </EntityType>
+        <EntityType Name="game_platform">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_game" Type="Int32" Nullable="false" />
+          <Property Name="id_platform" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="game" Relationship="Self.FK_game_platform_game" FromRole="game_platform" ToRole="game" />
+          <NavigationProperty Name="platform" Relationship="Self.FK_game_platform_platform" FromRole="game_platform" ToRole="platform" />
+        </EntityType>
+        <EntityType Name="gender">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="gender1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="game_gender" Relationship="Self.FK_game_gender_gender" FromRole="gender" ToRole="game_gender" />
+        </EntityType>
+        <EntityType Name="platform">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="game_platform" Relationship="Self.FK_game_platform_platform" FromRole="platform" ToRole="game_platform" />
+        </EntityType>
+        <EntityType Name="rating">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rating1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idade" Type="Int32" />
+          <Property Name="id_regiao" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="region" Relationship="Self.FK_rating_region" FromRole="rating" ToRole="region" />
+          <NavigationProperty Name="game" Relationship="GamesModel.FK_game_rating" FromRole="rating" ToRole="game" />
+        </EntityType>
+        <EntityType Name="region">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="rating" Relationship="Self.FK_rating_region" FromRole="region" ToRole="rating" />
+        </EntityType>
+        <EntityType Name="store">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="game" Relationship="Self.FK_game_store" FromRole="store" ToRole="game" />
+        </EntityType>
+        <Association Name="FK_game_developerPublisher_developerPublisher">
+          <End Role="developerPublisher" Type="Self.developerPublisher" Multiplicity="1" />
+          <End Role="game_developerPublisher" Type="Self.game_developerPublisher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="developerPublisher">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game_developerPublisher">
+              <PropertyRef Name="id_developerPublisher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_developerPublisher_game">
+          <End Role="game" Type="GamesModel.GameEntity" Multiplicity="1" />
+          <End Role="game_developerPublisher" Type="Self.game_developerPublisher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="game">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game_developerPublisher">
+              <PropertyRef Name="id_game" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_gender_game">
+          <End Role="game" Type="GamesModel.GameEntity" Multiplicity="1" />
+          <End Role="game_gender" Type="Self.game_gender" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="game">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game_gender">
+              <PropertyRef Name="id_game" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_platform_game">
+          <End Role="game" Type="GamesModel.GameEntity" Multiplicity="1" />
+          <End Role="game_platform" Type="Self.game_platform" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="game">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game_platform">
+              <PropertyRef Name="id_game" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_store">
+          <End Role="store" Type="Self.store" Multiplicity="0..1" />
+          <End Role="game" Type="GamesModel.GameEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="store">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game">
+              <PropertyRef Name="id_store" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_gender_gender">
+          <End Role="gender" Type="Self.gender" Multiplicity="1" />
+          <End Role="game_gender" Type="Self.game_gender" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gender">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game_gender">
+              <PropertyRef Name="id_gender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_platform_platform">
+          <End Role="platform" Type="Self.platform" Multiplicity="1" />
+          <End Role="game_platform" Type="Self.game_platform" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="platform">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game_platform">
+              <PropertyRef Name="id_platform" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rating_region">
+          <End Role="region" Type="Self.region" Multiplicity="1" />
+          <End Role="rating" Type="Self.rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="region">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="rating">
+              <PropertyRef Name="id_regiao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GamesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="developerPublisher" EntityType="Self.developerPublisher" />
+          <EntitySet Name="game" EntityType="GamesModel.GameEntity" />
+          <EntitySet Name="game_developerPublisher" EntityType="Self.game_developerPublisher" />
+          <EntitySet Name="game_gender" EntityType="Self.game_gender" />
+          <EntitySet Name="game_platform" EntityType="Self.game_platform" />
+          <EntitySet Name="gender" EntityType="Self.gender" />
+          <EntitySet Name="platform" EntityType="Self.platform" />
+          <EntitySet Name="rating" EntityType="Self.rating" />
+          <EntitySet Name="region" EntityType="Self.region" />
+          <EntitySet Name="store" EntityType="Self.store" />
+          <AssociationSet Name="FK_game_developerPublisher_developerPublisher" Association="Self.FK_game_developerPublisher_developerPublisher">
+            <End Role="developerPublisher" EntitySet="developerPublisher" />
+            <End Role="game_developerPublisher" EntitySet="game_developerPublisher" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_developerPublisher_game" Association="Self.FK_game_developerPublisher_game">
+            <End Role="game" EntitySet="game" />
+            <End Role="game_developerPublisher" EntitySet="game_developerPublisher" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_gender_game" Association="Self.FK_game_gender_game">
+            <End Role="game" EntitySet="game" />
+            <End Role="game_gender" EntitySet="game_gender" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_platform_game" Association="Self.FK_game_platform_game">
+            <End Role="game" EntitySet="game" />
+            <End Role="game_platform" EntitySet="game_platform" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_store" Association="Self.FK_game_store">
+            <End Role="store" EntitySet="store" />
+            <End Role="game" EntitySet="game" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_gender_gender" Association="Self.FK_game_gender_gender">
+            <End Role="gender" EntitySet="gender" />
+            <End Role="game_gender" EntitySet="game_gender" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_platform_platform" Association="Self.FK_game_platform_platform">
+            <End Role="platform" EntitySet="platform" />
+            <End Role="game_platform" EntitySet="game_platform" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rating_region" Association="Self.FK_rating_region">
+            <End Role="region" EntitySet="region" />
+            <End Role="rating" EntitySet="rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_rating" Association="GamesModel.FK_game_rating">
+            <End Role="rating" EntitySet="rating" />
+            <End Role="game" EntitySet="game" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_game_rating">
+          <End Type="GamesModel.rating" Role="rating" Multiplicity="0..1" />
+          <End Type="GamesModel.GameEntity" Role="game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rating">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game">
+              <PropertyRef Name="id_rating" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GamesModelStoreContainer" CdmEntityContainer="GamesEntities">
+          <EntitySetMapping Name="developerPublisher">
+            <EntityTypeMapping TypeName="GamesModel.developerPublisher">
+              <MappingFragment StoreEntitySet="developerPublisher">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="game">
+            <EntityTypeMapping TypeName="GamesModel.GameEntity">
+              <MappingFragment StoreEntitySet="game">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="nota" ColumnName="nota" />
+                <ScalarProperty Name="release_date" ColumnName="release_date" />
+                <ScalarProperty Name="preco" ColumnName="preco" />
+                <ScalarProperty Name="metacritic" ColumnName="metacritic" />
+                <ScalarProperty Name="completo" ColumnName="completo" />
+                <ScalarProperty Name="summary" ColumnName="summary" />
+                <ScalarProperty Name="formato" ColumnName="formato" />
+                <ScalarProperty Name="tamanho" ColumnName="tamanho" />
+                <ScalarProperty Name="id_store" ColumnName="id_store" />
+                <ScalarProperty Name="id_rating" ColumnName="id_rating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="game_developerPublisher">
+            <EntityTypeMapping TypeName="GamesModel.game_developerPublisher">
+              <MappingFragment StoreEntitySet="game_developerPublisher">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_game" ColumnName="id_game" />
+                <ScalarProperty Name="id_developerPublisher" ColumnName="id_developerPublisher" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="game_gender">
+            <EntityTypeMapping TypeName="GamesModel.game_gender">
+              <MappingFragment StoreEntitySet="game_gender">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_game" ColumnName="id_game" />
+                <ScalarProperty Name="id_gender" ColumnName="id_gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="game_platform">
+            <EntityTypeMapping TypeName="GamesModel.game_platform">
+              <MappingFragment StoreEntitySet="game_platform">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_game" ColumnName="id_game" />
+                <ScalarProperty Name="id_platform" ColumnName="id_platform" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="gender">
+            <EntityTypeMapping TypeName="GamesModel.gender">
+              <MappingFragment StoreEntitySet="gender">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="gender1" ColumnName="gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="platform">
+            <EntityTypeMapping TypeName="GamesModel.platform">
+              <MappingFragment StoreEntitySet="platform">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rating">
+            <EntityTypeMapping TypeName="GamesModel.rating">
+              <MappingFragment StoreEntitySet="rating">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="rating1" ColumnName="rating" />
+                <ScalarProperty Name="idade" ColumnName="idade" />
+                <ScalarProperty Name="id_regiao" ColumnName="id_regiao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="region">
+            <EntityTypeMapping TypeName="GamesModel.region">
+              <MappingFragment StoreEntitySet="region">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="store">
+            <EntityTypeMapping TypeName="GamesModel.store">
+              <MappingFragment StoreEntitySet="store">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Games.Models.Repository;
+using Games.Models.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,7 +10,10 @@ namespace Games.Controllers {
     public class HomeController : Controller {
         // GET: Home
         public ActionResult Index() {
-            return View();
+            GameListView view = new GameListView();
+            PlatformRepository platformRepository = new PlatformRepository();
+            view.ListaPlatform = platformRepository.Listar();
+            return View(view);
         }
     }
 }

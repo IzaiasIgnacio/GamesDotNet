@@ -7,6 +7,7 @@ using Igdb.Services;
 using Igdb.ResponseModels;
 using Igdb.RequestModels;
 using Newtonsoft.Json;
+using Games.Models.Repository;
 
 namespace Igdb.Test {
     [TestClass]
@@ -36,7 +37,7 @@ namespace Igdb.Test {
             Assert.IsNotNull(response.Videos);
             Assert.IsNotNull(response.Cover.CloudinaryId);
         }
-
+        
         [TestMethod]
         public void TesteBuscarDadosDeveloperPublisher() {
             IgdbService igdb = new IgdbService();
