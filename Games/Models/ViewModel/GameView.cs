@@ -1,4 +1,5 @@
 ﻿using Games.Models.Entity;
+using Igdb.ResponseModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,6 +12,10 @@ namespace Games.Models.ViewModel {
         public List<GameEntity> ListaJogos { get; set; }
         public string BackgroundUrl = "https://res.cloudinary.com/igdb/image/upload/t_screenshot_huge_2x/";
         public string CoverUrl = "https://res.cloudinary.com/igdb/image/upload/t_cover_small_2x/";
+    }
+
+    public class GameResultView {
+        public List<BuscaGameResponse> ListaJogos { get; set; }
     }
 
     public class GameDataView {

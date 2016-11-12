@@ -5,19 +5,47 @@
         <meta name="viewport" content="width=device-width" />
         <script type="text/javascript">
             $(function() {
-                $(".thumbnail").click(function () {
-                    $("#modal").modal('show');
+                $(".thumbnail").click(function() {
+                    $("#id_game").val($(this).find(".id").val());
+                    $.post("/Jquery/BuscarJogoJquery",{search:$(this).find("h4").html()},
+                    function (resposta) {
+                        $(".modal-body").html(resposta);
+                        $(".modal").modal('show');
+                    });
+                });
+
+                $(".modal-body").on("click", ".select_game", function() {
+                    $.post("/Jquery/AtualizarJogoJquery", { id_local: $("#id_game").val(), id_igdb: $(this).find(".id_igdb").val() },
+                    function (resposta) {
+                        $(".modal").modal('hide');
+                    });
                 });
             });
         </script>
     </head>
     <body>
-        <div id="modal"></div>
+        <div class="modal fade" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <input type="hidden" id="id_game" />
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Resultados</h4>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             @foreach (var game in Model.ListaJogos) {
                 <div class="col-sm-2">
                     <div class="col-sm-12 thumbnail text-center">
-                        <img class="img-rounded" src="@Model.CoverUrl/@game.cloudnary_id".jpg" />
+                        <input type="hidden" class="id" value="@game.id" />
+                        <img class="img-rounded img-responsive capa" src="@Model.CoverUrl/@game.cloudnary_id".jpg" />
                         <div class="caption">
                             <h4>@game.name</h4>
                         </div>

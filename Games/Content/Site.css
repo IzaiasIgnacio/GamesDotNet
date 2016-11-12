@@ -28,12 +28,13 @@ textarea {
 }
 
 .thumbnail {
-    background:#000;
+    background-color: transparent;
     border: 0 none;
     box-shadow: none;
     margin:0;
-    margin-top: 10px;
-    padding:0;
+    margin-top: 5px;
+    cursor: pointer;
+    min-height: 270px;
 }
 
 .caption h4 {
@@ -41,6 +42,13 @@ textarea {
     -webkit-font-smoothing: antialiased;
     margin-bottom: -0.5em;
     font-size: 15px;
+}
+
+.capa {
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   transform: translate(-50%, -50%);
 }
 
 .thumbnail .caption {
@@ -51,5 +59,16 @@ textarea {
 
 .container {
     width: 80%;
-    max-width: 100%;
+}
+
+.select_game {
+    cursor: pointer;
+}
+
+.select_game:hover {
+    background-color: rgb(172, 167, 167);
+}
+
+.principal {
+    background-color: #555;
 }
