@@ -17,6 +17,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_igdb" Type="int" Nullable="false" />
           <Property Name="name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="nota" Type="nchar" MaxLength="10" />
           <Property Name="release_date" Type="date" />
@@ -26,6 +27,7 @@
           <Property Name="summary" Type="text" />
           <Property Name="formato" Type="varchar" MaxLength="50" />
           <Property Name="tamanho" Type="nchar" MaxLength="10" />
+          <Property Name="cloudnary_id" Type="nvarchar" MaxLength="50" />
           <Property Name="id_store" Type="int" />
           <Property Name="id_rating" Type="int" />
         </EntityType>
@@ -66,6 +68,8 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="sigla" Type="nchar" MaxLength="6" Nullable="false" />
+          <Property Name="ordem" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="rating">
           <Key>
@@ -279,6 +283,8 @@
           <NavigationProperty Name="game_platform" Relationship="Self.FK_game_platform_game" FromRole="game" ToRole="game_platform" />
           <NavigationProperty Name="store" Relationship="Self.FK_game_store" FromRole="game" ToRole="store" />
           <NavigationProperty Name="rating" Relationship="GamesModel.FK_game_rating" FromRole="game" ToRole="rating" />
+          <Property Name="cloudnary_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="id_igdb" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="game_developerPublisher">
           <Key>
@@ -325,6 +331,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="game_platform" Relationship="Self.FK_game_platform_platform" FromRole="platform" ToRole="game_platform" />
+          <Property Name="sigla" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
+          <Property Name="ordem" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="rating">
           <Key>
@@ -526,6 +534,8 @@
           <EntitySetMapping Name="game">
             <EntityTypeMapping TypeName="GamesModel.GameEntity">
               <MappingFragment StoreEntitySet="game">
+                <ScalarProperty Name="id_igdb" ColumnName="id_igdb" />
+                <ScalarProperty Name="cloudnary_id" ColumnName="cloudnary_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="nota" ColumnName="nota" />
@@ -579,6 +589,8 @@
           <EntitySetMapping Name="platform">
             <EntityTypeMapping TypeName="GamesModel.platform">
               <MappingFragment StoreEntitySet="platform">
+                <ScalarProperty Name="ordem" ColumnName="ordem" />
+                <ScalarProperty Name="sigla" ColumnName="sigla" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>

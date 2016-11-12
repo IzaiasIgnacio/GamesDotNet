@@ -9,7 +9,7 @@ namespace Games.Models.Repository {
     public class PlatformRepository : BaseRepository {
 
         public List<platform> Listar() {
-            List<platform> listaPlatform = db.platform.ToList();
+            List<platform> listaPlatform = db.platform.OrderBy(platform => platform.ordem).ToList();
             return listaPlatform;
         }
 

@@ -9,6 +9,8 @@ namespace Games.Models.ViewModel {
 
     public class GameListView {
         public List<GameEntity> ListaJogos { get; set; }
+        public string BackgroundUrl = "https://res.cloudinary.com/igdb/image/upload/t_screenshot_huge_2x/";
+        public string CoverUrl = "https://res.cloudinary.com/igdb/image/upload/t_cover_small_2x/";
     }
 
     public class GameDataView {
