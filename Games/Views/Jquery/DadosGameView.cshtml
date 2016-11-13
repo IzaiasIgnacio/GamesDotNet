@@ -1,4 +1,54 @@
 ﻿@model Games.Models.ViewModel.GameDataView
+<script type="text/javascript">
+    $(function() {
+        $("#btn_add").click(function() {
+            $.post("/Jquery/AdicionarPlataformaJquery",
+            function (resposta) {
+                $(".span_plataformas").append(resposta);
+            });
+        });
+
+        $(".fieldset_plataformas").on("click", ".remover_plataforma", function() {
+            $(this).closest(".plataforma_status").fadeOut('normal', function() {
+                $(this).remove();
+            });
+        });
+
+        $(".btn_buscar_igdb").click(function() {
+            $.post("/Jquery/BuscarJogoJquery",{search: $("#Titulo").val()},
+            function (resposta) {
+                $("#modal_resultados .modal-body").html(resposta);
+                $("#modal_game").modal('hide');
+                $("#modal_resultados").modal('show');
+            });
+        });
+
+        $("#modal_resultados").on("click", ".select_game", function () {
+            $("#modal_resultados").modal('hide');
+            $("#modal_game").modal('show');
+            /*$.post("/Jquery/AtualizarJogoJquery", { id_local: $("#id_game").val(), id_igdb: $(this).find(".id_igdb").val() },
+            function (resposta) {
+                $(".modal").modal('hide');
+            });*/
+        });
+    });
+</script>
+<div class="modal fade" role="dialog" id="modal_resultados">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <input type="hidden" id="id_game" />
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Resultados</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="modal_game" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -8,12 +58,13 @@
                 <h4 class="modal-title">Game</h4>
             </div>
             <div class="modal-body row">
-                <form>
+                <form method="post" onsubmit="return false">
                     <div class="col-md-4">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Titulo)
+                            @Html.LabelFor(model => model.Titulo,new {@style = "display:block"})
                             @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Título" } })
                             @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+                            <button class="btn btn-primary btn_buscar_igdb"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.Metacritic)
@@ -68,14 +119,12 @@
                             @Html.CheckBoxFor(model => model.Completo, new { @class = "form-check-input" })
                             @Html.ValidationMessageFor(model => model.Completo, "", new { @class = "text-danger" })
                         </div>
-                        <fieldset class="form-group">
+                        <fieldset class="form-group fieldset_plataformas">
                             <legend><label>Plataformas</label></legend>
-                            <div>
-                                @foreach (var plataforma in Model.ListaPlatform) {
-                                    <label>@plataforma.name</label>
-                                    <input type="checkbox" name="plataformas[]" value="@plataforma.id" class="form-check-input" />
-                                }
-                            </div>
+                            <span class="span_plataformas">
+                                @{Html.RenderPartial("~/Views/Jquery/PlatformStatusView.cshtml");}
+                            </span>
+                            <input type="button" id="btn_add" value="+" class="btn btn-primary" />
                         </fieldset>
                     </div>
                     <div class="col-md-4">

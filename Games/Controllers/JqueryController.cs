@@ -44,5 +44,10 @@ namespace Games.Controllers {
             gameRepository.Salvar(game);
         }
 
+        [HttpPost]
+        public ActionResult AdicionarPlataformaJquery() {
+            return PartialView("PlatformStatusView", new GameDataView());
+        }
+
     }
 }

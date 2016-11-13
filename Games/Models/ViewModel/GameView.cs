@@ -51,11 +51,16 @@ namespace Games.Models.ViewModel {
         
         [Display(Name = "Formato")]
         public formato? Formato { get; set; }
-
-        [Display(Name = "Plataformas")]
+        
         public List<platform> ListaPlatform {
             get {
-                return db.platform.ToList();
+                return db.platform.OrderBy(p=>p.ordem).ToList();
+            }
+        }
+
+        public List<status> ListaStatus {
+            get {
+                return db.status.ToList();
             }
         }
 

@@ -70,17 +70,41 @@ textarea {
   min-height: 100%;
 }
 
-.modal-content .form-control {
+#modal_game .modal-content .form-control {
     min-width: 100%;
 }
 
-.modal-content, .modal-content legend {
+.fieldset_plataformas .form-group {
+    margin-bottom: 5px;
+}
+
+.fieldset_plataformas .btn {
+    float: right;
+    font-weight: bold;
+    min-width: 35px;
+}
+
+#modal_game .modal-content .select_plataforma {
+    min-width: 45%;
+    width: 45%;
+    clear:both;
+    display: inline;
+}
+
+#modal_game .modal-content, .modal-content legend {
     background-color: #222;
     color: rgba(255, 255, 255, 0.54);
     font-size: 1.2em;
 }
 
-.modal-content legend {
+#modal_game .modal-content #Titulo {
+    min-width: 90%;
+    width: 90%;
+    clear:both;
+    display: inline;
+}
+
+#modal_game .modal-content legend {
     text-align: center;
     margin-bottom: 5px;
 }

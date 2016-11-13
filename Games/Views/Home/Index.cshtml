@@ -7,12 +7,6 @@
             $(function() {
                 $(".thumbnail").click(function () {
                     $("#modal_game").modal('show');
-                    /*$("#id_game").val($(this).find(".id").val());
-                    $.post("/Jquery/BuscarJogoJquery",{search:$(this).find("h4").html()},
-                    function (resposta) {
-                        $(".modal-body").html(resposta);
-                        $(".modal").modal('show');
-                    });*/
                 });
 
                 $(".modal-body").on("click", ".select_game", function() {
@@ -26,22 +20,6 @@
     </head>
     <body>
         @{Html.RenderPartial("~/Views/Jquery/DadosGameView.cshtml", new Games.Models.ViewModel.GameDataView());}
-        <!--<div class="modal fade" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <input type="hidden" id="id_game" />
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Resultados</h4>
-                    </div>
-                    <div class="modal-body">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </div>
-            </div>
-        </div>-->
         <div class="row">
             @foreach (var game in Model.ListaJogos) {
                 <div class="col-sm-2">

@@ -12,15 +12,18 @@ namespace Games.Models.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class game_platform
+    public partial class status
     {
-        public int id { get; set; }
-        public int id_game { get; set; }
-        public int id_platform { get; set; }
-        public int id_status { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public status()
+        {
+            this.game_platform = new HashSet<game_platform>();
+        }
     
-        public virtual GameEntity game { get; set; }
-        public virtual platform platform { get; set; }
-        public virtual status status { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<game_platform> game_platform { get; set; }
     }
 }

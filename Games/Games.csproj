@@ -249,6 +249,9 @@
     <Compile Include="Models\Entity\region.cs">
       <DependentUpon>GamesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entity\status.cs">
+      <DependentUpon>GamesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entity\store.cs">
       <DependentUpon>GamesModel.tt</DependentUpon>
     </Compile>
@@ -281,6 +284,7 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\Jquery\GameResultView.cshtml" />
     <Content Include="Views\Jquery\DadosGameView.cshtml" />
+    <Content Include="Views\Jquery\PlatformStatusView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

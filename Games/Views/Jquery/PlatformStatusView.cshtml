@@ -1,0 +1,6 @@
+﻿@model Games.Models.ViewModel.GameDataView
+<div class="form-group plataforma_status">
+    @Html.DropDownList("plataforma[]", new SelectList(Model.ListaPlatform, "id", "name"), new { @class = "form-control select_plataforma" })
+    @Html.DropDownList("status[]", new SelectList(Model.ListaStatus, "id", "name"), new { @class = "form-control select_plataforma" })
+    <input type="button" value="-" class="btn btn-danger remover_plataforma" />
+</div>

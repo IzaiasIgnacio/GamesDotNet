@@ -35,5 +35,6 @@ namespace Games.Models.Entity
         public virtual DbSet<rating> rating { get; set; }
         public virtual DbSet<region> region { get; set; }
         public virtual DbSet<store> store { get; set; }
+        public virtual DbSet<status> status { get; set; }
     }
 }

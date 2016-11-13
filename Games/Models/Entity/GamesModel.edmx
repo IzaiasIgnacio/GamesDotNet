@@ -54,6 +54,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_game" Type="int" Nullable="false" />
           <Property Name="id_platform" Type="int" Nullable="false" />
+          <Property Name="id_status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="gender">
           <Key>
@@ -86,6 +87,13 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="store">
           <Key>
@@ -166,6 +174,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_game_platform_status">
+          <End Role="status" Type="Self.status" Multiplicity="1" />
+          <End Role="game_platform" Type="Self.game_platform" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game_platform">
+              <PropertyRef Name="id_status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_game_rating">
           <End Role="rating" Type="Self.rating" Multiplicity="0..1" />
           <End Role="game" Type="Self.game" Multiplicity="*" />
@@ -212,6 +232,7 @@
           <EntitySet Name="platform" EntityType="Self.platform" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="rating" EntityType="Self.rating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="region" EntityType="Self.region" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="status" EntityType="Self.status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="store" EntityType="Self.store" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_game_developerPublisher_developerPublisher" Association="Self.FK_game_developerPublisher_developerPublisher">
             <End Role="developerPublisher" EntitySet="developerPublisher" />
@@ -235,6 +256,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_game_platform_platform" Association="Self.FK_game_platform_platform">
             <End Role="platform" EntitySet="platform" />
+            <End Role="game_platform" EntitySet="game_platform" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_platform_status" Association="Self.FK_game_platform_status">
+            <End Role="status" EntitySet="status" />
             <End Role="game_platform" EntitySet="game_platform" />
           </AssociationSet>
           <AssociationSet Name="FK_game_rating" Association="Self.FK_game_rating">
@@ -315,6 +340,8 @@
           <Property Name="id_platform" Type="Int32" Nullable="false" />
           <NavigationProperty Name="game" Relationship="Self.FK_game_platform_game" FromRole="game_platform" ToRole="game" />
           <NavigationProperty Name="platform" Relationship="Self.FK_game_platform_platform" FromRole="game_platform" ToRole="platform" />
+          <Property Name="id_status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="status" Relationship="GamesModel.FK_game_platform_status" FromRole="game_platform" ToRole="status" />
         </EntityType>
         <EntityType Name="gender">
           <Key>
@@ -504,6 +531,11 @@
             <End Role="rating" EntitySet="rating" />
             <End Role="game" EntitySet="game" />
           </AssociationSet>
+          <EntitySet Name="status" EntityType="GamesModel.status" />
+          <AssociationSet Name="FK_game_platform_status" Association="GamesModel.FK_game_platform_status">
+            <End Role="status" EntitySet="status" />
+            <End Role="game_platform" EntitySet="game_platform" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_game_rating">
           <End Type="GamesModel.rating" Role="rating" Multiplicity="0..1" />
@@ -514,6 +546,26 @@
             </Principal>
             <Dependent Role="game">
               <PropertyRef Name="id_rating" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="game_platform" Relationship="GamesModel.FK_game_platform_status" FromRole="status" ToRole="game_platform" />
+        </EntityType>
+        <Association Name="FK_game_platform_status">
+          <End Type="GamesModel.status" Role="status" Multiplicity="1" />
+          <End Type="GamesModel.game_platform" Role="game_platform" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game_platform">
+              <PropertyRef Name="id_status" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -572,6 +624,7 @@
           <EntitySetMapping Name="game_platform">
             <EntityTypeMapping TypeName="GamesModel.game_platform">
               <MappingFragment StoreEntitySet="game_platform">
+                <ScalarProperty Name="id_status" ColumnName="id_status" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="id_game" ColumnName="id_game" />
                 <ScalarProperty Name="id_platform" ColumnName="id_platform" />
@@ -619,6 +672,14 @@
               <MappingFragment StoreEntitySet="store">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="status">
+            <EntityTypeMapping TypeName="GamesModel.status">
+              <MappingFragment StoreEntitySet="status">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
