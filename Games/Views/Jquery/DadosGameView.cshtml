@@ -1,0 +1,95 @@
+﻿@model Games.Models.ViewModel.GameDataView
+<div class="modal fade" id="modal_game" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <input type="hidden" id="id_game" />
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Game</h4>
+            </div>
+            <div class="modal-body row">
+                <form>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Titulo)
+                            @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Título" } })
+                            @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Metacritic)
+                            @Html.EditorFor(model => model.Metacritic, new { htmlAttributes = new { @class = "form-control", @placeholder = "Metacritic" } })
+                            @Html.ValidationMessageFor(model => model.Metacritic, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Lancamento)
+                            @Html.EditorFor(model => model.Lancamento, new { htmlAttributes = new { @class = "form-control", @placeholder = "Data de Lançamento" } })
+                            @Html.ValidationMessageFor(model => model.Lancamento, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Descricao)
+                            <br />
+                            @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Classificacao)
+                            @Html.DropDownListFor(model => model.Classificacao, new SelectList(Model.ListaClassificacao, "id", "name"), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Classificacao, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Formato)
+                            @Html.EnumDropDownListFor(model => model.Formato, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Formato, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Nota)
+                            @Html.EditorFor(model => model.Nota, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nota" } })
+                            @Html.ValidationMessageFor(model => model.Nota, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Preco)
+                            @Html.EditorFor(model => model.Preco, new { htmlAttributes = new { @class = "form-control", @placeholder = "Preço" } })
+                            @Html.ValidationMessageFor(model => model.Preco, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Tamanho)
+                            @Html.EditorFor(model => model.Tamanho, new { htmlAttributes = new { @class = "form-control", @placeholder = "Tamanho" } })
+                            @Html.ValidationMessageFor(model => model.Tamanho, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Loja)
+                            @Html.DropDownListFor(model => model.Loja, new SelectList(Model.ListaLoja, "id", "name"), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Loja, "", new { @class = "text-danger" })
+                        </div>
+                        <div>
+                            @Html.LabelFor(model => model.Completo, new { @class = "form-check-inline" })
+                            @Html.CheckBoxFor(model => model.Completo, new { @class = "form-check-input" })
+                            @Html.ValidationMessageFor(model => model.Completo, "", new { @class = "text-danger" })
+                        </div>
+                        <fieldset class="form-group">
+                            <legend><label>Plataformas</label></legend>
+                            <div>
+                                @foreach (var plataforma in Model.ListaPlatform) {
+                                    <label>@plataforma.name</label>
+                                    <input type="checkbox" name="plataformas[]" value="@plataforma.id" class="form-check-input" />
+                                }
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-4">
+                        <fieldset class="form-group">
+                            <legend><label>Capa</label></legend>
+                            <img class="img-rounded img-responsive" src="https://res.cloudinary.com/igdb/image/upload/t_cover_small_2x//ofqezwvixhxpadecqyju">
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Salvar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

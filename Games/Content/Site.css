@@ -61,6 +61,30 @@ textarea {
     width: 80%;
 }
 
+#modal_game .modal-dialog {
+  width: 80%;
+  padding: 0;
+}
+
+#modal_game .modal-content {
+  min-height: 100%;
+}
+
+.modal-content .form-control {
+    min-width: 100%;
+}
+
+.modal-content, .modal-content legend {
+    background-color: #222;
+    color: rgba(255, 255, 255, 0.54);
+    font-size: 1.2em;
+}
+
+.modal-content legend {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
 .select_game {
     cursor: pointer;
 }

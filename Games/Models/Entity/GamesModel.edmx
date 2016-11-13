@@ -76,7 +76,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="rating" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
           <Property Name="idade" Type="int" />
           <Property Name="id_regiao" Type="int" Nullable="false" />
         </EntityType>
@@ -339,11 +339,11 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="rating1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="idade" Type="Int32" />
           <Property Name="id_regiao" Type="Int32" Nullable="false" />
           <NavigationProperty Name="region" Relationship="Self.FK_rating_region" FromRole="rating" ToRole="region" />
           <NavigationProperty Name="game" Relationship="GamesModel.FK_game_rating" FromRole="rating" ToRole="game" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="region">
           <Key>
@@ -599,8 +599,8 @@
           <EntitySetMapping Name="rating">
             <EntityTypeMapping TypeName="GamesModel.rating">
               <MappingFragment StoreEntitySet="rating">
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="rating1" ColumnName="rating" />
                 <ScalarProperty Name="idade" ColumnName="idade" />
                 <ScalarProperty Name="id_regiao" ColumnName="id_regiao" />
               </MappingFragment>

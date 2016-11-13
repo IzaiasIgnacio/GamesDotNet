@@ -21,9 +21,9 @@ namespace Games.Models.Entity
         }
     
         public int id { get; set; }
-        public string rating1 { get; set; }
         public Nullable<int> idade { get; set; }
         public int id_regiao { get; set; }
+        public string name { get; set; }
     
         public virtual region region { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
