@@ -3,6 +3,7 @@ using Games.Models.Repository;
 using Games.Models.ViewModel;
 using Igdb.ResponseModels;
 using Igdb.Services;
+using Newtonsoft.Json;
 using System;
 using System.Linq;
 using System.Web.Mvc;
@@ -30,7 +31,6 @@ namespace Games.Controllers {
             game.id_igdb = response.Id;
             game.name = response.Name;
             game.nota = null;
-            game.release_date = null;
             game.preco = null;
             game.metacritic = null;
             game.completo = 0;
@@ -47,6 +47,24 @@ namespace Games.Controllers {
         [HttpPost]
         public ActionResult AdicionarPlataformaJquery() {
             return PartialView("PlatformStatusView", new GameDataView());
+        }
+
+        [HttpPost]
+        public ActionResult PreencherDadosGameIgdbJquery(int id_igdb) {
+            IgdbService igdb = new IgdbService();
+            DadosGameResponse response = igdb.DadosJogo(id_igdb).FirstOrDefault();
+            
+            GameDataView gameDataView = new GameDataView();
+            gameDataView.Titulo = response.Name;
+            gameDataView.Descricao = response.Summary;
+            gameDataView.CloudnaryId = response.Cover.CloudinaryId;
+
+            foreach (ReleaseDate lancamento in response.ReleaseDates) {
+                //DateTime data = new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(Convert.ToDouble(lancamento.Date)));
+                //gameDataView.Platforms.Add(new game_platform { id_platform = lancamento.Platform, release_date = data } );
+            }
+            
+            return PartialView("DadosGameVIew", gameDataView);
         }
 
     }

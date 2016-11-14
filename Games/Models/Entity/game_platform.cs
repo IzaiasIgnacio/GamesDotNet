@@ -18,6 +18,7 @@ namespace Games.Models.Entity
         public int id_game { get; set; }
         public int id_platform { get; set; }
         public int id_status { get; set; }
+        public Nullable<System.DateTime> release_date { get; set; }
     
         public virtual GameEntity game { get; set; }
         public virtual platform platform { get; set; }

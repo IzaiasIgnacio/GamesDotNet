@@ -12,7 +12,6 @@ namespace Games.Models.Repository {
             GameEntity game = new GameEntity();
             game.name = dadosGame.Name;
             game.nota = null;
-            game.release_date = null;
             game.preco = null;
             game.metacritic = null;
             game.completo = 0;

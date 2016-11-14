@@ -23,13 +23,13 @@
             });
         });
 
-        $("#modal_resultados").on("click", ".select_game", function () {
-            $("#modal_resultados").modal('hide');
-            $("#modal_game").modal('show');
-            /*$.post("/Jquery/AtualizarJogoJquery", { id_local: $("#id_game").val(), id_igdb: $(this).find(".id_igdb").val() },
+        $("#modal_resultados").on("click", ".select_game", function() {
+            $.post("/Jquery/PreencherDadosGameIgdbJquery", { id_igdb: $(this).find(".id_igdb").val() },
             function (resposta) {
-                $(".modal").modal('hide');
-            });*/
+                $("#DadosGameView").html(resposta);
+                $("#modal_resultados").modal('hide');
+                $("#modal_game").modal('show');
+            });
         });
     });
 </script>
@@ -58,13 +58,13 @@
                 <h4 class="modal-title">Game</h4>
             </div>
             <div class="modal-body row">
-                <form method="post" onsubmit="return false">
+                <form>
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Titulo,new {@style = "display:block"})
-                            @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Título" } })
+                            @Html.TextBoxFor(model => model.Titulo, new { @class = "form-control", @placeholder = "Título", @Value = Model.Titulo })
                             @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
-                            <button class="btn btn-primary btn_buscar_igdb"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                            <button type="button" class="btn btn-primary btn_buscar_igdb"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.Metacritic)
@@ -72,24 +72,19 @@
                             @Html.ValidationMessageFor(model => model.Metacritic, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Lancamento)
-                            @Html.EditorFor(model => model.Lancamento, new { htmlAttributes = new { @class = "form-control", @placeholder = "Data de Lançamento" } })
-                            @Html.ValidationMessageFor(model => model.Lancamento, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="form-group">
                             @Html.LabelFor(model => model.Descricao)
                             <br />
-                            @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control" })
+                            @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control", @html = Model.Descricao, @rows = "5" })
                             @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.Classificacao)
-                            @Html.DropDownListFor(model => model.Classificacao, new SelectList(Model.ListaClassificacao, "id", "name"), new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.Classificacao, new SelectList(Model.ListaClassificacao, "id", "name"), "Classificação", new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Classificacao, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.Formato)
-                            @Html.EnumDropDownListFor(model => model.Formato, new { @class = "form-control" })
+                            @Html.EnumDropDownListFor(model => model.Formato, "Formato", new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Formato, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -130,7 +125,7 @@
                     <div class="col-md-4">
                         <fieldset class="form-group">
                             <legend><label>Capa</label></legend>
-                            <img class="img-rounded img-responsive" src="https://res.cloudinary.com/igdb/image/upload/t_cover_small_2x//ofqezwvixhxpadecqyju">
+                            <img class="img-rounded img-responsive" src="https://res.cloudinary.com/igdb/image/upload/t_logo_med_2x//@Model.CloudnaryId">
                         </fieldset>
                     </div>
                 </form>

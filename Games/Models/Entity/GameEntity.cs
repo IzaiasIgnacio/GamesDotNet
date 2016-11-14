@@ -25,7 +25,6 @@ namespace Games.Models.Entity
         public int id { get; set; }
         public string name { get; set; }
         public string nota { get; set; }
-        public Nullable<System.DateTime> release_date { get; set; }
         public Nullable<decimal> preco { get; set; }
         public Nullable<int> metacritic { get; set; }
         public int completo { get; set; }

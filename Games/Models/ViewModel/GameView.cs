@@ -31,9 +31,6 @@ namespace Games.Models.ViewModel {
         [Display(Name = "Nota")]
         public decimal? Nota { get; set; }
 
-        [Display(Name = "Data de lançamento")]
-        public DateTime? Lancamento { get; set; }
-
         [Display(Name = "Preço")]
         public decimal? Preco { get; set; }
 
@@ -63,6 +60,11 @@ namespace Games.Models.ViewModel {
                 return db.status.ToList();
             }
         }
+        
+        [Display(Name = "Lançamento")]
+        public DateTime? Lancamento { get; set; }
+
+        public List<game_platform> Platforms { get; set; }
 
         [Display(Name = "Loja")]
         public store Loja { get; set; }
@@ -84,6 +86,8 @@ namespace Games.Models.ViewModel {
                 return db.rating.ToList();
             }
         }
+
+        public string CloudnaryId { get; set; }
     }
 
 }

@@ -8,18 +8,13 @@
                 $(".thumbnail").click(function () {
                     $("#modal_game").modal('show');
                 });
-
-                $(".modal-body").on("click", ".select_game", function() {
-                    $.post("/Jquery/AtualizarJogoJquery", { id_local: $("#id_game").val(), id_igdb: $(this).find(".id_igdb").val() },
-                    function (resposta) {
-                        $(".modal").modal('hide');
-                    });
-                });
             });
         </script>
     </head>
     <body>
-        @{Html.RenderPartial("~/Views/Jquery/DadosGameView.cshtml", new Games.Models.ViewModel.GameDataView());}
+        <span id="DadosGameView">
+            @{Html.RenderPartial("~/Views/Jquery/DadosGameView.cshtml", new Games.Models.ViewModel.GameDataView());}
+        </span>
         <div class="row">
             @foreach (var game in Model.ListaJogos) {
                 <div class="col-sm-2">

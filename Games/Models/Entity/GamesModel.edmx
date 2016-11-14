@@ -20,7 +20,6 @@
           <Property Name="id_igdb" Type="int" Nullable="false" />
           <Property Name="name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="nota" Type="nchar" MaxLength="10" />
-          <Property Name="release_date" Type="date" />
           <Property Name="preco" Type="decimal" Precision="2" Scale="0" />
           <Property Name="metacritic" Type="int" />
           <Property Name="completo" Type="int" Nullable="false" />
@@ -52,6 +51,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="release_date" Type="date" />
           <Property Name="id_game" Type="int" Nullable="false" />
           <Property Name="id_platform" Type="int" Nullable="false" />
           <Property Name="id_status" Type="int" Nullable="false" />
@@ -294,7 +294,6 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="nota" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="release_date" Type="DateTime" Precision="0" />
           <Property Name="preco" Type="Decimal" Precision="2" Scale="0" />
           <Property Name="metacritic" Type="Int32" />
           <Property Name="completo" Type="Int32" Nullable="false" />
@@ -342,6 +341,7 @@
           <NavigationProperty Name="platform" Relationship="Self.FK_game_platform_platform" FromRole="game_platform" ToRole="platform" />
           <Property Name="id_status" Type="Int32" Nullable="false" />
           <NavigationProperty Name="status" Relationship="GamesModel.FK_game_platform_status" FromRole="game_platform" ToRole="status" />
+          <Property Name="release_date" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="gender">
           <Key>
@@ -591,7 +591,6 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="nota" ColumnName="nota" />
-                <ScalarProperty Name="release_date" ColumnName="release_date" />
                 <ScalarProperty Name="preco" ColumnName="preco" />
                 <ScalarProperty Name="metacritic" ColumnName="metacritic" />
                 <ScalarProperty Name="completo" ColumnName="completo" />
@@ -624,6 +623,7 @@
           <EntitySetMapping Name="game_platform">
             <EntityTypeMapping TypeName="GamesModel.game_platform">
               <MappingFragment StoreEntitySet="game_platform">
+                <ScalarProperty Name="release_date" ColumnName="release_date" />
                 <ScalarProperty Name="id_status" ColumnName="id_status" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="id_game" ColumnName="id_game" />
