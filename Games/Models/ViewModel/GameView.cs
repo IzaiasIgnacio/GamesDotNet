@@ -64,7 +64,18 @@ namespace Games.Models.ViewModel {
         [Display(Name = "Lançamento")]
         public DateTime? Lancamento { get; set; }
 
-        public List<game_platform> Platforms { get; set; }
+        public List<game_platform> platforms;
+        public List<game_platform> Platforms {
+            get {
+                if (platforms == null) {
+                    platforms = new List<game_platform>();
+                }
+                return platforms;
+            }
+            set {
+                platforms = value;
+            }
+        }
 
         [Display(Name = "Loja")]
         public store Loja { get; set; }
@@ -73,6 +84,7 @@ namespace Games.Models.ViewModel {
                 return db.store.ToList();
             }
         }
+
         [Display(Name = "Publisher")]
         public List<developerPublisher> ListaPublisher { get; set; }
 

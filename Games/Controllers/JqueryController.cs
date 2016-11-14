@@ -60,8 +60,11 @@ namespace Games.Controllers {
             gameDataView.CloudnaryId = response.Cover.CloudinaryId;
 
             foreach (ReleaseDate lancamento in response.ReleaseDates) {
-                //DateTime data = new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(Convert.ToDouble(lancamento.Date)));
-                //gameDataView.Platforms.Add(new game_platform { id_platform = lancamento.Platform, release_date = data } );
+                DateTime data = new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(Convert.ToDouble(lancamento.Date)));
+                gameDataView.Platforms.Add(new game_platform {
+                    id_platform = lancamento.Platform,
+                    release_date = data
+                });
             }
             
             return PartialView("DadosGameVIew", gameDataView);

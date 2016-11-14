@@ -1,7 +1,9 @@
 ﻿@model Games.Models.ViewModel.GameDataView
-<div class="form-group plataforma_status">
-    @Html.DropDownList("plataforma[]", new SelectList(Model.ListaPlatform, "id", "name"),"Plataforma", new { @class = "form-control select_plataforma" })
-    @Html.DropDownList("status[]", new SelectList(Model.ListaStatus, "id", "name"), "Status",new { @class = "form-control select_plataforma" })
-    @Html.EditorFor(model => model.Lancamento, new { htmlAttributes = new { @class = "form-control select_plataforma", @placeholder = "Lançamento" } })
-    <input type="button" value="-" class="btn btn-danger remover_plataforma" />
-</div>
+@foreach (var plataforma in Model.Platforms) {
+    <div class="form-group plataforma_status">
+        @Html.DropDownList("plataforma[]", new SelectList(Model.ListaPlatform, "id", "name"), "Plataforma", new { @class = "form-control select_plataforma" })
+        @Html.DropDownList("status[]", new SelectList(Model.ListaStatus, "id", "name"), "Status", new { @class = "form-control select_plataforma" })
+        @Html.EditorFor(model => model.Lancamento, new { htmlAttributes = new { @class = "form-control select_plataforma", @placeholder = "Lançamento", @Value = plataforma.release_date } })
+        <input type="button" value="-" class="btn btn-danger remover_plataforma" />
+    </div>
+}
