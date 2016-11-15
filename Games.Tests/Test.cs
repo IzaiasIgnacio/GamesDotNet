@@ -15,7 +15,7 @@ namespace Igdb.Test {
         [TestMethod]
         public void TesteBuscarJogo() {
             IgdbService igdb = new IgdbService();
-            List<BuscaGameResponse> response = igdb.BuscarJogo("dishonored");
+            List<BuscaGameResponse> response = igdb.BuscarJogo("persona 4");
 
             Assert.IsNotNull(response[0].Id);
             Assert.IsNotNull(response[0].Cover.CloudinaryId);
@@ -27,7 +27,7 @@ namespace Igdb.Test {
         public void TesteBuscarDadosJogo() {
             IgdbService igdb = new IgdbService();
             DadosGameResponse response = igdb.DadosJogo(428).FirstOrDefault();
-
+            
             Assert.IsNotNull(response.Id);
             Assert.IsNotNull(response.Name);
             Assert.IsNotNull(response.Developers);
@@ -51,7 +51,7 @@ namespace Igdb.Test {
         [TestMethod]
         public void TesteBuscarDadosPlatform() {
             IgdbService igdb = new IgdbService();
-            int[] plats = { 52, 4 };
+            int[] plats = { 7, 6, 9, 48, 38, 8, 9, 46 };
             List<DadosPlatformResponse> response = igdb.DadosPlatform(plats);
 
             Assert.IsNotNull(response[0].Id);

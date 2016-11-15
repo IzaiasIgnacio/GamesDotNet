@@ -53,18 +53,22 @@ namespace Games.Controllers {
         public ActionResult PreencherDadosGameIgdbJquery(int id_igdb) {
             IgdbService igdb = new IgdbService();
             DadosGameResponse response = igdb.DadosJogo(id_igdb).FirstOrDefault();
-            
+            PlatformRepository pr = new PlatformRepository();
+
             GameDataView gameDataView = new GameDataView();
             gameDataView.Titulo = response.Name;
             gameDataView.Descricao = response.Summary;
             gameDataView.CloudnaryId = response.Cover.CloudinaryId;
 
             foreach (ReleaseDate lancamento in response.ReleaseDates) {
-                DateTime data = new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(Convert.ToDouble(lancamento.Date)));
-                gameDataView.Platforms.Add(new game_platform {
-                    id_platform = lancamento.Platform,
-                    release_date = data
-                });
+                int? plataforma = pr.getIdByIgdb(lancamento.Platform);
+                if (plataforma != null) {
+                    DateTime data = new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(Convert.ToDouble(lancamento.Date)));
+                    gameDataView.Platforms.Add(new game_platform {
+                        id_platform = plataforma.Value,
+                        release_date = data
+                    });
+                }
             }
             
             return PartialView("DadosGameVIew", gameDataView);

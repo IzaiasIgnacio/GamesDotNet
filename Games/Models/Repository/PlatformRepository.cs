@@ -13,5 +13,13 @@ namespace Games.Models.Repository {
             return listaPlatform;
         }
 
+        public int? getIdByIgdb(int id_igdb) {
+            platform plataforma = db.platform.Where(p => p.id_igdb == id_igdb).FirstOrDefault();
+            if (plataforma != null) {
+                return plataforma.id;
+            }
+            return null;
+        }
+
     }
 }

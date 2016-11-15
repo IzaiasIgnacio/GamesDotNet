@@ -68,6 +68,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_igdb" Type="int" />
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="sigla" Type="nchar" MaxLength="6" Nullable="false" />
           <Property Name="ordem" Type="int" Nullable="false" />
@@ -360,6 +361,7 @@
           <NavigationProperty Name="game_platform" Relationship="Self.FK_game_platform_platform" FromRole="platform" ToRole="game_platform" />
           <Property Name="sigla" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
           <Property Name="ordem" Type="Int32" Nullable="false" />
+          <Property Name="id_igdb" Type="Int32" />
         </EntityType>
         <EntityType Name="rating">
           <Key>
@@ -642,6 +644,7 @@
           <EntitySetMapping Name="platform">
             <EntityTypeMapping TypeName="GamesModel.platform">
               <MappingFragment StoreEntitySet="platform">
+                <ScalarProperty Name="id_igdb" ColumnName="id_igdb" />
                 <ScalarProperty Name="ordem" ColumnName="ordem" />
                 <ScalarProperty Name="sigla" ColumnName="sigla" />
                 <ScalarProperty Name="id" ColumnName="id" />

@@ -24,6 +24,7 @@ namespace Games.Models.Entity
         public string name { get; set; }
         public string sigla { get; set; }
         public int ordem { get; set; }
+        public Nullable<int> id_igdb { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<game_platform> game_platform { get; set; }
