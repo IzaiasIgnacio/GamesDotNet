@@ -86,10 +86,20 @@ namespace Games.Models.ViewModel {
         }
 
         [Display(Name = "Publisher")]
-        public List<developerPublisher> ListaPublisher { get; set; }
+        public developerPublisher Developer { get; set; }
+        public List<developerPublisher> ListaPublisher {
+            get {
+                return db.developerPublisher.OrderBy(p => p.name).ToList();
+            }
+        }
 
         [Display(Name = "Developer")]
-        public List<developerPublisher> ListaDeveloper { get; set; }
+        public developerPublisher Publisher { get; set; }
+        public List<developerPublisher> ListaDeveloper {
+            get {
+                return db.developerPublisher.OrderBy(p => p.name).ToList();
+            }
+        }
 
         [Display(Name = "Classificacao")]
         public rating Classificacao { get; set; }
