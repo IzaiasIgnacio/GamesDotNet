@@ -109,14 +109,30 @@ textarea {
     margin-bottom: 5px;
 }
 
-.select_game {
-    cursor: pointer;
-}
-
-.select_game:hover {
-    background-color: rgb(172, 167, 167);
-}
-
 .principal {
     background-color: #555;
+}
+
+#modal_game .container {
+    width: 100%;
+    padding: 0
+}
+#modal_game .row > .col-md-10 {
+    padding-left: 0;
+}
+.div_resultados {
+    position: absolute;
+    background-color: #fff;
+    color:#000;
+    font-weight: bold;
+}
+
+.div_resultados .row {
+    cursor: pointer;
+    border-top:#000 solid 1px;
+    margin-bottom: 1px;
+}
+
+.div_resultados .row:hover {
+    background-color: rgb(172, 167, 167);
 }

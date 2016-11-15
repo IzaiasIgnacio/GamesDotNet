@@ -1,8 +1,10 @@
-﻿@foreach (var game in Model.ListaJogos) {
-    <div class="row">
-        <div class="col-md-12 select_game">
+﻿@model Games.Models.ViewModel.GameResultView
+<div class="div_resultados container">
+    @foreach (var game in Model.ListaJogos) {
+        <div class="row">
             <input type="hidden" class="id_igdb" value="@game.Id" />
-            @game.Name
+            <div class="col-md-2"><img src="https://res.cloudinary.com/igdb/image/upload/t_micro_2x//@game.Cover.CloudinaryId" /></div>
+            <div class="col-md-10">@game.Name</div>
         </div>
-    </div>
-}
+    }
+</div>

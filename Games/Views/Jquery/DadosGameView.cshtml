@@ -14,21 +14,20 @@
             });
         });
 
-        $(".btn_buscar_igdb").click(function() {
-            $.post("/Jquery/BuscarJogoJquery",{search: $("#Titulo").val()},
+        $(".btn_buscar_igdb").click(function () {
+            $.post("/Jquery/BuscarJogoJquery", { search: $("#Titulo").val() },
             function (resposta) {
-                $("#modal_resultados .modal-body").html(resposta);
-                $("#modal_game").modal('hide');
-                $("#modal_resultados").modal('show');
+                $("#lista_resultados").html(resposta);
+                $("#lista_resultados").slideDown();
             });
         });
 
-        $("#modal_resultados").on("click", ".select_game", function() {
+        $("#lista_resultados").on("click", ".div_resultados .row", function () {
             $.post("/Jquery/PreencherDadosGameIgdbJquery", { id_igdb: $(this).find(".id_igdb").val() },
             function (resposta) {
                 $("#DadosGameView").html(resposta);
-                $("#modal_resultados").modal('hide');
                 $("#modal_game").modal('show');
+                $("#lista_resultados").fadeOut();
             });
         });
     });
@@ -61,10 +60,11 @@
                 <form>
                     <div class="col-md-4">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Titulo,new {@style = "display:block"})
+                            @Html.LabelFor(model => model.Titulo, new { @style = "display:block" })
                             @Html.TextBoxFor(model => model.Titulo, new { @class = "form-control", @placeholder = "Título", @Value = Model.Titulo })
                             @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
                             <button type="button" class="btn btn-primary btn_buscar_igdb"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                            <span id="lista_resultados" style="display:none"></span>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.Metacritic)
@@ -125,7 +125,9 @@
                     <div class="col-md-4">
                         <fieldset class="form-group">
                             <legend><label>Capa</label></legend>
-                            <img class="img-rounded img-responsive" src="https://res.cloudinary.com/igdb/image/upload/t_logo_med_2x//@Model.CloudnaryId">
+                            @if (!@Model.CloudnaryId.IsEmpty()) {
+                                <img class="img-rounded img-responsive" src="https://res.cloudinary.com/igdb/image/upload/t_logo_med_2x//@Model.CloudnaryId">
+                            }
                         </fieldset>
                     </div>
                 </form>
