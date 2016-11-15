@@ -10,7 +10,7 @@ namespace Igdb.RequestModels {
             }
         }
         
-        public int Limit { get { return 20; } }
+        public int Limit { get { return 10; } }
         
         public string Search { get; set; }
     }

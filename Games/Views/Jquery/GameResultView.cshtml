@@ -3,8 +3,12 @@
     @foreach (var game in Model.ListaJogos) {
         <div class="row">
             <input type="hidden" class="id_igdb" value="@game.Id" />
-            <div class="col-md-2"><img src="https://res.cloudinary.com/igdb/image/upload/t_micro_2x//@game.Cover.CloudinaryId" /></div>
-            <div class="col-md-10">@game.Name</div>
+            <div class="col-md-1 capa_lista">
+                @if (game.Cover != null) {
+                    <img src="https://res.cloudinary.com/igdb/image/upload/t_micro//@game.Cover.CloudinaryId" />
+                }
+            </div>
+            <div class="col-md-11 titulo_lista">@game.Name</div>
         </div>
     }
 </div>
