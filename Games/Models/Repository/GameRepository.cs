@@ -19,7 +19,6 @@ namespace Games.Models.Repository {
             game.formato = null;
             game.tamanho = null;
             game.store = null;
-            game.rating = null;
             game.cloudnary_id = dadosGame.Cover.CloudinaryId;
 
             db.game.Add(game);

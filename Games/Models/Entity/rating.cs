@@ -17,7 +17,7 @@ namespace Games.Models.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public rating()
         {
-            this.game = new HashSet<GameEntity>();
+            this.game_platform = new HashSet<game_platform>();
         }
     
         public int id { get; set; }
@@ -27,6 +27,6 @@ namespace Games.Models.Entity
     
         public virtual region region { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GameEntity> game { get; set; }
+        public virtual ICollection<game_platform> game_platform { get; set; }
     }
 }

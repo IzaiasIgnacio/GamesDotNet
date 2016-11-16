@@ -18,12 +18,16 @@ namespace Games.Models.Entity
         public region()
         {
             this.rating = new HashSet<rating>();
+            this.game_platform = new HashSet<game_platform>();
         }
     
         public int id { get; set; }
         public string name { get; set; }
+        public string sigla { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<rating> rating { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<game_platform> game_platform { get; set; }
     }
 }

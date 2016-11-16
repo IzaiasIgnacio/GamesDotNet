@@ -30,9 +30,8 @@ namespace Games.Models.Entity
         public int completo { get; set; }
         public string summary { get; set; }
         public string formato { get; set; }
-        public string tamanho { get; set; }
+        public Nullable<decimal> tamanho { get; set; }
         public Nullable<int> id_store { get; set; }
-        public Nullable<int> id_rating { get; set; }
         public string cloudnary_id { get; set; }
         public int id_igdb { get; set; }
     
@@ -43,6 +42,5 @@ namespace Games.Models.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<game_platform> game_platform { get; set; }
         public virtual store store { get; set; }
-        public virtual rating rating { get; set; }
     }
 }

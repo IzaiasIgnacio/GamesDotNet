@@ -38,7 +38,6 @@ namespace Games.Controllers {
             game.formato = null;
             game.tamanho = null;
             game.store = null;
-            game.rating = null;
             game.cloudnary_id = response.Cover.CloudinaryId;
 
             gameRepository.Salvar(game);

@@ -24,11 +24,10 @@
           <Property Name="metacritic" Type="int" />
           <Property Name="completo" Type="int" Nullable="false" />
           <Property Name="summary" Type="text" />
-          <Property Name="formato" Type="varchar" MaxLength="50" />
-          <Property Name="tamanho" Type="nchar" MaxLength="10" />
+          <Property Name="formato" Type="nchar" MaxLength="7" />
+          <Property Name="tamanho" Type="decimal" Precision="2" Scale="0" />
           <Property Name="cloudnary_id" Type="nvarchar" MaxLength="50" />
           <Property Name="id_store" Type="int" />
-          <Property Name="id_rating" Type="int" />
         </EntityType>
         <EntityType Name="game_developerPublisher">
           <Key>
@@ -37,6 +36,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_game" Type="int" Nullable="false" />
           <Property Name="id_developerPublisher" Type="int" Nullable="false" />
+          <Property Name="tipo" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="game_gender">
           <Key>
@@ -55,6 +55,8 @@
           <Property Name="id_game" Type="int" Nullable="false" />
           <Property Name="id_platform" Type="int" Nullable="false" />
           <Property Name="id_status" Type="int" Nullable="false" />
+          <Property Name="id_region" Type="int" />
+          <Property Name="id_rating" Type="int" />
         </EntityType>
         <EntityType Name="gender">
           <Key>
@@ -88,6 +90,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="sigla" Type="char" MaxLength="2" Nullable="false" />
         </EntityType>
         <EntityType Name="status">
           <Key>
@@ -175,6 +178,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_game_platform_rating">
+          <End Role="rating" Type="Self.rating" Multiplicity="0..1" />
+          <End Role="game_platform" Type="Self.game_platform" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rating">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game_platform">
+              <PropertyRef Name="id_rating" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_platform_region">
+          <End Role="region" Type="Self.region" Multiplicity="0..1" />
+          <End Role="game_platform" Type="Self.game_platform" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="region">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game_platform">
+              <PropertyRef Name="id_region" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_game_platform_status">
           <End Role="status" Type="Self.status" Multiplicity="1" />
           <End Role="game_platform" Type="Self.game_platform" Multiplicity="*" />
@@ -184,18 +211,6 @@
             </Principal>
             <Dependent Role="game_platform">
               <PropertyRef Name="id_status" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_game_rating">
-          <End Role="rating" Type="Self.rating" Multiplicity="0..1" />
-          <End Role="game" Type="Self.game" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="rating">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="game">
-              <PropertyRef Name="id_rating" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -259,13 +274,17 @@
             <End Role="platform" EntitySet="platform" />
             <End Role="game_platform" EntitySet="game_platform" />
           </AssociationSet>
+          <AssociationSet Name="FK_game_platform_rating" Association="Self.FK_game_platform_rating">
+            <End Role="rating" EntitySet="rating" />
+            <End Role="game_platform" EntitySet="game_platform" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_platform_region" Association="Self.FK_game_platform_region">
+            <End Role="region" EntitySet="region" />
+            <End Role="game_platform" EntitySet="game_platform" />
+          </AssociationSet>
           <AssociationSet Name="FK_game_platform_status" Association="Self.FK_game_platform_status">
             <End Role="status" EntitySet="status" />
             <End Role="game_platform" EntitySet="game_platform" />
-          </AssociationSet>
-          <AssociationSet Name="FK_game_rating" Association="Self.FK_game_rating">
-            <End Role="rating" EntitySet="rating" />
-            <End Role="game" EntitySet="game" />
           </AssociationSet>
           <AssociationSet Name="FK_game_store" Association="Self.FK_game_store">
             <End Role="store" EntitySet="store" />
@@ -299,15 +318,13 @@
           <Property Name="metacritic" Type="Int32" />
           <Property Name="completo" Type="Int32" Nullable="false" />
           <Property Name="summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="formato" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="tamanho" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="formato" Type="String" MaxLength="7" FixedLength="true" Unicode="true" />
+          <Property Name="tamanho" Type="Decimal" Precision="2" Scale="0" />
           <Property Name="id_store" Type="Int32" />
-          <Property Name="id_rating" Type="Int32" />
           <NavigationProperty Name="game_developerPublisher" Relationship="Self.FK_game_developerPublisher_game" FromRole="game" ToRole="game_developerPublisher" />
           <NavigationProperty Name="game_gender" Relationship="Self.FK_game_gender_game" FromRole="game" ToRole="game_gender" />
           <NavigationProperty Name="game_platform" Relationship="Self.FK_game_platform_game" FromRole="game" ToRole="game_platform" />
           <NavigationProperty Name="store" Relationship="Self.FK_game_store" FromRole="game" ToRole="store" />
-          <NavigationProperty Name="rating" Relationship="GamesModel.FK_game_rating" FromRole="game" ToRole="rating" />
           <Property Name="cloudnary_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="id_igdb" Type="Int32" Nullable="false" />
         </EntityType>
@@ -320,6 +337,7 @@
           <Property Name="id_developerPublisher" Type="Int32" Nullable="false" />
           <NavigationProperty Name="developerPublisher" Relationship="Self.FK_game_developerPublisher_developerPublisher" FromRole="game_developerPublisher" ToRole="developerPublisher" />
           <NavigationProperty Name="game" Relationship="Self.FK_game_developerPublisher_game" FromRole="game_developerPublisher" ToRole="game" />
+          <Property Name="tipo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="game_gender">
           <Key>
@@ -343,6 +361,10 @@
           <Property Name="id_status" Type="Int32" Nullable="false" />
           <NavigationProperty Name="status" Relationship="GamesModel.FK_game_platform_status" FromRole="game_platform" ToRole="status" />
           <Property Name="release_date" Type="DateTime" Precision="0" />
+          <Property Name="id_region" Type="Int32" />
+          <Property Name="id_rating" Type="Int32" />
+          <NavigationProperty Name="rating" Relationship="GamesModel.FK_game_platform_rating" FromRole="game_platform" ToRole="rating" />
+          <NavigationProperty Name="region" Relationship="GamesModel.FK_game_platform_region" FromRole="game_platform" ToRole="region" />
         </EntityType>
         <EntityType Name="gender">
           <Key>
@@ -371,8 +393,8 @@
           <Property Name="idade" Type="Int32" />
           <Property Name="id_regiao" Type="Int32" Nullable="false" />
           <NavigationProperty Name="region" Relationship="Self.FK_rating_region" FromRole="rating" ToRole="region" />
-          <NavigationProperty Name="game" Relationship="GamesModel.FK_game_rating" FromRole="rating" ToRole="game" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="game_platform" Relationship="GamesModel.FK_game_platform_rating" FromRole="rating" ToRole="game_platform" />
         </EntityType>
         <EntityType Name="region">
           <Key>
@@ -381,6 +403,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="rating" Relationship="Self.FK_rating_region" FromRole="region" ToRole="rating" />
+          <Property Name="sigla" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="game_platform" Relationship="GamesModel.FK_game_platform_region" FromRole="region" ToRole="game_platform" />
         </EntityType>
         <EntityType Name="store">
           <Key>
@@ -529,28 +553,20 @@
             <End Role="region" EntitySet="region" />
             <End Role="rating" EntitySet="rating" />
           </AssociationSet>
-          <AssociationSet Name="FK_game_rating" Association="GamesModel.FK_game_rating">
-            <End Role="rating" EntitySet="rating" />
-            <End Role="game" EntitySet="game" />
-          </AssociationSet>
           <EntitySet Name="status" EntityType="GamesModel.status" />
           <AssociationSet Name="FK_game_platform_status" Association="GamesModel.FK_game_platform_status">
             <End Role="status" EntitySet="status" />
             <End Role="game_platform" EntitySet="game_platform" />
           </AssociationSet>
+          <AssociationSet Name="FK_game_platform_rating" Association="GamesModel.FK_game_platform_rating">
+            <End Role="rating" EntitySet="rating" />
+            <End Role="game_platform" EntitySet="game_platform" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_platform_region" Association="GamesModel.FK_game_platform_region">
+            <End Role="region" EntitySet="region" />
+            <End Role="game_platform" EntitySet="game_platform" />
+          </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_game_rating">
-          <End Type="GamesModel.rating" Role="rating" Multiplicity="0..1" />
-          <End Type="GamesModel.GameEntity" Role="game" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="rating">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="game">
-              <PropertyRef Name="id_rating" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="status">
           <Key>
             <PropertyRef Name="id" />
@@ -568,6 +584,30 @@
             </Principal>
             <Dependent Role="game_platform">
               <PropertyRef Name="id_status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_platform_rating">
+          <End Type="GamesModel.rating" Role="rating" Multiplicity="0..1" />
+          <End Type="GamesModel.game_platform" Role="game_platform" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rating">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game_platform">
+              <PropertyRef Name="id_rating" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_platform_region">
+          <End Type="GamesModel.region" Role="region" Multiplicity="0..1" />
+          <End Type="GamesModel.game_platform" Role="game_platform" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="region">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game_platform">
+              <PropertyRef Name="id_region" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -600,13 +640,13 @@
                 <ScalarProperty Name="formato" ColumnName="formato" />
                 <ScalarProperty Name="tamanho" ColumnName="tamanho" />
                 <ScalarProperty Name="id_store" ColumnName="id_store" />
-                <ScalarProperty Name="id_rating" ColumnName="id_rating" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="game_developerPublisher">
             <EntityTypeMapping TypeName="GamesModel.game_developerPublisher">
               <MappingFragment StoreEntitySet="game_developerPublisher">
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="id_game" ColumnName="id_game" />
                 <ScalarProperty Name="id_developerPublisher" ColumnName="id_developerPublisher" />
@@ -625,6 +665,8 @@
           <EntitySetMapping Name="game_platform">
             <EntityTypeMapping TypeName="GamesModel.game_platform">
               <MappingFragment StoreEntitySet="game_platform">
+                <ScalarProperty Name="id_rating" ColumnName="id_rating" />
+                <ScalarProperty Name="id_region" ColumnName="id_region" />
                 <ScalarProperty Name="release_date" ColumnName="release_date" />
                 <ScalarProperty Name="id_status" ColumnName="id_status" />
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -665,6 +707,7 @@
           <EntitySetMapping Name="region">
             <EntityTypeMapping TypeName="GamesModel.region">
               <MappingFragment StoreEntitySet="region">
+                <ScalarProperty Name="sigla" ColumnName="sigla" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
