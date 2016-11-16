@@ -6,7 +6,9 @@
     <div class="form-group plataforma_status">
         @Html.DropDownList("plataforma[]", new SelectList(Model.ListaPlatform, "id", "name", plataforma.id_platform), "Plataforma", new { @class = "form-control select_plataforma" })
         @Html.DropDownList("status[]", new SelectList(Model.ListaStatus, "id", "name"), "Status", new { @class = "form-control select_plataforma" })
-        @Html.EditorFor(model => model.Lancamento, new { htmlAttributes = new { @class = "form-control select_plataforma", @placeholder = "Lançamento", @Value = string.Format("{0:d}", plataforma.release_date) } })
+        @Html.EditorFor(model => plataforma.release_date, new { htmlAttributes = new { @class = "form-control select_plataforma", @placeholder = "Lançamento", @Value = string.Format("{0:d}", plataforma.release_date) } })
+        @Html.DropDownList("region[]", new SelectList(Model.ListaRegion, "id", "name", plataforma.id_region), "Região", new { @class = "form-control select_plataforma" })
+        @Html.DropDownList("rating[]", new SelectList(Model.ListaRating, "id", "name"), "Classificação", new { @class = "form-control select_plataforma" })
         <input type="button" value="-" class="btn btn-danger remover_plataforma" />
     </div>
 }

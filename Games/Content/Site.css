@@ -85,8 +85,8 @@ textarea {
 }
 
 #modal_game .modal-content .select_plataforma {
-    min-width: 30%;
-    width: 30%;
+    min-width: 18%;
+    width: 18%;
     clear:both;
     display: inline;
 }
@@ -147,4 +147,10 @@ textarea {
 
 .div_resultados .row:hover {
     background-color: rgb(172, 167, 167);
+}
+
+.plataformas {
+    padding: 15px;
+    padding-top: 0;
+    width: 69%
 }

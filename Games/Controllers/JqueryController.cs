@@ -65,7 +65,8 @@ namespace Games.Controllers {
                     DateTime data = new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(Convert.ToDouble(lancamento.Date)));
                     gameDataView.Platforms.Add(new game_platform {
                         id_platform = plataforma.Value,
-                        release_date = data
+                        release_date = data,
+                        id_region = lancamento.Region
                     });
                 }
             }

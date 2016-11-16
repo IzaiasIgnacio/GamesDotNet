@@ -60,9 +60,18 @@ namespace Games.Models.ViewModel {
                 return db.status.ToList();
             }
         }
-        
-        [Display(Name = "Lançamento")]
-        public DateTime? Lancamento { get; set; }
+
+        public List<region> ListaRegion {
+            get {
+                return db.region.ToList();
+            }
+        }
+
+        public List<rating> ListaRating {
+            get {
+                return db.rating.ToList();
+            }
+        }
 
         public List<game_platform> platforms;
         public List<game_platform> Platforms {
@@ -90,15 +99,7 @@ namespace Games.Models.ViewModel {
 
         [Display(Name = "Developer(s)")]
         public List<developerPublisher> ListaDeveloper { get; set; }
-
-        [Display(Name = "Classificacao")]
-        public rating Classificacao { get; set; }
-        public List<rating> ListaClassificacao {
-            get {
-                return db.rating.ToList();
-            }
-        }
-
+        
         public string CloudnaryId { get; set; }
     }
 

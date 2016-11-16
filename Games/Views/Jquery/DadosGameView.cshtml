@@ -56,8 +56,8 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Game</h4>
             </div>
-            <div class="modal-body row">
-                <form>
+            <form>
+                <div class="modal-body row">
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Titulo, new { @style = "display:block" })
@@ -83,18 +83,6 @@
                             @Html.EditorFor(model => model.Metacritic, new { htmlAttributes = new { @class = "form-control", @placeholder = "Metacritic" } })
                             @Html.ValidationMessageFor(model => model.Metacritic, "", new { @class = "text-danger" })
                         </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Classificacao)
-                            @Html.DropDownListFor(model => model.Classificacao, new SelectList(Model.ListaClassificacao, "id", "name"), "Classificação", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Classificacao, "", new { @class = "text-danger" })
-                        </div>
-                        <fieldset class="form-group fieldset_plataformas">
-                            <legend><label>Plataformas</label></legend>
-                            <span class="span_plataformas">
-                                @{Html.RenderPartial("~/Views/Jquery/PlatformStatusView.cshtml", Model);}
-                            </span>
-                            <input type="button" id="btn_add" value="+" class="btn btn-primary" />
-                        </fieldset>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
@@ -136,8 +124,19 @@
                             }
                         </fieldset>
                     </div>
-                </form>
-            </div>
+                </div>
+                <div class="plataformas row">
+                    <div class="col-md-12">
+                        <fieldset class="form-group fieldset_plataformas">
+                            <legend><label>Plataformas</label></legend>
+                            <span class="span_plataformas">
+                                @{Html.RenderPartial("~/Views/Jquery/PlatformStatusView.cshtml", Model);}
+                            </span>
+                            <input type="button" id="btn_add" value="+" class="btn btn-primary" />
+                        </fieldset>
+                    </div>
+                </div>
+            </form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Salvar</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
