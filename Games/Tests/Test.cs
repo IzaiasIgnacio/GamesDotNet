@@ -9,6 +9,7 @@ using Igdb.RequestModels;
 using Games.Models.Entity;
 using Newtonsoft.Json;
 using Games.Models.Repository;
+using Games.Models.ViewModel;
 
 namespace Igdb.Test {
     [TestClass]
@@ -20,6 +21,32 @@ namespace Igdb.Test {
 
             GameRepository gameRepository = new GameRepository();
             gameRepository.Adicionar(response);
+        }
+
+        [TestMethod]
+        public void TesteGerarListaDeveloper() {
+            IgdbService igdb = new IgdbService();
+            DadosGameResponse response = igdb.DadosJogo(428).FirstOrDefault();
+
+            List<DadosDeveloperPublisherResponse> devs = igdb.DadosDeveloperPublisher(response.Developers.ToArray());
+            List<DadosDeveloperPublisherResponse> pubs = igdb.DadosDeveloperPublisher(response.Publishers.ToArray());
+
+            GameDataView gameDataView = new GameDataView();
+            
+            foreach(DadosDeveloperPublisherResponse dev in devs){
+                gameDataView.ListaDeveloper.Add(new developerPublisher {
+                    name = dev.Name
+                });
+            }
+
+            foreach (DadosDeveloperPublisherResponse pub in pubs) {
+                gameDataView.ListaPublisher.Add(new developerPublisher {
+                    name = pub.Name
+                });
+            }
+
+            Assert.IsNotNull(gameDataView.ListaDeveloper);
+            Assert.IsNotNull(gameDataView.ListaPublisher);
         }
 
         [TestMethod]

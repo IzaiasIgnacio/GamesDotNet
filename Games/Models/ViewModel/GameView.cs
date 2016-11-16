@@ -73,7 +73,7 @@ namespace Games.Models.ViewModel {
             }
         }
 
-        public List<game_platform> platforms;
+        private List<game_platform> platforms;
         public List<game_platform> Platforms {
             get {
                 if (platforms == null) {
@@ -95,10 +95,32 @@ namespace Games.Models.ViewModel {
         }
 
         [Display(Name = "Publisher(s)")]
-        public List<developerPublisher> ListaPublisher { get; set; }
+        private List<developerPublisher> listaPublisher;
+        public List<developerPublisher> ListaPublisher {
+            get {
+                if (listaPublisher == null) {
+                    listaPublisher = new List<developerPublisher>();
+                }
+                return listaPublisher;
+            }
+            set {
+                listaPublisher = value;
+            }
+        }
 
         [Display(Name = "Developer(s)")]
-        public List<developerPublisher> ListaDeveloper { get; set; }
+        private List<developerPublisher> listaDeveloper;
+        public List<developerPublisher> ListaDeveloper {
+            get {
+                if (listaDeveloper == null) {
+                    listaDeveloper = new List<developerPublisher>();
+                }
+                return listaDeveloper;
+            }
+            set {
+                listaDeveloper = value;
+            }
+        }
         
         public string CloudnaryId { get; set; }
     }
