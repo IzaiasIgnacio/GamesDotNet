@@ -5,6 +5,7 @@ using Igdb.ResponseModels;
 using Igdb.Services;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -53,11 +54,25 @@ namespace Games.Controllers {
             IgdbService igdb = new IgdbService();
             DadosGameResponse response = igdb.DadosJogo(id_igdb).FirstOrDefault();
             PlatformRepository pr = new PlatformRepository();
+            List<DadosDeveloperPublisherResponse> devs = igdb.DadosDeveloperPublisher(response.Developers.ToArray());
+            List<DadosDeveloperPublisherResponse> pubs = igdb.DadosDeveloperPublisher(response.Publishers.ToArray());
 
             GameDataView gameDataView = new GameDataView();
             gameDataView.Titulo = response.Name;
             gameDataView.Descricao = response.Summary;
             gameDataView.CloudnaryId = response.Cover.CloudinaryId;
+
+            foreach (DadosDeveloperPublisherResponse dev in devs) {
+                gameDataView.ListaDeveloper.Add(new developerPublisher {
+                    name = dev.Name
+                });
+            }
+
+            foreach (DadosDeveloperPublisherResponse pub in pubs) {
+                gameDataView.ListaPublisher.Add(new developerPublisher {
+                    name = pub.Name
+                });
+            }
 
             foreach (ReleaseDate lancamento in response.ReleaseDates) {
                 int? plataforma = pr.getIdByIgdb(lancamento.Platform);

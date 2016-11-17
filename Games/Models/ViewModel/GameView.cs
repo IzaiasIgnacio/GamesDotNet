@@ -93,9 +93,9 @@ namespace Games.Models.ViewModel {
                 return db.store.ToList();
             }
         }
-
-        [Display(Name = "Publisher(s)")]
+        
         private List<developerPublisher> listaPublisher;
+        [Display(Name = "Publisher(s)")]
         public List<developerPublisher> ListaPublisher {
             get {
                 if (listaPublisher == null) {
@@ -108,8 +108,8 @@ namespace Games.Models.ViewModel {
             }
         }
 
-        [Display(Name = "Developer(s)")]
         private List<developerPublisher> listaDeveloper;
+        [Display(Name = "Developer(s)")]
         public List<developerPublisher> ListaDeveloper {
             get {
                 if (listaDeveloper == null) {
