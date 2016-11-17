@@ -14,13 +14,44 @@ using Games.Models.ViewModel;
 namespace Igdb.Test {
     [TestClass]
     public class Test {
-        [TestMethod]
-        public void TesteSalvarJogo() {
+        public void TesteSalvarJogoView() {
             IgdbService igdb = new IgdbService();
             DadosGameResponse response = igdb.DadosJogo(428).FirstOrDefault();
+            PlatformRepository pr = new PlatformRepository();
+            List<DadosDeveloperPublisherResponse> devs = igdb.DadosDeveloperPublisher(response.Developers.ToArray());
+            List<DadosDeveloperPublisherResponse> pubs = igdb.DadosDeveloperPublisher(response.Publishers.ToArray());
+
+            GameDataView gameDataView = new GameDataView();
+            gameDataView.Titulo = response.Name;
+            gameDataView.Descricao = response.Summary;
+            gameDataView.CloudnaryId = response.Cover.CloudinaryId;
+
+            foreach (DadosDeveloperPublisherResponse dev in devs) {
+                gameDataView.ListaDeveloper.Add(new developerPublisher {
+                    name = dev.Name
+                });
+            }
+
+            foreach (DadosDeveloperPublisherResponse pub in pubs) {
+                gameDataView.ListaPublisher.Add(new developerPublisher {
+                    name = pub.Name
+                });
+            }
+
+            foreach (ReleaseDate lancamento in response.ReleaseDates) {
+                int? plataforma = pr.getIdByIgdb(lancamento.Platform);
+                if (plataforma != null) {
+                    DateTime data = new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(Convert.ToDouble(lancamento.Date)));
+                    gameDataView.Platforms.Add(new game_platform {
+                        id_platform = plataforma.Value,
+                        release_date = data,
+                        id_region = lancamento.Region
+                    });
+                }
+            }
 
             GameRepository gameRepository = new GameRepository();
-            gameRepository.Adicionar(response);
+            gameRepository.Adicionar(gameDataView);
         }
 
         [TestMethod]
