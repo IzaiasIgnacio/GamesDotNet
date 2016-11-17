@@ -131,7 +131,7 @@
                         <fieldset class="form-group">
                             <legend><label>Capa</label></legend>
                             @if (!@Model.CloudnaryId.IsEmpty()) {
-                                <img class="img-rounded img-responsive" style="position:absolute" src="https://res.cloudinary.com/igdb/image/upload/t_cover_big//@Model.CloudnaryId">
+                                <img class="img-rounded img-responsive" style="position:absolute" src="@Model.BigCoverUrl/@Model.CloudnaryId">
                             }
                         </fieldset>
                     </div>

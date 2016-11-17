@@ -8,17 +8,21 @@ using System.Web;
 
 namespace Games.Models.ViewModel {
 
-    public class GameListView {
-        public List<GameEntity> ListaJogos { get; set; }
-        public string CoverUrl = "https://res.cloudinary.com/igdb/image/upload/t_cover_small_2x/";
+    public class BasegameView {
+        public string BigCoverUrl = "https://res.cloudinary.com/igdb/image/upload/t_cover_big/";
+        public string MicroCoverUrl = "https://res.cloudinary.com/igdb/image/upload/t_micro/";
+        public string SmallCoverUrl = "https://res.cloudinary.com/igdb/image/upload/t_cover_small_2x/";
     }
 
-    public class GameResultView {
+    public class GameListView : BasegameView {
+        public List<GameEntity> ListaJogos { get; set; }
+    }
+
+    public class GameResultView : BasegameView {
         public List<BuscaGameResponse> ListaJogos { get; set; }
     }
 
-    public class GameDataView {
-        public enum formato { Fisíco, Digital };
+    public class GameDataView : BasegameView {
         GamesEntities db = new GamesEntities();
 
         [Key]
@@ -45,7 +49,8 @@ namespace Games.Models.ViewModel {
 
         [Display(Name = "Tamanho")]
         public decimal? Tamanho { get; set; }
-        
+
+        public enum formato { Fisíco, Digital };
         [Display(Name = "Formato")]
         public formato? Formato { get; set; }
         

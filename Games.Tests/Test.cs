@@ -8,6 +8,7 @@ using Igdb.ResponseModels;
 using Igdb.RequestModels;
 using Newtonsoft.Json;
 using Games.Models.Repository;
+using System.Net;
 
 namespace Igdb.Test {
     [TestClass]
@@ -21,6 +22,12 @@ namespace Igdb.Test {
             Assert.IsNotNull(response[0].Cover.CloudinaryId);
             Assert.IsNotNull(response[0].Name);
             Assert.IsNotNull(response[0].ReleaseDates[0].Platform);
+        }
+
+        [TestMethod]
+        public void TesteSalvarImagem() {
+            WebClient webClient = new WebClient();
+            webClient.DownloadFile("https://res.cloudinary.com/igdb/image/upload/t_cover_small_2x/tdmbpbzh0gdsp6rwtnjp", "a.jpg");
         }
 
         [TestMethod]
