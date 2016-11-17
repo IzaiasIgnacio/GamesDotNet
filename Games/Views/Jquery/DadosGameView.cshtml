@@ -113,7 +113,12 @@
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.Loja)
-                            @Html.DropDownListFor(model => model.Loja, new SelectList(Model.ListaLoja, "id", "name"), new { @class = "form-control" })
+                            <input type="text" name="loja" list="lista_loja" class="form-control">
+                            <datalist id="lista_loja">
+                                @foreach (var loja in Model.ListaLoja) {
+                                    <option value="@loja.name">@loja.name</option>
+                                }
+                            </datalist>
                             @Html.ValidationMessageFor(model => model.Loja, "", new { @class = "text-danger" })
                         </div>
                         <div>
