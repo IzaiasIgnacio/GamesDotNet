@@ -9,9 +9,17 @@ using System.Web;
 namespace Games.Models.ViewModel {
 
     public class BasegameView {
-        public string BigCoverUrl = "https://res.cloudinary.com/igdb/image/upload/t_cover_big/";
-        public string MicroCoverUrl = "https://res.cloudinary.com/igdb/image/upload/t_micro/";
-        public string SmallCoverUrl = "https://res.cloudinary.com/igdb/image/upload/t_cover_small_2x/";
+        public string CloudnaryUrl;
+        public string BigCoverUrl;
+        public string MicroCoverUrl;
+        public string SmallCoverUrl;
+
+        public BasegameView() {
+            CloudnaryUrl = "https://res.cloudinary.com/igdb/image/upload/t_";
+            BigCoverUrl = CloudnaryUrl + "cover_big/";
+            MicroCoverUrl = CloudnaryUrl + "micro/";
+            SmallCoverUrl = CloudnaryUrl + "cover_small_2x/";
+        }
     }
 
     public class GameListView : BasegameView {
