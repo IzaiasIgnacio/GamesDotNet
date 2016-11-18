@@ -1,5 +1,22 @@
-﻿<ul class="nav navbar-nav navbar-right">
+﻿<script type="text/javascript">
+    $(function() {
+        $(".li_plataforma").click(function () {
+            var element = $(this);
+            $.post("/Home/MenuPlataforma", { p: element.html() },
+            function (resposta) {
+                if (element.hasClass("ativo")) {
+                    element.removeClass("ativo");
+                }
+                else {
+                    element.addClass("ativo");
+                }
+                $("#GameListView").html(resposta);
+            });
+        });
+    });
+</script>
+<ul class="nav navbar-nav navbar-right">
     @foreach (var platform in Model.ListaPlatform) {
-        <li><a href="/Home/Index">@platform.name</a></li>
+        <li class="li_plataforma">@platform.name</li>
     }
 </ul>

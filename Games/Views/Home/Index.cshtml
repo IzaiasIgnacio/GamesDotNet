@@ -1,32 +1,16 @@
-﻿@model Games.Models.ViewModel.GameListView
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width" />
-        <script type="text/javascript">
-            $(function() {
-                $(".thumbnail").click(function () {
-                    $("#modal_game").modal('show');
-                });
-            });
-        </script>
     </head>
     <body>
         <span id="DadosGameView">
             @{Html.RenderPartial("~/Views/Jquery/DadosGameView.cshtml", new Games.Models.ViewModel.GameDataView());}
         </span>
         <div class="row">
-            @foreach (var game in Model.ListaJogos) {
-                <div class="col-sm-2">
-                    <div class="col-sm-12 thumbnail text-center">
-                        <input type="hidden" class="id" value="@game.id" />
-                        <img class="img-rounded img-responsive capa" src="@Model.SmallCoverUrl/@game.cloudnary_id" />
-                        <div class="caption">
-                            <h4>@game.name</h4>
-                        </div>
-                    </div>
-                </div>
-            }
+            <span id="GameListView">
+                @{Html.RenderPartial("~/Views/Jquery/GameListView.cshtml", new Games.Models.ViewModel.GameListView());}
+            </span>
         </div>
     </body>
 </html>

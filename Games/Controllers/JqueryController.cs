@@ -12,6 +12,14 @@ using System.Web.Mvc;
 namespace Games.Controllers {
     public class JqueryController : Controller {
 
+        public ActionResult MenuPlataformas() {
+            GameListView view = new GameListView();
+            GameRepository gameRepository = new GameRepository();
+            view.ListaJogos = gameRepository.ListarJogos();
+
+            return View(view);
+        }
+
         [HttpPost]
         public ActionResult BuscarJogoJquery(string search) {
             IgdbService igdb = new IgdbService();

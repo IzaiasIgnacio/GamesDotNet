@@ -285,6 +285,7 @@
     <Content Include="Views\Jquery\DadosGameView.cshtml" />
     <Content Include="Views\Jquery\PlatformStatusView.cshtml" />
     <Content Include="Views\Jquery\GameResultView.cshtml" />
+    <Content Include="Views\Jquery\GameListView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
