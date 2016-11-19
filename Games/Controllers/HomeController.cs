@@ -7,15 +7,16 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace Games.Controllers {
-    public class HomeController : BaseController {
+    public class HomeController : Controller {
 
         public ActionResult Index() {
-            GameListView view = new GameListView();
             GameRepository gameRepository = new GameRepository();
-            view.ListaJogos = gameRepository.ListarJogos();
-
-            return View(view);
+            GameListView view = new GameListView();
+            LayoutView layoutView = LayoutView.init();
+            layoutView.ativos.Add(4);
+            view.ListaJogos = gameRepository.ListarJogos(layoutView.ativos);
+            return View("GameListView",view);
         }
-
+        
     }
 }

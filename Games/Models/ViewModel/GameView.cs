@@ -1,4 +1,5 @@
 ﻿using Games.Models.Entity;
+using Games.Models.Repository;
 using Igdb.ResponseModels;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,12 @@ namespace Games.Models.ViewModel {
         public string BigCoverUrl;
         public string MicroCoverUrl;
         public string SmallCoverUrl;
+        public GamesEntities db;
+        public GameRepository gameRepository;
 
         public BasegameView() {
+            db = new GamesEntities();
+            gameRepository = new GameRepository();
             CloudnaryUrl = "https://res.cloudinary.com/igdb/image/upload/t_";
             BigCoverUrl = CloudnaryUrl + "cover_big/";
             MicroCoverUrl = CloudnaryUrl + "micro/";
@@ -23,7 +28,18 @@ namespace Games.Models.ViewModel {
     }
 
     public class GameListView : BasegameView {
-        public List<GameEntity> ListaJogos { get; set; }
+        private List<GameEntity> listaJogos;
+        public List<GameEntity> ListaJogos {
+            get {
+                if (listaJogos == null) {
+                    listaJogos = new List<GameEntity>();
+                }
+                return listaJogos;
+            }
+            set {
+                listaJogos = value;
+            }
+        }
     }
 
     public class GameResultView : BasegameView {
@@ -31,8 +47,6 @@ namespace Games.Models.ViewModel {
     }
 
     public class GameDataView : BasegameView {
-        GamesEntities db = new GamesEntities();
-
         [Key]
         public int Id { get; set; }
 

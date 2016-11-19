@@ -8,8 +8,8 @@
             @{Html.RenderPartial("~/Views/Jquery/DadosGameView.cshtml", new Games.Models.ViewModel.GameDataView());}
         </span>
         <div class="row">
-            <span id="GameListView">
-                @{Html.RenderPartial("~/Views/Jquery/GameListView.cshtml", new Games.Models.ViewModel.GameListView());}
+            <span id="GameListView">                
+                @{Html.RenderAction("Index", "Home");}
             </span>
         </div>
     </body>

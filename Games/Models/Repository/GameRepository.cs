@@ -33,8 +33,13 @@ namespace Games.Models.Repository {
             return game;
         }
 
-        public List<GameEntity> ListarJogos() {
-            List<GameEntity> ListaJogos = db.game.ToList();
+        public List<GameEntity> ListarJogos(List<int> plataformas) {
+            List<GameEntity> ListaJogos;
+            int[] plats = plataformas.ToArray();
+            ListaJogos = (from game in db.game
+                           join game_platform in db.game_platform on game.id equals game_platform.id_game
+                           where plats.Contains(game_platform.id_platform)
+                           select game).OrderBy(game => game.name).ToList();
             return ListaJogos;
         }
 

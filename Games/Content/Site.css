@@ -154,3 +154,23 @@ textarea {
     padding-top: 0;
     width: 69%
 }
+
+.form-group p {
+    font-style: italic;
+}
+
+.li_plataforma {
+    color: #ddd;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    display: block;
+    cursor: pointer;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+
+.ativo {
+    background-color: #444;
+}

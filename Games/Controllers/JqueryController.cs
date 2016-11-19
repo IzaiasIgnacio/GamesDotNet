@@ -10,14 +10,20 @@ using System.Linq;
 using System.Web.Mvc;
 
 namespace Games.Controllers {
-    public class JqueryController : Controller {
+    public class JqueryController : BaseController {
 
-        public ActionResult MenuPlataformas() {
-            GameListView view = new GameListView();
-            GameRepository gameRepository = new GameRepository();
-            view.ListaJogos = gameRepository.ListarJogos();
-
-            return View(view);
+        public ActionResult MenuPlataformas(int? plataforma) {
+            PlatformRepository platformRepository = new PlatformRepository();
+            layoutView.listaPlatform = platformRepository.Listar();
+            if (plataforma.HasValue) {
+                if (layoutView.ativos.IndexOf(plataforma.Value) != -1) {
+                    layoutView.ativos.Remove(plataforma.Value);
+                }
+                else {
+                    layoutView.ativos.Add(plataforma.Value);
+                }
+            }
+            return PartialView("PlatformMenuView", layoutView);
         }
 
         [HttpPost]

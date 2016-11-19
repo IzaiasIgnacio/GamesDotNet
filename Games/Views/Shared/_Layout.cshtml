@@ -28,7 +28,9 @@
                         <li>@Html.ActionLink("Wishlist", "Index", "Home")</li>
                         <li>@Html.ActionLink("Watchlist", "Index", "Home")</li>
                     </ul>
-                    @{Html.RenderAction("ExibirMenuPlatforms","Base");}
+                    <span id="MenuPlataforma">
+                        @{Html.RenderAction("MenuPlataformas", "Jquery");}
+                    </span>
                 </div>
             </div>
         </nav>

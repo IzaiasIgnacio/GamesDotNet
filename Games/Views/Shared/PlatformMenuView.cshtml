@@ -1,8 +1,9 @@
-﻿<script type="text/javascript">
+﻿@model Games.Models.ViewModel.LayoutView
+<script type="text/javascript">
     $(function() {
         $(".li_plataforma").click(function () {
             var element = $(this);
-            $.post("/Home/MenuPlataforma", { p: element.html() },
+            $.post("/Jquery/MenuPlataformas", { plataforma: element.attr("id") },
             function (resposta) {
                 if (element.hasClass("ativo")) {
                     element.removeClass("ativo");
@@ -10,13 +11,17 @@
                 else {
                     element.addClass("ativo");
                 }
-                $("#GameListView").html(resposta);
+                $("#MenuPlataforma").html(resposta);
             });
         });
     });
 </script>
 <ul class="nav navbar-nav navbar-right">
-    @foreach (var platform in Model.ListaPlatform) {
-        <li class="li_plataforma">@platform.name</li>
+    @foreach (var platform in Model.listaPlatform) {
+        string classe = "";
+        if(Model.ativos.IndexOf(platform.id) != -1) {
+            classe = "ativo";
+        }
+        <li class="li_plataforma @classe" id="@platform.id">@platform.name</li>
     }
 </ul>
