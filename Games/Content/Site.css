@@ -174,3 +174,7 @@ textarea {
 .ativo {
     background-color: #444;
 }
+
+.navbar-brand {
+    cursor: pointer;
+}

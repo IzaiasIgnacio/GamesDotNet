@@ -12,6 +12,10 @@
                     element.addClass("ativo");
                 }
                 $("#MenuPlataforma").html(resposta);
+                $.post("/Jquery/ListaJogosIndex",
+                function (resposta) {
+                    $("#GameListView").html(resposta);
+                });
             });
         });
     });

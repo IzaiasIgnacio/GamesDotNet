@@ -26,6 +26,13 @@ namespace Games.Controllers {
             return PartialView("PlatformMenuView", layoutView);
         }
 
+        public ActionResult ListaJogosIndex() {
+            GameRepository gameRepository = new GameRepository();
+            GameListView view = new GameListView();
+            view.ListaJogos = gameRepository.ListarJogos(layoutView.ativos);
+            return PartialView("GameListView", view);
+        }
+
         [HttpPost]
         public ActionResult BuscarJogoJquery(string search) {
             IgdbService igdb = new IgdbService();

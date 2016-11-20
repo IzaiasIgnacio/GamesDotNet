@@ -10,12 +10,9 @@ namespace Games.Controllers {
     public class HomeController : Controller {
 
         public ActionResult Index() {
-            GameRepository gameRepository = new GameRepository();
-            GameListView view = new GameListView();
             LayoutView layoutView = LayoutView.init();
             layoutView.ativos.Add(4);
-            view.ListaJogos = gameRepository.ListarJogos(layoutView.ativos);
-            return View("GameListView",view);
+            return View();
         }
         
     }

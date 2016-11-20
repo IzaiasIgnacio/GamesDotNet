@@ -2,14 +2,46 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width" />
+        <script type="text/javascript">
+            $(function () {
+                $(".navbar-brand").click(function () {
+                    $("#modal_game").modal('show');
+                });
+            });
+        </script>
     </head>
     <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <ul class="nav navbar-brand">
+                        <li class="add_game">Games</li>
+                    </ul>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active">@Html.ActionLink("Coleção", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Wishlist", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Watchlist", "Index", "Home")</li>
+                    </ul>
+                    <span id="MenuPlataforma">
+                        @{Html.RenderAction("MenuPlataformas", "Jquery");}
+                    </span>
+                </div>
+            </div>
+        </nav>
         <span id="DadosGameView">
             @{Html.RenderPartial("~/Views/Jquery/DadosGameView.cshtml", new Games.Models.ViewModel.GameDataView());}
         </span>
         <div class="row">
-            <span id="GameListView">                
-                @{Html.RenderAction("Index", "Home");}
+            <span id="GameListView">
+                @{Html.RenderAction("ListaJogosIndex", "Jquery");}}
             </span>
         </div>
     </body>
