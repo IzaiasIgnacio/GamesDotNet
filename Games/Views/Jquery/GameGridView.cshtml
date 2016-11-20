@@ -1,11 +1,4 @@
 ﻿@model Games.Models.ViewModel.GameListView
-<script type="text/javascript">
-    $(function() {
-        $(".thumbnail").click(function () {
-            //$("#modal_game").modal('show');
-        });
-    });
-</script>
 @foreach (var game in Model.ListaJogos) {
     <div class="col-sm-2">
         <div class="col-sm-12 thumbnail text-center">

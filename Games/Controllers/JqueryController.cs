@@ -30,7 +30,7 @@ namespace Games.Controllers {
             GameRepository gameRepository = new GameRepository();
             GameListView view = new GameListView();
             view.ListaJogos = gameRepository.ListarJogos(layoutView.ativos);
-            return PartialView("GameListView", view);
+            return PartialView("GameGridView", view);
         }
 
         [HttpPost]
@@ -40,6 +40,12 @@ namespace Games.Controllers {
             view.ListaJogos = igdb.BuscarJogo(search);
 
             return PartialView("GameResultView", view);
+        }
+
+        [HttpPost]
+        public void SalvarNovoJogoJquery(GameDataView dados) {
+            GameRepository gameRepository = new GameRepository();
+            gameRepository.Adicionar(dados);
         }
 
         [HttpPost]

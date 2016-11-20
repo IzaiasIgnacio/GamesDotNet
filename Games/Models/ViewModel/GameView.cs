@@ -1,6 +1,7 @@
 ﻿using Games.Models.Entity;
 using Games.Models.Repository;
 using Igdb.ResponseModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,15 +11,18 @@ using System.Web;
 namespace Games.Models.ViewModel {
 
     public class BasegameView {
+        [JsonIgnore]
         public string CloudnaryUrl;
+        [JsonIgnore]
         public string BigCoverUrl;
+        [JsonIgnore]
         public string MicroCoverUrl;
+        [JsonIgnore]
         public string SmallCoverUrl;
-        public GamesEntities db;
+        [JsonIgnore]
         public GameRepository gameRepository;
 
         public BasegameView() {
-            db = new GamesEntities();
             gameRepository = new GameRepository();
             CloudnaryUrl = "https://res.cloudinary.com/igdb/image/upload/t_";
             BigCoverUrl = CloudnaryUrl + "cover_big/";
@@ -47,6 +51,8 @@ namespace Games.Models.ViewModel {
     }
 
     public class GameDataView : BasegameView {
+        PlatformRepository platformRepository = new PlatformRepository();
+        
         [Key]
         public int Id { get; set; }
 
@@ -74,32 +80,38 @@ namespace Games.Models.ViewModel {
 
         public enum formato { Fisíco, Digital };
         [Display(Name = "Formato")]
+        [JsonIgnore]
         public formato? Formato { get; set; }
-        
+
+        [JsonIgnore]
         public List<platform> ListaPlatform {
             get {
-                return db.platform.OrderBy(p=>p.ordem).ToList();
+                return platformRepository.Listar();
             }
         }
 
+        [JsonIgnore]
         public List<status> ListaStatus {
             get {
-                return db.status.ToList();
+                return gameRepository.Listar<status>();
             }
         }
 
+        [JsonIgnore]
         public List<region> ListaRegion {
             get {
-                return db.region.ToList();
+                return gameRepository.Listar<region>();
             }
         }
 
+        [JsonIgnore]
         public List<rating> ListaRating {
             get {
-                return db.rating.ToList();
+                return gameRepository.Listar<rating>();
             }
         }
 
+        [JsonIgnore]
         private List<game_platform> platforms;
         public List<game_platform> Platforms {
             get {
@@ -115,14 +127,17 @@ namespace Games.Models.ViewModel {
 
         [Display(Name = "Loja")]
         public store Loja { get; set; }
+
+        [JsonIgnore]
         public List<store> ListaLoja {
             get {
-                return db.store.ToList();
+                return gameRepository.Listar<store>();
             }
         }
         
         private List<developerPublisher> listaPublisher;
         [Display(Name = "Publisher(s)")]
+        [JsonIgnore]
         public List<developerPublisher> ListaPublisher {
             get {
                 if (listaPublisher == null) {
@@ -137,6 +152,7 @@ namespace Games.Models.ViewModel {
 
         private List<developerPublisher> listaDeveloper;
         [Display(Name = "Developer(s)")]
+        [JsonIgnore]
         public List<developerPublisher> ListaDeveloper {
             get {
                 if (listaDeveloper == null) {

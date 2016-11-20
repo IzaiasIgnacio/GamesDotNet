@@ -13,5 +13,9 @@ namespace Games.Models.Repository {
             db = new GamesEntities();
         }
 
+        public List<T> Listar<T>() where T : class {
+            return db.Set<T>().ToList();
+        }
+
     }
 }

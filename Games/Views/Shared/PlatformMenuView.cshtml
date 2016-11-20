@@ -1,25 +1,4 @@
 ﻿@model Games.Models.ViewModel.LayoutView
-<script type="text/javascript">
-    $(function() {
-        $(".li_plataforma").click(function () {
-            var element = $(this);
-            $.post("/Jquery/MenuPlataformas", { plataforma: element.attr("id") },
-            function (resposta) {
-                if (element.hasClass("ativo")) {
-                    element.removeClass("ativo");
-                }
-                else {
-                    element.addClass("ativo");
-                }
-                $("#MenuPlataforma").html(resposta);
-                $.post("/Jquery/ListaJogosIndex",
-                function (resposta) {
-                    $("#GameListView").html(resposta);
-                });
-            });
-        });
-    });
-</script>
 <ul class="nav navbar-nav navbar-right">
     @foreach (var platform in Model.listaPlatform) {
         string classe = "";

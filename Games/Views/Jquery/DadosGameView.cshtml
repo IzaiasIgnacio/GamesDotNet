@@ -1,33 +1,15 @@
 ﻿@model Games.Models.ViewModel.GameDataView
-<script type="text/javascript">
+<script>
     $(function() {
-        $("#btn_add").click(function() {
-            $.post("/Jquery/AdicionarPlataformaJquery",
-            function (resposta) {
-                $(".span_plataformas").append(resposta);
-            });
-        });
-
-        $(".fieldset_plataformas").on("click", ".remover_plataforma", function() {
-            $(this).closest(".plataforma_status").fadeOut('normal', function() {
-                $(this).remove();
-            });
-        });
-
-        $(".btn_buscar_igdb").click(function () {
-            $.post("/Jquery/BuscarJogoJquery", { search: $("#Titulo").val() },
-            function (resposta) {
-                $("#lista_resultados").html(resposta);
-                $("#lista_resultados").slideDown();
-            });
-        });
-
-        $("#lista_resultados").on("click", ".div_resultados .row", function () {
-            $.post("/Jquery/PreencherDadosGameIgdbJquery", { id_igdb: $(this).find(".id_igdb").val() },
-            function (resposta) {
-                $("#DadosGameView").html(resposta);
-                $("#modal_game").modal('show');
-                $("#lista_resultados").fadeOut();
+        $("#DadosGameView").off().on("click", ".salvar", function (e) {
+            var dados = JSON.stringify(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model)));
+            console.log(dados);
+            $.ajax({
+                url: "@Url.Action("SalvarNovoJogoJquery", "Jquery")",
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'string',
+                data: dados
             });
         });
     });
@@ -40,7 +22,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Game</h4>
             </div>
-            <form>
+            <form id="form_game">
                 <div class="modal-body row">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -133,7 +115,7 @@
                 </div>
             </form>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Salvar</button>
+                <button type="button" class="btn btn-primary salvar">Salvar</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
