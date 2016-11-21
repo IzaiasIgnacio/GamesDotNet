@@ -5,22 +5,14 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Web;
 
 namespace Games.Models.ViewModel {
 
     public class BasegameView {
-        [JsonIgnore]
         public string CloudnaryUrl;
-        [JsonIgnore]
         public string BigCoverUrl;
-        [JsonIgnore]
         public string MicroCoverUrl;
-        [JsonIgnore]
         public string SmallCoverUrl;
-        [JsonIgnore]
         public GameRepository gameRepository;
 
         public BasegameView() {
@@ -79,40 +71,30 @@ namespace Games.Models.ViewModel {
         [Display(Name = "Tamanho")]
         public decimal? Tamanho { get; set; }
 
-        public enum formato { Fisíco, Digital };
+        public enum formato { Fisíco=1, Digital=2 };
         [Display(Name = "Formato")]
-        [JsonIgnore]
         public formato? Formato { get; set; }
 
-        [JsonIgnore]
         public List<platform> ListaPlatform {
             get {
                 return platformRepository.Listar();
             }
         }
-
-        [JsonIgnore]
         public List<status> ListaStatus {
             get {
                 return gameRepository.Listar<status>();
             }
         }
-
-        [JsonIgnore]
         public List<region> ListaRegion {
             get {
                 return gameRepository.Listar<region>();
             }
         }
-
-        [JsonIgnore]
         public List<rating> ListaRating {
             get {
                 return gameRepository.Listar<rating>();
             }
         }
-
-        [JsonIgnore]
         private List<game_platform> platforms;
         public List<game_platform> Platforms {
             get {
@@ -128,8 +110,6 @@ namespace Games.Models.ViewModel {
 
         [Display(Name = "Loja")]
         public store Loja { get; set; }
-
-        [IgnoreDataMember]
         public List<store> ListaLoja {
             get {
                 return gameRepository.Listar<store>();
@@ -138,7 +118,6 @@ namespace Games.Models.ViewModel {
         
         private List<developerPublisher> listaPublisher;
         [Display(Name = "Publisher(s)")]
-        [JsonIgnore]
         public List<developerPublisher> ListaPublisher {
             get {
                 if (listaPublisher == null) {
@@ -153,7 +132,6 @@ namespace Games.Models.ViewModel {
 
         private List<developerPublisher> listaDeveloper;
         [Display(Name = "Developer(s)")]
-        [JsonIgnore]
         public List<developerPublisher> ListaDeveloper {
             get {
                 if (listaDeveloper == null) {

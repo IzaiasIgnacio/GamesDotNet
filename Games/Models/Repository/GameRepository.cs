@@ -15,6 +15,7 @@ namespace Games.Models.Repository {
             game.preco = dadosGame.Preco;
             game.metacritic = dadosGame.Metacritic;
             game.completo = 0;
+            //(int)dadosGame.Formato;
             game.summary = dadosGame.Descricao;
             game.formato = null;
             game.tamanho = dadosGame.Tamanho;
