@@ -178,3 +178,8 @@ textarea {
 .navbar-brand {
     cursor: pointer;
 }
+
+.estilo_exibicao {
+    text-align: right;
+    font-size: 1.8em;
+}
