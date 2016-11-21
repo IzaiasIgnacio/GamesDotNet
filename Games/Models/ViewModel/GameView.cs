@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Web;
 
 namespace Games.Models.ViewModel {
@@ -128,7 +129,7 @@ namespace Games.Models.ViewModel {
         [Display(Name = "Loja")]
         public store Loja { get; set; }
 
-        [JsonIgnore]
+        [IgnoreDataMember]
         public List<store> ListaLoja {
             get {
                 return gameRepository.Listar<store>();

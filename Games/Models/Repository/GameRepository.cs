@@ -12,16 +12,23 @@ namespace Games.Models.Repository {
             GameEntity game = new GameEntity();
             game.name = dadosGame.Titulo;
             game.nota = null;
-            game.preco = null;
-            game.metacritic = null;
+            game.preco = dadosGame.Preco;
+            game.metacritic = dadosGame.Metacritic;
             game.completo = 0;
             game.summary = dadosGame.Descricao;
             game.formato = null;
-            game.tamanho = null;
-            game.store = null;
+            game.tamanho = dadosGame.Tamanho;
+            game.store = dadosGame.Loja;
             game.cloudnary_id = dadosGame.CloudnaryId;
 
             db.game.Add(game);
+            db.SaveChanges();
+            
+            foreach (game_platform plataforma in dadosGame.Platforms) {
+                plataforma.id_game = game.id;
+                db.game_platform.Add(plataforma);
+            }
+
             db.SaveChanges();
         }
         public void Salvar(GameEntity game) {

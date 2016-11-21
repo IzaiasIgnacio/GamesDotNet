@@ -2,14 +2,19 @@
 <script>
     $(function() {
         $("#DadosGameView").off().on("click", ".salvar", function (e) {
-            var dados = JSON.stringify(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model)));
-            console.log(dados);
+            var array = $("#form_game").serializeArray();
+            var json = {};
+
+            jQuery.each(array, function () {
+                json[this.name] = this.value || '';
+            });
+            console.log(json);
             $.ajax({
                 url: "@Url.Action("SalvarNovoJogoJquery", "Jquery")",
                 type: 'POST',
                 contentType: 'application/json',
                 dataType: 'string',
-                data: dados
+                data: JSON.stringify(json)
             });
         });
     });
