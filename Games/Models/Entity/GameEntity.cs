@@ -24,16 +24,16 @@ namespace Games.Models.Entity
     
         public int id { get; set; }
         public string name { get; set; }
-        public string nota { get; set; }
         public Nullable<decimal> preco { get; set; }
         public Nullable<int> metacritic { get; set; }
-        public int completo { get; set; }
         public string summary { get; set; }
-        public string formato { get; set; }
         public Nullable<decimal> tamanho { get; set; }
         public Nullable<int> id_store { get; set; }
         public string cloudnary_id { get; set; }
         public int id_igdb { get; set; }
+        public Nullable<decimal> nota { get; set; }
+        public bool completo { get; set; }
+        public Nullable<int> formato { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<game_developerPublisher> game_developerPublisher { get; set; }

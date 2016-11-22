@@ -61,7 +61,7 @@ namespace Games.Controllers {
             game.nota = null;
             game.preco = null;
             game.metacritic = null;
-            game.completo = 0;
+            game.completo = false;
             game.summary = response.Summary;
             game.formato = null;
             game.tamanho = null;
@@ -102,7 +102,7 @@ namespace Games.Controllers {
             }
 
             foreach (ReleaseDate lancamento in response.ReleaseDates) {
-                int? plataforma = pr.getIdByIgdb(lancamento.Platform);
+                int? plataforma = pr.GetIdByIgdb(lancamento.Platform);
                 if (plataforma != null) {
                     DateTime data = new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(Convert.ToDouble(lancamento.Date)));
                     gameDataView.Platforms.Add(new game_platform {

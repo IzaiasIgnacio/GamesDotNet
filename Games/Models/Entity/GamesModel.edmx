@@ -19,12 +19,12 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_igdb" Type="int" Nullable="false" />
           <Property Name="name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="nota" Type="nchar" MaxLength="10" />
+          <Property Name="nota" Type="decimal" Precision="1" Scale="0" />
           <Property Name="preco" Type="decimal" Precision="2" Scale="0" />
           <Property Name="metacritic" Type="int" />
-          <Property Name="completo" Type="int" Nullable="false" />
+          <Property Name="completo" Type="bit" Nullable="false" />
           <Property Name="summary" Type="text" />
-          <Property Name="formato" Type="nchar" MaxLength="7" />
+          <Property Name="formato" Type="int" />
           <Property Name="tamanho" Type="decimal" Precision="2" Scale="0" />
           <Property Name="cloudnary_id" Type="nvarchar" MaxLength="50" />
           <Property Name="id_store" Type="int" />
@@ -313,13 +313,10 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="nota" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="preco" Type="Decimal" Precision="2" Scale="0" />
+          <Property Name="preco" Type="Decimal" Precision="5" Scale="2" />
           <Property Name="metacritic" Type="Int32" />
-          <Property Name="completo" Type="Int32" Nullable="false" />
           <Property Name="summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="formato" Type="String" MaxLength="7" FixedLength="true" Unicode="true" />
-          <Property Name="tamanho" Type="Decimal" Precision="2" Scale="0" />
+          <Property Name="tamanho" Type="Decimal" Precision="5" Scale="2" />
           <Property Name="id_store" Type="Int32" />
           <NavigationProperty Name="game_developerPublisher" Relationship="Self.FK_game_developerPublisher_game" FromRole="game" ToRole="game_developerPublisher" />
           <NavigationProperty Name="game_gender" Relationship="Self.FK_game_gender_game" FromRole="game" ToRole="game_gender" />
@@ -327,6 +324,9 @@
           <NavigationProperty Name="store" Relationship="Self.FK_game_store" FromRole="game" ToRole="store" />
           <Property Name="cloudnary_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="id_igdb" Type="Int32" Nullable="false" />
+          <Property Name="nota" Type="Decimal" Nullable="true" Precision="2" Scale="1" />
+          <Property Name="completo" Type="Boolean" Nullable="false" />
+          <Property Name="formato" Type="Int32" Nullable="true" />
         </EntityType>
         <EntityType Name="game_developerPublisher">
           <Key>
@@ -628,16 +628,16 @@
           <EntitySetMapping Name="game">
             <EntityTypeMapping TypeName="GamesModel.GameEntity">
               <MappingFragment StoreEntitySet="game">
+                <ScalarProperty Name="formato" ColumnName="formato" />
+                <ScalarProperty Name="completo" ColumnName="completo" />
+                <ScalarProperty Name="nota" ColumnName="nota" />
                 <ScalarProperty Name="id_igdb" ColumnName="id_igdb" />
                 <ScalarProperty Name="cloudnary_id" ColumnName="cloudnary_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="nota" ColumnName="nota" />
                 <ScalarProperty Name="preco" ColumnName="preco" />
                 <ScalarProperty Name="metacritic" ColumnName="metacritic" />
-                <ScalarProperty Name="completo" ColumnName="completo" />
                 <ScalarProperty Name="summary" ColumnName="summary" />
-                <ScalarProperty Name="formato" ColumnName="formato" />
                 <ScalarProperty Name="tamanho" ColumnName="tamanho" />
                 <ScalarProperty Name="id_store" ColumnName="id_store" />
               </MappingFragment>

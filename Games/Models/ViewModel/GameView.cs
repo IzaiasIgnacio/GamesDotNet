@@ -109,7 +109,7 @@ namespace Games.Models.ViewModel {
         }
 
         [Display(Name = "Loja")]
-        public store Loja { get; set; }
+        public string Loja { get; set; }
         public List<store> ListaLoja {
             get {
                 return gameRepository.Listar<store>();

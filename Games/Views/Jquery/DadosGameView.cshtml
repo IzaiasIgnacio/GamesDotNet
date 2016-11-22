@@ -93,15 +93,15 @@
                             @Html.ValidationMessageFor(model => model.Loja, "", new { @class = "text-danger" })
                         </div>
                         <div>
-                            @Html.CheckBoxFor(model => model.Completo, new { @class = "form-check-input" })
-                            @Html.LabelFor(model => model.Completo, new { @class = "form-check-inline" })
-                            @Html.ValidationMessageFor(model => model.Completo, "", new { @class = "text-danger" })
+                            <input class="form-check-input" data-val="true" id="Completo" name="Completo" type="checkbox" value="true">
+                            @Html.LabelFor(model => model.Completo)
                         </div>
                     </div>
                     <div class="col-md-4">
                         <fieldset class="form-group">
                             <legend><label>Capa</label></legend>
                             @if (!@Model.CloudnaryId.IsEmpty()) {
+                                @Html.HiddenFor(model => model.CloudnaryId, @Model.CloudnaryId);
                                 <img class="img-rounded img-responsive" style="position:absolute" src="@Model.BigCoverUrl/@Model.CloudnaryId">
                             }
                         </fieldset>

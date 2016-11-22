@@ -39,7 +39,7 @@ namespace Igdb.Test {
             }
 
             foreach (ReleaseDate lancamento in response.ReleaseDates) {
-                int? plataforma = pr.getIdByIgdb(lancamento.Platform);
+                int? plataforma = pr.GetIdByIgdb(lancamento.Platform);
                 if (plataforma != null) {
                     DateTime data = new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(Convert.ToDouble(lancamento.Date)));
                     gameDataView.Platforms.Add(new game_platform {
@@ -84,7 +84,7 @@ namespace Igdb.Test {
         public void TesteCarregarSalvarJogo() {
             GameRepository gameRepository = new GameRepository();
             GameEntity game = gameRepository.BuscarDados(2);
-            game.completo = 1;
+            game.completo = true;
             gameRepository.Salvar(game);
 
             game = gameRepository.BuscarDados(2);

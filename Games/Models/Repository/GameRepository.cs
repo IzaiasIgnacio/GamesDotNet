@@ -10,16 +10,16 @@ namespace Games.Models.Repository {
 
         public void Adicionar(GameDataView dadosGame) {
             GameEntity game = new GameEntity();
+            StoreRepository loja = new StoreRepository();
             game.name = dadosGame.Titulo;
-            game.nota = null;
+            game.nota = dadosGame.Nota;
             game.preco = dadosGame.Preco;
             game.metacritic = dadosGame.Metacritic;
-            game.completo = 0;
-            //(int)dadosGame.Formato;
+            game.completo = dadosGame.Completo;
             game.summary = dadosGame.Descricao;
-            game.formato = null;
+            game.formato = (int)dadosGame.Formato;
             game.tamanho = dadosGame.Tamanho;
-            game.store = dadosGame.Loja;
+            game.id_store = loja.GetIdByName(dadosGame.Loja);
             game.cloudnary_id = dadosGame.CloudnaryId;
 
             db.game.Add(game);
