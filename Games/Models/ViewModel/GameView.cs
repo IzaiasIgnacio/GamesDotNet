@@ -129,7 +129,7 @@ namespace Games.Models.ViewModel {
                 listaPublisher = value;
             }
         }
-
+        
         private List<developerPublisher> listaDeveloper;
         [Display(Name = "Developer(s)")]
         public List<developerPublisher> ListaDeveloper {

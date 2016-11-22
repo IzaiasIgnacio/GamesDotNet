@@ -10,6 +10,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_igdb" Type="int" />
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="game">
@@ -19,13 +20,13 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_igdb" Type="int" Nullable="false" />
           <Property Name="name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="nota" Type="decimal" Precision="1" Scale="0" />
-          <Property Name="preco" Type="decimal" Precision="2" Scale="0" />
+          <Property Name="nota" Type="decimal" Precision="2" Scale="1" />
+          <Property Name="preco" Type="decimal" Precision="5" Scale="2" />
           <Property Name="metacritic" Type="int" />
           <Property Name="completo" Type="bit" Nullable="false" />
           <Property Name="summary" Type="text" />
           <Property Name="formato" Type="int" />
-          <Property Name="tamanho" Type="decimal" Precision="2" Scale="0" />
+          <Property Name="tamanho" Type="decimal" Precision="5" Scale="2" />
           <Property Name="cloudnary_id" Type="nvarchar" MaxLength="50" />
           <Property Name="id_store" Type="int" />
         </EntityType>
@@ -306,6 +307,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="game_developerPublisher" Relationship="Self.FK_game_developerPublisher_developerPublisher" FromRole="developerPublisher" ToRole="game_developerPublisher" />
+          <Property Name="id_igdb" Type="Int32" />
         </EntityType>
         <EntityType Name="GameEntity">
           <Key>
@@ -620,6 +622,7 @@
           <EntitySetMapping Name="developerPublisher">
             <EntityTypeMapping TypeName="GamesModel.developerPublisher">
               <MappingFragment StoreEntitySet="developerPublisher">
+                <ScalarProperty Name="id_igdb" ColumnName="id_igdb" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>

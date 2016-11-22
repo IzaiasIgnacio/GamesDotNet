@@ -87,17 +87,21 @@ namespace Games.Controllers {
             GameDataView gameDataView = new GameDataView();
             gameDataView.Titulo = response.Name;
             gameDataView.Descricao = response.Summary;
-            gameDataView.CloudnaryId = response.Cover.CloudinaryId;
+            if (response.Cover != null) {
+                gameDataView.CloudnaryId = response.Cover.CloudinaryId;
+            }
 
             foreach (DadosDeveloperPublisherResponse dev in devs) {
                 gameDataView.ListaDeveloper.Add(new developerPublisher {
-                    name = dev.Name
+                    name = dev.Name,
+                    id_igdb = dev.Id
                 });
             }
 
             foreach (DadosDeveloperPublisherResponse pub in pubs) {
                 gameDataView.ListaPublisher.Add(new developerPublisher {
-                    name = pub.Name
+                    name = pub.Name,
+                    id_igdb = pub.Id
                 });
             }
 
