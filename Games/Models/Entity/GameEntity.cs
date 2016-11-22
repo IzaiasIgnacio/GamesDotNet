@@ -18,8 +18,8 @@ namespace Games.Models.Entity
         public GameEntity()
         {
             this.game_developerPublisher = new HashSet<game_developerPublisher>();
-            this.game_gender = new HashSet<game_gender>();
             this.game_platform = new HashSet<game_platform>();
+            this.game_genre = new HashSet<game_genre>();
         }
     
         public int id { get; set; }
@@ -38,9 +38,9 @@ namespace Games.Models.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<game_developerPublisher> game_developerPublisher { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<game_gender> game_gender { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<game_platform> game_platform { get; set; }
         public virtual store store { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<game_genre> game_genre { get; set; }
     }
 }

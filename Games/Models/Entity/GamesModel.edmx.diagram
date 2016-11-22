@@ -8,25 +8,25 @@
         <EntityTypeShape EntityType="GamesModel.developerPublisher" Width="1.5" PointX="1.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GamesModel.GameEntity" Width="1.5" PointX="6.625" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="GamesModel.game_developerPublisher" Width="1.5" PointX="4.375" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="GamesModel.game_gender" Width="1.5" PointX="6.625" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="GamesModel.game_platform" Width="1.5" PointX="8.875" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="GamesModel.gender" Width="1.5" PointX="8.75" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="GamesModel.platform" Width="1.5" PointX="8.625" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="GamesModel.rating" Width="1.5" PointX="11.75" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="GamesModel.region" Width="1.5" PointX="11.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GamesModel.store" Width="1.5" PointX="4.5" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="GamesModel.FK_game_developerPublisher_developerPublisher" ManuallyRouted="false" />
         <AssociationConnector Association="GamesModel.FK_game_developerPublisher_game" ManuallyRouted="false" />
-        <AssociationConnector Association="GamesModel.FK_game_gender_game" ManuallyRouted="false" />
         <AssociationConnector Association="GamesModel.FK_game_platform_game" ManuallyRouted="false" />
         <AssociationConnector Association="GamesModel.FK_game_store" ManuallyRouted="false" />
-        <AssociationConnector Association="GamesModel.FK_game_gender_gender" ManuallyRouted="false" />
         <AssociationConnector Association="GamesModel.FK_game_platform_platform" ManuallyRouted="false" />
         <AssociationConnector Association="GamesModel.FK_rating_region" ManuallyRouted="false" />
         <EntityTypeShape EntityType="GamesModel.status" Width="1.5" PointX="4.75" PointY="7.25" />
         <AssociationConnector Association="GamesModel.FK_game_platform_status" />
         <AssociationConnector Association="GamesModel.FK_game_platform_rating" />
         <AssociationConnector Association="GamesModel.FK_game_platform_region" />
+        <EntityTypeShape EntityType="GamesModel.game_genre" Width="1.5" PointX="6.625" PointY="0.5" />
+        <EntityTypeShape EntityType="GamesModel.genre" Width="1.5" PointX="8.875" PointY="0.5" />
+        <AssociationConnector Association="GamesModel.FK_game_genre_game" />
+        <AssociationConnector Association="GamesModel.FK_game_genre_genre" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

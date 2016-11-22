@@ -2,7 +2,7 @@
 using System.Linq;
 
 namespace Games.Models.Repository {
-    public class developerPublisherRepository : BaseRepository {
+    public class DeveloperPublisherRepository : BaseRepository {
 
         public int GetIdByIgdb(int? id_igdb, string name) {
             developerPublisher developerPublisher = db.developerPublisher.Where(l => l.id_igdb == id_igdb).FirstOrDefault();

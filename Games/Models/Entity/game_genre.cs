@@ -12,18 +12,13 @@ namespace Games.Models.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class gender
+    public partial class game_genre
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public gender()
-        {
-            this.game_gender = new HashSet<game_gender>();
-        }
-    
         public int id { get; set; }
-        public string gender1 { get; set; }
+        public int id_game { get; set; }
+        public int id_genre { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<game_gender> game_gender { get; set; }
+        public virtual GameEntity game { get; set; }
+        public virtual genre genre { get; set; }
     }
 }

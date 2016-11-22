@@ -28,13 +28,13 @@ namespace Games.Models.Entity
         public virtual DbSet<developerPublisher> developerPublisher { get; set; }
         public virtual DbSet<GameEntity> game { get; set; }
         public virtual DbSet<game_developerPublisher> game_developerPublisher { get; set; }
-        public virtual DbSet<game_gender> game_gender { get; set; }
         public virtual DbSet<game_platform> game_platform { get; set; }
-        public virtual DbSet<gender> gender { get; set; }
         public virtual DbSet<platform> platform { get; set; }
         public virtual DbSet<rating> rating { get; set; }
         public virtual DbSet<region> region { get; set; }
         public virtual DbSet<store> store { get; set; }
         public virtual DbSet<status> status { get; set; }
+        public virtual DbSet<game_genre> game_genre { get; set; }
+        public virtual DbSet<genre> genre { get; set; }
     }
 }

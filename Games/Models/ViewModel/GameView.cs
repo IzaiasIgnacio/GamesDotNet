@@ -49,6 +49,8 @@ namespace Games.Models.ViewModel {
         [Key]
         public int Id { get; set; }
 
+        public int id_igdb { get; set; }
+
         [Display(Name = "Título")]
         [Required(ErrorMessage = "Informe o título")]
         public string Titulo { get; set; }
@@ -70,6 +72,8 @@ namespace Games.Models.ViewModel {
 
         [Display(Name = "Tamanho")]
         public decimal? Tamanho { get; set; }
+
+        public string CloudnaryId { get; set; }
 
         public enum formato { Fisíco=1, Digital=2 };
         [Display(Name = "Formato")]
@@ -143,8 +147,21 @@ namespace Games.Models.ViewModel {
                 listaDeveloper = value;
             }
         }
-        
-        public string CloudnaryId { get; set; }
+
+        private List<genre> listaGenre;
+        [Display(Name = "Gênero(s)")]
+        public List<genre> ListaGenre {
+            get {
+                if (listaGenre == null) {
+                    listaGenre = new List<genre>();
+                }
+                return listaGenre;
+            }
+            set {
+                listaGenre = value;
+            }
+        }
+
     }
 
 }

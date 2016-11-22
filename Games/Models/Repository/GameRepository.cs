@@ -11,7 +11,9 @@ namespace Games.Models.Repository {
         public void Adicionar(GameDataView dadosGame) {
             GameEntity game = new GameEntity();
             StoreRepository loja = new StoreRepository();
-            developerPublisherRepository developerPublisher = new developerPublisherRepository();
+            DeveloperPublisherRepository developerPublisher = new DeveloperPublisherRepository();
+            GenreRepository genre = new GenreRepository();
+            game.id_igdb = dadosGame.id_igdb;
             game.name = dadosGame.Titulo;
             game.nota = dadosGame.Nota;
             game.preco = dadosGame.Preco;
@@ -42,11 +44,18 @@ namespace Games.Models.Repository {
 
             foreach (developerPublisher pub in dadosGame.ListaPublisher) {
                 pub.id = developerPublisher.GetIdByIgdb(pub.id_igdb, pub.name);
-                db.game_developerPublisher.Add(new game_developerPublisher
-                {
+                db.game_developerPublisher.Add(new game_developerPublisher {
                     id_developerPublisher = pub.id,
                     id_game = game.id,
                     tipo = "Publisher"
+                });
+            }
+
+            foreach (genre genero in dadosGame.ListaGenre) {
+                genero.id = genre.GetIdByIgdb(genero.id_igdb, genero.name);
+                db.game_genre.Add(new game_genre {
+                    id_game = game.id,
+                    id_genre = genero.id
                 });
             }
 

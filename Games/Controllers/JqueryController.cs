@@ -83,8 +83,10 @@ namespace Games.Controllers {
             PlatformRepository pr = new PlatformRepository();
             List<DadosDeveloperPublisherResponse> devs = igdb.DadosDeveloperPublisher(response.Developers.ToArray());
             List<DadosDeveloperPublisherResponse> pubs = igdb.DadosDeveloperPublisher(response.Publishers.ToArray());
+            List<DadosGenreResponse> genres = igdb.DadosGenre(response.Genres.ToArray());
 
             GameDataView gameDataView = new GameDataView();
+            gameDataView.id_igdb = id_igdb;            
             gameDataView.Titulo = response.Name;
             gameDataView.Descricao = response.Summary;
             if (response.Cover != null) {
@@ -102,6 +104,13 @@ namespace Games.Controllers {
                 gameDataView.ListaPublisher.Add(new developerPublisher {
                     name = pub.Name,
                     id_igdb = pub.Id
+                });
+            }
+
+            foreach (DadosGenreResponse genre in genres) {
+                gameDataView.ListaGenre.Add(new genre {
+                    id_igdb = genre.Id,
+                    name = genre.Name
                 });
             }
 

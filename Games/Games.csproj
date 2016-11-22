@@ -232,13 +232,13 @@
     <Compile Include="Models\Entity\game_developerPublisher.cs">
       <DependentUpon>GamesModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\game_gender.cs">
+    <Compile Include="Models\Entity\game_genre.cs">
       <DependentUpon>GamesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\game_platform.cs">
       <DependentUpon>GamesModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\gender.cs">
+    <Compile Include="Models\Entity\genre.cs">
       <DependentUpon>GamesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\platform.cs">
@@ -257,7 +257,8 @@
       <DependentUpon>GamesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Repository\BaseRepository.cs" />
-    <Compile Include="Models\Repository\developerPublisherRepository.cs" />
+    <Compile Include="Models\Repository\GenreRepository.cs" />
+    <Compile Include="Models\Repository\DeveloperPublisherRepository.cs" />
     <Compile Include="Models\Repository\StoreRepository.cs" />
     <Compile Include="Models\Repository\PlatformRepository.cs" />
     <Compile Include="Models\Repository\GameRepository.cs" />
