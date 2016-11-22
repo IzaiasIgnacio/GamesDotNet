@@ -4,7 +4,7 @@
         <div class="col-sm-12 thumbnail text-center">
             <input type="hidden" class="id" value="@game.id" />
             @if (game.cloudnary_id != null) {
-                <img class="img-rounded img-responsive capa" src="@Model.SmallCoverUrl/@game.cloudnary_id" />
+                <img class="img-rounded img-responsive capa" src="~/Content/images/@(game.id+"_SmallCover_"+@game.cloudnary_id+".jpg")" />
             }
             <div class="caption">
                 <h4>@game.name</h4>

@@ -11,16 +11,20 @@ namespace Games.Models.ViewModel {
     public class BasegameView {
         public string CloudnaryUrl;
         public string BigCoverUrl;
+        public string BigCoverUrl2x;
         public string MicroCoverUrl;
         public string SmallCoverUrl;
+        public string Imagesfolder;
         public GameRepository gameRepository;
 
         public BasegameView() {
             gameRepository = new GameRepository();
             CloudnaryUrl = "https://res.cloudinary.com/igdb/image/upload/t_";
             BigCoverUrl = CloudnaryUrl + "cover_big/";
+            BigCoverUrl2x = CloudnaryUrl + "cover_big_2x/";
             MicroCoverUrl = CloudnaryUrl + "micro/";
             SmallCoverUrl = CloudnaryUrl + "cover_small_2x/";
+            Imagesfolder = AppDomain.CurrentDomain.BaseDirectory + "Content\\images\\";
         }
     }
 
