@@ -4,7 +4,7 @@ using System.Linq;
 namespace Games.Models.Repository {
     public class DeveloperPublisherRepository : BaseRepository {
 
-        public int GetIdByIgdb(int? id_igdb, string name) {
+        public int GetIdByIgdb(int id_igdb, string name) {
             developerPublisher developerPublisher = db.developerPublisher.Where(l => l.id_igdb == id_igdb).FirstOrDefault();
             if (developerPublisher == null) {
                 developerPublisher = Adicionar(id_igdb, name);
@@ -13,7 +13,7 @@ namespace Games.Models.Repository {
             return developerPublisher.id;
         }
 
-        private developerPublisher Adicionar(int? id_igdb, string nome) {
+        private developerPublisher Adicionar(int id_igdb, string nome) {
             developerPublisher developerPublisher = new developerPublisher {
                 name = nome,
                 id_igdb = id_igdb

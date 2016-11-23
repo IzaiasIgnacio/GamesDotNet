@@ -10,7 +10,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_igdb" Type="int" />
+          <Property Name="id_igdb" Type="int" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="game">
@@ -18,9 +18,9 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_igdb" Type="int" Nullable="false" />
+          <Property Name="id_igdb" Type="int" />
           <Property Name="name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="nota" Type="decimal" Precision="2" Scale="1" />
+          <Property Name="nota" Type="decimal" Precision="3" Scale="1" />
           <Property Name="preco" Type="decimal" Precision="5" Scale="2" />
           <Property Name="metacritic" Type="int" />
           <Property Name="completo" Type="bit" Nullable="false" />
@@ -35,9 +35,10 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_igdb" Type="int" Nullable="false" />
           <Property Name="id_game" Type="int" Nullable="false" />
           <Property Name="id_developerPublisher" Type="int" Nullable="false" />
-          <Property Name="tipo" Type="nchar" MaxLength="10" />
+          <Property Name="tipo" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="game_genre">
           <Key>
@@ -308,7 +309,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="game_developerPublisher" Relationship="Self.FK_game_developerPublisher_developerPublisher" FromRole="developerPublisher" ToRole="game_developerPublisher" />
-          <Property Name="id_igdb" Type="Int32" />
+          <Property Name="id_igdb" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="GameEntity">
           <Key>
@@ -325,11 +326,11 @@
           <NavigationProperty Name="game_platform" Relationship="Self.FK_game_platform_game" FromRole="game" ToRole="game_platform" />
           <NavigationProperty Name="store" Relationship="Self.FK_game_store" FromRole="game" ToRole="store" />
           <Property Name="cloudnary_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="id_igdb" Type="Int32" Nullable="false" />
-          <Property Name="nota" Type="Decimal" Nullable="true" Precision="2" Scale="1" />
+          <Property Name="id_igdb" Type="Int32" />
           <Property Name="completo" Type="Boolean" Nullable="false" />
           <Property Name="formato" Type="Int32" Nullable="true" />
           <NavigationProperty Name="game_genre" Relationship="GamesModel.FK_game_genre_game" FromRole="GameEntity" ToRole="game_genre" />
+          <Property Name="nota" Type="Decimal" Nullable="true" Precision="3" Scale="1" />
         </EntityType>
         <EntityType Name="game_developerPublisher">
           <Key>
@@ -340,7 +341,8 @@
           <Property Name="id_developerPublisher" Type="Int32" Nullable="false" />
           <NavigationProperty Name="developerPublisher" Relationship="Self.FK_game_developerPublisher_developerPublisher" FromRole="game_developerPublisher" ToRole="developerPublisher" />
           <NavigationProperty Name="game" Relationship="Self.FK_game_developerPublisher_game" FromRole="game_developerPublisher" ToRole="game" />
-          <Property Name="tipo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="id_igdb" Type="Int32" Nullable="false" />
+          <Property Name="tipo" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="game_platform">
           <Key>
@@ -633,9 +635,9 @@
           <EntitySetMapping Name="game">
             <EntityTypeMapping TypeName="GamesModel.GameEntity">
               <MappingFragment StoreEntitySet="game">
+                <ScalarProperty Name="nota" ColumnName="nota" />
                 <ScalarProperty Name="formato" ColumnName="formato" />
                 <ScalarProperty Name="completo" ColumnName="completo" />
-                <ScalarProperty Name="nota" ColumnName="nota" />
                 <ScalarProperty Name="id_igdb" ColumnName="id_igdb" />
                 <ScalarProperty Name="cloudnary_id" ColumnName="cloudnary_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -652,6 +654,7 @@
             <EntityTypeMapping TypeName="GamesModel.game_developerPublisher">
               <MappingFragment StoreEntitySet="game_developerPublisher">
                 <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="id_igdb" ColumnName="id_igdb" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="id_game" ColumnName="id_game" />
                 <ScalarProperty Name="id_developerPublisher" ColumnName="id_developerPublisher" />

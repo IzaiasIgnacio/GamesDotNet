@@ -9,7 +9,7 @@
         <EntityTypeShape EntityType="GamesModel.GameEntity" Width="1.5" PointX="6.625" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="GamesModel.game_developerPublisher" Width="1.5" PointX="4.375" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GamesModel.game_platform" Width="1.5" PointX="8.875" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="GamesModel.platform" Width="1.5" PointX="8.625" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GamesModel.platform" Width="1.5" PointX="8.875" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="GamesModel.rating" Width="1.5" PointX="11.75" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="GamesModel.region" Width="1.5" PointX="11.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GamesModel.store" Width="1.5" PointX="4.5" PointY="0.875" IsExpanded="true" />

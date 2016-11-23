@@ -39,7 +39,7 @@ namespace Games.Models.Repository {
                 db.game_developerPublisher.Add(new game_developerPublisher {
                     id_developerPublisher = dev.id,
                     id_game = game.id,
-                    tipo = "Developer"
+                    tipo = (int)GameDataView.tipoDeveloperPublisher.Developer
                 });
             }
 
@@ -48,7 +48,7 @@ namespace Games.Models.Repository {
                 db.game_developerPublisher.Add(new game_developerPublisher {
                     id_developerPublisher = pub.id,
                     id_game = game.id,
-                    tipo = "Publisher"
+                    tipo = (int)GameDataView.tipoDeveloperPublisher.Publisher
                 });
             }
 
@@ -64,9 +64,9 @@ namespace Games.Models.Repository {
 
             if (game.cloudnary_id != null) {
                 WebClient webClient = new WebClient();
-                webClient.DownloadFile(dadosGame.BigCoverUrl+dadosGame.CloudnaryId, AppDomain.CurrentDomain.BaseDirectory + "Content\\images\\" + game.id+"_BigCover_"+game.cloudnary_id+".jpg");
-                webClient.DownloadFile(dadosGame.BigCoverUrl2x + dadosGame.CloudnaryId, AppDomain.CurrentDomain.BaseDirectory + "Content\\images\\" + game.id + "_BigCover2x_" + game.cloudnary_id + ".jpg");
-                webClient.DownloadFile(dadosGame.SmallCoverUrl + dadosGame.CloudnaryId, AppDomain.CurrentDomain.BaseDirectory + "Content\\images\\" + game.id + "_SmallCover_" + game.cloudnary_id + ".jpg");
+                webClient.DownloadFile(dadosGame.BigCoverUrl+dadosGame.CloudnaryId, AppDomain.CurrentDomain.BaseDirectory + "images\\" + game.id+"_BigCover_"+game.cloudnary_id+".jpg");
+                webClient.DownloadFile(dadosGame.BigCoverUrl2x + dadosGame.CloudnaryId, AppDomain.CurrentDomain.BaseDirectory + "images\\" + game.id + "_BigCover2x_" + game.cloudnary_id + ".jpg");
+                webClient.DownloadFile(dadosGame.SmallCoverUrl + dadosGame.CloudnaryId, AppDomain.CurrentDomain.BaseDirectory + "images\\" + game.id + "_SmallCover_" + game.cloudnary_id + ".jpg");
             }
         }
         public void Salvar(GameEntity game) {

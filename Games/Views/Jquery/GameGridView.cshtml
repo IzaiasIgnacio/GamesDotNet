@@ -1,10 +1,19 @@
-﻿@model Games.Models.ViewModel.GameListView
+﻿<script>
+    $(function () {
+        /*========== grid de jogos ================*/
+        //exibir modal para alterar jogo
+        $(".thumbnail").click(function () {
+            $("#modal_game").modal('show');
+        });
+    });
+</script>
+@model Games.Models.ViewModel.GameListView
 @foreach (var game in Model.ListaJogos) {
     <div class="col-sm-2">
         <div class="col-sm-12 thumbnail text-center">
             <input type="hidden" class="id" value="@game.id" />
-            @if (game.cloudnary_id != null) {
-                <img class="img-rounded img-responsive capa" src="~/Content/images/@(game.id+"_SmallCover_"+@game.cloudnary_id+".jpg")" />
+            @if (File.Exists(Model.Imagesfolder+game.id+"_SmallCover_"+game.cloudnary_id+".jpg")) {
+                <img class="img-rounded img-responsive capa" src="~/images/@(game.id+"_SmallCover_"+@game.cloudnary_id+".jpg")" />
             }
             <div class="caption">
                 <h4>@game.name</h4>

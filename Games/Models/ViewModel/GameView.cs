@@ -24,7 +24,7 @@ namespace Games.Models.ViewModel {
             BigCoverUrl2x = CloudnaryUrl + "cover_big_2x/";
             MicroCoverUrl = CloudnaryUrl + "micro/";
             SmallCoverUrl = CloudnaryUrl + "cover_small_2x/";
-            Imagesfolder = AppDomain.CurrentDomain.BaseDirectory + "Content\\images\\";
+            Imagesfolder = AppDomain.CurrentDomain.BaseDirectory + "images\\";
         }
     }
 
@@ -123,7 +123,10 @@ namespace Games.Models.ViewModel {
                 return gameRepository.Listar<store>();
             }
         }
-        
+
+        public enum tipoDeveloperPublisher { Developer = 1, Publisher = 2 };
+        public tipoDeveloperPublisher TipoDeveloperPublisher { get; set; }
+
         private List<developerPublisher> listaPublisher;
         [Display(Name = "Publisher(s)")]
         public List<developerPublisher> ListaPublisher {

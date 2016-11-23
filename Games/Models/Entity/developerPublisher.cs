@@ -22,7 +22,7 @@ namespace Games.Models.Entity
     
         public int id { get; set; }
         public string name { get; set; }
-        public Nullable<int> id_igdb { get; set; }
+        public int id_igdb { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<game_developerPublisher> game_developerPublisher { get; set; }

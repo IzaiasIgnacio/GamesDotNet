@@ -30,10 +30,10 @@ namespace Games.Models.Entity
         public Nullable<decimal> tamanho { get; set; }
         public Nullable<int> id_store { get; set; }
         public string cloudnary_id { get; set; }
-        public int id_igdb { get; set; }
-        public Nullable<decimal> nota { get; set; }
+        public Nullable<int> id_igdb { get; set; }
         public bool completo { get; set; }
         public Nullable<int> formato { get; set; }
+        public Nullable<decimal> nota { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<game_developerPublisher> game_developerPublisher { get; set; }
