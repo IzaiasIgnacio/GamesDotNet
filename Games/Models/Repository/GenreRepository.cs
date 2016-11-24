@@ -24,6 +24,12 @@ namespace Games.Models.Repository {
             return genre;
         }
 
+        public string GetNameById(int id) {
+            genre genre = db.genre.Where(g => g.id == id).FirstOrDefault();
+
+            return genre.name;
+        }
+
     }
 
 }

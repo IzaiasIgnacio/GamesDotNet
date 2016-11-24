@@ -49,6 +49,12 @@ namespace Games.Controllers {
         }
 
         [HttpPost]
+        public void AlterarJogoJquery(GameDataView dados) {
+            GameRepository gameRepository = new GameRepository();
+            gameRepository.Alterar(dados);
+        }
+
+        [HttpPost]
         public void AtualizarJogoJquery(int id_local, int id_igdb) {
             IgdbService igdb = new IgdbService();
             DadosGameResponse response = igdb.DadosJogo(id_igdb).FirstOrDefault();
@@ -126,6 +132,59 @@ namespace Games.Controllers {
                 }
             }
             
+            return PartialView("DadosGameVIew", gameDataView);
+        }
+
+        [HttpPost]
+        public ActionResult PreencherDadosGameEntityJquery(int id) {
+            GameRepository gameRepository = new GameRepository();
+            PlatformRepository pr = new PlatformRepository();
+            DeveloperPublisherRepository devPubRepository = new DeveloperPublisherRepository();
+            GenreRepository genreRepository = new GenreRepository();
+
+            GameEntity game = gameRepository.BuscarDados(id);
+
+            List<game_developerPublisher> devs = game.game_developerPublisher.Where(d => d.tipo == 1).ToList();
+            List<game_developerPublisher> pubs = game.game_developerPublisher.Where(p => p.tipo == 2).ToList();
+            List<game_genre> genres = game.game_genre.ToList();
+
+            GameDataView gameDataView = new GameDataView();
+            gameDataView.Id = game.id;
+            gameDataView.id_igdb = game.id_igdb;
+            gameDataView.Titulo = game.name;
+            gameDataView.Descricao = game.summary;
+            if (game.cloudnary_id != null) {
+                gameDataView.CloudnaryId = game.cloudnary_id;
+            }
+
+            foreach (game_developerPublisher dev in devs) {
+                gameDataView.ListaDeveloper.Add(new developerPublisher {
+                    name = devPubRepository.GetNameById(dev.id)
+                });
+            }
+
+            foreach (game_developerPublisher pub in pubs) {
+                gameDataView.ListaDeveloper.Add(new developerPublisher {
+                    name = devPubRepository.GetNameById(pub.id)
+                });
+            }
+
+            foreach (game_genre genre in genres) {
+                gameDataView.ListaGenre.Add(new genre {
+                    name = genreRepository.GetNameById(genre.id)
+                });
+            }
+
+            foreach (game_platform lancamento in game.game_platform) {
+                gameDataView.Platforms.Add(new game_platform {
+                    id_platform = lancamento.id_platform,
+                    id_status = lancamento.id_status,
+                    release_date = lancamento.release_date,
+                    id_region = lancamento.id_region,
+                    id_rating = lancamento.id_rating
+                });
+            }
+
             return PartialView("DadosGameVIew", gameDataView);
         }
 

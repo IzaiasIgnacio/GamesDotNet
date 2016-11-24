@@ -1,10 +1,6 @@
 ﻿@model Games.Models.ViewModel.GameDataView
 <script>
     $(function () {
-        //exibir inclusao de jogo
-        $(".navbar-brand").click(function () {
-            $("#modal_game").modal('show');
-        });
         //incluir linha de plataforma
         $("#btn_add").click(function () {
             $.post("/Jquery/AdicionarPlataformaJquery",
@@ -37,15 +33,23 @@
         });
         //salvar novo jogo
         $("#DadosGameView").off().on("click", ".salvar", function (e) {
+            var acao = '';
+            if ($("#Id").val() == '') {
+                acao = "/Jquery/SalvarNovoJogoJquery";
+            }
+            else {
+                acao = "/Jquery/AlterarJogoJquery";
+            }
+
             var array = $("#form_game").serializeArray();
             var json = {};
 
             jQuery.each(array, function () {
                 json[this.name] = this.value || '';
             });
-            console.log(json);
+
             $.ajax({
-                url: "@Url.Action("SalvarNovoJogoJquery", "Jquery")",
+                url: acao,
                 type: 'POST',
                 contentType: 'application/json',
                 dataType: 'string',
@@ -57,12 +61,12 @@
 <div class="modal fade" id="modal_game" role="dialog" tabindex="-1">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <input type="hidden" id="id_game" />
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Game</h4>
             </div>
             <form id="form_game">
+                @Html.HiddenFor(model => Model.Id, new { @Value = Model.Id })
                 @Html.HiddenFor(model=>model.id_igdb,new { @Value = Model.id_igdb })
                 <div class="modal-body row">
                     <div class="col-md-4">

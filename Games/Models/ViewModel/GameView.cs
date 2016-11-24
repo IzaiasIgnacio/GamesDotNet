@@ -51,9 +51,9 @@ namespace Games.Models.ViewModel {
         PlatformRepository platformRepository = new PlatformRepository();
         
         [Key]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
-        public int id_igdb { get; set; }
+        public int? id_igdb { get; set; }
 
         [Display(Name = "Título")]
         [Required(ErrorMessage = "Informe o título")]
