@@ -6,10 +6,10 @@
     <div class="form-group plataforma_status">
         @Html.HiddenFor(model => Model.Platforms[i].id, new { @Value = Model.Platforms[i].id })
         @Html.DropDownListFor(model => Model.Platforms[i].id_platform, new SelectList(Model.ListaPlatform, "id", "name", Model.Platforms[i].id_platform), "Plataforma", new { @class = "form-control select_plataforma" })
-        @Html.DropDownListFor(model => Model.Platforms[i].id_status, new SelectList(Model.ListaStatus, "id", "name"), "Status", new { @class = "form-control select_plataforma" })
+        @Html.DropDownListFor(model => Model.Platforms[i].id_status, new SelectList(Model.ListaStatus, "id", "name", Model.Platforms[i].id_status), "Status", new { @class = "form-control select_plataforma" })
         @Html.EditorFor(model => Model.Platforms[i].release_date, new { htmlAttributes = new { @class = "form-control select_plataforma", @placeholder = "Lançamento", @Value = string.Format("{0:d}", Model.Platforms[i].release_date) } })
         @Html.DropDownListFor(model => Model.Platforms[i].id_region, new SelectList(Model.ListaRegion, "id", "name", Model.Platforms[i].id_region), "Região", new { @class = "form-control select_plataforma" })
-        @Html.DropDownListFor(model => Model.Platforms[i].id_rating, new SelectList(Model.ListaRating, "id", "name"), "Classificação", new { @class = "form-control select_plataforma" })
+        @Html.DropDownListFor(model => Model.Platforms[i].id_rating, new SelectList(Model.ListaRating, "id", "name", Model.Platforms[i].id_rating), "Classificação", new { @class = "form-control select_plataforma" })
         <input type="button" value="-" class="btn btn-danger remover_plataforma" />
     </div>
 }

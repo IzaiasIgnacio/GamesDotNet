@@ -23,13 +23,7 @@ namespace Games.Models.Repository {
 
             return developerPublisher;
         }
-
-        public string GetNameById(int id) {
-            developerPublisher developerPublisher = db.developerPublisher.Where(l => l.id == id).FirstOrDefault();
-            
-            return developerPublisher.name;
-        }
-
+        
     }
 
 }

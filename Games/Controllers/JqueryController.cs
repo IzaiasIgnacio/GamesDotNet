@@ -53,30 +53,7 @@ namespace Games.Controllers {
             GameRepository gameRepository = new GameRepository();
             gameRepository.Alterar(dados);
         }
-
-        [HttpPost]
-        public void AtualizarJogoJquery(int id_local, int id_igdb) {
-            IgdbService igdb = new IgdbService();
-            DadosGameResponse response = igdb.DadosJogo(id_igdb).FirstOrDefault();
-
-            GameRepository gameRepository = new GameRepository();
-            GameEntity game = gameRepository.BuscarDados(id_local);
-
-            game.id_igdb = response.Id;
-            game.name = response.Name;
-            game.nota = null;
-            game.preco = null;
-            game.metacritic = null;
-            game.completo = false;
-            game.summary = response.Summary;
-            game.formato = null;
-            game.tamanho = null;
-            game.store = null;
-            game.cloudnary_id = response.Cover.CloudinaryId;
-
-            gameRepository.Salvar(game);
-        }
-
+        
         [HttpPost]
         public ActionResult AdicionarPlataformaJquery() {
             return PartialView("PlatformStatusView", new GameDataView());
@@ -86,6 +63,7 @@ namespace Games.Controllers {
         public ActionResult PreencherDadosGameIgdbJquery(int id_igdb) {
             IgdbService igdb = new IgdbService();
             DadosGameResponse response = igdb.DadosJogo(id_igdb).FirstOrDefault();
+
             PlatformRepository pr = new PlatformRepository();
             List<DadosDeveloperPublisherResponse> devs = igdb.DadosDeveloperPublisher(response.Developers.ToArray());
             List<DadosDeveloperPublisherResponse> pubs = igdb.DadosDeveloperPublisher(response.Publishers.ToArray());
@@ -95,6 +73,7 @@ namespace Games.Controllers {
             gameDataView.id_igdb = id_igdb;            
             gameDataView.Titulo = response.Name;
             gameDataView.Descricao = response.Summary;
+
             if (response.Cover != null) {
                 gameDataView.CloudnaryId = response.Cover.CloudinaryId;
             }
@@ -138,14 +117,10 @@ namespace Games.Controllers {
         [HttpPost]
         public ActionResult PreencherDadosGameEntityJquery(int id) {
             GameRepository gameRepository = new GameRepository();
-            PlatformRepository pr = new PlatformRepository();
-            DeveloperPublisherRepository devPubRepository = new DeveloperPublisherRepository();
-            GenreRepository genreRepository = new GenreRepository();
-
             GameEntity game = gameRepository.BuscarDados(id);
 
-            List<game_developerPublisher> devs = game.game_developerPublisher.Where(d => d.tipo == 1).ToList();
-            List<game_developerPublisher> pubs = game.game_developerPublisher.Where(p => p.tipo == 2).ToList();
+            List<game_developerPublisher> devs = game.game_developerPublisher.Where(d => d.tipo == (int)GameDataView.tipoDeveloperPublisher.Developer).ToList();
+            List<game_developerPublisher> pubs = game.game_developerPublisher.Where(p => p.tipo == (int)GameDataView.tipoDeveloperPublisher.Publisher).ToList();
             List<game_genre> genres = game.game_genre.ToList();
 
             GameDataView gameDataView = new GameDataView();
@@ -153,25 +128,35 @@ namespace Games.Controllers {
             gameDataView.id_igdb = game.id_igdb;
             gameDataView.Titulo = game.name;
             gameDataView.Descricao = game.summary;
+            gameDataView.Formato = (GameDataView.formato)game.formato;
+            gameDataView.Metacritic = game.metacritic;
+            gameDataView.Nota = game.nota;
+            gameDataView.Preco = game.preco;
+            gameDataView.Tamanho = game.tamanho;
+            gameDataView.Loja = game.store.name;
+
             if (game.cloudnary_id != null) {
                 gameDataView.CloudnaryId = game.cloudnary_id;
             }
 
             foreach (game_developerPublisher dev in devs) {
                 gameDataView.ListaDeveloper.Add(new developerPublisher {
-                    name = devPubRepository.GetNameById(dev.id)
+                    id = dev.id,
+                    name = dev.developerPublisher.name
                 });
             }
 
             foreach (game_developerPublisher pub in pubs) {
-                gameDataView.ListaDeveloper.Add(new developerPublisher {
-                    name = devPubRepository.GetNameById(pub.id)
+                gameDataView.ListaPublisher.Add(new developerPublisher {
+                    id = pub.id,
+                    name = pub.developerPublisher.name
                 });
             }
 
             foreach (game_genre genre in genres) {
                 gameDataView.ListaGenre.Add(new genre {
-                    name = genreRepository.GetNameById(genre.id)
+                    id = genre.id,
+                    name = genre.genre.name
                 });
             }
 

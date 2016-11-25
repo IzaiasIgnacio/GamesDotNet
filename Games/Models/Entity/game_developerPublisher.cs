@@ -17,7 +17,6 @@ namespace Games.Models.Entity
         public int id { get; set; }
         public int id_game { get; set; }
         public int id_developerPublisher { get; set; }
-        public int id_igdb { get; set; }
         public int tipo { get; set; }
     
         public virtual developerPublisher developerPublisher { get; set; }

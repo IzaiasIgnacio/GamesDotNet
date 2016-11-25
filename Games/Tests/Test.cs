@@ -85,7 +85,7 @@ namespace Igdb.Test {
             GameRepository gameRepository = new GameRepository();
             GameEntity game = gameRepository.BuscarDados(2);
             game.completo = true;
-            gameRepository.Salvar(game);
+            //gameRepository.Salvar(game);
 
             game = gameRepository.BuscarDados(2);
 

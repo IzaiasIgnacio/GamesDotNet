@@ -20,7 +20,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_igdb" Type="int" />
           <Property Name="name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="nota" Type="decimal" Precision="3" Scale="1" />
+          <Property Name="nota" Type="decimal" Precision="2" Scale="1" />
           <Property Name="preco" Type="decimal" Precision="5" Scale="2" />
           <Property Name="metacritic" Type="int" />
           <Property Name="completo" Type="bit" Nullable="false" />
@@ -35,7 +35,6 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_igdb" Type="int" Nullable="false" />
           <Property Name="id_game" Type="int" Nullable="false" />
           <Property Name="id_developerPublisher" Type="int" Nullable="false" />
           <Property Name="tipo" Type="int" Nullable="false" />
@@ -330,7 +329,7 @@
           <Property Name="completo" Type="Boolean" Nullable="false" />
           <Property Name="formato" Type="Int32" Nullable="true" />
           <NavigationProperty Name="game_genre" Relationship="GamesModel.FK_game_genre_game" FromRole="GameEntity" ToRole="game_genre" />
-          <Property Name="nota" Type="Decimal" Nullable="true" Precision="3" Scale="1" />
+          <Property Name="nota" Type="Decimal" Nullable="true" Precision="2" Scale="1" />
         </EntityType>
         <EntityType Name="game_developerPublisher">
           <Key>
@@ -341,7 +340,6 @@
           <Property Name="id_developerPublisher" Type="Int32" Nullable="false" />
           <NavigationProperty Name="developerPublisher" Relationship="Self.FK_game_developerPublisher_developerPublisher" FromRole="game_developerPublisher" ToRole="developerPublisher" />
           <NavigationProperty Name="game" Relationship="Self.FK_game_developerPublisher_game" FromRole="game_developerPublisher" ToRole="game" />
-          <Property Name="id_igdb" Type="Int32" Nullable="false" />
           <Property Name="tipo" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="game_platform">
@@ -654,7 +652,6 @@
             <EntityTypeMapping TypeName="GamesModel.game_developerPublisher">
               <MappingFragment StoreEntitySet="game_developerPublisher">
                 <ScalarProperty Name="tipo" ColumnName="tipo" />
-                <ScalarProperty Name="id_igdb" ColumnName="id_igdb" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="id_game" ColumnName="id_game" />
                 <ScalarProperty Name="id_developerPublisher" ColumnName="id_developerPublisher" />
