@@ -77,6 +77,7 @@ namespace Games.Models.ViewModel {
         [Display(Name = "Tamanho")]
         public decimal? Tamanho { get; set; }
 
+        public string Imagem { get; set; }
         public string CloudnaryId { get; set; }
 
         public enum formato { Fisíco=1, Digital=2 };

@@ -36,12 +36,7 @@ namespace Games.Models.Repository {
 
             db.SaveChanges();
 
-            if (game.cloudnary_id != null) {
-                WebClient webClient = new WebClient();
-                webClient.DownloadFile(dadosGame.BigCoverUrl+dadosGame.CloudnaryId, AppDomain.CurrentDomain.BaseDirectory + "images\\" + game.id+"_BigCover_"+game.cloudnary_id+".jpg");
-                webClient.DownloadFile(dadosGame.BigCoverUrl2x + dadosGame.CloudnaryId, AppDomain.CurrentDomain.BaseDirectory + "images\\" + game.id + "_BigCover2x_" + game.cloudnary_id + ".jpg");
-                webClient.DownloadFile(dadosGame.SmallCoverUrl + dadosGame.CloudnaryId, AppDomain.CurrentDomain.BaseDirectory + "images\\" + game.id + "_SmallCover_" + game.cloudnary_id + ".jpg");
-            }
+            SaveImagemGame();
         }
 
         public void Alterar(GameDataView dados) {
@@ -67,14 +62,10 @@ namespace Games.Models.Repository {
 
             db.SaveChanges();
 
-            if (game.cloudnary_id != null) {
-                WebClient webClient = new WebClient();
-                webClient.DownloadFile(dadosGame.BigCoverUrl + dadosGame.CloudnaryId, AppDomain.CurrentDomain.BaseDirectory + "images\\" + game.id + "_BigCover_" + game.cloudnary_id + ".jpg");
-                webClient.DownloadFile(dadosGame.BigCoverUrl2x + dadosGame.CloudnaryId, AppDomain.CurrentDomain.BaseDirectory + "images\\" + game.id + "_BigCover2x_" + game.cloudnary_id + ".jpg");
-                webClient.DownloadFile(dadosGame.SmallCoverUrl + dadosGame.CloudnaryId, AppDomain.CurrentDomain.BaseDirectory + "images\\" + game.id + "_SmallCover_" + game.cloudnary_id + ".jpg");
-            }
+            SaveImagemGame();
         }
 
+        #region dados
         private void SetDadosgame() {
             game.id_igdb = dadosGame.id_igdb;
             game.name = dadosGame.Titulo;
@@ -188,6 +179,16 @@ namespace Games.Models.Repository {
                 db.game_genre.Remove(gg);
             }
         }
+
+        private void SaveImagemGame() {
+            if (game.cloudnary_id != null) {
+                WebClient webClient = new WebClient();
+                webClient.DownloadFile(dadosGame.Imagem, AppDomain.CurrentDomain.BaseDirectory + "images\\" + game.id + "_BigCover_" + game.cloudnary_id + ".jpg");
+                webClient.DownloadFile(dadosGame.Imagem, AppDomain.CurrentDomain.BaseDirectory + "images\\" + game.id + "_BigCover2x_" + game.cloudnary_id + ".jpg");
+                webClient.DownloadFile(dadosGame.Imagem, AppDomain.CurrentDomain.BaseDirectory + "images\\" + game.id + "_SmallCover_" + game.cloudnary_id + ".jpg");
+            }
+        }
+        #endregion
 
         public GameEntity BuscarDados(int id) {
             GameEntity game = db.game.Find(id);

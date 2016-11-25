@@ -161,9 +161,10 @@
                     <div class="col-md-4">
                         <fieldset class="form-group">
                             <legend><label>Capa</label></legend>
-                            @if (!@Model.CloudnaryId.IsEmpty()) {
+                            @if (!@Model.Imagem.IsEmpty()) {
                                 @Html.HiddenFor(model => model.CloudnaryId, @Model.CloudnaryId);
-                                <img class="img-rounded img-responsive" style="position:absolute" src="@Model.BigCoverUrl/@Model.CloudnaryId">
+                                @Html.HiddenFor(model => model.Imagem, @Model.Imagem);
+                                <img class="img-rounded img-responsive" style="position:absolute" src="@Model.Imagem">
                             }
                         </fieldset>
                     </div>

@@ -3,7 +3,6 @@ using Games.Models.Repository;
 using Games.Models.ViewModel;
 using Igdb.ResponseModels;
 using Igdb.Services;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,6 +74,7 @@ namespace Games.Controllers {
             gameDataView.Descricao = response.Summary;
 
             if (response.Cover != null) {
+                gameDataView.Imagem = gameDataView.BigCoverUrl+response.Cover.CloudinaryId;
                 gameDataView.CloudnaryId = response.Cover.CloudinaryId;
             }
 
@@ -135,7 +135,9 @@ namespace Games.Controllers {
             gameDataView.Tamanho = game.tamanho;
             gameDataView.Loja = game.store.name;
 
-            if (game.cloudnary_id != null) {
+            string arquivo = gameDataView.Imagesfolder + game.id + "_BigCover_" + game.cloudnary_id + ".jpg";
+            if (System.IO.File.Exists(arquivo)) {
+                gameDataView.Imagem = "/images/" + game.id + "_BigCover_" + game.cloudnary_id + ".jpg"; ;
                 gameDataView.CloudnaryId = game.cloudnary_id;
             }
 
