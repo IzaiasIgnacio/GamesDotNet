@@ -91,14 +91,30 @@ namespace Games.Models.Repository {
             game.cloudnary_id = dadosGame.CloudnaryId;
 
             db.Entry(game).State = EntityState.Modified;
-            db.SaveChanges();
 
-            /*foreach (game_platform plataforma in dadosGame.Platforms) {
+            foreach (game_platform plataforma in dadosGame.Platforms) {
                 plataforma.id_game = game.id;
-                db.game_platform.Add(plataforma);
+                if (plataforma.id == 0) {
+                    db.game_platform.Add(plataforma);
+                }
+                else {
+                    db.Entry(plataforma).State = EntityState.Modified;
+                }
             }
 
-            foreach (developerPublisher dev in dadosGame.ListaDeveloper) {
+            int[] plats = dadosGame.Platforms.Select(p => p.id).ToArray();
+            List<game_platform> excluirPlataformas = db.game_platform.
+                Where(p => !plats.Contains(p.id)).
+                Where(p => p.id_game == game.id).
+                ToList();
+
+            foreach (game_platform gp in excluirPlataformas) {
+                db.game_platform.Remove(gp);
+            }
+            
+            db.SaveChanges();
+
+            /*foreach (developerPublisher dev in dadosGame.ListaDeveloper) {
                 dev.id = developerPublisher.GetIdByIgdb(dev.id_igdb, dev.name);
                 db.game_developerPublisher.Add(new game_developerPublisher {
                     id_developerPublisher = dev.id,

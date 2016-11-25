@@ -177,6 +177,7 @@ namespace Games.Controllers {
 
             foreach (game_platform lancamento in game.game_platform) {
                 gameDataView.Platforms.Add(new game_platform {
+                    id = lancamento.id,
                     id_platform = lancamento.id_platform,
                     id_status = lancamento.id_status,
                     release_date = lancamento.release_date,
