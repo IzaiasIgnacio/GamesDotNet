@@ -85,10 +85,16 @@ textarea {
 }
 
 #modal_game .modal-content .select_plataforma {
-    min-width: 18%;
-    width: 18%;
+    min-width: 8%;
+    width: 8%;
     clear:both;
     display: inline;
+    margin-bottom: 2px;
+}
+
+#modal_game .modal-content .maior {
+    min-width: 10%;
+    width: 10%;
 }
 
 #modal_game .modal-content, .modal-content legend {
@@ -152,7 +158,7 @@ textarea {
 .plataformas {
     padding: 15px;
     padding-top: 0;
-    width: 69%
+    width: 100%;
 }
 
 .form-group p {

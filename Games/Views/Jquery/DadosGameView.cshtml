@@ -1,190 +1,115 @@
 ﻿@model Games.Models.ViewModel.GameDataView
-<script>
-    $(function () {
-        //incluir linha de plataforma
-        $("#btn_add").click(function () {
-            $.post("/Jquery/AdicionarPlataformaJquery",
-            function (resposta) {
-                $(".span_plataformas").append(resposta);
-            });
-        });
-        //remover linha de plataforma
-        $(".fieldset_plataformas").on("click", ".remover_plataforma", function () {
-            $(this).closest(".plataforma_status").fadeOut('normal', function () {
-                $(this).remove();
-            });
-        });
-        //buscar jogos no igdb por titulo
-        $(".btn_buscar_igdb").click(function () {
-            $.post("/Jquery/BuscarJogoJquery", { search: $("#Titulo").val() },
-            function (resposta) {
-                $("#lista_resultados").html(resposta);
-                $("#lista_resultados").slideDown();
-            });
-        });
-        //carregar formulario com dados do igdb
-        $("#lista_resultados").on("click", ".div_resultados .row", function () {
-            $.post("/Jquery/PreencherDadosGameIgdbJquery", { id_igdb: $(this).find(".id_igdb").val() },
-            function (resposta) {
-                $("#DadosGameView").html(resposta);
-                $("#modal_game").modal('show');
-                $("#lista_resultados").fadeOut();
-            });
-        });
-        //salvar novo jogo
-        $("#DadosGameView").off().on("click", ".salvar", function (e) {
-            var acao = '';
-            if ($("#Id").val() == '') {
-                acao = "/Jquery/SalvarNovoJogoJquery";
-            }
-            else {
-                acao = "/Jquery/AlterarJogoJquery";
-            }
-
-            var array = $("#form_game").serializeArray();
-            var json = {};
-
-            jQuery.each(array, function () {
-                json[this.name] = this.value || '';
-            });
-
-            $.ajax({
-                url: acao,
-                type: 'POST',
-                contentType: 'application/json',
-                dataType: 'string',
-                data: JSON.stringify(json)
-            });
-        });
-    });
-</script>
-<div class="modal fade" id="modal_game" role="dialog" tabindex="-1">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Game</h4>
-            </div>
-            <form id="form_game">
-                @Html.HiddenFor(model => Model.Id, new { @Value = Model.Id })
-                @Html.HiddenFor(model=>model.id_igdb,new { @Value = Model.id_igdb })
-                <div class="modal-body row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Titulo, new { @style = "display:block" })
-                            @Html.TextBoxFor(model => model.Titulo, new { @class = "form-control", @placeholder = "Título", @Value = Model.Titulo })
-                            @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
-                            <button type="button" class="btn btn-primary btn_buscar_igdb"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                            <span id="lista_resultados" style="display:none"></span>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Descricao)
-                            <br />
-                            @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control", @html = Model.Descricao, @rows = "4" })
-                            @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.ListaDeveloper)
-                            <p>
-                                @string.Join(", ", Model.ListaDeveloper.Select(d=>d.name).ToList())
-                            </p>
-                            @for (int i = 0; i < Model.ListaDeveloper.Count; i++) {
-                                @Html.HiddenFor(model => Model.ListaDeveloper[i].id, new { @Value = Model.ListaDeveloper[i].id })
-                                @Html.HiddenFor(model => Model.ListaDeveloper[i].id_igdb,new { @Value = Model.ListaDeveloper[i].id_igdb })
-                                @Html.HiddenFor(model => Model.ListaDeveloper[i].name, new { @Value = Model.ListaDeveloper[i].name })
-                            }
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.ListaPublisher)
-                            <p>
-                                @string.Join(", ", Model.ListaPublisher.Select(p => p.name).ToList())
-                            </p>
-                            @for (int i = 0; i < Model.ListaPublisher.Count; i++) {
-                                @Html.HiddenFor(model => Model.ListaPublisher[i].id, new { @Value = Model.ListaPublisher[i].id })
-                                @Html.HiddenFor(model => Model.ListaPublisher[i].id_igdb, new { @Value = Model.ListaPublisher[i].id_igdb })
-                                @Html.HiddenFor(model => Model.ListaPublisher[i].name, new { @Value = Model.ListaPublisher[i].name })
-                            }
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.ListaGenre)
-                            <p>
-                                @string.Join(", ", Model.ListaGenre.Select(g => g.name).ToList())
-                            </p>
-                            @for (int i = 0; i < Model.ListaGenre.Count; i++) {
-                                @Html.HiddenFor(model => Model.ListaGenre[i].id, new { @Value = Model.ListaGenre[i].id })
-                                @Html.HiddenFor(model => Model.ListaGenre[i].id_igdb, new { @Value = Model.ListaGenre[i].id_igdb })
-                                @Html.HiddenFor(model => Model.ListaGenre[i].name, new { @Value = Model.ListaGenre[i].name })
-                            }
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Metacritic)
-                            @Html.EditorFor(model => model.Metacritic, new { htmlAttributes = new { @class = "form-control", @placeholder = "Metacritic", @Value = Model.Metacritic } })
-                            @Html.ValidationMessageFor(model => model.Metacritic, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Nota)
-                            @Html.EditorFor(model => model.Nota, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nota", @Value = Model.Nota } })
-                            @Html.ValidationMessageFor(model => model.Nota, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Preco)
-                            @Html.EditorFor(model => model.Preco, new { htmlAttributes = new { @class = "form-control", @placeholder = "Preço", @Value = Model.Preco } })
-                            @Html.ValidationMessageFor(model => model.Preco, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Tamanho)
-                            @Html.EditorFor(model => model.Tamanho, new { htmlAttributes = new { @class = "form-control", @placeholder = "Tamanho", @Value = Model.Tamanho } })
-                            @Html.ValidationMessageFor(model => model.Tamanho, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Formato)
-                            @Html.EnumDropDownListFor(model => model.Formato, "Formato", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Formato, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Loja)
-                            <input type="text" name="loja" list="lista_loja" class="form-control" value="@Model.Loja">
-                            <datalist id="lista_loja">
-                                @foreach (var loja in Model.ListaLoja) {
-                                    <option value="@loja.name">@loja.name</option>
-                                }
-                            </datalist>
-                            @Html.ValidationMessageFor(model => model.Loja, "", new { @class = "text-danger" })
-                        </div>
-                        <div>
-                            <input class="form-check-input" data-val="true" id="Completo" name="Completo" type="checkbox" value="true">
-                            @Html.LabelFor(model => model.Completo)
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <fieldset class="form-group">
-                            <legend><label>Capa</label></legend>
-                            @if (!@Model.Imagem.IsEmpty()) {
-                                @Html.HiddenFor(model => model.CloudnaryId, @Model.CloudnaryId);
-                                @Html.HiddenFor(model => model.Imagem, @Model.Imagem);
-                                <img class="img-rounded img-responsive" style="position:absolute" src="@Model.Imagem">
-                            }
-                        </fieldset>
-                    </div>
-                </div>
-                <div class="plataformas row">
-                    <div class="col-md-12">
-                        <fieldset class="form-group fieldset_plataformas">
-                            <legend><label>Plataformas</label></legend>
-                            <span class="span_plataformas">
-                                @{Html.RenderPartial("~/Views/Jquery/PlatformStatusView.cshtml", Model);}
-                            </span>
-                            <input type="button" id="btn_add" value="+" class="btn btn-primary" />
-                        </fieldset>
-                    </div>
-                </div>
-            </form>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary salvar">Salvar</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-            </div>
+@Html.HiddenFor(model => Model.Id, new { @Value = Model.Id })
+@Html.HiddenFor(model=>model.id_igdb,new { @Value = Model.id_igdb })
+<div class="modal-body row">
+    <div class="col-md-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Titulo, new { @style = "display:block" })
+            @Html.TextBoxFor(model => model.Titulo, new { @class = "form-control", @placeholder = "Título", @Value = Model.Titulo })
+            @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+            <button type="button" class="btn btn-primary btn_buscar_igdb"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+            <span id="lista_resultados" style="display:none"></span>
         </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descricao)
+            <br />
+            @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control", @html = Model.Descricao, @rows = "4" })
+            @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ListaDeveloper)
+            <p>
+                @string.Join(", ", Model.ListaDeveloper.Select(d=>d.name).ToList())
+            </p>
+            @for (int i = 0; i < Model.ListaDeveloper.Count; i++) {
+                @Html.HiddenFor(model => Model.ListaDeveloper[i].id, new { @Value = Model.ListaDeveloper[i].id })
+                @Html.HiddenFor(model => Model.ListaDeveloper[i].id_igdb,new { @Value = Model.ListaDeveloper[i].id_igdb })
+                @Html.HiddenFor(model => Model.ListaDeveloper[i].name, new { @Value = Model.ListaDeveloper[i].name })
+            }
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ListaPublisher)
+            <p>
+                @string.Join(", ", Model.ListaPublisher.Select(p => p.name).ToList())
+            </p>
+            @for (int i = 0; i < Model.ListaPublisher.Count; i++) {
+                @Html.HiddenFor(model => Model.ListaPublisher[i].id, new { @Value = Model.ListaPublisher[i].id })
+                @Html.HiddenFor(model => Model.ListaPublisher[i].id_igdb, new { @Value = Model.ListaPublisher[i].id_igdb })
+                @Html.HiddenFor(model => Model.ListaPublisher[i].name, new { @Value = Model.ListaPublisher[i].name })
+            }
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ListaGenre)
+            <p>
+                @string.Join(", ", Model.ListaGenre.Select(g => g.name).ToList())
+            </p>
+            @for (int i = 0; i < Model.ListaGenre.Count; i++) {
+                @Html.HiddenFor(model => Model.ListaGenre[i].id, new { @Value = Model.ListaGenre[i].id })
+                @Html.HiddenFor(model => Model.ListaGenre[i].id_igdb, new { @Value = Model.ListaGenre[i].id_igdb })
+                @Html.HiddenFor(model => Model.ListaGenre[i].name, new { @Value = Model.ListaGenre[i].name })
+            }
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Metacritic)
+            @Html.EditorFor(model => model.Metacritic, new { htmlAttributes = new { @class = "form-control", @placeholder = "Metacritic", @Value = Model.Metacritic } })
+            @Html.ValidationMessageFor(model => model.Metacritic, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nota)
+            @Html.EditorFor(model => model.Nota, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nota", @Value = Model.Nota } })
+            @Html.ValidationMessageFor(model => model.Nota, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Preco)
+            @Html.EditorFor(model => model.Preco, new { htmlAttributes = new { @class = "form-control", @placeholder = "Preço", @Value = Model.Preco } })
+            @Html.ValidationMessageFor(model => model.Preco, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tamanho)
+            @Html.EditorFor(model => model.Tamanho, new { htmlAttributes = new { @class = "form-control", @placeholder = "Tamanho", @Value = Model.Tamanho } })
+            @Html.ValidationMessageFor(model => model.Tamanho, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Formato)
+            @Html.EnumDropDownListFor(model => model.Formato, "Formato", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Formato, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Loja)
+            <input type="text" name="loja" list="lista_loja" class="form-control" value="@Model.Loja">
+            <datalist id="lista_loja">
+                @foreach (var loja in Model.ListaLoja) {
+                    <option value="@loja.name">@loja.name</option>
+                }
+            </datalist>
+            @Html.ValidationMessageFor(model => model.Loja, "", new { @class = "text-danger" })
+        </div>
+        <div>
+            <input class="form-check-input" data-val="true" id="Completo" name="Completo" type="checkbox" value="true">
+            @Html.LabelFor(model => model.Completo)
+        </div>
+    </div>
+    <div class="col-md-4">
+        <fieldset class="form-group">
+            <legend><label>Capa</label></legend>
+            @if (!@Model.Imagem.IsEmpty()) {
+                @Html.HiddenFor(model => model.CloudnaryId, @Model.CloudnaryId);
+                @Html.HiddenFor(model => model.Imagem, @Model.Imagem);
+                <img class="img-rounded img-responsive" style="position:absolute" src="@Model.Imagem">
+            }
+        </fieldset>
+    </div>
+</div>
+<div class="plataformas row">
+    <div class="col-md-12">
+        <fieldset class="form-group fieldset_plataformas">
+            <legend><label>Plataformas</label></legend>
+            <span class="span_plataformas">
+                @{Html.RenderPartial("~/Views/Jquery/PlatformStatusView.cshtml", Model);}
+            </span>
+            <input type="button" id="btn_add" value="+" class="btn btn-primary" />
+        </fieldset>
     </div>
 </div>

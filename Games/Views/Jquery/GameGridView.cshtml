@@ -5,7 +5,7 @@
         $(".thumbnail").click(function () {
             $.post("/Jquery/PreencherDadosGameEntityJquery", { id: $(this).find(".id").val() },
             function (resposta) {
-                $("#DadosGameView").html(resposta);
+                $("#form_game").html(resposta);
                 $("#modal_game").modal('show');
             });
         });

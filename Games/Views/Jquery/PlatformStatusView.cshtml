@@ -5,11 +5,23 @@
 @for (int i = 0; i < Model.Platforms.Count; i++) {
     <div class="form-group plataforma_status">
         @Html.HiddenFor(model => Model.Platforms[i].id, new { @Value = Model.Platforms[i].id })
-        @Html.DropDownListFor(model => Model.Platforms[i].id_platform, new SelectList(Model.ListaPlatform, "id", "name", Model.Platforms[i].id_platform), "Plataforma", new { @class = "form-control select_plataforma" })
+        @Html.DropDownListFor(model => Model.Platforms[i].id_platform, new SelectList(Model.ListaPlatform, "id", "name", Model.Platforms[i].id_platform), "Plataforma", new { @class = "form-control select_plataforma maior" })
         @Html.DropDownListFor(model => Model.Platforms[i].id_status, new SelectList(Model.ListaStatus, "id", "name", Model.Platforms[i].id_status), "Status", new { @class = "form-control select_plataforma" })
         @Html.EditorFor(model => Model.Platforms[i].release_date, new { htmlAttributes = new { @class = "form-control select_plataforma", @placeholder = "Lançamento", @Value = string.Format("{0:d}", Model.Platforms[i].release_date) } })
         @Html.DropDownListFor(model => Model.Platforms[i].id_region, new SelectList(Model.ListaRegion, "id", "name", Model.Platforms[i].id_region), "Região", new { @class = "form-control select_plataforma" })
-        @Html.DropDownListFor(model => Model.Platforms[i].id_rating, new SelectList(Model.ListaRating, "id", "name", Model.Platforms[i].id_rating), "Classificação", new { @class = "form-control select_plataforma" })
+        @Html.DropDownListFor(model => Model.Platforms[i].id_rating, new SelectList(Model.ListaRating, "id", "name", Model.Platforms[i].id_rating), "Classificação", new { @class = "form-control select_plataforma maior" })
+        @Html.EditorFor(model => model.Metacritic, new { htmlAttributes = new { @class = "form-control select_plataforma", @placeholder = "Metacritic", @Value = Model.Metacritic } })
+        @Html.EditorFor(model => model.Nota, new { htmlAttributes = new { @class = "form-control select_plataforma", @placeholder = "Nota", @Value = Model.Nota } })
+        @Html.EditorFor(model => model.Preco, new { htmlAttributes = new { @class = "form-control select_plataforma", @placeholder = "Preço", @Value = Model.Preco } })
+        @Html.EditorFor(model => model.Tamanho, new { htmlAttributes = new { @class = "form-control select_plataforma", @placeholder = "Tamanho", @Value = Model.Tamanho } })
+        @Html.EnumDropDownListFor(model => model.Formato, "Formato", new { @class = "form-control select_plataforma" })
+        <input type="text" name="loja" list="lista_loja" class="form-control select_plataforma maior" value="@Model.Loja" placeholder="Loja">
+        <datalist id="lista_loja">
+            @foreach (var loja in Model.ListaLoja)
+            {
+                <option value="@loja.name">@loja.name</option>
+            }
+        </datalist>
         <input type="button" value="-" class="btn btn-danger remover_plataforma" />
     </div>
 }

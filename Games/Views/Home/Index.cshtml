@@ -2,6 +2,64 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width" />
+        <script>
+            $(function () {
+                //incluir linha de plataforma
+                $("#btn_add").click(function () {
+                    $.post("/Jquery/AdicionarPlataformaJquery",
+                    function (resposta) {
+                        $(".span_plataformas").append(resposta);
+                    });
+                });
+                //remover linha de plataforma
+                $(".fieldset_plataformas").on("click", ".remover_plataforma", function () {
+                    $(this).closest(".plataforma_status").fadeOut('normal', function () {
+                        $(this).remove();
+                    });
+                });
+                //buscar jogos no igdb por titulo
+                $(".btn_buscar_igdb").click(function () {
+                    $.post("/Jquery/BuscarJogoJquery", { search: $("#Titulo").val() },
+                    function (resposta) {
+                        $("#lista_resultados").html(resposta);
+                        $("#lista_resultados").slideDown();
+                    });
+                });
+                //carregar formulario com dados do igdb
+                $("#lista_resultados").on("click", ".div_resultados .row", function () {
+                    $.post("/Jquery/PreencherDadosGameIgdbJquery", { id_igdb: $(this).find(".id_igdb").val() },
+                    function (resposta) {
+                        $("#form_game").html(resposta);
+                        $("#lista_resultados").fadeOut();
+                    });
+                });
+                //salvar novo jogo
+                $("#form_game").off().on("click", ".salvar", function (e) {
+                    var acao = '';
+                    if ($("#Id").val() == '') {
+                        acao = "/Jquery/SalvarNovoJogoJquery";
+                    }
+                    else {
+                        acao = "/Jquery/AlterarJogoJquery";
+                    }
+
+                    var array = $("#form_game").serializeArray();
+                    var json = {};
+
+                    jQuery.each(array, function () {
+                        json[this.name] = this.value || '';
+                    });
+
+                    $.ajax({
+                        url: acao,
+                        type: 'POST',
+                        contentType: 'application/json',
+                        dataType: 'string',
+                        data: JSON.stringify(json)
+                    });
+                });
+            });
+        </script>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -29,9 +87,23 @@
                 </div>
             </div>
         </nav>
-        <span id="DadosGameView">
-            @{Html.RenderPartial("~/Views/Jquery/DadosGameView.cshtml", new Games.Models.ViewModel.GameDataView());}
-        </span>
+        <div class="modal fade" id="modal_game" role="dialog" tabindex="-1">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Game</h4>
+                    </div>
+                    <form id="form_game">
+                        @{Html.RenderPartial("~/Views/Jquery/DadosGameView.cshtml", new Games.Models.ViewModel.GameDataView());}
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary salvar">Salvar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <span id="GameListView">
                 @{Html.RenderAction("ListaJogosIndex", "Jquery");}}
