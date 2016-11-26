@@ -89,12 +89,11 @@ textarea {
     width: 8%;
     clear:both;
     display: inline;
-    margin-bottom: 2px;
 }
 
 #modal_game .modal-content .maior {
-    min-width: 10%;
-    width: 10%;
+    min-width: 12%;
+    width: 12%;
 }
 
 #modal_game .modal-content, .modal-content legend {

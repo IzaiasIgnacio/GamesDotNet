@@ -21,11 +21,17 @@ namespace Games.Models.Entity
         public Nullable<System.DateTime> release_date { get; set; }
         public Nullable<int> id_region { get; set; }
         public Nullable<int> id_rating { get; set; }
+        public Nullable<int> metacritic { get; set; }
+        public Nullable<decimal> preco { get; set; }
+        public Nullable<int> formato { get; set; }
+        public Nullable<decimal> tamanho { get; set; }
+        public Nullable<int> id_store { get; set; }
     
         public virtual GameEntity game { get; set; }
         public virtual platform platform { get; set; }
         public virtual status status { get; set; }
         public virtual rating rating { get; set; }
         public virtual region region { get; set; }
+        public virtual store store { get; set; }
     }
 }

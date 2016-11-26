@@ -24,22 +24,16 @@ namespace Games.Models.Entity
     
         public int id { get; set; }
         public string name { get; set; }
-        public Nullable<decimal> preco { get; set; }
-        public Nullable<int> metacritic { get; set; }
         public string summary { get; set; }
-        public Nullable<decimal> tamanho { get; set; }
-        public Nullable<int> id_store { get; set; }
         public string cloudnary_id { get; set; }
         public Nullable<int> id_igdb { get; set; }
         public bool completo { get; set; }
-        public Nullable<int> formato { get; set; }
         public Nullable<decimal> nota { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<game_developerPublisher> game_developerPublisher { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<game_platform> game_platform { get; set; }
-        public virtual store store { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<game_genre> game_genre { get; set; }
     }

@@ -2,64 +2,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width" />
-        <script>
-            $(function () {
-                //incluir linha de plataforma
-                $("#btn_add").click(function () {
-                    $.post("/Jquery/AdicionarPlataformaJquery",
-                    function (resposta) {
-                        $(".span_plataformas").append(resposta);
-                    });
-                });
-                //remover linha de plataforma
-                $(".fieldset_plataformas").on("click", ".remover_plataforma", function () {
-                    $(this).closest(".plataforma_status").fadeOut('normal', function () {
-                        $(this).remove();
-                    });
-                });
-                //buscar jogos no igdb por titulo
-                $(".btn_buscar_igdb").click(function () {
-                    $.post("/Jquery/BuscarJogoJquery", { search: $("#Titulo").val() },
-                    function (resposta) {
-                        $("#lista_resultados").html(resposta);
-                        $("#lista_resultados").slideDown();
-                    });
-                });
-                //carregar formulario com dados do igdb
-                $("#lista_resultados").on("click", ".div_resultados .row", function () {
-                    $.post("/Jquery/PreencherDadosGameIgdbJquery", { id_igdb: $(this).find(".id_igdb").val() },
-                    function (resposta) {
-                        $("#form_game").html(resposta);
-                        $("#lista_resultados").fadeOut();
-                    });
-                });
-                //salvar novo jogo
-                $("#form_game").off().on("click", ".salvar", function (e) {
-                    var acao = '';
-                    if ($("#Id").val() == '') {
-                        acao = "/Jquery/SalvarNovoJogoJquery";
-                    }
-                    else {
-                        acao = "/Jquery/AlterarJogoJquery";
-                    }
-
-                    var array = $("#form_game").serializeArray();
-                    var json = {};
-
-                    jQuery.each(array, function () {
-                        json[this.name] = this.value || '';
-                    });
-
-                    $.ajax({
-                        url: acao,
-                        type: 'POST',
-                        contentType: 'application/json',
-                        dataType: 'string',
-                        data: JSON.stringify(json)
-                    });
-                });
-            });
-        </script>
+        <script src="~/Scripts/funcoes.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">

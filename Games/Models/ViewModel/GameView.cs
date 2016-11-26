@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc.Html;
 
 namespace Games.Models.ViewModel {
 
@@ -82,7 +83,7 @@ namespace Games.Models.ViewModel {
 
         public enum formato { Fisíco=1, Digital=2 };
         [Display(Name = "Formato")]
-        public formato? Formato { get; set; }
+        public formato? Formato { get { return new formato(); } }
 
         public List<platform> ListaPlatform {
             get {
@@ -116,9 +117,7 @@ namespace Games.Models.ViewModel {
                 platforms = value;
             }
         }
-
-        [Display(Name = "Loja")]
-        public string Loja { get; set; }
+        
         public List<store> ListaLoja {
             get {
                 return gameRepository.Listar<store>();

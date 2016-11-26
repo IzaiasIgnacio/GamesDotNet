@@ -12,11 +12,10 @@
         <EntityTypeShape EntityType="GamesModel.platform" Width="1.5" PointX="8.875" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="GamesModel.rating" Width="1.5" PointX="11.75" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="GamesModel.region" Width="1.5" PointX="11.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="GamesModel.store" Width="1.5" PointX="4.5" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GamesModel.store" Width="1.5" PointX="6.75" PointY="6.5" IsExpanded="true" />
         <AssociationConnector Association="GamesModel.FK_game_developerPublisher_developerPublisher" ManuallyRouted="false" />
         <AssociationConnector Association="GamesModel.FK_game_developerPublisher_game" ManuallyRouted="false" />
         <AssociationConnector Association="GamesModel.FK_game_platform_game" ManuallyRouted="false" />
-        <AssociationConnector Association="GamesModel.FK_game_store" ManuallyRouted="false" />
         <AssociationConnector Association="GamesModel.FK_game_platform_platform" ManuallyRouted="false" />
         <AssociationConnector Association="GamesModel.FK_rating_region" ManuallyRouted="false" />
         <EntityTypeShape EntityType="GamesModel.status" Width="1.5" PointX="4.75" PointY="7.25" />
@@ -27,6 +26,7 @@
         <EntityTypeShape EntityType="GamesModel.genre" Width="1.5" PointX="8.875" PointY="0.5" />
         <AssociationConnector Association="GamesModel.FK_game_genre_game" />
         <AssociationConnector Association="GamesModel.FK_game_genre_genre" />
+        <AssociationConnector Association="GamesModel.FK_game_platform_store" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

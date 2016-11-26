@@ -1,4 +1,62 @@
 ﻿@model Games.Models.ViewModel.GameDataView
+<script>
+    $(function () {
+        //incluir linha de plataforma
+        $("#btn_add").click(function () {
+            $.post("/Jquery/AdicionarPlataformaJquery",
+            function (resposta) {
+                $(".span_plataformas").append(resposta);
+            });
+        });
+        //remover linha de plataforma
+        $(".fieldset_plataformas").on("click", ".remover_plataforma", function () {
+            $(this).closest(".plataforma_status").fadeOut('normal', function () {
+                $(this).remove();
+            });
+        });
+        //buscar jogos no igdb por titulo
+        $(".btn_buscar_igdb").click(function () {
+            $.post("/Jquery/BuscarJogoJquery", { search: $("#Titulo").val() },
+            function (resposta) {
+                $("#lista_resultados").html(resposta);
+                $("#lista_resultados").slideDown();
+            });
+        });
+        //carregar formulario com dados do igdb
+        $("#lista_resultados").on("click", ".div_resultados .row", function () {
+            $.post("/Jquery/PreencherDadosGameIgdbJquery", { id_igdb: $(this).find(".id_igdb").val(), Id: $("#modal_game #Id").val() },
+            function (resposta) {
+                $("#form_game").html(resposta);
+                $("#lista_resultados").fadeOut();
+            });
+        });
+        //salvar novo jogo
+        $("#modal_game").off().on("click", ".salvar", function () {
+            var acao = '';
+            if ($("#modal_game #Id").val() == '') {
+                acao = "/Jquery/SalvarNovoJogoJquery";
+            }
+            else {
+                acao = "/Jquery/AlterarJogoJquery";
+            }
+
+            var array = $("#form_game").serializeArray();
+            var json = {};
+
+            jQuery.each(array, function () {
+                json[this.name] = this.value || '';
+            });
+            
+            $.ajax({
+                url: acao,
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'string',
+                data: JSON.stringify(json)
+            });
+        });
+    });
+</script>
 @Html.HiddenFor(model => Model.Id, new { @Value = Model.Id })
 @Html.HiddenFor(model=>model.id_igdb,new { @Value = Model.id_igdb })
 <div class="modal-body row">
@@ -49,42 +107,12 @@
                 @Html.HiddenFor(model => Model.ListaGenre[i].name, new { @Value = Model.ListaGenre[i].name })
             }
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Metacritic)
-            @Html.EditorFor(model => model.Metacritic, new { htmlAttributes = new { @class = "form-control", @placeholder = "Metacritic", @Value = Model.Metacritic } })
-            @Html.ValidationMessageFor(model => model.Metacritic, "", new { @class = "text-danger" })
-        </div>
     </div>
     <div class="col-md-4">
         <div class="form-group">
             @Html.LabelFor(model => model.Nota)
             @Html.EditorFor(model => model.Nota, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nota", @Value = Model.Nota } })
             @Html.ValidationMessageFor(model => model.Nota, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Preco)
-            @Html.EditorFor(model => model.Preco, new { htmlAttributes = new { @class = "form-control", @placeholder = "Preço", @Value = Model.Preco } })
-            @Html.ValidationMessageFor(model => model.Preco, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Tamanho)
-            @Html.EditorFor(model => model.Tamanho, new { htmlAttributes = new { @class = "form-control", @placeholder = "Tamanho", @Value = Model.Tamanho } })
-            @Html.ValidationMessageFor(model => model.Tamanho, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Formato)
-            @Html.EnumDropDownListFor(model => model.Formato, "Formato", new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Formato, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Loja)
-            <input type="text" name="loja" list="lista_loja" class="form-control" value="@Model.Loja">
-            <datalist id="lista_loja">
-                @foreach (var loja in Model.ListaLoja) {
-                    <option value="@loja.name">@loja.name</option>
-                }
-            </datalist>
-            @Html.ValidationMessageFor(model => model.Loja, "", new { @class = "text-danger" })
         </div>
         <div>
             <input class="form-check-input" data-val="true" id="Completo" name="Completo" type="checkbox" value="true">

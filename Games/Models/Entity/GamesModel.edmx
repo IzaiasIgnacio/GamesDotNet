@@ -20,15 +20,10 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_igdb" Type="int" />
           <Property Name="name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="nota" Type="decimal" Precision="2" Scale="1" />
-          <Property Name="preco" Type="decimal" Precision="5" Scale="2" />
-          <Property Name="metacritic" Type="int" />
+          <Property Name="nota" Type="decimal" Precision="3" Scale="1" />
           <Property Name="completo" Type="bit" Nullable="false" />
           <Property Name="summary" Type="text" />
-          <Property Name="formato" Type="int" />
-          <Property Name="tamanho" Type="decimal" Precision="5" Scale="2" />
           <Property Name="cloudnary_id" Type="nvarchar" MaxLength="50" />
-          <Property Name="id_store" Type="int" />
         </EntityType>
         <EntityType Name="game_developerPublisher">
           <Key>
@@ -53,6 +48,11 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="release_date" Type="date" />
+          <Property Name="metacritic" Type="int" />
+          <Property Name="preco" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="formato" Type="int" />
+          <Property Name="tamanho" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="id_store" Type="int" />
           <Property Name="id_game" Type="int" Nullable="false" />
           <Property Name="id_platform" Type="int" Nullable="false" />
           <Property Name="id_status" Type="int" Nullable="false" />
@@ -205,25 +205,25 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_game_platform_status">
-          <End Role="status" Type="Self.status" Multiplicity="1" />
-          <End Role="game_platform" Type="Self.game_platform" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="status">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="game_platform">
-              <PropertyRef Name="id_status" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_game_store">
           <End Role="store" Type="Self.store" Multiplicity="0..1" />
-          <End Role="game" Type="Self.game" Multiplicity="*" />
+          <End Role="game_platform" Type="Self.game_platform" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="store">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="game">
+            <Dependent Role="game_platform">
+              <PropertyRef Name="id_store" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_platform_store">
+          <End Role="store" Type="Self.store" Multiplicity="0..1" />
+          <End Role="game_platform" Type="Self.game_platform" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="store">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game_platform">
               <PropertyRef Name="id_store" />
             </Dependent>
           </ReferentialConstraint>
@@ -285,12 +285,12 @@
             <End Role="game_platform" EntitySet="game_platform" />
           </AssociationSet>
           <AssociationSet Name="FK_game_platform_status" Association="Self.FK_game_platform_status">
-            <End Role="status" EntitySet="status" />
+            <End Role="store" EntitySet="store" />
             <End Role="game_platform" EntitySet="game_platform" />
           </AssociationSet>
-          <AssociationSet Name="FK_game_store" Association="Self.FK_game_store">
+          <AssociationSet Name="FK_game_platform_store" Association="Self.FK_game_platform_store">
             <End Role="store" EntitySet="store" />
-            <End Role="game" EntitySet="game" />
+            <End Role="game_platform" EntitySet="game_platform" />
           </AssociationSet>
           <AssociationSet Name="FK_rating_region" Association="Self.FK_rating_region">
             <End Role="region" EntitySet="region" />
@@ -316,20 +316,14 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="preco" Type="Decimal" Precision="5" Scale="2" />
-          <Property Name="metacritic" Type="Int32" />
           <Property Name="summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="tamanho" Type="Decimal" Precision="5" Scale="2" />
-          <Property Name="id_store" Type="Int32" />
           <NavigationProperty Name="game_developerPublisher" Relationship="Self.FK_game_developerPublisher_game" FromRole="game" ToRole="game_developerPublisher" />
           <NavigationProperty Name="game_platform" Relationship="Self.FK_game_platform_game" FromRole="game" ToRole="game_platform" />
-          <NavigationProperty Name="store" Relationship="Self.FK_game_store" FromRole="game" ToRole="store" />
           <Property Name="cloudnary_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="id_igdb" Type="Int32" />
           <Property Name="completo" Type="Boolean" Nullable="false" />
-          <Property Name="formato" Type="Int32" Nullable="true" />
           <NavigationProperty Name="game_genre" Relationship="GamesModel.FK_game_genre_game" FromRole="GameEntity" ToRole="game_genre" />
-          <Property Name="nota" Type="Decimal" Nullable="true" Precision="2" Scale="1" />
+          <Property Name="nota" Type="Decimal" Nullable="true" Precision="3" Scale="1" />
         </EntityType>
         <EntityType Name="game_developerPublisher">
           <Key>
@@ -358,6 +352,12 @@
           <Property Name="id_rating" Type="Int32" />
           <NavigationProperty Name="rating" Relationship="GamesModel.FK_game_platform_rating" FromRole="game_platform" ToRole="rating" />
           <NavigationProperty Name="region" Relationship="GamesModel.FK_game_platform_region" FromRole="game_platform" ToRole="region" />
+          <Property Name="metacritic" Type="Int32" />
+          <Property Name="preco" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="formato" Type="Int32" />
+          <Property Name="tamanho" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="id_store" Type="Int32" />
+          <NavigationProperty Name="store" Relationship="GamesModel.FK_game_platform_store" FromRole="game_platform" ToRole="store" />
         </EntityType>
         <EntityType Name="platform">
           <Key>
@@ -397,7 +397,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="game" Relationship="Self.FK_game_store" FromRole="store" ToRole="game" />
+          <NavigationProperty Name="game_platform" Relationship="GamesModel.FK_game_platform_store" FromRole="store" ToRole="game_platform" />
         </EntityType>
         <Association Name="FK_game_developerPublisher_developerPublisher">
           <End Role="developerPublisher" Type="Self.developerPublisher" Multiplicity="1" />
@@ -432,18 +432,6 @@
             </Principal>
             <Dependent Role="game_platform">
               <PropertyRef Name="id_game" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_game_store">
-          <End Role="store" Type="Self.store" Multiplicity="0..1" />
-          <End Role="game" Type="GamesModel.GameEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="store">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="game">
-              <PropertyRef Name="id_store" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -492,10 +480,6 @@
             <End Role="game" EntitySet="game" />
             <End Role="game_platform" EntitySet="game_platform" />
           </AssociationSet>
-          <AssociationSet Name="FK_game_store" Association="Self.FK_game_store">
-            <End Role="store" EntitySet="store" />
-            <End Role="game" EntitySet="game" />
-          </AssociationSet>
           <AssociationSet Name="FK_game_platform_platform" Association="Self.FK_game_platform_platform">
             <End Role="platform" EntitySet="platform" />
             <End Role="game_platform" EntitySet="game_platform" />
@@ -526,6 +510,10 @@
           <AssociationSet Name="FK_game_genre_genre" Association="GamesModel.FK_game_genre_genre">
             <End Role="genre" EntitySet="genre" />
             <End Role="game_genre" EntitySet="game_genre" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_platform_store" Association="GamesModel.FK_game_platform_store">
+            <End Role="store" EntitySet="store" />
+            <End Role="game_platform" EntitySet="game_platform" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="status">
@@ -615,6 +603,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_game_platform_store">
+          <End Type="GamesModel.store" Role="store" Multiplicity="0..1" />
+          <End Type="GamesModel.game_platform" Role="game_platform" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="store">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game_platform">
+              <PropertyRef Name="id_store" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -634,18 +634,13 @@
             <EntityTypeMapping TypeName="GamesModel.GameEntity">
               <MappingFragment StoreEntitySet="game">
                 <ScalarProperty Name="nota" ColumnName="nota" />
-                <ScalarProperty Name="formato" ColumnName="formato" />
                 <ScalarProperty Name="completo" ColumnName="completo" />
                 <ScalarProperty Name="id_igdb" ColumnName="id_igdb" />
                 <ScalarProperty Name="cloudnary_id" ColumnName="cloudnary_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="preco" ColumnName="preco" />
-                <ScalarProperty Name="metacritic" ColumnName="metacritic" />
                 <ScalarProperty Name="summary" ColumnName="summary" />
-                <ScalarProperty Name="tamanho" ColumnName="tamanho" />
-                <ScalarProperty Name="id_store" ColumnName="id_store" />
-              </MappingFragment>
+                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="game_developerPublisher">
@@ -661,6 +656,11 @@
           <EntitySetMapping Name="game_platform">
             <EntityTypeMapping TypeName="GamesModel.game_platform">
               <MappingFragment StoreEntitySet="game_platform">
+                <ScalarProperty Name="id_store" ColumnName="id_store" />
+                <ScalarProperty Name="tamanho" ColumnName="tamanho" />
+                <ScalarProperty Name="formato" ColumnName="formato" />
+                <ScalarProperty Name="preco" ColumnName="preco" />
+                <ScalarProperty Name="metacritic" ColumnName="metacritic" />
                 <ScalarProperty Name="id_rating" ColumnName="id_rating" />
                 <ScalarProperty Name="id_region" ColumnName="id_region" />
                 <ScalarProperty Name="release_date" ColumnName="release_date" />

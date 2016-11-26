@@ -59,7 +59,7 @@ namespace Games.Controllers {
         }
 
         [HttpPost]
-        public ActionResult PreencherDadosGameIgdbJquery(int id_igdb) {
+        public ActionResult PreencherDadosGameIgdbJquery(int id_igdb, int Id = 0) {
             IgdbService igdb = new IgdbService();
             DadosGameResponse response = igdb.DadosJogo(id_igdb).FirstOrDefault();
 
@@ -69,6 +69,7 @@ namespace Games.Controllers {
             List<DadosGenreResponse> genres = igdb.DadosGenre(response.Genres.ToArray());
 
             GameDataView gameDataView = new GameDataView();
+            gameDataView.Id = Id;
             gameDataView.id_igdb = id_igdb;            
             gameDataView.Titulo = response.Name;
             gameDataView.Descricao = response.Summary;
@@ -128,16 +129,11 @@ namespace Games.Controllers {
             gameDataView.id_igdb = game.id_igdb;
             gameDataView.Titulo = game.name;
             gameDataView.Descricao = game.summary;
-            gameDataView.Formato = (GameDataView.formato)game.formato;
-            gameDataView.Metacritic = game.metacritic;
             gameDataView.Nota = game.nota;
-            gameDataView.Preco = game.preco;
-            gameDataView.Tamanho = game.tamanho;
-            gameDataView.Loja = game.store.name;
-
+            
             string arquivo = gameDataView.Imagesfolder + game.id + "_BigCover_" + game.cloudnary_id + ".jpg";
             if (System.IO.File.Exists(arquivo)) {
-                gameDataView.Imagem = "/images/" + game.id + "_BigCover_" + game.cloudnary_id + ".jpg"; ;
+                gameDataView.Imagem = "/images/" + game.id + "_BigCover_" + game.cloudnary_id + ".jpg";
                 gameDataView.CloudnaryId = game.cloudnary_id;
             }
 
@@ -165,11 +161,17 @@ namespace Games.Controllers {
             foreach (game_platform lancamento in game.game_platform) {
                 gameDataView.Platforms.Add(new game_platform {
                     id = lancamento.id,
+                    release_date = lancamento.release_date,
+                    metacritic = lancamento.metacritic,
+                    preco = lancamento.preco,
+                    formato = lancamento.formato,
+                    tamanho = lancamento.tamanho,
                     id_platform = lancamento.id_platform,
                     id_status = lancamento.id_status,
-                    release_date = lancamento.release_date,
                     id_region = lancamento.id_region,
-                    id_rating = lancamento.id_rating
+                    id_rating = lancamento.id_rating,
+                    id_store = lancamento.id_store,
+                    store = lancamento.store
                 });
             }
 
