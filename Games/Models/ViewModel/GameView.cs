@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
 namespace Games.Models.ViewModel {
@@ -30,6 +31,8 @@ namespace Games.Models.ViewModel {
     }
 
     public class GameListView : BasegameView {
+        public enum status { colecao = 1, wishlist = 2, watchlist = 3, plus = 4 }
+        public status Status { get;set; }
         private List<GameEntity> listaJogos;
         public List<GameEntity> ListaJogos {
             get {
@@ -84,6 +87,11 @@ namespace Games.Models.ViewModel {
         public enum formato { Fisíco=1, Digital=2 };
         [Display(Name = "Formato")]
         public formato? Formato { get { return new formato(); } }
+        public IList<SelectListItem> SelectFormato {
+            get {
+                return EnumHelper.GetSelectList(typeof(formato));
+            }
+        }
 
         public List<platform> ListaPlatform {
             get {

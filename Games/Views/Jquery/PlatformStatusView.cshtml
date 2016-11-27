@@ -15,8 +15,8 @@
         @Html.EditorFor(model => model.Platforms[i].tamanho, new { htmlAttributes = new { @class = "form-control select_plataforma", @placeholder = "Tamanho", @Value = Model.Platforms[i].tamanho } })
         <select name="Platforms[@i].formato" class="form-control select_plataforma">
             <option value="">Formato</option>
-            @foreach (SelectListItem item in EnumHelper.GetSelectList(Model.Formato.GetType())) {
-                <option value="@item.Value">@item.Text</option>
+            @for (int f = 0; f < Model.SelectFormato.Count; f++) {
+                <option value="@Model.SelectFormato[f].Value" @(Model.SelectFormato[f].Value.Equals(Model.Platforms[i].formato.ToString()) ? "selected" : "")>@Model.SelectFormato[f].Text</option>
             }
         </select>
         <input type="text" name="Platforms[@i].store.name" list="lista_loja" class="form-control select_plataforma maior" value="@(Model.Platforms[i].store != null ? Model.Platforms[i].store.name : "")" placeholder="Loja">

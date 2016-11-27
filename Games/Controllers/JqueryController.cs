@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 
 namespace Games.Controllers {
     public class JqueryController : BaseController {
@@ -25,10 +26,10 @@ namespace Games.Controllers {
             return PartialView("PlatformMenuView", layoutView);
         }
 
-        public ActionResult ListaJogosIndex() {
+        public ActionResult ListaJogosIndex(string status) {
             GameRepository gameRepository = new GameRepository();
             GameListView view = new GameListView();
-            view.ListaJogos = gameRepository.ListarJogos(layoutView.ativos);
+            view.ListaJogos = gameRepository.ListarJogos(layoutView.ativos, (int)Enum.Parse(typeof(GameListView.status), status));
             return PartialView("GameGridView", view);
         }
 
@@ -42,15 +43,17 @@ namespace Games.Controllers {
         }
 
         [HttpPost]
-        public void SalvarNovoJogoJquery(GameDataView dados) {
+        public JsonResult SalvarNovoJogoJquery(GameDataView dados) {
             GameRepository gameRepository = new GameRepository();
             gameRepository.Adicionar(dados);
+            return Json(new { sucesso = true });
         }
 
         [HttpPost]
-        public void AlterarJogoJquery(GameDataView dados) {
+        public JsonResult AlterarJogoJquery(GameDataView dados) {
             GameRepository gameRepository = new GameRepository();
             gameRepository.Alterar(dados);
+            return Json(new { resposta = true }, JsonRequestBehavior.AllowGet);
         }
         
         [HttpPost]
@@ -130,6 +133,7 @@ namespace Games.Controllers {
             gameDataView.Titulo = game.name;
             gameDataView.Descricao = game.summary;
             gameDataView.Nota = game.nota;
+            gameDataView.Completo = game.completo;
             
             string arquivo = gameDataView.Imagesfolder + game.id + "_BigCover_" + game.cloudnary_id + ".jpg";
             if (System.IO.File.Exists(arquivo)) {
@@ -174,7 +178,7 @@ namespace Games.Controllers {
                     store = lancamento.store
                 });
             }
-
+            
             return PartialView("DadosGameVIew", gameDataView);
         }
 

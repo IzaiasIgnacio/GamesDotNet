@@ -52,8 +52,15 @@
                 type: 'POST',
                 contentType: 'application/json',
                 dataType: 'string',
-                data: JSON.stringify(json)
+                data: JSON.stringify(json),
+                success: function (resposta) {
+                    console.log('a');
+                }
             });
+        });
+
+        $("#modal_game").on("click", ".cancelar", function () {
+            $("#modal_game").modal('hide');
         });
     });
 </script>
@@ -115,7 +122,7 @@
             @Html.ValidationMessageFor(model => model.Nota, "", new { @class = "text-danger" })
         </div>
         <div>
-            <input class="form-check-input" data-val="true" id="Completo" name="Completo" type="checkbox" value="true">
+            <input class="form-check-input" data-val="true" id="Completo" name="Completo" type="checkbox" value="true" @(Model.Completo == true ? "checked" : "")>
             @Html.LabelFor(model => model.Completo)
         </div>
     </div>

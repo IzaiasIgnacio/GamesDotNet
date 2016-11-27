@@ -78,15 +78,16 @@ namespace Games.Models.Repository {
         private void SetPlataformasGame() {
             foreach (game_platform plataforma in dadosGame.Platforms) {
                 plataforma.id_game = game.id;
-                plataforma.id_store = plataforma.store.id = loja.GetIdByName(plataforma.store.name);
+                plataforma.id_store = loja.GetIdByName(plataforma.store.name);
+                plataforma.store = db.store.Find(plataforma.id_store);
                 if (plataforma.id == 0) {
                     db.game_platform.Add(plataforma);
                 }
                 else {
                     db.Entry(plataforma).State = EntityState.Modified;
                 }
+                db.SaveChanges();
             }
-            db.SaveChanges();
         }
 
         private void RemovePlataformasGame() {
@@ -192,12 +193,13 @@ namespace Games.Models.Repository {
             return game;
         }
 
-        public List<GameEntity> ListarJogos(List<int> plataformas) {
+        public List<GameEntity> ListarJogos(List<int> plataformas, int status = 1) {
             List<GameEntity> ListaJogos;
             int[] plats = plataformas.ToArray();
             ListaJogos = (from game in db.game
                            join game_platform in db.game_platform on game.id equals game_platform.id_game
                            where plats.Contains(game_platform.id_platform)
+                           where game_platform.id_status == status
                            select game).OrderBy(game => game.name).ToList();
             return ListaJogos;
         }

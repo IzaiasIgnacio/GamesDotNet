@@ -20,9 +20,10 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active">@Html.ActionLink("Coleção", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Wishlist", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Watchlist", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Coleção", "Index/colecao", "Home")</li>
+                        <li>@Html.ActionLink("Wishlist", "Index/wishlist", "Home")</li>
+                        <li>@Html.ActionLink("Watchlist", "Index/watchlist", "Home")</li>
+                        <li>@Html.ActionLink("Plus", "Index/plus", "Home")</li>
                     </ul>
                     <span id="MenuPlataforma">
                         @{Html.RenderAction("MenuPlataformas", "Jquery");}
@@ -42,7 +43,7 @@
                     </form>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary salvar">Salvar</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger cancelar" data-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
             </div>
