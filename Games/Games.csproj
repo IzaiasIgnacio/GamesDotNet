@@ -177,6 +177,7 @@
       <DependentUpon>GamesModel.edmx</DependentUpon>
       <LastGenOutput>GamesModel.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\Entity\GamesModel.edmx.sql" />
     <Content Include="Models\Entity\GamesModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>GamesModel.edmx</DependentUpon>
@@ -290,6 +291,7 @@
     <Content Include="Views\Jquery\PlatformStatusView.cshtml" />
     <Content Include="Views\Jquery\GameResultView.cshtml" />
     <Content Include="Views\Jquery\GameGridView.cshtml" />
+    <Content Include="Views\Jquery\GameListView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

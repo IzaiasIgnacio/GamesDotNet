@@ -37,6 +37,10 @@ textarea {
     min-height: 270px;
 }
 
+.game_list .thumbnail {
+    min-height: 80px;
+}
+
 .caption h4 {
     color: #fff;
     -webkit-font-smoothing: antialiased;
@@ -187,4 +191,9 @@ textarea {
 .estilo_exibicao {
     text-align: right;
     font-size: 1.8em;
+}
+
+.game_list label {
+    color: #fff;
+    font-weight: bold;
 }

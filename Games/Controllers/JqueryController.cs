@@ -27,10 +27,28 @@ namespace Games.Controllers {
         }
 
         public ActionResult ListaJogosIndex(string status) {
+            string tipo = null;
             GameRepository gameRepository = new GameRepository();
             GameListView view = new GameListView();
             view.ListaJogos = gameRepository.ListarJogos(layoutView.ativos, (int)Enum.Parse(typeof(GameListView.status), status));
-            return PartialView("GameGridView", view);
+
+            if (tipo == null) {
+                switch (status) {
+                    case "colecao":
+                        tipo = "GameGridView";
+                    break;
+                    case "wishlist":
+                        tipo = "GameListView";
+                    break;
+                    case "watchlist":
+                        tipo = "GameListView";
+                    break;
+                    case "plus":
+                        tipo = "GameGridView";
+                    break;
+                }
+            }
+            return PartialView(tipo, view);
         }
 
         [HttpPost]

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/11/2016 15:11:23
+-- Date Created: 11/28/2016 12:05:14
 -- Generated from EDMX file: F:\new\Games\Models\Entity\GamesModel.edmx
 -- --------------------------------------------------
 
@@ -23,11 +23,11 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_game_developerPublisher_game]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[game_developerPublisher] DROP CONSTRAINT [FK_game_developerPublisher_game];
 GO
-IF OBJECT_ID(N'[dbo].[FK_game_gender_game]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[game_gender] DROP CONSTRAINT [FK_game_gender_game];
+IF OBJECT_ID(N'[dbo].[FK_game_genre_game]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[game_genre] DROP CONSTRAINT [FK_game_genre_game];
 GO
-IF OBJECT_ID(N'[dbo].[FK_game_gender_gender]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[game_gender] DROP CONSTRAINT [FK_game_gender_gender];
+IF OBJECT_ID(N'[dbo].[FK_game_genre_genre]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[game_genre] DROP CONSTRAINT [FK_game_genre_genre];
 GO
 IF OBJECT_ID(N'[dbo].[FK_game_platform_game]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[game_platform] DROP CONSTRAINT [FK_game_platform_game];
@@ -35,11 +35,17 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_game_platform_platform]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[game_platform] DROP CONSTRAINT [FK_game_platform_platform];
 GO
-IF OBJECT_ID(N'[dbo].[FK_game_rating]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[game] DROP CONSTRAINT [FK_game_rating];
+IF OBJECT_ID(N'[dbo].[FK_game_platform_rating]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[game_platform] DROP CONSTRAINT [FK_game_platform_rating];
 GO
-IF OBJECT_ID(N'[dbo].[FK_game_store]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[game] DROP CONSTRAINT [FK_game_store];
+IF OBJECT_ID(N'[dbo].[FK_game_platform_region]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[game_platform] DROP CONSTRAINT [FK_game_platform_region];
+GO
+IF OBJECT_ID(N'[dbo].[FK_game_platform_status]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[game_platform] DROP CONSTRAINT [FK_game_platform_status];
+GO
+IF OBJECT_ID(N'[dbo].[FK_game_platform_store]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[game_platform] DROP CONSTRAINT [FK_game_platform_store];
 GO
 IF OBJECT_ID(N'[dbo].[FK_rating_region]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[rating] DROP CONSTRAINT [FK_rating_region];
@@ -58,14 +64,14 @@ GO
 IF OBJECT_ID(N'[dbo].[game_developerPublisher]', 'U') IS NOT NULL
     DROP TABLE [dbo].[game_developerPublisher];
 GO
-IF OBJECT_ID(N'[dbo].[game_gender]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[game_gender];
+IF OBJECT_ID(N'[dbo].[game_genre]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[game_genre];
 GO
 IF OBJECT_ID(N'[dbo].[game_platform]', 'U') IS NOT NULL
     DROP TABLE [dbo].[game_platform];
 GO
-IF OBJECT_ID(N'[dbo].[gender]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[gender];
+IF OBJECT_ID(N'[dbo].[genre]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[genre];
 GO
 IF OBJECT_ID(N'[dbo].[platform]', 'U') IS NOT NULL
     DROP TABLE [dbo].[platform];
@@ -75,6 +81,9 @@ IF OBJECT_ID(N'[dbo].[rating]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[region]', 'U') IS NOT NULL
     DROP TABLE [dbo].[region];
+GO
+IF OBJECT_ID(N'[dbo].[status]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[status];
 GO
 IF OBJECT_ID(N'[dbo].[store]', 'U') IS NOT NULL
     DROP TABLE [dbo].[store];
@@ -87,7 +96,8 @@ GO
 -- Creating table 'developerPublisher'
 CREATE TABLE [dbo].[developerPublisher] (
     [id] int IDENTITY(1,1) NOT NULL,
-    [name] nvarchar(50)  NOT NULL
+    [name] nvarchar(50)  NOT NULL,
+    [id_igdb] int  NOT NULL
 );
 GO
 
@@ -95,16 +105,11 @@ GO
 CREATE TABLE [dbo].[game] (
     [id] int IDENTITY(1,1) NOT NULL,
     [name] nvarchar(max)  NOT NULL,
-    [nota] nchar(10)  NULL,
-    [release_date] datetime  NULL,
-    [preco] decimal(2,0)  NULL,
-    [metacritic] int  NULL,
-    [completo] int  NOT NULL,
     [summary] varchar(max)  NULL,
-    [formato] varchar(50)  NULL,
-    [tamanho] nchar(10)  NULL,
-    [id_store] int  NULL,
-    [id_rating] int  NULL
+    [cloudnary_id] nvarchar(50)  NULL,
+    [id_igdb] int  NULL,
+    [completo] bit  NOT NULL,
+    [nota] decimal(3,1)  NULL
 );
 GO
 
@@ -112,15 +117,8 @@ GO
 CREATE TABLE [dbo].[game_developerPublisher] (
     [id] int IDENTITY(1,1) NOT NULL,
     [id_game] int  NOT NULL,
-    [id_developerPublisher] int  NOT NULL
-);
-GO
-
--- Creating table 'game_gender'
-CREATE TABLE [dbo].[game_gender] (
-    [id] int IDENTITY(1,1) NOT NULL,
-    [id_game] int  NOT NULL,
-    [id_gender] int  NOT NULL
+    [id_developerPublisher] int  NOT NULL,
+    [tipo] int  NOT NULL
 );
 GO
 
@@ -128,37 +126,43 @@ GO
 CREATE TABLE [dbo].[game_platform] (
     [id] int IDENTITY(1,1) NOT NULL,
     [id_game] int  NOT NULL,
-    [id_platform] int  NOT NULL
-);
-GO
-
--- Creating table 'gender'
-CREATE TABLE [dbo].[gender] (
-    [id] int IDENTITY(1,1) NOT NULL,
-    [gender1] nvarchar(50)  NOT NULL
+    [id_platform] int  NOT NULL,
+    [id_status] int  NOT NULL,
+    [release_date] datetime  NULL,
+    [id_region] int  NULL,
+    [id_rating] int  NULL,
+    [metacritic] int  NULL,
+    [preco] decimal(5,2)  NULL,
+    [formato] int  NULL,
+    [tamanho] decimal(5,2)  NULL,
+    [id_store] int  NULL
 );
 GO
 
 -- Creating table 'platform'
 CREATE TABLE [dbo].[platform] (
     [id] int IDENTITY(1,1) NOT NULL,
-    [name] nvarchar(50)  NOT NULL
+    [name] nvarchar(50)  NOT NULL,
+    [sigla] nchar(6)  NOT NULL,
+    [ordem] int  NOT NULL,
+    [id_igdb] int  NULL
 );
 GO
 
 -- Creating table 'rating'
 CREATE TABLE [dbo].[rating] (
     [id] int IDENTITY(1,1) NOT NULL,
-    [rating1] nvarchar(50)  NULL,
     [idade] int  NULL,
-    [id_regiao] int  NOT NULL
+    [id_regiao] int  NOT NULL,
+    [name] nvarchar(50)  NULL
 );
 GO
 
 -- Creating table 'region'
 CREATE TABLE [dbo].[region] (
     [id] int IDENTITY(1,1) NOT NULL,
-    [name] nvarchar(50)  NOT NULL
+    [name] nvarchar(50)  NOT NULL,
+    [sigla] char(2)  NOT NULL
 );
 GO
 
@@ -166,6 +170,29 @@ GO
 CREATE TABLE [dbo].[store] (
     [id] int IDENTITY(1,1) NOT NULL,
     [name] nvarchar(50)  NOT NULL
+);
+GO
+
+-- Creating table 'status'
+CREATE TABLE [dbo].[status] (
+    [id] int IDENTITY(1,1) NOT NULL,
+    [name] nchar(10)  NOT NULL
+);
+GO
+
+-- Creating table 'game_genre'
+CREATE TABLE [dbo].[game_genre] (
+    [id] int IDENTITY(1,1) NOT NULL,
+    [id_game] int  NOT NULL,
+    [id_genre] int  NOT NULL
+);
+GO
+
+-- Creating table 'genre'
+CREATE TABLE [dbo].[genre] (
+    [id] int IDENTITY(1,1) NOT NULL,
+    [name] nvarchar(50)  NOT NULL,
+    [id_igdb] int  NOT NULL
 );
 GO
 
@@ -191,21 +218,9 @@ ADD CONSTRAINT [PK_game_developerPublisher]
     PRIMARY KEY CLUSTERED ([id] ASC);
 GO
 
--- Creating primary key on [id] in table 'game_gender'
-ALTER TABLE [dbo].[game_gender]
-ADD CONSTRAINT [PK_game_gender]
-    PRIMARY KEY CLUSTERED ([id] ASC);
-GO
-
 -- Creating primary key on [id] in table 'game_platform'
 ALTER TABLE [dbo].[game_platform]
 ADD CONSTRAINT [PK_game_platform]
-    PRIMARY KEY CLUSTERED ([id] ASC);
-GO
-
--- Creating primary key on [id] in table 'gender'
-ALTER TABLE [dbo].[gender]
-ADD CONSTRAINT [PK_gender]
     PRIMARY KEY CLUSTERED ([id] ASC);
 GO
 
@@ -230,6 +245,24 @@ GO
 -- Creating primary key on [id] in table 'store'
 ALTER TABLE [dbo].[store]
 ADD CONSTRAINT [PK_store]
+    PRIMARY KEY CLUSTERED ([id] ASC);
+GO
+
+-- Creating primary key on [id] in table 'status'
+ALTER TABLE [dbo].[status]
+ADD CONSTRAINT [PK_status]
+    PRIMARY KEY CLUSTERED ([id] ASC);
+GO
+
+-- Creating primary key on [id] in table 'game_genre'
+ALTER TABLE [dbo].[game_genre]
+ADD CONSTRAINT [PK_game_genre]
+    PRIMARY KEY CLUSTERED ([id] ASC);
+GO
+
+-- Creating primary key on [id] in table 'genre'
+ALTER TABLE [dbo].[genre]
+ADD CONSTRAINT [PK_genre]
     PRIMARY KEY CLUSTERED ([id] ASC);
 GO
 
@@ -267,21 +300,6 @@ ON [dbo].[game_developerPublisher]
     ([id_game]);
 GO
 
--- Creating foreign key on [id_game] in table 'game_gender'
-ALTER TABLE [dbo].[game_gender]
-ADD CONSTRAINT [FK_game_gender_game]
-    FOREIGN KEY ([id_game])
-    REFERENCES [dbo].[game]
-        ([id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_game_gender_game'
-CREATE INDEX [IX_FK_game_gender_game]
-ON [dbo].[game_gender]
-    ([id_game]);
-GO
-
 -- Creating foreign key on [id_game] in table 'game_platform'
 ALTER TABLE [dbo].[game_platform]
 ADD CONSTRAINT [FK_game_platform_game]
@@ -295,36 +313,6 @@ GO
 CREATE INDEX [IX_FK_game_platform_game]
 ON [dbo].[game_platform]
     ([id_game]);
-GO
-
--- Creating foreign key on [id_store] in table 'game'
-ALTER TABLE [dbo].[game]
-ADD CONSTRAINT [FK_game_store]
-    FOREIGN KEY ([id_store])
-    REFERENCES [dbo].[store]
-        ([id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_game_store'
-CREATE INDEX [IX_FK_game_store]
-ON [dbo].[game]
-    ([id_store]);
-GO
-
--- Creating foreign key on [id_gender] in table 'game_gender'
-ALTER TABLE [dbo].[game_gender]
-ADD CONSTRAINT [FK_game_gender_gender]
-    FOREIGN KEY ([id_gender])
-    REFERENCES [dbo].[gender]
-        ([id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_game_gender_gender'
-CREATE INDEX [IX_FK_game_gender_gender]
-ON [dbo].[game_gender]
-    ([id_gender]);
 GO
 
 -- Creating foreign key on [id_platform] in table 'game_platform'
@@ -357,19 +345,94 @@ ON [dbo].[rating]
     ([id_regiao]);
 GO
 
--- Creating foreign key on [id_rating] in table 'game'
-ALTER TABLE [dbo].[game]
-ADD CONSTRAINT [FK_game_rating]
+-- Creating foreign key on [id_status] in table 'game_platform'
+ALTER TABLE [dbo].[game_platform]
+ADD CONSTRAINT [FK_game_platform_status]
+    FOREIGN KEY ([id_status])
+    REFERENCES [dbo].[status]
+        ([id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_game_platform_status'
+CREATE INDEX [IX_FK_game_platform_status]
+ON [dbo].[game_platform]
+    ([id_status]);
+GO
+
+-- Creating foreign key on [id_rating] in table 'game_platform'
+ALTER TABLE [dbo].[game_platform]
+ADD CONSTRAINT [FK_game_platform_rating]
     FOREIGN KEY ([id_rating])
     REFERENCES [dbo].[rating]
         ([id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_game_rating'
-CREATE INDEX [IX_FK_game_rating]
-ON [dbo].[game]
+-- Creating non-clustered index for FOREIGN KEY 'FK_game_platform_rating'
+CREATE INDEX [IX_FK_game_platform_rating]
+ON [dbo].[game_platform]
     ([id_rating]);
+GO
+
+-- Creating foreign key on [id_region] in table 'game_platform'
+ALTER TABLE [dbo].[game_platform]
+ADD CONSTRAINT [FK_game_platform_region]
+    FOREIGN KEY ([id_region])
+    REFERENCES [dbo].[region]
+        ([id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_game_platform_region'
+CREATE INDEX [IX_FK_game_platform_region]
+ON [dbo].[game_platform]
+    ([id_region]);
+GO
+
+-- Creating foreign key on [id_game] in table 'game_genre'
+ALTER TABLE [dbo].[game_genre]
+ADD CONSTRAINT [FK_game_genre_game]
+    FOREIGN KEY ([id_game])
+    REFERENCES [dbo].[game]
+        ([id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_game_genre_game'
+CREATE INDEX [IX_FK_game_genre_game]
+ON [dbo].[game_genre]
+    ([id_game]);
+GO
+
+-- Creating foreign key on [id_genre] in table 'game_genre'
+ALTER TABLE [dbo].[game_genre]
+ADD CONSTRAINT [FK_game_genre_genre]
+    FOREIGN KEY ([id_genre])
+    REFERENCES [dbo].[genre]
+        ([id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_game_genre_genre'
+CREATE INDEX [IX_FK_game_genre_genre]
+ON [dbo].[game_genre]
+    ([id_genre]);
+GO
+
+-- Creating foreign key on [id_store] in table 'game_platform'
+ALTER TABLE [dbo].[game_platform]
+ADD CONSTRAINT [FK_game_platform_store]
+    FOREIGN KEY ([id_store])
+    REFERENCES [dbo].[store]
+        ([id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_game_platform_store'
+CREATE INDEX [IX_FK_game_platform_store]
+ON [dbo].[game_platform]
+    ([id_store]);
 GO
 
 -- --------------------------------------------------

@@ -1,4 +1,25 @@
-﻿@model Games.Models.ViewModel.GameDataView
+﻿<script>
+    /*========== menu de plataformas ================*/
+    //atualizar menu de plataformas e lista de jogos
+    $("#MenuPlataforma").on("click",".li_plataforma",function () {
+        var element = $(this);
+        $.post("/Jquery/MenuPlataformas", { plataforma: element.attr("id") },
+        function (resposta) {
+            if (element.hasClass("ativo")) {
+                element.removeClass("ativo");
+            }
+            else {
+                element.addClass("ativo");
+            }
+            $("#MenuPlataforma").html(resposta);
+            $.post("/Jquery/ListaJogosIndex", {status:"@(ViewContext.RouteData.Values["status"])"},
+            function (resposta) {
+                $("#GameListView").html(resposta);
+            });
+        });
+    });
+</script>
+@model Games.Models.ViewModel.GameDataView
 @if (Model.Platforms.Count == 0) {
     Model.Platforms.Add(new Games.Models.Entity.game_platform());
 }

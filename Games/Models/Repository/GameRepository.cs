@@ -22,21 +22,26 @@ namespace Games.Models.Repository {
             developerPublisher = new DeveloperPublisherRepository();
             genre = new GenreRepository();
 
-            SetDadosgame();
+            try {
+                SetDadosgame();
 
-            db.game.Add(game);
+                db.game.Add(game);
 
-            SetPlataformasGame();
+                SetPlataformasGame();
 
-            SetDevelopersGame();
+                SetDevelopersGame();
 
-            SetPublishersGame();
+                SetPublishersGame();
 
-            SetGenresGame();
+                SetGenresGame();
 
-            db.SaveChanges();
+                db.SaveChanges();
 
-            SaveImagemGame();
+                SaveImagemGame();
+            }
+            catch (Exception ex) {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public void Alterar(GameDataView dados) {
@@ -78,8 +83,13 @@ namespace Games.Models.Repository {
         private void SetPlataformasGame() {
             foreach (game_platform plataforma in dadosGame.Platforms) {
                 plataforma.id_game = game.id;
-                plataforma.id_store = loja.GetIdByName(plataforma.store.name);
-                plataforma.store = db.store.Find(plataforma.id_store);
+                if (plataforma.store.name != null) {
+                    plataforma.id_store = loja.GetIdByName(plataforma.store.name);
+                    plataforma.store = db.store.Find(plataforma.id_store);
+                }
+                else {
+                    plataforma.store = null;
+                }
                 if (plataforma.id == 0) {
                     db.game_platform.Add(plataforma);
                 }
@@ -184,6 +194,7 @@ namespace Games.Models.Repository {
                 webClient.DownloadFile(dadosGame.BigCoverUrl + dadosGame.CloudnaryId, dadosGame.Imagesfolder + game.id + "_BigCover_" + game.cloudnary_id + ".jpg");
                 webClient.DownloadFile(dadosGame.BigCoverUrl2x + dadosGame.CloudnaryId, dadosGame.Imagesfolder + game.id + "_BigCover2x_" + game.cloudnary_id + ".jpg");
                 webClient.DownloadFile(dadosGame.SmallCoverUrl + dadosGame.CloudnaryId, dadosGame.Imagesfolder + game.id + "_SmallCover_" + game.cloudnary_id + ".jpg");
+                webClient.DownloadFile(dadosGame.MicroCoverUrl2x + dadosGame.CloudnaryId, dadosGame.Imagesfolder + game.id + "_MicroCover2x_" + game.cloudnary_id + ".jpg");
             }
         }
         #endregion
