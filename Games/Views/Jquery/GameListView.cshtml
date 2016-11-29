@@ -11,7 +11,11 @@
         });
         //exibir inclusao de jogo
         $(".navbar-brand").click(function () {
-            $("#modal_game").modal('show');
+            $.post("/Jquery/ExibirFormGame",
+            function (resposta) {
+                $("#form_game").html(resposta);
+                $("#modal_game").modal('show');
+            });
         });
     });
 </script>

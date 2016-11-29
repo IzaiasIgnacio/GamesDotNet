@@ -5,7 +5,9 @@ using Igdb.ResponseModels;
 using Igdb.Services;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
@@ -60,6 +62,11 @@ namespace Games.Controllers {
             return PartialView("GameResultView", view);
         }
 
+        [HttpPost]
+        public ActionResult ExibirFormGame() {
+            return PartialView("DadosGameView", GameDataView.init());
+        }
+
         #region update
         [HttpPost]
         public ActionResult BuscaJogoUpdateJquery(string search) {
@@ -74,15 +81,32 @@ namespace Games.Controllers {
         public void AtualizarJogoJquery(int id_local, int id_igdb) {
             IgdbService igdb = new IgdbService();
             DadosGameResponse response = igdb.DadosJogo(id_igdb).FirstOrDefault();
+            GamesEntities db = new GamesEntities();
 
             GameRepository gameRepository = new GameRepository();
-            GameEntity game = gameRepository.BuscarDados(id_local);
+            GameEntity game = db.game.Find(id_local);
 
             game.id_igdb = response.Id;
             game.cloudnary_id = response.Cover.CloudinaryId;
-
-            GamesEntities db = new GamesEntities();
+            
+            db.Entry(game).State = EntityState.Modified;
             db.SaveChanges();
+
+            string CloudnaryUrl = "https://res.cloudinary.com/igdb/image/upload/t_";
+            string BigCoverUrl = CloudnaryUrl + "cover_big/";
+            string BigCoverUrl2x = CloudnaryUrl + "cover_big_2x/";
+            string MicroCoverUrl = CloudnaryUrl + "micro/";
+            string MicroCoverUrl2x = CloudnaryUrl + "micro_2x/";
+            string SmallCoverUrl = CloudnaryUrl + "cover_small_2x/";
+            //string Imagesfolder = "I:\\Documents\\Visual Studio 2015\\Projects\\Games\\Games\\images\\";
+            string Imagesfolder = "F:\\new\\Games\\images\\";
+
+            WebClient webClient = new WebClient();
+
+            webClient.DownloadFile(BigCoverUrl + game.cloudnary_id, Imagesfolder + game.id + "_BigCover_" + game.cloudnary_id + ".jpg");
+            webClient.DownloadFile(BigCoverUrl2x + game.cloudnary_id, Imagesfolder + game.id + "_BigCover2x_" + game.cloudnary_id + ".jpg");
+            webClient.DownloadFile(SmallCoverUrl + game.cloudnary_id, Imagesfolder + game.id + "_SmallCover_" + game.cloudnary_id + ".jpg");
+            webClient.DownloadFile(MicroCoverUrl2x + game.cloudnary_id, Imagesfolder + game.id + "_MicroCover2x_" + game.cloudnary_id + ".jpg");
         }
         #endregion
 
@@ -159,7 +183,7 @@ namespace Games.Controllers {
                 }
             }
             
-            return PartialView("DadosGameVIew", gameDataView);
+            return PartialView("DadosGameView", gameDataView);
         }
 
         [HttpPost]
@@ -223,7 +247,7 @@ namespace Games.Controllers {
                 });
             }
             
-            return PartialView("DadosGameVIew", gameDataView);
+            return PartialView("DadosGameView", gameDataView);
         }
 
     }

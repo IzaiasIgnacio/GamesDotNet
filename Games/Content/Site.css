@@ -197,3 +197,11 @@ textarea {
     color: #fff;
     font-weight: bold;
 }
+
+.select_game {
+    cursor: pointer;
+}
+
+.select_game:hover {
+    background-color: #ddd;
+}
