@@ -60,6 +60,32 @@ namespace Games.Controllers {
             return PartialView("GameResultView", view);
         }
 
+        #region update
+        [HttpPost]
+        public ActionResult BuscaJogoUpdateJquery(string search) {
+            IgdbService igdb = new IgdbService();
+            GameResultView view = new GameResultView();
+            view.ListaJogos = igdb.BuscarJogo(search);
+
+            return PartialView("GameUpdateListView", view);
+        }
+
+        [HttpPost]
+        public void AtualizarJogoJquery(int id_local, int id_igdb) {
+            IgdbService igdb = new IgdbService();
+            DadosGameResponse response = igdb.DadosJogo(id_igdb).FirstOrDefault();
+
+            GameRepository gameRepository = new GameRepository();
+            GameEntity game = gameRepository.BuscarDados(id_local);
+
+            game.id_igdb = response.Id;
+            game.cloudnary_id = response.Cover.CloudinaryId;
+
+            GamesEntities db = new GamesEntities();
+            db.SaveChanges();
+        }
+        #endregion
+
         [HttpPost]
         public JsonResult SalvarNovoJogoJquery(GameDataView dados) {
             GameRepository gameRepository = new GameRepository();

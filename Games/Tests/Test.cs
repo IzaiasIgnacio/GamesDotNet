@@ -115,7 +115,8 @@ namespace Igdb.Test {
             string MicroCoverUrl = CloudnaryUrl + "micro/";
             string MicroCoverUrl2x = CloudnaryUrl + "micro_2x/";
             string SmallCoverUrl = CloudnaryUrl + "cover_small_2x/";
-            string Imagesfolder = "I:\\Documents\\Visual Studio 2015\\Projects\\Games\\Games\\images\\";
+            //string Imagesfolder = "I:\\Documents\\Visual Studio 2015\\Projects\\Games\\Games\\images\\";
+            string Imagesfolder = "F:\\new\\Games\\images\\";
 
             WebClient webClient = new WebClient();
 
