@@ -94,5 +94,22 @@ namespace Igdb.Test {
             Assert.AreEqual(1, game.completo);
         }
 
+        [TestMethod]
+        public void TesteListarJogos() {
+            List<int> plataformas = new List<int> { 1, 2 };
+            int status = 2;
+            GamesEntities db = new GamesEntities();
+            List<GameEntity> ListaJogos;
+            int[] plats = plataformas.ToArray();
+            ListaJogos = (from game in db.game
+                          join game_platform in db.game_platform on game.id equals game_platform.id_game
+                          where plats.Contains(game_platform.id_platform)
+                          where game_platform.id_status == status
+                          select game).OrderBy(game => game.name).ToList();
+
+            //DateTime a = ListaJogos[0].game_platform.First().release_date;
+            Assert.IsNotNull(ListaJogos);
+        }
+
     }
 }
