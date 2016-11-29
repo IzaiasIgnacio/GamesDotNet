@@ -240,5 +240,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
-/Games/Content/images
-/Games/images
+/Games/images/*
