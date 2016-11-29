@@ -1,4 +1,25 @@
 ﻿@model Games.Models.ViewModel.LayoutView
+<script>
+    /*========== menu de plataformas ================*/
+    //atualizar menu de plataformas e lista de jogos
+    $("#MenuPlataforma").on("click",".li_plataforma",function () {
+        var element = $(this);
+        $.post("/Jquery/MenuPlataformas", { plataforma: element.attr("id") },
+        function (resposta) {
+            if (element.hasClass("ativo")) {
+                element.removeClass("ativo");
+            }
+            else {
+                element.addClass("ativo");
+            }
+            $("#MenuPlataforma").html(resposta);
+            $.post("/Jquery/ListaJogosIndex", {status:"@(ViewContext.RouteData.Values["status"])"},
+            function (resposta) {
+                $("#GameListView").html(resposta);
+            });
+        });
+    });
+</script>
 <ul class="nav navbar-nav navbar-right">
     @foreach (var platform in Model.listaPlatform) {
         string classe = "";

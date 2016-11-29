@@ -22,7 +22,7 @@ namespace Igdb.Test {
             List<DadosDeveloperPublisherResponse> devs = igdb.DadosDeveloperPublisher(response.Developers.ToArray());
             List<DadosDeveloperPublisherResponse> pubs = igdb.DadosDeveloperPublisher(response.Publishers.ToArray());
 
-            GameDataView gameDataView = new GameDataView();
+            GameDataView gameDataView = GameDataView.init();
             gameDataView.Titulo = response.Name;
             gameDataView.Descricao = response.Summary;
             gameDataView.CloudnaryId = response.Cover.CloudinaryId;
@@ -63,7 +63,7 @@ namespace Igdb.Test {
             List<DadosDeveloperPublisherResponse> devs = igdb.DadosDeveloperPublisher(response.Developers.ToArray());
             List<DadosDeveloperPublisherResponse> pubs = igdb.DadosDeveloperPublisher(response.Publishers.ToArray());
 
-            GameDataView gameDataView = new GameDataView();
+            GameDataView gameDataView = GameDataView.init();
             
             foreach(DadosDeveloperPublisherResponse dev in devs){
                 gameDataView.ListaDeveloper.Add(new developerPublisher {

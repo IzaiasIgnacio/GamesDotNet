@@ -76,7 +76,7 @@ namespace Games.Controllers {
         
         [HttpPost]
         public ActionResult AdicionarPlataformaJquery() {
-            return PartialView("PlatformStatusView", new GameDataView());
+            return PartialView("PlatformStatusView", GameDataView.GetGameDataView());
         }
 
         [HttpPost]
@@ -89,7 +89,7 @@ namespace Games.Controllers {
             List<DadosDeveloperPublisherResponse> pubs = igdb.DadosDeveloperPublisher(response.Publishers.ToArray());
             List<DadosGenreResponse> genres = igdb.DadosGenre(response.Genres.ToArray());
 
-            GameDataView gameDataView = new GameDataView();
+            GameDataView gameDataView = GameDataView.GetGameDataView();
             gameDataView.Id = Id;
             gameDataView.id_igdb = id_igdb;            
             gameDataView.Titulo = response.Name;
@@ -145,7 +145,7 @@ namespace Games.Controllers {
             List<game_developerPublisher> pubs = game.game_developerPublisher.Where(p => p.tipo == (int)GameDataView.tipoDeveloperPublisher.Publisher).ToList();
             List<game_genre> genres = game.game_genre.ToList();
 
-            GameDataView gameDataView = new GameDataView();
+            GameDataView gameDataView = GameDataView.init();
             gameDataView.Id = game.id;
             gameDataView.id_igdb = game.id_igdb;
             gameDataView.Titulo = game.name;

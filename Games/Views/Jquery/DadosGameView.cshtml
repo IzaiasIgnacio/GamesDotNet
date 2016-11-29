@@ -5,7 +5,7 @@
         $("#btn_add").click(function () {
             $.post("/Jquery/AdicionarPlataformaJquery",
             function (resposta) {
-                $(".span_plataformas").append(resposta);
+                $(".span_plataformas").html(resposta);
             });
         });
         //remover linha de plataforma
