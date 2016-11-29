@@ -51,10 +51,9 @@
                 url: acao,
                 type: 'POST',
                 contentType: 'application/json',
-                dataType: 'string',
                 data: JSON.stringify(json),
                 success: function (resposta) {
-                    console.log('a');
+                    $("#modal_game").modal('hide');
                 }
             });
         });

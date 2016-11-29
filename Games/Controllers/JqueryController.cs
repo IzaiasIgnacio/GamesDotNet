@@ -111,17 +111,15 @@ namespace Games.Controllers {
         #endregion
 
         [HttpPost]
-        public JsonResult SalvarNovoJogoJquery(GameDataView dados) {
+        public void SalvarNovoJogoJquery(GameDataView dados) {
             GameRepository gameRepository = new GameRepository();
             gameRepository.Adicionar(dados);
-            return Json(new { sucesso = true });
         }
 
         [HttpPost]
-        public JsonResult AlterarJogoJquery(GameDataView dados) {
+        public void AlterarJogoJquery(GameDataView dados) {
             GameRepository gameRepository = new GameRepository();
             gameRepository.Alterar(dados);
-            return Json(new { resposta = true }, JsonRequestBehavior.AllowGet);
         }
         
         [HttpPost]
@@ -171,15 +169,24 @@ namespace Games.Controllers {
                 });
             }
 
+            int[] plats = gameDataView.Platforms.Select(p => p.id).ToArray();
             foreach (ReleaseDate lancamento in response.ReleaseDates) {
                 int? plataforma = pr.GetIdByIgdb(lancamento.Platform);
                 if (plataforma != null) {
                     DateTime data = new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(Convert.ToDouble(lancamento.Date)));
-                    gameDataView.Platforms.Add(new game_platform {
-                        id_platform = plataforma.Value,
-                        release_date = data,
-                        id_region = lancamento.Region
-                    });
+
+                    if (plats.Contains((int)plataforma)) {
+                        game_platform gp = gameDataView.Platforms.Find(p => p.id_platform == (int)plataforma);
+                        gp.release_date = data;
+                        gp.id_region = lancamento.Region;
+                    }
+                    else {
+                        gameDataView.Platforms.Add(new game_platform {
+                            id_platform = plataforma.Value,
+                            release_date = data,
+                            id_region = lancamento.Region
+                        });
+                    }
                 }
             }
             
