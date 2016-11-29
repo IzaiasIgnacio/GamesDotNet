@@ -10,6 +10,7 @@ using Games.Models.Entity;
 using Newtonsoft.Json;
 using Games.Models.Repository;
 using Games.Models.ViewModel;
+using System.Net;
 
 namespace Igdb.Test {
     [TestClass]
@@ -21,7 +22,7 @@ namespace Igdb.Test {
             List<DadosDeveloperPublisherResponse> devs = igdb.DadosDeveloperPublisher(response.Developers.ToArray());
             List<DadosDeveloperPublisherResponse> pubs = igdb.DadosDeveloperPublisher(response.Publishers.ToArray());
 
-            GameDataView gameDataView = new GameDataView();
+            GameDataView gameDataView = GameDataView.init();
             gameDataView.Titulo = response.Name;
             gameDataView.Descricao = response.Summary;
             gameDataView.CloudnaryId = response.Cover.CloudinaryId;
@@ -62,7 +63,7 @@ namespace Igdb.Test {
             List<DadosDeveloperPublisherResponse> devs = igdb.DadosDeveloperPublisher(response.Developers.ToArray());
             List<DadosDeveloperPublisherResponse> pubs = igdb.DadosDeveloperPublisher(response.Publishers.ToArray());
 
-            GameDataView gameDataView = new GameDataView();
+            GameDataView gameDataView = GameDataView.init();
             
             foreach(DadosDeveloperPublisherResponse dev in devs){
                 gameDataView.ListaDeveloper.Add(new developerPublisher {
@@ -92,6 +93,38 @@ namespace Igdb.Test {
             Assert.IsNotNull(game);
             Assert.AreEqual("Final Fantasy Tactics", game.name);
             Assert.AreEqual(1, game.completo);
+        }
+
+        [TestMethod]
+        public void AtualizarImagens() {
+            GameRepository gameRepository = new GameRepository();
+            List<GameEntity> lista1 = gameRepository.ListarJogos(new List<int> { 1, 2, 3, 4, 5, 6, 7 }, 1);
+            List<GameEntity> lista2 = gameRepository.ListarJogos(new List<int> { 1, 2, 3, 4, 5, 6, 7 }, 2);
+            List<GameEntity> lista3 = gameRepository.ListarJogos(new List<int> { 1, 2, 3, 4, 5, 6, 7 }, 3);
+            List<GameEntity> lista4 = gameRepository.ListarJogos(new List<int> { 1, 2, 3, 4, 5, 6, 7 }, 4);
+
+            List<GameEntity> lista = new List<GameEntity>();
+            lista.AddRange(lista1);
+            lista.AddRange(lista2);
+            lista.AddRange(lista3);
+            lista.AddRange(lista4);
+
+            string CloudnaryUrl = "https://res.cloudinary.com/igdb/image/upload/t_";
+            string BigCoverUrl = CloudnaryUrl + "cover_big/";
+            string BigCoverUrl2x = CloudnaryUrl + "cover_big_2x/";
+            string MicroCoverUrl = CloudnaryUrl + "micro/";
+            string MicroCoverUrl2x = CloudnaryUrl + "micro_2x/";
+            string SmallCoverUrl = CloudnaryUrl + "cover_small_2x/";
+            string Imagesfolder = "I:\\Documents\\Visual Studio 2015\\Projects\\Games\\Games\\images\\";
+
+            WebClient webClient = new WebClient();
+
+            foreach (GameEntity game in lista) {
+                webClient.DownloadFile(BigCoverUrl + game.cloudnary_id, Imagesfolder + game.id + "_BigCover_" + game.cloudnary_id + ".jpg");
+                webClient.DownloadFile(BigCoverUrl2x + game.cloudnary_id, Imagesfolder + game.id + "_BigCover2x_" + game.cloudnary_id + ".jpg");
+                webClient.DownloadFile(SmallCoverUrl + game.cloudnary_id, Imagesfolder + game.id + "_SmallCover_" + game.cloudnary_id + ".jpg");
+                webClient.DownloadFile(MicroCoverUrl2x + game.cloudnary_id, Imagesfolder + game.id + "_MicroCover2x_" + game.cloudnary_id + ".jpg");
+            }
         }
 
         [TestMethod]

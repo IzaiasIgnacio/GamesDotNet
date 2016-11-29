@@ -54,6 +54,21 @@ namespace Games.Models.ViewModel {
     }
 
     public class GameDataView : BasegameView {
+        private static GameDataView view;
+
+        public static GameDataView GetGameDataView() {
+            if (view == null) {
+                view = new GameDataView();
+            }
+            return view;
+        }
+
+        public static GameDataView init() {
+            view = new GameDataView();
+
+            return view;
+        }
+
         PlatformRepository platformRepository = new PlatformRepository();
         
         [Key]
