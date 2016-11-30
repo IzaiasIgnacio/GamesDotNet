@@ -88,6 +88,7 @@ namespace Games.Controllers {
 
             game.id_igdb = response.Id;
             game.cloudnary_id = response.Cover.CloudinaryId;
+            game.summary = response.Summary;
             
             db.Entry(game).State = EntityState.Modified;
             db.SaveChanges();
@@ -98,8 +99,8 @@ namespace Games.Controllers {
             string MicroCoverUrl = CloudnaryUrl + "micro/";
             string MicroCoverUrl2x = CloudnaryUrl + "micro_2x/";
             string SmallCoverUrl = CloudnaryUrl + "cover_small_2x/";
-            //string Imagesfolder = "I:\\Documents\\Visual Studio 2015\\Projects\\Games\\Games\\images\\";
-            string Imagesfolder = "F:\\new\\Games\\images\\";
+            string Imagesfolder = "I:\\Documents\\Visual Studio 2015\\Projects\\Games\\Games\\images\\";
+            //string Imagesfolder = "F:\\new\\Games\\images\\";
 
             WebClient webClient = new WebClient();
 

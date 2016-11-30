@@ -17,7 +17,7 @@
                 $("#modal_game").modal('show');
             });
         });
-        
+
         $(".thumbnail .caption").click(function () {
             $("#modal_jquery #id_game").val($(this).closest(".thumbnail").find(".id").val());
             $.post("/Jquery/BuscaJogoUpdateJquery", {search:$(this).find('h4').html()},
@@ -30,7 +30,12 @@
         $(".modal-body").on("click", ".select_game", function () {
             $.post("/Jquery/AtualizarJogoJquery", { id_local: $("#id_game").val(), id_igdb: $(this).find(".id_igdb").val() },
             function (resposta) {
-                $("#modal_jquery .modal").modal('hide');
+                $('.modal').modal('hide');
+                $('.modal-backdrop').hide();
+                $.post("/Jquery/ListaJogosIndex", {status:"@(ViewContext.RouteData.Values["status"])"},
+                function (resposta) {
+                    $("#GameListView").html(resposta);
+                });
             });
         });
     });
