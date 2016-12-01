@@ -13,7 +13,7 @@
                 element.addClass("ativo");
             }
             $("#MenuPlataforma").html(resposta);
-            $.post("/Jquery/ListaJogosIndex", {status:"@(ViewContext.RouteData.Values["status"])"},
+            $.post("/Jquery/ListaJogosIndex", {status:status},
             function (resposta) {
                 $("#GameListView").html(resposta);
             });
