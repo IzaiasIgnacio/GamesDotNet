@@ -96,7 +96,6 @@ namespace Games.Models.Repository {
                 else {
                     db.Entry(plataforma).State = EntityState.Modified;
                 }
-                db.SaveChanges();
             }
         }
 

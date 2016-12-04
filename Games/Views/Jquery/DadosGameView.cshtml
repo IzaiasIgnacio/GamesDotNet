@@ -54,6 +54,10 @@
                 data: JSON.stringify(json),
                 success: function (resposta) {
                     $("#modal_game").modal('hide');
+                    $.post("/Jquery/ListaJogosIndex", { status: status },
+                    function (resposta) {
+                        $("#GameListView").html(resposta);
+                    });
                 }
             });
         });
