@@ -22,16 +22,16 @@
 @model Games.Models.ViewModel.GameListView
 @foreach (var game in Model.ListaJogos) {
     <div class="row game_list">
-        <div class="col-sm-2 thumbnail text-center">
+        <div class="col-sm-1 thumbnail text-center">
             <input type="hidden" class="id" value="@game.id" />
             @if (File.Exists(Model.Imagesfolder+game.id+"_MicroCover2x_"+game.cloudnary_id+".jpg")) {
                 <img class="img-rounded img-responsive capa" src="~/images/@(game.id+"_MicroCover2x_"+@game.cloudnary_id+".jpg")" />
             }
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-10">
             <label>@game.name</label>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-1">
             <label>xx/xx/xxxx</label>
         </div>
     </div>
