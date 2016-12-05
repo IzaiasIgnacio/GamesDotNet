@@ -1,4 +1,5 @@
 ﻿using Games.Models.Entity;
+using Games.Models.Excecao;
 using Games.Models.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -44,30 +45,41 @@ namespace Games.Models.Repository {
             }
         }
 
-        public void Alterar(GameDataView dados) {
+        public string Alterar(GameDataView dados) {
             dadosGame = dados;
-            game = db.game.Find(dadosGame.Id);
-            loja = new StoreRepository();
-            developerPublisher = new DeveloperPublisherRepository();
-            genre = new GenreRepository();
 
-            SetDadosgame();
+            try {
+                if (dadosGame.Platforms.Count == 0) {
+                    throw new ValidacaoGameException("plataformas");
+                }
 
-            db.Entry(game).State = EntityState.Modified;
+                game = db.game.Find(dadosGame.Id);
+                loja = new StoreRepository();
+                developerPublisher = new DeveloperPublisherRepository();
+                genre = new GenreRepository();
 
-            SetPlataformasGame();
+                SetDadosgame();
 
-            RemovePlataformasGame();
+                db.Entry(game).State = EntityState.Modified;
 
-            SetDevelopersGame();
+                SetPlataformasGame();
 
-            SetPublishersGame();
+                RemovePlataformasGame();
 
-            SetGenresGame();
+                SetDevelopersGame();
 
-            db.SaveChanges();
+                SetPublishersGame();
 
-            SaveImagemGame();
+                SetGenresGame();
+
+                db.SaveChanges();
+
+                SaveImagemGame();
+            }
+            catch (ValidacaoGameException ex) {
+                return ex.Message;
+            }
+            return "foi";
         }
 
         #region dados
