@@ -72,9 +72,9 @@ namespace Games.Models.Repository {
 
                 SetGenresGame();
 
-                db.SaveChanges();
-
                 SaveImagemGame();
+
+                db.SaveChanges();
             }
             catch (ValidacaoGameException ex) {
                 return ex.Message;
@@ -89,7 +89,6 @@ namespace Games.Models.Repository {
             game.nota = dadosGame.Nota;
             game.completo = dadosGame.Completo;
             game.summary = dadosGame.Descricao;
-            game.cloudnary_id = dadosGame.CloudnaryId;
         }
 
         private void SetPlataformasGame() {
@@ -200,7 +199,8 @@ namespace Games.Models.Repository {
         }
 
         private void SaveImagemGame() {
-            if (game.cloudnary_id != null) {
+            if (dadosGame.CloudnaryId != null) {
+                game.cloudnary_id = dadosGame.CloudnaryId;
                 WebClient webClient = new WebClient();
                 webClient.DownloadFile(dadosGame.BigCoverUrl + dadosGame.CloudnaryId, dadosGame.Imagesfolder + game.id + "_BigCover_" + game.cloudnary_id + ".jpg");
                 webClient.DownloadFile(dadosGame.BigCoverUrl2x + dadosGame.CloudnaryId, dadosGame.Imagesfolder + game.id + "_BigCover2x_" + game.cloudnary_id + ".jpg");
