@@ -17,27 +17,6 @@
                 $("#modal_game").modal('show');
             });
         });
-
-        $(".thumbnail .caption").click(function () {
-            $("#modal_jquery #id_game").val($(this).closest(".thumbnail").find(".id").val());
-            $.post("/Jquery/BuscaJogoUpdateJquery", {search:$(this).find('h4').html()},
-            function (resposta) {
-                $("#modal_jquery .modal-body").html(resposta);
-                $("#modal_jquery").modal('show');
-            });
-        });
-
-        $(".modal-body").on("click", ".select_game", function () {
-            $.post("/Jquery/AtualizarJogoJquery", { id_local: $("#id_game").val(), id_igdb: $(this).find(".id_igdb").val() },
-            function (resposta) {
-                $('.modal').modal('hide');
-                $('.modal-backdrop').hide();
-                $.post("/Jquery/ListaJogosIndex", {status:status},
-                function (resposta) {
-                    $("#GameListView").html(resposta);
-                });
-            });
-        });
     });
 </script>
 <div class="modal fade" id="modal_jquery" role="dialog">

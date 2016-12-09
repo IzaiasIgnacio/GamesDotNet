@@ -77,7 +77,6 @@ namespace Games.Models.ViewModel {
         public int? id_igdb { get; set; }
 
         [Display(Name = "Título")]
-        [Required(ErrorMessage = "Informe o título")]
         public string Titulo { get; set; }
 
         [Display(Name = "Nota")]

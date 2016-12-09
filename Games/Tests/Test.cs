@@ -11,6 +11,9 @@ using Newtonsoft.Json;
 using Games.Models.Repository;
 using Games.Models.ViewModel;
 using System.Net;
+using Games.Controllers;
+using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Igdb.Test {
     [TestClass]
@@ -143,6 +146,13 @@ namespace Igdb.Test {
 
             //DateTime a = ListaJogos[0].game_platform.First().release_date;
             Assert.IsNotNull(ListaJogos);
+        }
+
+        [TestMethod]
+        public void TesteValidarGameView() {
+            GameDataView view = new GameDataView();
+            JqueryController j = new JqueryController();
+            j.AlterarJogoJquery(view);
         }
 
     }

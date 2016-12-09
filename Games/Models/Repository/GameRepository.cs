@@ -1,5 +1,4 @@
 ﻿using Games.Models.Entity;
-using Games.Models.Excecao;
 using Games.Models.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -22,64 +21,49 @@ namespace Games.Models.Repository {
             loja = new StoreRepository();
             developerPublisher = new DeveloperPublisherRepository();
             genre = new GenreRepository();
+            
+            SetDadosgame();
 
-            try {
-                SetDadosgame();
+            db.game.Add(game);
 
-                db.game.Add(game);
+            SetPlataformasGame();
 
-                SetPlataformasGame();
+            SetDevelopersGame();
 
-                SetDevelopersGame();
+            SetPublishersGame();
 
-                SetPublishersGame();
+            SetGenresGame();
 
-                SetGenresGame();
+            db.SaveChanges();
 
-                db.SaveChanges();
-
-                SaveImagemGame();
-            }
-            catch (Exception ex) {
-                Console.WriteLine(ex.Message);
-            }
+            SaveImagemGame();
         }
 
-        public string Alterar(GameDataView dados) {
+        public void Alterar(GameDataView dados) {
             dadosGame = dados;
+            
+            game = db.game.Find(dadosGame.Id);
+            loja = new StoreRepository();
+            developerPublisher = new DeveloperPublisherRepository();
+            genre = new GenreRepository();
 
-            try {
-                if (dadosGame.Platforms.Count == 0) {
-                    throw new ValidacaoGameException("plataformas");
-                }
+            SetDadosgame();
 
-                game = db.game.Find(dadosGame.Id);
-                loja = new StoreRepository();
-                developerPublisher = new DeveloperPublisherRepository();
-                genre = new GenreRepository();
+            db.Entry(game).State = EntityState.Modified;
 
-                SetDadosgame();
+            SetPlataformasGame();
 
-                db.Entry(game).State = EntityState.Modified;
+            RemovePlataformasGame();
 
-                SetPlataformasGame();
+            SetDevelopersGame();
 
-                RemovePlataformasGame();
+            SetPublishersGame();
 
-                SetDevelopersGame();
+            SetGenresGame();
 
-                SetPublishersGame();
+            SaveImagemGame();
 
-                SetGenresGame();
-
-                SaveImagemGame();
-
-                db.SaveChanges();
-            }
-            catch (ValidacaoGameException ex) {
-                return ex.Message;
-            }
-            return "foi";
+            db.SaveChanges();
         }
 
         #region dados

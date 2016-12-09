@@ -1,5 +1,6 @@
 ﻿using Games.Models.Entity;
 using Games.Models.Repository;
+using Games.Models.Validacao;
 using Games.Models.ViewModel;
 using Igdb.ResponseModels;
 using Igdb.Services;
@@ -66,54 +67,7 @@ namespace Games.Controllers {
         public ActionResult ExibirFormGame() {
             return PartialView("DadosGameView", GameDataView.init());
         }
-
-        #region update
-        [HttpPost]
-        public ActionResult BuscaJogoUpdateJquery(string search) {
-            IgdbService igdb = new IgdbService();
-            GameResultView view = new GameResultView();
-            view.ListaJogos = igdb.BuscarJogo(search);
-
-            return PartialView("GameUpdateListView", view);
-        }
-
-        [HttpPost]
-        public void AtualizarJogoJquery(int id_local, int id_igdb) {
-            IgdbService igdb = new IgdbService();
-            DadosGameResponse response = igdb.DadosJogo(id_igdb).FirstOrDefault();
-            GamesEntities db = new GamesEntities();
-
-            GameRepository gameRepository = new GameRepository();
-            GameEntity game = db.game.Find(id_local);
-
-            game.id_igdb = response.Id;
-            game.summary = response.Summary;
-
-            if (response.Cover != null) {
-                game.cloudnary_id = response.Cover.CloudinaryId;
-                
-                string CloudnaryUrl = "https://res.cloudinary.com/igdb/image/upload/t_";
-                string BigCoverUrl = CloudnaryUrl + "cover_big/";
-                string BigCoverUrl2x = CloudnaryUrl + "cover_big_2x/";
-                string MicroCoverUrl = CloudnaryUrl + "micro/";
-                string MicroCoverUrl2x = CloudnaryUrl + "micro_2x/";
-                string SmallCoverUrl = CloudnaryUrl + "cover_small_2x/";
-                string Imagesfolder = "I:\\Documents\\Visual Studio 2015\\Projects\\Games\\Games\\images\\";
-                //string Imagesfolder = "F:\\new\\Games\\images\\";
-
-                WebClient webClient = new WebClient();
-
-                webClient.DownloadFile(BigCoverUrl + game.cloudnary_id, Imagesfolder + game.id + "_BigCover_" + game.cloudnary_id + ".jpg");
-                webClient.DownloadFile(BigCoverUrl2x + game.cloudnary_id, Imagesfolder + game.id + "_BigCover2x_" + game.cloudnary_id + ".jpg");
-                webClient.DownloadFile(SmallCoverUrl + game.cloudnary_id, Imagesfolder + game.id + "_SmallCover_" + game.cloudnary_id + ".jpg");
-                webClient.DownloadFile(MicroCoverUrl2x + game.cloudnary_id, Imagesfolder + game.id + "_MicroCover2x_" + game.cloudnary_id + ".jpg");
-            }
-
-            db.Entry(game).State = EntityState.Modified;
-            db.SaveChanges();
-        }
-        #endregion
-
+        
         [HttpPost]
         public void SalvarNovoJogoJquery(GameDataView dados) {
             GameRepository gameRepository = new GameRepository();
@@ -121,9 +75,14 @@ namespace Games.Controllers {
         }
 
         [HttpPost]
-        public void AlterarJogoJquery(GameDataView dados) {
-            GameRepository gameRepository = new GameRepository();
-            gameRepository.Alterar(dados);
+        public string AlterarJogoJquery(GameDataView dados) {
+            ValidacaoGameMessage validacao = ValidacaoGameService.Validar(dados);
+            if (validacao.Valido) {
+                GameRepository gameRepository = new GameRepository();
+                gameRepository.Alterar(dados);
+                return "alterado";
+            }
+            return validacao.Mensagem.ToString();
         }
         
         [HttpPost]
