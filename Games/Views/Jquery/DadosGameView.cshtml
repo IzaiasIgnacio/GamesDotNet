@@ -30,7 +30,7 @@
                 $("#lista_resultados").fadeOut();
             });
         });
-        //salvar novo jogo
+        //salvar jogo
         $("#modal_game").off().on("click", ".salvar", function () {
             var acao = '';
             if ($("#modal_game #Id").val() == '0') {
@@ -53,11 +53,16 @@
                 contentType: 'application/json',
                 data: JSON.stringify(json),
                 success: function (resposta) {
-                    $("#modal_game").modal('hide');
-                    $.post("/Jquery/ListaJogosIndex", { status: status },
-                    function (resposta) {
-                        $("#GameListView").html(resposta);
-                    });
+                    if (resposta['Valido']) {
+                        $("#modal_game").modal('hide');
+                        $.post("/Jquery/ListaJogosIndex", { status: status },
+                        function (resposta) {
+                            $("#GameListView").html(resposta);
+                        });
+                    }
+                    else {
+                        alert(resposta['Mensagem']);
+                    }
                 }
             });
         });

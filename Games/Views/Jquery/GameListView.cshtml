@@ -27,6 +27,9 @@
             @if (File.Exists(Model.Imagesfolder+game.id+"_MicroCover2x_"+game.cloudnary_id+".jpg")) {
                 <img class="img-rounded img-responsive capa" src="~/images/@(game.id+"_MicroCover2x_"+@game.cloudnary_id+".jpg")" />
             }
+            else {
+                <img class="img-rounded img-responsive capa" src="~/Content/ps.png" />
+            }
         </div>
         <div class="col-sm-10">
             <label>@game.name</label>

@@ -152,7 +152,7 @@ namespace Igdb.Test {
         public void TesteValidarGameView() {
             GameDataView view = new GameDataView();
             JqueryController j = new JqueryController();
-            j.AlterarJogoJquery(view);
+            var json = j.AlterarJogoJquery(view);
         }
 
     }

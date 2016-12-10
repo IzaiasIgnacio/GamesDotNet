@@ -1,4 +1,5 @@
-﻿using Games.Models.ViewModel;
+﻿using Games.Models.Entity;
+using Games.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,18 @@ namespace Games.Models.Validacao {
             if (game.Platforms.Count == 0) {
                 resposta.Valido = false;
                 resposta.Mensagem.Add("Nenhuma Plataforma informada");
+            }
+            else {
+                foreach (game_platform gp in game.Platforms) {
+                    if (gp.id_platform == 0) {
+                        resposta.Valido = false;
+                        resposta.Mensagem.Add("Plataforma não definida");
+                    }
+                    if (gp.id_status == 0) {
+                        resposta.Valido = false;
+                        resposta.Mensagem.Add("Status não definido");
+                    }
+                }
             }
 
             return resposta;

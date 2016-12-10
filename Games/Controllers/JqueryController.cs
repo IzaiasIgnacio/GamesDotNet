@@ -69,20 +69,23 @@ namespace Games.Controllers {
         }
         
         [HttpPost]
-        public void SalvarNovoJogoJquery(GameDataView dados) {
-            GameRepository gameRepository = new GameRepository();
-            gameRepository.Adicionar(dados);
+        public JsonResult SalvarNovoJogoJquery(GameDataView dados) {
+            ValidacaoGameMessage validacao = ValidacaoGameService.Validar(dados);
+            if (validacao.Valido) {
+                GameRepository gameRepository = new GameRepository();
+                gameRepository.Adicionar(dados);
+            }
+            return Json(validacao);
         }
 
         [HttpPost]
-        public string AlterarJogoJquery(GameDataView dados) {
+        public JsonResult AlterarJogoJquery(GameDataView dados) {
             ValidacaoGameMessage validacao = ValidacaoGameService.Validar(dados);
             if (validacao.Valido) {
                 GameRepository gameRepository = new GameRepository();
                 gameRepository.Alterar(dados);
-                return "alterado";
             }
-            return validacao.Mensagem.ToString();
+            return Json(validacao);
         }
         
         [HttpPost]
@@ -96,11 +99,21 @@ namespace Games.Controllers {
         public ActionResult PreencherDadosGameIgdbJquery(int id_igdb, int Id = 0) {
             IgdbService igdb = new IgdbService();
             DadosGameResponse response = igdb.DadosJogo(id_igdb).FirstOrDefault();
+            List<DadosDeveloperPublisherResponse> devs = new List<DadosDeveloperPublisherResponse>();
+            List<DadosDeveloperPublisherResponse> pubs = new List<DadosDeveloperPublisherResponse>();
+            List<DadosGenreResponse> genres = new List<DadosGenreResponse>();
+            List<ReleaseDate> lancamentos = new List<ReleaseDate>();
 
             PlatformRepository pr = new PlatformRepository();
-            List<DadosDeveloperPublisherResponse> devs = igdb.DadosDeveloperPublisher(response.Developers.ToArray());
-            List<DadosDeveloperPublisherResponse> pubs = igdb.DadosDeveloperPublisher(response.Publishers.ToArray());
-            List<DadosGenreResponse> genres = igdb.DadosGenre(response.Genres.ToArray());
+
+            if (response.Developers != null)
+                devs = igdb.DadosDeveloperPublisher(response.Developers.ToArray());
+            if (response.Developers != null)
+                pubs = igdb.DadosDeveloperPublisher(response.Publishers.ToArray());
+            if (response.Genres != null)
+                genres = igdb.DadosGenre(response.Genres.ToArray());
+            if (response.ReleaseDates != null)
+                lancamentos = response.ReleaseDates;
 
             GameDataView gameDataView = GameDataView.GetGameDataView();
             gameDataView.Id = Id;
@@ -111,6 +124,9 @@ namespace Games.Controllers {
             if (response.Cover != null) {
                 gameDataView.Imagem = gameDataView.BigCoverUrl+response.Cover.CloudinaryId;
                 gameDataView.CloudnaryId = response.Cover.CloudinaryId;
+            }
+            else {
+                gameDataView.Imagem = "/Content/ps.png";
             }
 
             foreach (DadosDeveloperPublisherResponse dev in devs) {
@@ -134,7 +150,7 @@ namespace Games.Controllers {
                 });
             }
 
-            foreach (ReleaseDate lancamento in response.ReleaseDates) {
+            foreach (ReleaseDate lancamento in lancamentos) {
                 int? plataforma = pr.GetIdByIgdb(lancamento.Platform);
                 if (plataforma != null) {
                     DateTime data = new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(Convert.ToDouble(lancamento.Date)));
