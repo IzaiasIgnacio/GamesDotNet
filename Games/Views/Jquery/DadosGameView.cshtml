@@ -70,6 +70,12 @@
         $("#modal_game").on("click", ".cancelar", function () {
             $("#modal_game").modal('hide');
         });
+
+        $(document).keyup(function (e) {
+            if (e.keyCode == 27) {
+                $("#modal_game").modal('hide');
+            }
+        });
     });
 </script>
 @Html.HiddenFor(model => Model.Id, new { @Value = Model.Id })

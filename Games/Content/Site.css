@@ -16,6 +16,10 @@ textarea {
     max-width: 280px;
 }
 
+.close {
+    display: none;
+}
+
 .caption {
     width:100%;
     bottom: 0;

@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using static Games.Models.ViewModel.GameListView;
 
 namespace Games.Models.Repository {
     public class GameRepository : BaseRepository {
@@ -206,7 +207,7 @@ namespace Games.Models.Repository {
                            join game_platform in db.game_platform on game.id equals game_platform.id_game
                            where plats.Contains(game_platform.id_platform)
                            where game_platform.id_status == status
-                           select game).OrderBy(game => game.name).ToList();
+                           select game).GroupBy(game=>game.name).Select(game=>game.FirstOrDefault()).ToList();
             return ListaJogos;
         }
 
