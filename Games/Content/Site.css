@@ -87,13 +87,26 @@ textarea {
     width: 80%;
 }
 
-#modal_game .modal-dialog {
+.modal-dialog {
   width: 80%;
   padding: 0;
 }
 
-#modal_game .modal-content {
+.modal-content {
   min-height: 100%;
+}
+
+#modal_game_info_grid, #modal_game_info_list {
+	margin-top:25px;
+    margin-left: auto;
+    margin-right: auto;
+	width: 95%;
+	height: 100%;
+    overflow: hidden;
+}
+
+#modal_game_info_grid .modal-dialog {
+    height: 100%;
 }
 
 #modal_game .modal-content .form-control {
@@ -122,7 +135,7 @@ textarea {
     width: 12%;
 }
 
-#modal_game .modal-content, .modal-content legend {
+.modal-content {
     background-color: #222;
     color: rgba(255, 255, 255, 0.54);
     font-size: 1.2em;
