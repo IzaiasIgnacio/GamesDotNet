@@ -44,6 +44,19 @@ namespace Igdb.Test {
             Assert.IsNotNull(response.Videos);
             Assert.IsNotNull(response.Cover.CloudinaryId);
         }
+
+        [TestMethod]
+        public void TesteBuscarDadosJogosSerie() {
+            IgdbService igdb = new IgdbService();
+            DadosGameResponse response = igdb.DadosJogo(20044).FirstOrDefault();
+
+            if (response.Cover == null) {
+                DadosGameSeriesResponse resposta = igdb.BuscaGameSeries(response.Collection).FirstOrDefault();
+                Assert.IsNotNull(resposta);
+            }
+            Assert.IsNotNull(response.Collection);
+            
+        }
         
         [TestMethod]
         public void TesteBuscarDadosDeveloperPublisher() {

@@ -29,5 +29,8 @@ namespace Igdb.ResponseModels {
 
         [DataMember(Name = "cover")]
         public Cover Cover { get; set; }
+
+        [DataMember(Name = "collection")]
+        public int Collection { get; set; }
     }
 }

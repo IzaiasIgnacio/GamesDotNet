@@ -3,10 +3,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 namespace Igdb.RequestModels {
-    public class DadosGameRequest {
+    public class DadosGameSeriesRequest {
         public string Fields {
             get {
-                return "id,name,summary,storyline,developers,publishers,genres,release_dates,videos,cover.cloudinary_id,collection";
+                return "name,games";
             }
         }
         

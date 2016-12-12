@@ -58,5 +58,11 @@ namespace Igdb.Services {
 
             return DoRequest(url);
         }
+
+        public string RequestGameSeries(DadosGameSeriesRequest request) {
+            string url = @"https://igdbcom-internet-game-database-v1.p.mashape.com/collections/" + request.Id + "?fields=" + request.Fields;
+
+            return DoRequest(url);
+        }
     }
 }
