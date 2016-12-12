@@ -11,6 +11,8 @@ using Newtonsoft.Json;
 
 namespace Igdb.Services {
     public class IgdbService {
+        int[] plats = { 6, 48, 49, 9 };
+
         public List<BuscaGameResponse> BuscarJogo(string busca) {
             RequestService requestService = new RequestService();
             BuscaGameRequest request = new BuscaGameRequest {
@@ -19,11 +21,12 @@ namespace Igdb.Services {
 
             string resposta = requestService.RequestBuscaGame(request);
 
-            List<BuscaGameResponse> response = JsonConvert.DeserializeObject<List<BuscaGameResponse>>(resposta);
+            List<BuscaGameResponse> lista = JsonConvert.DeserializeObject<List<BuscaGameResponse>>(resposta);
+            List<BuscaGameResponse> response = lista.Where(game => game.ReleaseDates.Any(release => plats.Contains(release.Platform))).ToList();
                         
             return response;
         }
-
+        
         public List<DadosGameResponse> DadosJogo(int id) {
             RequestService requestService = new RequestService();
             DadosGameRequest request = new DadosGameRequest {
@@ -36,6 +39,7 @@ namespace Igdb.Services {
 
             return response;
         }
+
         public List<DadosGameSeriesResponse> BuscaGameSeries(int id) {
             RequestService requestService = new RequestService();
             DadosGameSeriesRequest request = new DadosGameSeriesRequest {

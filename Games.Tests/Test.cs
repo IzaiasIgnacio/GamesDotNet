@@ -51,11 +51,14 @@ namespace Igdb.Test {
             DadosGameResponse response = igdb.DadosJogo(20044).FirstOrDefault();
 
             if (response.Cover == null) {
+                List<DadosGameResponse> listaGames = new List<DadosGameResponse>();
                 DadosGameSeriesResponse resposta = igdb.BuscaGameSeries(response.Collection).FirstOrDefault();
-                Assert.IsNotNull(resposta);
+                foreach (int game in resposta.Games) {
+                    listaGames.Add(igdb.DadosJogo(game).FirstOrDefault());
+                }
+                Assert.IsNotNull(listaGames);
             }
             Assert.IsNotNull(response.Collection);
-            
         }
         
         [TestMethod]
