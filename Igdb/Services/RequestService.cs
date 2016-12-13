@@ -25,8 +25,8 @@ namespace Igdb.Services {
         }
 
         public string RequestBuscaGame(BuscaGameRequest request) {
-            string url = @"https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields="+request.Fields+"&limit="+request.Limit+
-                "&search="+request.Search;
+            string url = @"https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields="+request.Fields+"&filter="+request.Platforms+
+                "&limit="+request.Limit+"&search="+request.Search;
 
             return DoRequest(url);
         }

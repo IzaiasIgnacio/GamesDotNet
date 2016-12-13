@@ -1,18 +1,11 @@
-﻿using System;
-using System.Web;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Igdb.ResponseModels;
-using System.Net;
-using System.IO;
 using Igdb.RequestModels;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace Igdb.Services {
     public class IgdbService {
-        int[] plats = { 6, 48, 49, 9 };
-
         public List<BuscaGameResponse> BuscarJogo(string busca) {
             RequestService requestService = new RequestService();
             BuscaGameRequest request = new BuscaGameRequest {
@@ -21,8 +14,7 @@ namespace Igdb.Services {
 
             string resposta = requestService.RequestBuscaGame(request);
 
-            List<BuscaGameResponse> lista = JsonConvert.DeserializeObject<List<BuscaGameResponse>>(resposta);
-            List<BuscaGameResponse> response = lista.Where(game => game.ReleaseDates.Any(release => plats.Contains(release.Platform))).ToList();
+            List<BuscaGameResponse> response = JsonConvert.DeserializeObject<List<BuscaGameResponse>>(resposta);
                         
             return response;
         }
@@ -38,6 +30,14 @@ namespace Igdb.Services {
             List<DadosGameResponse> response = JsonConvert.DeserializeObject<List<DadosGameResponse>>(resposta);
 
             return response;
+        }
+
+        public bool ValidarGamePlataforma(DadosGameResponse dados) {
+            if (dados.ReleaseDates == null) {
+                return false;
+            }
+            int[] plats = { 7, 8, 9, 48, 38, 46, 6 };
+            return dados.ReleaseDates.Where(release => plats.Contains(release.Platform)).Any();
         }
 
         public List<DadosGameSeriesResponse> BuscaGameSeries(int id) {
