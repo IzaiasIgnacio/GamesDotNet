@@ -14,6 +14,11 @@ namespace Games.Controllers {
             layoutView.ativos.Add(4);
             return View();
         }
+
+        public ActionResult Dashboard() {
+            LayoutView layoutView = LayoutView.GetLayoutView();
+            return View();
+        }
         
     }
 }

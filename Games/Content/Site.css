@@ -154,7 +154,7 @@ textarea {
 }
 
 .principal {
-    background-color: #555;
+    background-color: #252830;
 }
 
 #modal_game .container {
@@ -236,4 +236,47 @@ textarea {
 
 .select_game:hover {
     background-color: #ddd;
+}
+
+.dashboard {
+    color:#9d9d9d;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.dashboard .border {
+    border: 1px solid rgba(255, 255, 255, 0.54);
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    margin-right: 2px;
+}
+
+.dashboard .titulo {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.54);
+    font-weight: bold;
+    font-size: 1.3em;
+    padding-left: 0.5em;
+}
+
+.dashboard .conteudo {
+    font-size: 1.2em;
+}
+
+.dashboard .titulo, .dashboard .conteudo {    
+    
+}
+
+.dashboard .conteudo .valor {
+    float: right;
+    padding-right: 0.5em;
+    border-bottom-right-radius: 4px;
+}
+
+.dashboard .descricao {
+    padding-left: 0.5em;
+    background-color: #000;
+    display: inline-block;
+    border-bottom-left-radius: 4px;
 }

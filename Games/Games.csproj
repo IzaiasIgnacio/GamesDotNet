@@ -266,6 +266,7 @@
     <Compile Include="Models\Repository\GameRepository.cs" />
     <Compile Include="Models\Validacao\ValidacaoGameMessage.cs" />
     <Compile Include="Models\Validacao\ValidacaoGameService.cs" />
+    <Compile Include="Models\ViewModel\DashboardView.cs" />
     <Compile Include="Models\ViewModel\LayoutView.cs" />
     <Compile Include="Models\ViewModel\GameView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -295,6 +296,7 @@
     <Content Include="Views\Jquery\GameResultView.cshtml" />
     <Content Include="Views\Jquery\GameGridView.cshtml" />
     <Content Include="Views\Jquery\GameListView.cshtml" />
+    <Content Include="Views\Home\Dashboard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
