@@ -4,37 +4,45 @@
         <div class="col-md-3">
             <div class="border row">
                 <div class="titulo">Plataformas</div>
+                @foreach (var plataforma in Model.TotalJogosPlataforma) {
                 <div class="conteudo">
-                    <span class="descricao">Playstation 4</span>
-                    <span class="valor">80%</span>
+                    <span class="descricao">@plataforma.Key</span>
+                    <span class="valor">@plataforma.Value</span>
                 </div>
+                }
             </div>
         </div>
         <div class="col-md-3">
             <div class="border row">
-                <div class="titulo">Formato</div>
-                <div class="conteudo">
-                    <span class="descricao" style="width:80%">Físico</span>
-                    <span class="valor">80%</span>
-                </div>
+                <div class="titulo">Status</div>
+                @foreach (var status in Model.TotalJogosStatus) {
+                    <div class="conteudo">
+                        <span class="descricao">@status.Key</span>
+                        <span class="valor">@status.Value</span>
+                    </div>
+                }
             </div>
         </div>
         <div class="col-md-3">
             <div class="border row">
-                <div class="titulo">Ano</div>
-                <div class="conteudo">
-                    <span class="descricao">2016</span>
-                    <span class="valor">80%</span>
-                </div>
+                <div class="titulo">Status</div>
+                @foreach (var developer in Model.TotalJogosDeveloper) {
+                    <div class="conteudo">
+                        <span class="descricao">@developer.Key</span>
+                        <span class="valor">@developer.Value</span>
+                    </div>
+                }
             </div>
         </div>
         <div class="col-md-3">
             <div class="border row">
-                <div class="titulo">Developer</div>
-                <div class="conteudo">
-                    <span class="descricao">Square</span>
-                    <span class="valor">80%</span>
-                </div>
+                <div class="titulo">Status</div>
+                @foreach (var publisher in Model.TotalJogosPublisher) {
+                    <div class="conteudo">
+                        <span class="descricao">@publisher.Key</span>
+                        <span class="valor">@publisher.Value</span>
+                    </div>
+                }
             </div>
         </div>
     </div>

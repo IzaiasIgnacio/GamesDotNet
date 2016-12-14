@@ -17,7 +17,8 @@ namespace Games.Controllers {
 
         public ActionResult Dashboard() {
             LayoutView layoutView = LayoutView.GetLayoutView();
-            return View();
+            DashboardView dashboardView = new DashboardView();
+            return View(dashboardView);
         }
         
     }

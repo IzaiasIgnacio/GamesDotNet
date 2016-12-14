@@ -39,7 +39,7 @@ namespace Games.Models.Repository {
 
             SaveImagemGame();
         }
-
+        
         public void Alterar(GameDataView dados) {
             dadosGame = dados;
             
@@ -66,7 +66,7 @@ namespace Games.Models.Repository {
 
             db.SaveChanges();
         }
-
+        
         #region dados
         private void SetDadosgame() {
             game.id_igdb = dadosGame.id_igdb;
@@ -94,7 +94,7 @@ namespace Games.Models.Repository {
                 }
             }
         }
-
+        
         private void RemovePlataformasGame() {
             int[] plats = dadosGame.Platforms.Select(p => p.id).ToArray();
             List<game_platform> excluirPlataformas = db.game_platform.
@@ -209,6 +209,95 @@ namespace Games.Models.Repository {
                            where game_platform.id_status == status
                            select game).GroupBy(game=>game.name).Select(game=>game.FirstOrDefault()).ToList();
             return ListaJogos;
+        }
+
+        public int GetTotalJogos() {
+            return db.game.Count();
+        }
+        
+        public Dictionary<string, int> GetTotalJogosStatus() {
+            Dictionary<string, int> total = new Dictionary<string, int>();
+            var query = db.game_platform.GroupBy(gp => gp.status.name).Select(g => new { status = g.Key, total = g.Count() });
+            foreach (var gp in query) {
+                total.Add(gp.status,  gp.total);
+            }
+            return total;
+        }
+
+        public Dictionary<string, int> GetTotalJogosPlataforma() {
+            Dictionary<string, int> total = new Dictionary<string, int>();
+            var query = db.game_platform.GroupBy(gp => gp.platform.name).Select(g => new { plataforma = g.Key, total = g.Count() });
+            foreach (var gp in query) {
+                total.Add(gp.plataforma, gp.total);
+            }
+            return total;
+        }
+
+        public Dictionary<string, int> GetTotalJogosPublisher() {
+            Dictionary<string, int> total = new Dictionary<string, int>();
+            var query = db.game_developerPublisher.Where(gp=>gp.tipo == 2).GroupBy(gp => gp.developerPublisher.name).Select(g => new { publisher = g.Key, total = g.Count() });
+            foreach (var gp in query) {
+                total.Add(gp.publisher, gp.total);
+            }
+            return total;
+        }
+
+        public Dictionary<string, int> GetTotalJogosCompletos() {
+            Dictionary<string, int> total = new Dictionary<string, int>();
+            var query = db.game.Where(gp=>gp.completo == true).GroupBy(gp => gp.name).Select(g => new { status = g.Key, total = g.Count() });
+            foreach (var gp in query) {
+                total.Add(gp.status, gp.total);
+            }
+            return total;
+        }
+
+        public Dictionary<string, int> GetTotalJogosLoja() {
+            Dictionary<string, int> total = new Dictionary<string, int>();
+            var query = db.game_platform.GroupBy(gp => gp.store.name).Select(g => new { loja = g.Key, total = g.Count() });
+            foreach (var gp in query) {
+                total.Add(gp.loja, gp.total);
+            }
+            return total;
+        }
+
+        public Dictionary<string, int> GetTotalJogosFaixaPreco() {
+            /*Dictionary<string, int> total = new Dictionary<string, int>();
+            var query = db.GroupBy(gp => gp.name).Select(g => new { status = g.Key, total = g.Count() });
+            foreach (var gp in query) {
+                total.Add(gp, gp.total);
+            }*/
+            return null;
+        }
+
+        public Dictionary<string, int> GetTotalJogosAno() {
+            /*Dictionary<string, int> total = new Dictionary<string, int>();
+            var query = db.GroupBy(gp => gp.name).Select(g => new { status = g.Key, total = g.Count() });
+            foreach (var gp in query) {
+                total.Add(gp, gp.total);
+            }*/
+            return null;
+        }
+
+        public Dictionary<string, int> GetTotalJogosDeveloper() {
+            Dictionary<string, int> total = new Dictionary<string, int>();
+            var query = db.game_developerPublisher.Where(gp => gp.tipo == 1).GroupBy(gp => gp.developerPublisher.name).Select(g => new { publisher = g.Key, total = g.Count() });
+            foreach (var gp in query) {
+                total.Add(gp.publisher, gp.total);
+            }
+            return total;
+        }
+
+        public Dictionary<string, int> GetTotalJogosGenero() {
+            Dictionary<string, int> total = new Dictionary<string, int>();
+            var query = db.game_genre.GroupBy(gp => gp.genre.name).Select(g => new { genero = g.Key, total = g.Count() });
+            foreach (var gp in query) {
+                total.Add(gp.genero, gp.total);
+            }
+            return total;
+        }
+
+        public Dictionary<string, int> GetTotalJogosFormato() {
+            return null;
         }
 
     }
