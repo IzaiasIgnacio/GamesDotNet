@@ -262,6 +262,7 @@ textarea {
 
 .dashboard .conteudo {
     font-size: 1.2em;
+    border-top: 1px solid rgba(255, 255, 255, 0.54);
 }
 
 .dashboard .titulo, .dashboard .conteudo {    
@@ -276,7 +277,6 @@ textarea {
 
 .dashboard .descricao {
     padding-left: 0.5em;
-    background-color: #000;
     display: inline-block;
     border-bottom-left-radius: 4px;
 }

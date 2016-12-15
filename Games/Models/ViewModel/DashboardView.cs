@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
@@ -46,6 +47,10 @@ namespace Games.Models.ViewModel {
             get {
                 return totalJogos;
             }
+        }
+
+        public string porcentagem(int total, int valor) {
+            return (((Double)valor / (Double)total)).ToString("0.00%", CultureInfo.InvariantCulture);
         }
 
         public Dictionary<string, int> TotalJogosStatus {

@@ -5,9 +5,9 @@
             <div class="border row">
                 <div class="titulo">Plataformas</div>
                 @foreach (var plataforma in Model.TotalJogosPlataforma) {
-                <div class="conteudo">
+                <div class="conteudo" style="background: -webkit-linear-gradient(left, #001fff 0, #252830 @Model.porcentagem(Model.TotalJogos,plataforma.Value), transparent 75%);">
                     <span class="descricao">@plataforma.Key</span>
-                    <span class="valor">@plataforma.Value</span>
+                    <span class="valor">@plataforma.Value (@Model.porcentagem(Model.TotalJogos,plataforma.Value))</span>
                 </div>
                 }
             </div>
@@ -16,18 +16,29 @@
             <div class="border row">
                 <div class="titulo">Status</div>
                 @foreach (var status in Model.TotalJogosStatus) {
-                    <div class="conteudo">
+                    <div class="conteudo" style="background: -webkit-linear-gradient(left, #001fff 0, #252830 @Model.porcentagem(Model.TotalJogos,status.Value), transparent 75%);">
                         <span class="descricao">@status.Key</span>
-                        <span class="valor">@status.Value</span>
+                        <span class="valor">@status.Value (@Model.porcentagem(Model.TotalJogos, status.Value))</span>
                     </div>
                 }
             </div>
         </div>
         <div class="col-md-3">
             <div class="border row">
-                <div class="titulo">Status</div>
+                <div class="titulo">Loja</div>
+                @foreach (var loja in Model.TotalJogosLoja) {
+                    <div class="conteudo" style="background: -webkit-linear-gradient(left, #001fff 0, #252830 @Model.porcentagem(Model.TotalJogos,loja.Value), transparent 75%);">
+                        <span class="descricao">@loja.Key</span>
+                        <span class="valor">@loja.Value (@Model.porcentagem(Model.TotalJogos, loja.Value))</span>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="border row">
+                <div class="titulo">Developers</div>
                 @foreach (var developer in Model.TotalJogosDeveloper) {
-                    <div class="conteudo">
+                    <div class="conteudo" style="background: -webkit-linear-gradient(left, #001fff 0, #252830 @Model.porcentagem(Model.TotalJogos,developer.Value), transparent 75%);">
                         <span class="descricao">@developer.Key</span>
                         <span class="valor">@developer.Value</span>
                     </div>
@@ -36,9 +47,9 @@
         </div>
         <div class="col-md-3">
             <div class="border row">
-                <div class="titulo">Status</div>
+                <div class="titulo">Publishers</div>
                 @foreach (var publisher in Model.TotalJogosPublisher) {
-                    <div class="conteudo">
+                    <div class="conteudo" style="background: -webkit-linear-gradient(left, #001fff 0, #252830 @Model.porcentagem(Model.TotalJogos,publisher.Value), transparent 75%);">
                         <span class="descricao">@publisher.Key</span>
                         <span class="valor">@publisher.Value</span>
                     </div>
