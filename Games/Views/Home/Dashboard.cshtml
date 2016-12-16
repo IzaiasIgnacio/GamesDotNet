@@ -3,6 +3,27 @@
     <div class="row">
         <div class="col-md-3">
             <div class="border row">
+                <div class="titulo">Totais</div>
+                <div class="conteudo">
+                    <span class="descricao">Jogos</span>
+                    <span class="valor">@Model.TotalJogos</span>
+                </div>
+                <div class="conteudo">
+                    <span class="descricao">Completos</span>
+                    <span class="valor">@Model.TotalJogosCompletos</span>
+                </div>
+                <div class="conteudo">
+                    <span class="descricao">Físicos</span>
+                    <span class="valor">@Model.TotalJogosFisicos</span>
+                </div>
+                <div class="conteudo">
+                    <span class="descricao">Digitais</span>
+                    <span class="valor">@Model.TotalJogosDigitais</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="border row">
                 <div class="titulo">Plataformas</div>
                 @foreach (var plataforma in Model.TotalJogosPlataforma) {
                 <div class="conteudo" style="background: -webkit-linear-gradient(left, #001fff 0, #252830 @Model.porcentagem(Model.TotalJogos,plataforma.Value), transparent 75%);">
@@ -52,6 +73,17 @@
                     <div class="conteudo" style="background: -webkit-linear-gradient(left, #001fff 0, #252830 @Model.porcentagem(Model.TotalJogos,publisher.Value), transparent 75%);">
                         <span class="descricao">@publisher.Key</span>
                         <span class="valor">@publisher.Value</span>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="border row">
+                <div class="titulo">Gêneros</div>
+                @foreach (var genre in Model.TotalJogosGenero) {
+                    <div class="conteudo" style="background: -webkit-linear-gradient(left, #001fff 0, #252830 @Model.porcentagem(Model.TotalJogos,genre.Value), transparent 75%);">
+                        <span class="descricao">@genre.Key</span>
+                        <span class="valor">@genre.Value</span>
                     </div>
                 }
             </div>

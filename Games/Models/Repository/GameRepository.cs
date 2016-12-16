@@ -214,7 +214,19 @@ namespace Games.Models.Repository {
         public int GetTotalJogos() {
             return db.game.Count();
         }
-        
+
+        public int GetTotalJogosCompletos() {
+            return db.game.Where(gp => gp.completo == true).Count();
+        }
+
+        public int GetTotalJogosFisicos() {
+            return db.game_platform.Where(gp => gp.formato == 1).Count();
+        }
+
+        public int GetTotalJogosDigitais() {
+            return db.game_platform.Where(gp => gp.formato == 2).Count();
+        }
+
         public Dictionary<string, int> GetTotalJogosPlataforma() {
             Dictionary<string, int> total = new Dictionary<string, int>();
             var query = db.game_platform.
@@ -233,50 +245,83 @@ namespace Games.Models.Repository {
             var query = db.game_platform.
                         GroupBy(gp => gp.status.name).
                         Select(g => new { status = g.Key, total = g.Count() }).
-                        OrderByDescending(g => g.total); ;
+                        OrderByDescending(g => g.total);
             foreach (var gp in query) {
                 total.Add(gp.status,  gp.total);
             }
             return total;
         }
-        
+
+        public Dictionary<string, int> GetTotalJogosDeveloper() {
+            Dictionary<string, int> total = new Dictionary<string, int>();
+            Dictionary<string, int> resposta = new Dictionary<string, int>();
+            int valor = 0;
+            var query = (from game in db.game
+                         join game_developerPublisher in db.game_developerPublisher on game.id equals game_developerPublisher.id_game into developer
+                         from dev in developer.DefaultIfEmpty()
+                         where dev.tipo == 1 || dev == null
+                         select dev).
+                        GroupBy(game_developerPublisher => game_developerPublisher.developerPublisher.name).
+                        Select(g => new { developer = g.Key, total = g.Count() }).
+                        OrderByDescending(g => g.total);
+            foreach (var gp in query) {
+                if (gp.developer != null) {
+                    total.Add(gp.developer, gp.total);
+                }
+                else {
+                    valor = gp.total;
+                }
+            }
+            resposta = total.Take(14).ToDictionary(x => x.Key, x => x.Value);
+            resposta.Add("Não informado", valor);
+            return resposta;
+        }
+
         public Dictionary<string, int> GetTotalJogosPublisher() {
             Dictionary<string, int> total = new Dictionary<string, int>();
-            var query = db.game_developerPublisher.
-                        Where(gp=>gp.tipo == 2).
-                        GroupBy(gp => gp.developerPublisher.name).
+            Dictionary<string, int> resposta = new Dictionary<string, int>();
+            int valor = 0;
+            var query = (from game in db.game
+                        join game_developerPublisher in db.game_developerPublisher on game.id equals game_developerPublisher.id_game into publisher
+                        from pub in publisher.DefaultIfEmpty()
+                        where pub.tipo == 2 || pub == null
+                        select pub).
+                        GroupBy(game_developerPublisher => game_developerPublisher.developerPublisher.name).
                         Select(g => new { publisher = g.Key, total = g.Count() }).
-                        OrderByDescending(g => g.total); ;
+                        OrderByDescending(g => g.total);
             foreach (var gp in query) {
-                total.Add(gp.publisher, gp.total);
+                if (gp.publisher != null) {
+                    total.Add(gp.publisher, gp.total);
+                }
+                else {
+                    valor = gp.total;
+                }
             }
-            return total;
+            resposta = total.Take(14).ToDictionary(x=>x.Key, x=>x.Value);
+            resposta.Add("Não informado", valor);
+            return resposta;
         }
-
-        public Dictionary<string, int> GetTotalJogosCompletos() {
-            Dictionary<string, int> total = new Dictionary<string, int>();
-            var query = db.game.
-                        Where(gp=>gp.completo == true).
-                        GroupBy(gp => gp.name).
-                        Select(g => new { status = g.Key, total = g.Count() }).
-                        OrderByDescending(g => g.total); ;
-            foreach (var gp in query) {
-                total.Add(gp.status, gp.total);
-            }
-            return total;
-        }
-
+        
         public Dictionary<string, int> GetTotalJogosLoja() {
             Dictionary<string, int> total = new Dictionary<string, int>();
+            Dictionary<string, int> resposta = new Dictionary<string, int>();
+            int valor = 0;
             var query = db.game_platform.
+                        Where(gp=>gp.id_status == 1).
                         GroupBy(gp => gp.store.name).
                         Select(g => new { loja = g.Key, total = g.Count() }).
-                        OrderByDescending(g => g.total); ;
+                        OrderByDescending(g => g.total);
             foreach (var gp in query) {
-                string loja = (gp.loja != null) ? gp.loja : "Não informado";
-                total.Add(loja, gp.total);
+                if (gp.loja != null) {
+                    total.Add(gp.loja, gp.total);
+                }
+                else {
+                    valor = gp.total;
+                }
             }
-            return total;
+            resposta = total.Take(14).ToDictionary(x => x.Key, x => x.Value);
+            resposta.Add("Não informado", valor);
+            return resposta;
         }
 
         public Dictionary<string, int> GetTotalJogosFaixaPreco() {
@@ -296,35 +341,30 @@ namespace Games.Models.Repository {
             }*/
             return null;
         }
-
-        public Dictionary<string, int> GetTotalJogosDeveloper() {
-            Dictionary<string, int> total = new Dictionary<string, int>();
-            var query = db.game_developerPublisher.
-                        Where(gp => gp.tipo == 1).
-                        GroupBy(gp => gp.developerPublisher.name).
-                        Select(g => new { publisher = g.Key, total = g.Count() }).
-                        OrderByDescending(g => g.total); ;
-            foreach (var gp in query) {
-                total.Add(gp.publisher, gp.total);
-            }
-            return total;
-        }
-
+        
         public Dictionary<string, int> GetTotalJogosGenero() {
             Dictionary<string, int> total = new Dictionary<string, int>();
-            var query = db.game_genre.
-                        GroupBy(gp => gp.genre.name).
-                        Select(g => new { genero = g.Key, total = g.Count() }).
-                        OrderByDescending(g => g.total); ;
+            Dictionary<string, int> resposta = new Dictionary<string, int>();
+            int valor = 0;
+            var query = (from game in db.game
+                         join game_genre in db.game_genre on game.id equals game_genre.id_game into genre
+                         from genero in genre.DefaultIfEmpty()
+                         select genero).
+                        GroupBy(game_genre => game_genre.genre.name).
+                        Select(g => new { genre = g.Key, total = g.Count() }).
+                        OrderByDescending(g => g.total);
             foreach (var gp in query) {
-                total.Add(gp.genero, gp.total);
+                if (gp.genre != null) {
+                    total.Add(gp.genre, gp.total);
+                }
+                else {
+                    valor = gp.total;
+                }
             }
-            return total;
+            resposta = total.Take(14).ToDictionary(x => x.Key, x => x.Value);
+            resposta.Add("Não informado", valor);
+            return resposta;
         }
-
-        public Dictionary<string, int> GetTotalJogosFormato() {
-            return null;
-        }
-
+        
     }
 }

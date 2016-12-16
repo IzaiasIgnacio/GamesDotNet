@@ -14,6 +14,9 @@ namespace Games.Models.ViewModel {
     public class DashboardView {
         private GameRepository gameRepository;
         private int totalJogos;
+        private int totalJogosCompletos;
+        private int totalJogosFisicos;
+        private int totalJogosDigitais;
         private Dictionary<string, int> totalJogosColecaoPlataforma;
         private Dictionary<string, int> totalJogosWishlistPlataforma;
         private Dictionary<string, int> totalJogosWatchlistPlataforma;
@@ -23,24 +26,23 @@ namespace Games.Models.ViewModel {
         private Dictionary<string, int> totalJogosDeveloper;
         private Dictionary<string, int> totalJogosPublisher;
         private Dictionary<string, int> totalJogosAno;
-        private Dictionary<string, int> totalJogosCompletos;
         private Dictionary<string, int> totalJogosFaixaPreco;
         private Dictionary<string, int> totalJogosLoja;
-        private Dictionary<string, int> totalJogosFormato;
 
         public DashboardView() {
             gameRepository = new GameRepository();
             totalJogos = gameRepository.GetTotalJogos();
+            totalJogosCompletos = gameRepository.GetTotalJogosCompletos();
+            totalJogosFisicos = gameRepository.GetTotalJogosFisicos();
+            totalJogosDigitais = gameRepository.GetTotalJogosDigitais();
             totalJogosStatus = gameRepository.GetTotalJogosStatus();
             totalJogosPlataforma = gameRepository.GetTotalJogosPlataforma();
             totalJogosGenero = gameRepository.GetTotalJogosGenero();
             totalJogosDeveloper = gameRepository.GetTotalJogosDeveloper();
             totalJogosPublisher = gameRepository.GetTotalJogosPublisher();
             totalJogosAno = gameRepository.GetTotalJogosAno();
-            totalJogosCompletos = gameRepository.GetTotalJogosCompletos();
             totalJogosFaixaPreco = gameRepository.GetTotalJogosFaixaPreco();
             totalJogosLoja = gameRepository.GetTotalJogosLoja();
-            totalJogosFormato = gameRepository.GetTotalJogosFormato();
         }
         
         public int TotalJogos {
@@ -90,9 +92,21 @@ namespace Games.Models.ViewModel {
             }
         }
 
-        public Dictionary<string, int> TotalJogosCompletos {
+        public int TotalJogosCompletos {
             get {
                 return totalJogosCompletos;
+            }
+        }
+
+        public int TotalJogosFisicos {
+            get {
+                return totalJogosFisicos;
+            }
+        }
+
+        public int TotalJogosDigitais {
+            get {
+                return totalJogosDigitais;
             }
         }
 
@@ -108,18 +122,7 @@ namespace Games.Models.ViewModel {
                 return totalJogosLoja;
             }
         }
-
-        public Dictionary<string, int> TotalJogosFormato {
-            get {
-                return totalJogosFormato;
-            }
-        }
-
-        public Dictionary<string, int> TotalJogosFormato1 {
-            get {
-                return totalJogosFormato;
-            }
-        }
+        
     }
 
 }
