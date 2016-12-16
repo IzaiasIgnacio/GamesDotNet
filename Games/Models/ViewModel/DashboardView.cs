@@ -33,8 +33,8 @@ namespace Games.Models.ViewModel {
             gameRepository = new GameRepository();
             totalJogos = gameRepository.GetTotalJogos();
             totalJogosCompletos = gameRepository.GetTotalJogosCompletos();
-            totalJogosFisicos = gameRepository.GetTotalJogosFisicos();
-            totalJogosDigitais = gameRepository.GetTotalJogosDigitais();
+            totalJogosFisicos = gameRepository.GetTotalJogosFormato(1);
+            totalJogosDigitais = gameRepository.GetTotalJogosFormato(2);
             totalJogosStatus = gameRepository.GetTotalJogosStatus();
             totalJogosPlataforma = gameRepository.GetTotalJogosPlataforma();
             totalJogosGenero = gameRepository.GetTotalJogosGenero();

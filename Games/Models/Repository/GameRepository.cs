@@ -219,14 +219,10 @@ namespace Games.Models.Repository {
             return db.game.Where(gp => gp.completo == true).Count();
         }
 
-        public int GetTotalJogosFisicos() {
-            return db.game_platform.Where(gp => gp.formato == 1).Count();
+        public int GetTotalJogosFormato(int formato) {
+            return db.game_platform.Where(gp => gp.formato == formato).Count();
         }
-
-        public int GetTotalJogosDigitais() {
-            return db.game_platform.Where(gp => gp.formato == 2).Count();
-        }
-
+        
         public Dictionary<string, int> GetTotalJogosPlataforma() {
             Dictionary<string, int> total = new Dictionary<string, int>();
             var query = db.game_platform.
@@ -334,12 +330,24 @@ namespace Games.Models.Repository {
         }
 
         public Dictionary<string, int> GetTotalJogosAno() {
-            /*Dictionary<string, int> total = new Dictionary<string, int>();
-            var query = db.GroupBy(gp => gp.name).Select(g => new { status = g.Key, total = g.Count() }).OrderByDescending(g=>g.total);;
+            Dictionary<string, int> total = new Dictionary<string, int>();
+            Dictionary<string, int> resposta = new Dictionary<string, int>();
+            int valor = 0;
+            var query = db.game_platform.
+                        GroupBy(gp => gp.release_date.Value.Year).
+                        Select(g => new { ano = (int?)g.Key, total = g.Count() }).
+                        OrderByDescending(g => g.total);
             foreach (var gp in query) {
-                total.Add(gp, gp.total);
-            }*/
-            return null;
+                if (gp.ano != null) {
+                    total.Add(gp.ano.ToString(), gp.total);
+                }
+                else {
+                    valor = gp.total;
+                }
+            }
+            resposta = total.Take(14).ToDictionary(x => x.Key, x => x.Value);
+            resposta.Add("Não informado", valor);
+            return resposta;
         }
         
         public Dictionary<string, int> GetTotalJogosGenero() {
