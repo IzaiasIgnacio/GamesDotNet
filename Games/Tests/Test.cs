@@ -99,6 +99,50 @@ namespace Igdb.Test {
         }
         
         [TestMethod]
+        public void AtualizarTudoIgdb() {
+            GamesEntities db = new GamesEntities();
+            IgdbService igdb = new IgdbService();
+            DeveloperPublisherRepository developerPublisherRepository = new DeveloperPublisherRepository();
+            GenreRepository genreRepository = new GenreRepository();
+
+            var lista = db.game;
+            foreach (var game in lista) {
+                if (game.id_igdb != null) {
+                    DadosGameResponse dados = igdb.DadosJogo((int)game.id_igdb).FirstOrDefault();
+                    game.summary = dados.Summary;
+                    if (dados.Developers != null) {
+                        foreach (var dev in dados.Developers) {
+                            var id_dev = developerPublisherRepository.GetIdByIgdb(dev, igdb.DadosDeveloperPublisher(new int[] { dev }).FirstOrDefault().Name);
+                            var devs = db.game_developerPublisher.Where(g => g.id_game == game.id && g.id_developerPublisher == id_dev && g.tipo == 1).Any();
+                            if (!devs) {
+                                game.game_developerPublisher.Add(new game_developerPublisher { id_developerPublisher = id_dev, id_game = game.id, tipo = 1 });
+                            }
+                        }
+                    }
+                    if (dados.Publishers != null) {
+                        foreach (var pub in dados.Publishers) {
+                            var id_pub = developerPublisherRepository.GetIdByIgdb(pub, igdb.DadosDeveloperPublisher(new int[] { pub }).FirstOrDefault().Name);
+                            var pubs = db.game_developerPublisher.Where(g => g.id_game == game.id && g.id_developerPublisher == id_pub && g.tipo == 2).Any();
+                            if (!pubs) {
+                                game.game_developerPublisher.Add(new game_developerPublisher { id_developerPublisher = id_pub, id_game = game.id, tipo = 2 });
+                            }
+                        }
+                    }
+                    if (dados.Genres != null) {
+                        foreach (var genre in dados.Genres) {
+                            var id_genre = genreRepository.GetIdByIgdb(genre, igdb.DadosGenre(new int[] { genre }).FirstOrDefault().Name);
+                            var genres = db.game_genre.Where(g => g.id_game == game.id && g.id_genre == id_genre).Any();
+                            if (!genres) {
+                                game.game_genre.Add(new game_genre { id_genre = id_genre, id_game = game.id });
+                            }
+                        }
+                    }
+                }
+            }
+            db.SaveChanges();
+        }
+
+        [TestMethod]
         public void TesteListarJogos() {
             List<int> plataformas = new List<int> { 1, 2 };
             int status = 2;

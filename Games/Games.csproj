@@ -297,6 +297,7 @@
     <Content Include="Views\Jquery\GameGridView.cshtml" />
     <Content Include="Views\Jquery\GameListView.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
+    <Content Include="Views\Home\DashboardTableReport.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -11,12 +11,29 @@ using System.Web.Mvc.Html;
 
 namespace Games.Models.ViewModel {
 
+    public class DashboardTableReportView {
+        public int totalJogos;
+        public string titulo;
+        public Dictionary<string, int> dados;
+
+        public DashboardTableReportView(string titulo, Dictionary<string, int> dados, int totalJogos) {
+            this.titulo = titulo;
+            this.dados = dados;
+            this.totalJogos = totalJogos;
+        }
+
+        public string porcentagem(int total, int valor) {
+            return (((Double)valor / (Double)total)).ToString("0.00%", CultureInfo.InvariantCulture);
+        }
+    }
+
     public class DashboardView {
         private GameRepository gameRepository;
         private int totalJogos;
         private int totalJogosCompletos;
         private int totalJogosFisicos;
         private int totalJogosDigitais;
+        private decimal? totalPreco;
         private Dictionary<string, int> totalJogosColecaoPlataforma;
         private Dictionary<string, int> totalJogosWishlistPlataforma;
         private Dictionary<string, int> totalJogosWatchlistPlataforma;
@@ -32,6 +49,7 @@ namespace Games.Models.ViewModel {
         public DashboardView() {
             gameRepository = new GameRepository();
             totalJogos = gameRepository.GetTotalJogos();
+            totalPreco = gameRepository.GetTotalPreco();
             totalJogosCompletos = gameRepository.GetTotalJogosCompletos();
             totalJogosFisicos = gameRepository.GetTotalJogosFormato(1);
             totalJogosDigitais = gameRepository.GetTotalJogosFormato(2);
@@ -44,15 +62,21 @@ namespace Games.Models.ViewModel {
             totalJogosFaixaPreco = gameRepository.GetTotalJogosFaixaPreco();
             totalJogosLoja = gameRepository.GetTotalJogosLoja();
         }
-        
+
+        public DashboardTableReportView GetDashboardTableReportView(string titulo, Dictionary<string, int> dados) {
+            return new DashboardTableReportView(titulo, dados, totalJogos);
+        }
+
         public int TotalJogos {
             get {
                 return totalJogos;
             }
         }
 
-        public string porcentagem(int total, int valor) {
-            return (((Double)valor / (Double)total)).ToString("0.00%", CultureInfo.InvariantCulture);
+        public decimal? TotalPreco {
+            get {
+                return totalPreco;
+            }
         }
 
         public Dictionary<string, int> TotalJogosStatus {

@@ -1,0 +1,12 @@
+﻿@model Games.Models.ViewModel.DashboardTableReportView
+<div class="col-md-3">
+    <div class="border row">
+        <div class="titulo">@Model.titulo</div>
+        @foreach (var info in Model.dados) {
+            <div class="conteudo" style="background: -webkit-linear-gradient(left, #0000ff 0, #252830 @Model.porcentagem(Model.totalJogos,info.Value), transparent 75%);">
+                <span class="descricao">@info.Key</span>
+                <span class="valor">@info.Value (@Model.porcentagem(Model.totalJogos, info.Value))</span>
+            </div>
+        }
+    </div>
+</div>

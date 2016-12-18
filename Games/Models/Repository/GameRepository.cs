@@ -222,6 +222,10 @@ namespace Games.Models.Repository {
         public int GetTotalJogosFormato(int formato) {
             return db.game_platform.Where(gp => gp.formato == formato).Count();
         }
+
+        public decimal? GetTotalPreco() {
+            return db.game_platform.Sum(gp => gp.preco);
+        }
         
         public Dictionary<string, int> GetTotalJogosPlataforma() {
             Dictionary<string, int> total = new Dictionary<string, int>();
