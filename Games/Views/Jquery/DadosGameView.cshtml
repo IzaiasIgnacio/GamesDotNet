@@ -1,9 +1,11 @@
 ﻿@model Games.Models.ViewModel.GameDataView
 <script>
+    var acaoIncluir = '@Url.Action("AlterarJogoJquery", "Jquery")';
+    var acaoAlterar = '@Url.Action("AlterarJogoJquery", "Jquery")';
     $(function () {
         //incluir linha de plataforma
         $("#btn_add").click(function () {
-            $.post("/Jquery/AdicionarPlataformaJquery",
+            $.post('@Url.Action("AdicionarPlataformaJquery", "Jquery")',
             function (resposta) {
                 $(".span_plataformas").html(resposta);
             });
@@ -16,7 +18,7 @@
         });
         //buscar jogos no igdb por titulo
         $(".btn_buscar_igdb").click(function () {
-            $.post("/Jquery/BuscarJogoJquery", { search: $("#Titulo").val() },
+            $.post('@Url.Action("BuscarJogoJquery", "Jquery")', { search: $("#Titulo").val() },
             function (resposta) {
                 $("#lista_resultados").html(resposta);
                 $("#lista_resultados").slideDown();
@@ -24,7 +26,7 @@
         });
         //carregar formulario com dados do igdb
         $("#lista_resultados").on("click", ".div_resultados .row", function () {
-            $.post("/Jquery/PreencherDadosGameIgdbJquery", { id_igdb: $(this).find(".id_igdb").val(), Id: $("#modal_game #Id").val() },
+            $.post('@Url.Action("PreencherDadosGameIgdbJquery", "Jquery")', { id_igdb: $(this).find(".id_igdb").val(), Id: $("#modal_game #Id").val() },
             function (resposta) {
                 $("#form_game").html(resposta);
                 $("#lista_resultados").fadeOut();
@@ -34,10 +36,10 @@
         $("#modal_game").off().on("click", ".salvar", function () {
             var acao = '';
             if ($("#modal_game #Id").val() == '0') {
-                acao = "/Jquery/SalvarNovoJogoJquery";
+                acao = acaoIncluir;
             }
             else {
-                acao = "/Jquery/AlterarJogoJquery";
+                acao = acaoAlterar;
             }
 
             var array = $("#form_game").serializeArray();
@@ -46,7 +48,7 @@
             jQuery.each(array, function () {
                 json[this.name] = this.value || '';
             });
-            
+
             $.ajax({
                 url: acao,
                 type: 'POST',
@@ -55,7 +57,7 @@
                 success: function (resposta) {
                     if (resposta['Valido']) {
                         $("#modal_game").modal('hide');
-                        $.post("/Jquery/ListaJogosIndex", { status: status },
+                        $.post('@Url.Action("ListaJogosIndex", "Jquery")', { status: status },
                         function (resposta) {
                             $("#GameListView").html(resposta);
                         });
@@ -65,6 +67,7 @@
                     }
                 }
             });
+
         });
 
         $("#modal_game").on("click", ".cancelar", function () {

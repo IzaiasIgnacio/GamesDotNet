@@ -4,7 +4,7 @@
     //atualizar menu de plataformas e lista de jogos
     $("#MenuPlataforma").off().on("click",".li_plataforma",function () {
         var element = $(this);
-        $.post("/Jquery/MenuPlataformas", { plataforma: element.attr("id") },
+        $.post('@Url.Action("MenuPlataformas", "Jquery")', { plataforma: element.attr("id") },
         function (resposta) {
             if (element.hasClass("ativo")) {
                 element.removeClass("ativo");
@@ -13,7 +13,7 @@
                 element.addClass("ativo");
             }
             $("#MenuPlataforma").html(resposta);
-            $.post("/Jquery/ListaJogosIndex", {status:status},
+            $.post('@Url.Action("ListaJogosIndex", "Jquery")', { status: status },
             function (resposta) {
                 $("#GameListView").html(resposta);
             });
