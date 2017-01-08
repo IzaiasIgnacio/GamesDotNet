@@ -1,6 +1,6 @@
 ﻿@model Games.Models.ViewModel.GameDataView
 <script>
-    var acaoIncluir = '@Url.Action("AlterarJogoJquery", "Jquery")';
+    var acaoIncluir = '@Url.Action("SalvarNovoJogoJquery", "Jquery")';
     var acaoAlterar = '@Url.Action("AlterarJogoJquery", "Jquery")';
     $(function () {
         //incluir linha de plataforma
@@ -35,13 +35,13 @@
         //salvar jogo
         $("#modal_game").off().on("click", ".salvar", function () {
             var acao = '';
-            if ($("#modal_game #Id").val() == '0') {
+            if ($("#modal_game #Id").val() == '') {
                 acao = acaoIncluir;
             }
             else {
                 acao = acaoAlterar;
             }
-
+            console.log(acao);
             var array = $("#form_game").serializeArray();
             var json = {};
 
@@ -150,6 +150,10 @@
                 @Html.HiddenFor(model => model.CloudnaryId, @Model.CloudnaryId);
                 @Html.HiddenFor(model => model.Imagem, @Model.Imagem);
                 <img class="img-rounded img-responsive" style="position:absolute" src="@Model.Imagem">
+            }
+            else {
+                @Html.LabelFor(model => model.CloudnaryId)
+                @Html.EditorFor(model => model.CloudnaryId, new { htmlAttributes = new { @class = "form-control", @placeholder = "Cloudnary Id", @Value = Model.CloudnaryId } })
             }
         </fieldset>
     </div>
