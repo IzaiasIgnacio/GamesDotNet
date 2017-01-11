@@ -35,13 +35,13 @@
         //salvar jogo
         $("#modal_game").off().on("click", ".salvar", function () {
             var acao = '';
-            if ($("#modal_game #Id").val() == '') {
+            if ($("#modal_game #Id").val() == '' || $("#modal_game #Id").val() == '0') {
                 acao = acaoIncluir;
             }
             else {
                 acao = acaoAlterar;
             }
-            console.log(acao);
+            
             var array = $("#form_game").serializeArray();
             var json = {};
 
