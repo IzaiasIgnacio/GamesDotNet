@@ -98,6 +98,7 @@ namespace Games.Models.ViewModel {
         public decimal? Tamanho { get; set; }
 
         public string Imagem { get; set; }
+        [Display(Name = "Cloudnary Id")]
         public string CloudnaryId { get; set; }
 
         public enum formato { Fisíco=1, Digital=2 };

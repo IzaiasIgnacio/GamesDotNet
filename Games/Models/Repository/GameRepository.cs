@@ -34,10 +34,10 @@ namespace Games.Models.Repository {
             SetPublishersGame();
 
             SetGenresGame();
+            
+            SaveImagemGame();
 
             db.SaveChanges();
-
-            SaveImagemGame();
         }
         
         public void Alterar(GameDataView dados) {
