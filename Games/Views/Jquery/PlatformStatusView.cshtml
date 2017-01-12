@@ -4,6 +4,7 @@
 }
 @for (int i = 0; i < Model.Platforms.Count; i++) {
     <div class="form-group plataforma_status">
+        <input type="hidden" class="index" value="@i" />
         @Html.HiddenFor(model => Model.Platforms[i].id, new { @Value = Model.Platforms[i].id })
         @Html.DropDownListFor(model => Model.Platforms[i].id_platform, new SelectList(Model.ListaPlatform, "id", "name", Model.Platforms[i].id_platform), "Plataforma", new { @class = "form-control select_plataforma maior" })
         @Html.DropDownListFor(model => Model.Platforms[i].id_status, new SelectList(Model.ListaStatus, "id", "name", Model.Platforms[i].id_status), "Status", new { @class = "form-control select_plataforma" })

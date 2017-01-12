@@ -12,8 +12,12 @@
         });
         //remover linha de plataforma
         $(".fieldset_plataformas").on("click", ".remover_plataforma", function () {
-            $(this).closest(".plataforma_status").fadeOut('normal', function () {
-                $(this).remove();
+            var element = $(this).closest(".plataforma_status");
+            element.fadeOut('normal', function () {
+                $.post('@Url.Action("RemoverPlataformaJquery", "Jquery")', { index: $(this).find(".index").val() },
+                function() {
+                    element.remove();
+                });
             });
         });
         //buscar jogos no igdb por titulo

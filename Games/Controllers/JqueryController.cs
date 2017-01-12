@@ -87,7 +87,13 @@ namespace Games.Controllers {
             }
             return Json(validacao);
         }
-        
+
+        [HttpPost]
+        public void RemoverPlataformaJquery(int index) {
+            GameDataView view = GameDataView.GetGameDataView();
+            view.Platforms.RemoveAt(index);
+        }
+
         [HttpPost]
         public ActionResult AdicionarPlataformaJquery() {
             GameDataView view = GameDataView.GetGameDataView();
