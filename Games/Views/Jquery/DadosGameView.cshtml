@@ -153,7 +153,7 @@
             @if (!@Model.Imagem.IsEmpty()) {
                 @Html.HiddenFor(model => model.CloudnaryId, @Model.CloudnaryId);
                 @Html.HiddenFor(model => model.Imagem, @Model.Imagem);
-                <img class="img-rounded img-responsive" style="position:absolute" src="@Model.Imagem">
+                <img class="img-rounded img-responsive" style="position:absolute" src="@Url.Content(Model.Imagem)">
             }
             else {
                 @Html.LabelFor(model => model.CloudnaryId)

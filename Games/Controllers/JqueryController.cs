@@ -190,7 +190,7 @@ namespace Games.Controllers {
             
             string arquivo = gameDataView.Imagesfolder + game.id + "_BigCover_" + game.cloudnary_id + ".jpg";
             if (System.IO.File.Exists(arquivo)) {
-                gameDataView.Imagem = "/images/" + game.id + "_BigCover_" + game.cloudnary_id + ".jpg";
+                gameDataView.Imagem = "~/images/" + game.id + "_BigCover_" + game.cloudnary_id + ".jpg";
                 gameDataView.CloudnaryId = game.cloudnary_id;
             }
 
