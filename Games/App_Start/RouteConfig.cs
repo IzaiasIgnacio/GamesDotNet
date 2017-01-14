@@ -16,7 +16,7 @@ namespace Games
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{status}",
-                defaults: new { controller = "Home", action = "Index", status = "colecao" }
+                defaults: new { controller = "Home", action = "Dashboard", status = UrlParameter.Optional }
             );
         }
     }
