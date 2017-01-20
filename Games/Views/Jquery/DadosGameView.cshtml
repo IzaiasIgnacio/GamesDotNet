@@ -15,8 +15,8 @@
             var element = $(this).closest(".plataforma_status");
             element.fadeOut('normal', function () {
                 $.post('@Url.Action("RemoverPlataformaJquery", "Jquery")', { index: $(this).find(".index").val() },
-                function() {
-                    element.remove();
+                function (resposta) {
+                    $(".span_plataformas").html(resposta);
                 });
             });
         });
@@ -45,7 +45,7 @@
             else {
                 acao = acaoAlterar;
             }
-            
+
             var array = $("#form_game").serializeArray();
             var json = {};
 

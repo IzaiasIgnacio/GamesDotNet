@@ -284,3 +284,13 @@ textarea {
     display: inline-block;
     border-bottom-left-radius: 4px;
 }
+
+.background {
+    position: absolute;
+    right: 10%;
+    bottom: 10%;
+}
+
+.background #img_background {
+    opacity: 0.2;
+}

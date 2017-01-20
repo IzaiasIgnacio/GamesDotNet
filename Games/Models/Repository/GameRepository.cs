@@ -35,9 +35,9 @@ namespace Games.Models.Repository {
 
             SetGenresGame();
             
-            SaveImagemGame();
-
             db.SaveChanges();
+
+            SaveImagemGame();
         }
         
         public void Alterar(GameDataView dados) {
@@ -61,10 +61,10 @@ namespace Games.Models.Repository {
             SetPublishersGame();
 
             SetGenresGame();
+            
+            db.SaveChanges();
 
             SaveImagemGame();
-
-            db.SaveChanges();
         }
         
         #region dados
@@ -74,6 +74,7 @@ namespace Games.Models.Repository {
             game.nota = dadosGame.Nota;
             game.completo = dadosGame.Completo;
             game.summary = dadosGame.Descricao;
+            game.cloudnary_id = dadosGame.CloudnaryId;
         }
 
         private void SetPlataformasGame() {
@@ -185,7 +186,6 @@ namespace Games.Models.Repository {
 
         private void SaveImagemGame() {
             if (dadosGame.CloudnaryId != null) {
-                game.cloudnary_id = dadosGame.CloudnaryId;
                 WebClient webClient = new WebClient();
                 webClient.DownloadFile(dadosGame.BigCoverUrl + dadosGame.CloudnaryId, dadosGame.Imagesfolder + game.id + "_BigCover_" + game.cloudnary_id + ".jpg");
                 webClient.DownloadFile(dadosGame.BigCoverUrl2x + dadosGame.CloudnaryId, dadosGame.Imagesfolder + game.id + "_BigCover2x_" + game.cloudnary_id + ".jpg");

@@ -89,9 +89,10 @@ namespace Games.Controllers {
         }
 
         [HttpPost]
-        public void RemoverPlataformaJquery(int index) {
+        public ActionResult RemoverPlataformaJquery(int index) {
             GameDataView view = GameDataView.GetGameDataView();
             view.Platforms.RemoveAt(index);
+            return PartialView("PlatformStatusView", view);
         }
 
         [HttpPost]
