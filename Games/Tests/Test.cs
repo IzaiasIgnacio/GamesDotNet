@@ -15,7 +15,7 @@ using Games.Controllers;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace Igdb.Test {
+namespace Games.Test {
     [TestClass]
     public class Test {
         public void TesteSalvarJogoView() {
@@ -97,7 +97,15 @@ namespace Igdb.Test {
             Assert.AreEqual("Final Fantasy Tactics", game.name);
             Assert.AreEqual(1, game.completo);
         }
-        
+
+        [TestMethod]
+        public void TesteCarregarExcluirJogo(){
+            GameRepository gameRepository = new GameRepository();
+            GameEntity game = gameRepository.BuscarDados(2);
+
+            gameRepository.Excluir(game);
+        }
+
         [TestMethod]
         public void AtualizarTudoIgdb() {
             GamesEntities db = new GamesEntities();

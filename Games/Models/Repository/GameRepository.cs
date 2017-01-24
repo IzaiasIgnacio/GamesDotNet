@@ -200,6 +200,11 @@ namespace Games.Models.Repository {
             return game;
         }
 
+        public void Excluir(GameEntity game) {
+            db.game.Remove(game);
+            db.SaveChanges();
+        }
+
         public List<GameEntity> ListarJogos(List<int> plataformas, int status = 1) {
             List<GameEntity> ListaJogos;
             int[] plats = plataformas.ToArray();
