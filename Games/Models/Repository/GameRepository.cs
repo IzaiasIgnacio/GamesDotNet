@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using static Games.Models.ViewModel.GameListView;
+using Igdb.ResponseModels;
 
 namespace Games.Models.Repository {
     public class GameRepository : BaseRepository {
@@ -95,7 +96,11 @@ namespace Games.Models.Repository {
                 }
             }
         }
-        
+
+        public List<GameEntity> BuscarJogos(string search){
+            return db.game.Where(g => g.name.Contains(search)).ToList();
+        }
+
         private void RemovePlataformasGame() {
             int[] plats = dadosGame.Platforms.Select(p => p.id).ToArray();
             List<game_platform> excluirPlataformas = db.game_platform.

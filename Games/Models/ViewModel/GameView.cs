@@ -34,7 +34,7 @@ namespace Games.Models.ViewModel {
 
     public class GameListView : BasegameView {
         public enum status { colecao = 1, wishlist = 2, watchlist = 3, plus = 4 }
-        public status Status { get;set; }
+        public status Status { get; set; }
         private List<GameEntity> listaJogos;
         public List<GameEntity> ListaJogos {
             get {
@@ -51,6 +51,10 @@ namespace Games.Models.ViewModel {
 
     public class GameResultView : BasegameView {
         public List<BuscaGameResponse> ListaJogos { get; set; }
+    }
+
+    public class BuscaResultView : BasegameView {
+        public List<GameEntity> ListaJogosEntity { get; set; }
     }
 
     public class GameDataView : BasegameView {

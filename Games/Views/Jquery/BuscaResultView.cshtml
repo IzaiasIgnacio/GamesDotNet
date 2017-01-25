@@ -1,0 +1,14 @@
+﻿@model Games.Models.ViewModel.BuscaResultView
+<div class="div_resultados container">
+    @foreach (var game in Model.ListaJogosEntity) {
+        <div class="row">
+            <input type="hidden" class="id_igdb" value="@game.id" />
+            <div class="col-md-1 capa_lista">
+                @if (game.cloudnary_id != null) {
+                    <img src="~/images/@(game.id+"_MicroCover2x_"+@game.cloudnary_id+".jpg")" />
+                }
+            </div>
+            <div class="col-md-11 titulo_lista">@game.name</div>
+        </div>
+    }
+</div>

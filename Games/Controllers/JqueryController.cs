@@ -55,12 +55,23 @@ namespace Games.Controllers {
         }
 
         [HttpPost]
-        public ActionResult BuscarJogoJquery(string search) {
+        public ActionResult BuscarJogoIgdbJquery(string search) {
             IgdbService igdb = new IgdbService();
             GameResultView view = new GameResultView();
+
             view.ListaJogos = igdb.BuscarJogo(search);
 
             return PartialView("GameResultView", view);
+        }
+
+        [HttpPost]
+        public ActionResult BuscarJogoEntityJquery(string search) {
+            GameRepository gameRepository = new GameRepository();
+            BuscaResultView view = new BuscaResultView();
+
+            view.ListaJogosEntity = gameRepository.BuscarJogos(search);
+
+            return PartialView("BuscaResultView", view);
         }
 
         [HttpPost]

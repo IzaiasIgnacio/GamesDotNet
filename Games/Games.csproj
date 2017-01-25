@@ -302,6 +302,7 @@
     <Content Include="Views\Jquery\GameListView.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\Home\DashboardTableReport.cshtml" />
+    <Content Include="Views\Jquery\BuscaResultView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -22,7 +22,7 @@
         });
         //buscar jogos no igdb por titulo
         $(".btn_buscar_igdb").click(function () {
-            $.post('@Url.Action("BuscarJogoJquery", "Jquery")', { search: $("#Titulo").val() },
+            $.post('@Url.Action("BuscarJogoIgdbJquery", "Jquery")', { search: $("#Titulo").val() },
             function (resposta) {
                 $("#lista_resultados").html(resposta);
                 $("#lista_resultados").slideDown();

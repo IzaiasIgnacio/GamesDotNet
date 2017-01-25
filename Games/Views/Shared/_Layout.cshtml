@@ -37,6 +37,14 @@
                             <li>@Html.ActionLink("Watchlist", "Index/watchlist", "Home")</li>
                             <li>@Html.ActionLink("Plus", "Index/plus", "Home")</li>
                         </ul>
+                        <div class="col-sm-3 col-md-3">
+                            <form class="navbar-form" role="search">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Buscar" name="busca" id="busca">
+                                    <span id="lista_resultados_busca" style="display:none"></span>
+                                </div>
+                            </form>
+                        </div>
                         <span id="MenuPlataforma">
                             @{Html.RenderAction("MenuPlataformas", "Jquery");}
                         </span>
