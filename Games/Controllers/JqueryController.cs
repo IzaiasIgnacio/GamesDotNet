@@ -89,6 +89,14 @@ namespace Games.Controllers {
         }
 
         [HttpPost]
+        public void ExcluirJogoJquery(int id) {
+            GameRepository gameRepository = new GameRepository();
+            GameEntity game = gameRepository.BuscarDados(id);
+
+            gameRepository.Excluir(game);
+        }
+
+        [HttpPost]
         public ActionResult RemoverPlataformaJquery(int index) {
             GameDataView view = GameDataView.GetGameDataView();
             view.Platforms.RemoveAt(index);

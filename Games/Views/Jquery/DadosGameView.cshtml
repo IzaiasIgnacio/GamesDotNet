@@ -71,7 +71,17 @@
                     }
                 }
             });
-
+        });
+        //excluir jogo
+        $("#modal_game").off().on("click", ".excluir", function () {
+            $.post('@Url.Action("ExcluirJogoJquery", "Jquery")', { id: $("#modal_game #Id").val() },
+            function (resposta) {
+                $("#modal_game").modal('hide');
+                $.post('@Url.Action("ListaJogosIndex", "Jquery")', { status: status },
+                function (resposta) {
+                    $("#GameListView").html(resposta);
+                });
+            });
         });
 
         $("#modal_game").on("click", ".cancelar", function () {

@@ -6,6 +6,7 @@
             //$("#modal_game_info_list").modal("show");
             $.post('@Url.Action("PreencherDadosGameEntityJquery", "Jquery")', { id: $(this).find(".id").val() },
             function (resposta) {
+                $(".excluir").css('display', '');
                 $("#form_game").html(resposta);
                 $("#modal_game").modal('show');
             });
@@ -14,6 +15,7 @@
         $(".navbar-brand").click(function () {
             $.post('@Url.Action("ExibirFormGame", "Jquery")',
             function (resposta) {
+                $(".excluir").css('display', 'none');
                 $("#form_game").html(resposta);
                 $("#modal_game").modal('show');
             });
