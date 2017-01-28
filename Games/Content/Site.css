@@ -61,7 +61,7 @@ textarea {
     margin-left: -15px;
 }
 
-.div_resultados .row:hover {
+.div_resultados .row:hover, .div_busca .row:hover {
     background-color: rgb(172, 167, 167);
 }
 
@@ -176,11 +176,11 @@ textarea {
     padding-left: 0;
 }
 
-.titulo_lista {
+.div_resultados .titulo_lista {
     margin-left: -20px;
 }
 
-.div_resultados {
+.div_resultados, .div_busca {
     position: absolute;
     background-color: #fff;
     color:#000;
@@ -195,6 +195,14 @@ textarea {
     margin-right: 0;
     margin-left: -15px;
 }
+
+.div_busca .row {
+    cursor: pointer;
+    border-top:#000 solid 1px;
+    margin-bottom: 1px;
+    margin-left: -15px;
+}
+
 
 .plataformas {
     padding: 15px;
