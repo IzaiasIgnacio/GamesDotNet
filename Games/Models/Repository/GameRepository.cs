@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using static Games.Models.ViewModel.GameListView;
 using Igdb.ResponseModels;
+using System.IO;
 
 namespace Games.Models.Repository {
     public class GameRepository : BaseRepository {
@@ -198,6 +199,14 @@ namespace Games.Models.Repository {
                 webClient.DownloadFile(dadosGame.MicroCoverUrl2x + dadosGame.CloudnaryId, dadosGame.Imagesfolder + game.id + "_MicroCover2x_" + game.cloudnary_id + ".jpg");
             }
         }
+
+        private void ExcluirImagens(int id, string cloudnary_id) {
+            GameDataView view = GameDataView.GetGameDataView();
+            File.Delete(view.Imagesfolder + id + "_BigCover_" + cloudnary_id + ".jpg");
+            File.Delete(view.Imagesfolder + id + "_BigCover2x_" + cloudnary_id + ".jpg");
+            File.Delete(view.Imagesfolder + id + "_SmallCover_" + cloudnary_id + ".jpg");
+            File.Delete(view.Imagesfolder + id + "_MicroCover2x_" + cloudnary_id + ".jpg");
+        }
         #endregion
 
         public GameEntity BuscarDados(int id) {
@@ -207,6 +216,7 @@ namespace Games.Models.Repository {
 
         public void Excluir(GameEntity game) {
             db.game.Remove(game);
+            ExcluirImagens(game.id, game.cloudnary_id);
             db.SaveChanges();
         }
 
