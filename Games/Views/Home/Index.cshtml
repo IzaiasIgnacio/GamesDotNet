@@ -2,9 +2,15 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width" />
-        <script src="~/Scripts/funcoes.js"></script>
         <script>
             var status = "@(ViewContext.RouteData.Values["status"])";
+            $("#busca").keyup(function () {
+                $.post('@Url.Action("BuscarJogoEntityJquery", "Jquery")', { search: $(this).val() },
+                function (resposta) {
+                    $("#lista_resultados_busca").html(resposta);
+                    $("#lista_resultados_busca").slideDown();
+                });
+            });
         </script>
     </head>
     <body>
