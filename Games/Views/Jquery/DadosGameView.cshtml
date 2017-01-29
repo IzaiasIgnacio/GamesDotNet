@@ -73,7 +73,7 @@
             });
         });
         //excluir jogo
-        $("#modal_game").off().on("click", ".excluir", function () {
+        $("#modal_game").on("click", ".excluir", function () {
             $.post('@Url.Action("ExcluirJogoJquery", "Jquery")', { id: $("#modal_game #Id").val() },
             function (resposta) {
                 $("#modal_game").modal('hide');
