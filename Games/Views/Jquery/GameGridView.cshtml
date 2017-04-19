@@ -42,15 +42,15 @@
 @foreach (var game in Model.ListaJogos) {
     <div class="col-sm-2">
         <div class="col-sm-12 thumbnail text-center">
-            <input type="hidden" class="id" value="@game.id" />
-            @if (File.Exists(Model.Imagesfolder+game.id+"_SmallCover_"+game.cloudnary_id+".jpg")) {
-                <img class="img-rounded img-responsive capa" src="~/images/@(game.id+"_SmallCover_"+@game.cloudnary_id+".jpg")" />
+            <input type="hidden" class="id" value="@game.Id" />
+            @if (File.Exists(Model.Imagesfolder+game.Id + "_SmallCover_"+game.CloudnaryId + ".jpg")) {
+                <img class="img-rounded img-responsive capa" src="~/images/@(game.Id+"_SmallCover_"+@game.CloudnaryId+".jpg")" />
             }
             else {
                 <img class="img-rounded img-responsive capa" src="~/Content/ps.png" />
             }
             <div class="caption">
-                <h4>@game.name</h4>
+                <h4>@game.Name</h4>
             </div>
         </div>
     </div>

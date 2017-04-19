@@ -26,19 +26,20 @@
 @foreach (var game in Model.ListaJogos) {
     <div class="row game_list">
         <div class="col-sm-2 thumbnail text-center">
-            <input type="hidden" class="id" value="@game.id" />
-            @if (File.Exists(Model.Imagesfolder+game.id+"_MicroCover2x_"+game.cloudnary_id+".jpg")) {
-                <img class="img-rounded img-responsive capa" src="~/images/@(game.id+"_MicroCover2x_"+@game.cloudnary_id+".jpg")" />
+            <input type="hidden" class="id" value="@game.Id" />
+            @if (File.Exists(Model.Imagesfolder+game.Id+"_MicroCover2x_"+game.CloudnaryId+".jpg")) {
+                <img class="img-rounded img-responsive capa" src="~/images/@(game.Id+"_MicroCover2x_"+@game.CloudnaryId+".jpg")" />
             }
             else {
                 <img class="img-rounded img-responsive capa" src="~/Content/ps.png" />
             }
         </div>
         <div class="col-sm-10">
-            <label>@game.name</label>
-            @if (game.game_platform.ElementAt(0).release_date != null) {
-                <label>@game.game_platform.ElementAt(0).release_date.Value.ToShortDateString()</label>
+            <label>@game.Name</label>
+            @if (game.ReleaseDate != null) {
+                <label>@game.ReleaseDate.Value.ToShortDateString()</label>
             }
+            @game.Plataformas
         </div>
     </div>
 }

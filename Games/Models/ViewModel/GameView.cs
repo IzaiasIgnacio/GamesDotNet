@@ -35,11 +35,20 @@ namespace Games.Models.ViewModel {
     public class GameListView : BasegameView {
         public enum status { colecao = 1, wishlist = 2, watchlist = 3, plus = 4 }
         public status Status { get; set; }
-        private List<GameEntity> listaJogos;
-        public List<GameEntity> ListaJogos {
+        public class GameView {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string CloudnaryId { get; set; }
+            public DateTime? ReleaseDate { get; set; }
+            public int Ordem { get; set; }
+            public List<string> Plataformas { get; set; }
+        }
+
+        private List<GameView> listaJogos;
+        public List<GameView> ListaJogos {
             get {
                 if (listaJogos == null) {
-                    listaJogos = new List<GameEntity>();
+                    listaJogos = new List<GameView>();
                 }
                 return listaJogos;
             }
