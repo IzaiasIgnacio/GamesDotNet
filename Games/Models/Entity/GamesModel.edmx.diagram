@@ -27,6 +27,8 @@
         <AssociationConnector Association="GamesModel.FK_game_genre_game" />
         <AssociationConnector Association="GamesModel.FK_game_genre_genre" />
         <AssociationConnector Association="GamesModel.FK_game_platform_store" />
+        <EntityTypeShape EntityType="GamesModel.wishlist_order" Width="1.5" PointX="4.5" PointY="1.5" />
+        <AssociationConnector Association="GamesModel.FK_wishlist_order_game" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

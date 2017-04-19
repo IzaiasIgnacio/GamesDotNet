@@ -231,6 +231,18 @@ namespace Games.Models.Repository {
             return ListaJogos;
         }
 
+        public List<GameEntity> ListarJogosWishlist() {
+            List<GameEntity> ListaJogos;
+            ListaJogos = (from game in db.game
+                          join game_platform in db.game_platform on game.id equals game_platform.id_game
+                          join wishlist_order in db.wishlist_order on game_platform.id_game equals wishlist_order.id_game
+                          where game_platform.id_status == 2
+                          orderby wishlist_order.ordem
+                          select game)
+                          .ToList();
+            return ListaJogos;
+        }
+
         public int GetTotalJogos() {
             return db.game.Count();
         }

@@ -36,5 +36,6 @@ namespace Games.Models.Entity
         public virtual DbSet<status> status { get; set; }
         public virtual DbSet<game_genre> game_genre { get; set; }
         public virtual DbSet<genre> genre { get; set; }
+        public virtual DbSet<wishlist_order> wishlist_order { get; set; }
     }
 }

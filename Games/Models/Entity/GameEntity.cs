@@ -20,6 +20,7 @@ namespace Games.Models.Entity
             this.game_developerPublisher = new HashSet<game_developerPublisher>();
             this.game_platform = new HashSet<game_platform>();
             this.game_genre = new HashSet<game_genre>();
+            this.wishlist_order = new HashSet<wishlist_order>();
         }
     
         public int id { get; set; }
@@ -36,5 +37,7 @@ namespace Games.Models.Entity
         public virtual ICollection<game_platform> game_platform { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<game_genre> game_genre { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<wishlist_order> wishlist_order { get; set; }
     }
 }
