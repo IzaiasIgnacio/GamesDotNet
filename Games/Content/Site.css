@@ -51,7 +51,7 @@ textarea {
 }
 
 .game_list {
-    width: 40%;
+    width: 100%;
     border: 2px solid #555;
     margin-bottom: 2px;
 }
@@ -173,6 +173,23 @@ textarea {
 .game_list_container {
     width: 100%;
     margin-top: 15px;
+}
+
+.left_container {
+    width: 45%;
+    margin-left: 0;
+    float: left;
+}
+
+.game_list_dados {
+    width: 55%;
+    margin-right: 0;
+}
+
+.dados_titulo {
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
 }
 
 .capa_lista {

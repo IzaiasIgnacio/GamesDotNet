@@ -235,6 +235,7 @@ namespace Games.Models.Repository {
                               ReleaseDate = g.FirstOrDefault().game_platform.FirstOrDefault().release_date,
                               Ordem = g.FirstOrDefault().wishlist_order.FirstOrDefault().ordem
                           })
+                          .OrderBy(game=>game.Name)
                           .ToList();
             return ListaJogos;
         }
