@@ -43,11 +43,16 @@ textarea {
     min-height: 270px;
 }
 
-.game_list .thumbnail {
+.game_list .thumbnail, .order {
     min-height: 80px;
     min-width: 80px;
     margin-top: 0;
     border-right: 2px solid #555;
+}
+
+.order {
+    min-width: 1px;
+    cursor: pointer;
 }
 
 .game_list {

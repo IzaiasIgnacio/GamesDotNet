@@ -4,12 +4,7 @@
         //exibir modal para alterar jogo
         $(".thumbnail").click(function () {
             //$("#modal_game_info_list").modal("show");
-            $.post('@Url.Action("PreencherDadosGameEntityJquery", "Jquery")', { id: $(this).find(".id").val() },
-            function (resposta) {
-                $(".excluir").css('display', '');
-                $("#form_game").html(resposta);
-                $("#modal_game").modal('show');
-            });
+            
         });
         //exibir inclusao de jogo
         $(".navbar-brand").click(function () {
@@ -20,26 +15,45 @@
                 $("#modal_game").modal('show');
             });
         });
+        $(".grid").sortable({
+            tolerance: 'pointer',
+            revert: 'invalid',
+            handle: ".order",
+            /*placeholder: 'span4 well placeholder tile',*/
+            forceHelperSize: true,
+            stop: function () {
+                //alert('a');
+            }
+        });
     });
 </script>
 @model Games.Models.ViewModel.GameListView
-@foreach (var game in Model.ListaJogos) {
-    <div class="row game_list">
-        <div class="col-sm-2 thumbnail text-center">
-            <input type="hidden" class="id" value="@game.Id" />
-            @if (File.Exists(Model.Imagesfolder+game.Id+"_MicroCover2x_"+game.CloudnaryId+".jpg")) {
-                <img class="img-rounded img-responsive capa" src="~/images/@(game.Id+"_MicroCover2x_"+@game.CloudnaryId+".jpg")" />
-            }
-            else {
-                <img class="img-rounded img-responsive capa" src="~/Content/ps.png" />
-            }
+<div class="row grid">
+    @foreach (var game in Model.ListaJogos)
+    {
+        <div class="row game_list">
+            <div class="col-sm-1 order text-center">
+                <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
+            </div>
+            <div class="col-sm-2 thumbnail text-center">
+                <input type="hidden" class="id" value="@game.Id" />
+                @if (File.Exists(Model.Imagesfolder + game.Id + "_MicroCover2x_" + game.CloudnaryId + ".jpg"))
+            {
+                    <img class="img-rounded img-responsive capa" src="~/images/@(game.Id+"_MicroCover2x_"+@game.CloudnaryId+".jpg")" />
+                }
+                else
+                {
+                    <img class="img-rounded img-responsive capa" src="~/Content/ps.png" />
+                }
+            </div>
+            <div class="col-sm-9">
+                <label>@game.Name</label>
+                @if (game.ReleaseDate != null)
+            {
+                    <label>@game.ReleaseDate.Value.ToShortDateString()</label>
+                }
+                @game.Plataformas
+            </div>
         </div>
-        <div class="col-sm-10">
-            <label>@game.Name</label>
-            @if (game.ReleaseDate != null) {
-                <label>@game.ReleaseDate.Value.ToShortDateString()</label>
-            }
-            @game.Plataformas
-        </div>
-    </div>
-}
+    }
+</div>
