@@ -40,7 +40,7 @@ namespace Games.Models.ViewModel {
             public string Name { get; set; }
             public string CloudnaryId { get; set; }
             public DateTime? ReleaseDate { get; set; }
-            public int Ordem { get; set; }
+            public int? Ordem { get; set; }
             public List<string> Plataformas { get; set; }
         }
 

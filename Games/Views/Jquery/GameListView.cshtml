@@ -4,7 +4,12 @@
         //exibir modal para alterar jogo
         $(".thumbnail").click(function () {
             //$("#modal_game_info_list").modal("show");
-            
+            $.post('@Url.Action("PreencherDadosGameEntityJquery", "Jquery")', { id: $(this).find(".id").val() },
+            function (resposta) {
+                $(".excluir").css('display', '');
+                $("#form_game").html(resposta);
+                $("#modal_game").modal('show');
+            });
         });
         //exibir inclusao de jogo
         $(".navbar-brand").click(function () {
@@ -56,4 +61,28 @@
             </div>
         </div>
     }
+</div>
+<div class="container left_container">
+    @foreach (var game in Model.ListaJogos) {
+        <div class="row game_list">
+            <div class="col-sm-2 thumbnail text-center">
+                <input type="hidden" class="id" value="@game.Id" />
+                @if (File.Exists(Model.Imagesfolder+game.Id+"_MicroCover2x_"+game.CloudnaryId+".jpg")) {
+                    <img class="img-rounded img-responsive capa" src="~/images/@(game.Id+"_MicroCover2x_"+@game.CloudnaryId+".jpg")" />
+                }
+                else {
+                    <img class="img-rounded img-responsive capa" src="~/Content/ps.png" />
+                }
+            </div>
+            <div class="col-sm-10">
+                <label>@game.Name</label>
+                @if (game.ReleaseDate != null) {
+                    <label>@game.ReleaseDate.Value.ToShortDateString()</label>
+                }
+            </div>
+        </div>
+    }
+</div>
+<div class="container game_list_dados">
+    <label class="dados_titulo">Título</label>
 </div>
