@@ -38,9 +38,16 @@
         @foreach (var game in Model.ListaJogos) {
             <div class="row game_list">
                 <div class="col-sm-1 order text-center">
-                    <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
+                    <div class="order_left">
+                        <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-option-vertical bottom_sort" aria-hidden="true"></span>
+                    </div>
+                    <div class="order_right">
+                        <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-option-vertical bottom_sort" aria-hidden="true"></span>
+                    </div>
                 </div>
-                <div class="col-sm-2 thumbnail text-center">
+                <div class="col-sm-1 thumbnail text-center">
                     <input type="hidden" class="id" value="@game.Id" />
                     @if (File.Exists(Model.Imagesfolder + game.Id + "_MicroCover2x_" + game.CloudnaryId + ".jpg")) {
                         <img class="img-rounded img-responsive capa" src="~/images/@(game.Id+"_MicroCover2x_"+@game.CloudnaryId+".jpg")" />

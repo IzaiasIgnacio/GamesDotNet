@@ -43,16 +43,42 @@ textarea {
     min-height: 270px;
 }
 
-.game_list .thumbnail, .order {
+.game_list .thumbnail {
     min-height: 80px;
     min-width: 80px;
     margin-top: 0;
     border-right: 2px solid #555;
+    margin-left: -15px;
 }
 
 .order {
+    min-height: 80px;
     min-width: 1px;
+    margin-top: 0;
     cursor: pointer;
+    border-right: none;
+    color: #808080;
+    font-size: 2.5em;
+    margin-bottom: 0;
+    margin-bottom: -20px;
+}
+
+.bottom_sort {
+    top: -15px;
+}
+
+.order_left {
+    float: left;
+    display: block;
+    margin-left: -35px;
+    position: absolute;
+}
+
+.order_right {
+    float: left;
+    display: block;
+    margin-left: -10px;
+    position: absolute;
 }
 
 .game_list {
