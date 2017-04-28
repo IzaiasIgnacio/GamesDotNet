@@ -27,15 +27,24 @@
             /*placeholder: 'span4 well placeholder tile',*/
             forceHelperSize: true,
             stop: function () {
-                //alert('a');
+                $(".game_list").each(function (i) {
+                    var posicao = $(this).find(".posicao").val();
+                    i++;
+                    if (posicao != i) {
+                        alert(i + " " + $(this).find(".id").val());
+                    }
+                    $(this).find(".posicao").val(i);
+                });
             }
         });
     });
 </script>
 @model Games.Models.ViewModel.GameListView
+@{ int i = 0; }
 <div class="container left_container">
     <div class="row grid">
         @foreach (var game in Model.ListaJogos) {
+            i++;
             <div class="row game_list">
                 <div class="col-sm-1 order text-center">
                     <div class="order_left">
@@ -48,6 +57,7 @@
                     </div>
                 </div>
                 <div class="col-sm-1 thumbnail text-center">
+                    <input type="hidden" class="posicao" value="@i" />
                     <input type="hidden" class="id" value="@game.Id" />
                     @if (File.Exists(Model.Imagesfolder + game.Id + "_MicroCover2x_" + game.CloudnaryId + ".jpg")) {
                         <img class="img-rounded img-responsive capa" src="~/images/@(game.Id+"_MicroCover2x_"+@game.CloudnaryId+".jpg")" />
