@@ -214,6 +214,13 @@ namespace Games.Models.Repository {
             return game;
         }
 
+        public void AtualizarOrdemWishlist(int id, int posicao) {
+            wishlist_order ordem = db.wishlist_order.Where(game => game.id_game == id).FirstOrDefault();
+            ordem.ordem = posicao;
+            db.Entry(ordem).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
         public void Excluir(GameEntity game) {
             db.game.Remove(game);
             ExcluirImagens(game.id, game.cloudnary_id);

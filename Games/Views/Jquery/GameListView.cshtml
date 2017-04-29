@@ -21,17 +21,16 @@
             });
         });
         $(".grid").sortable({
-            tolerance: 'pointer',
-            revert: 'invalid',
+            revert: 'true',
             handle: ".order",
             /*placeholder: 'span4 well placeholder tile',*/
-            forceHelperSize: true,
-            stop: function () {
-                $(".game_list").each(function (i) {
+            stop: function (event, ui) {
+                $(ui.item.parent().children()).each(function (i) {
                     var posicao = $(this).find(".posicao").val();
+                    var game = $(this).find(".id").val();
                     i++;
                     if (posicao != i) {
-                        alert(i + " " + $(this).find(".id").val());
+                        $.post('@Url.Action("AtualizarOrdemWishlistJquery", "Jquery")', { game: game, posicao: i });
                     }
                     $(this).find(".posicao").val(i);
                 });

@@ -105,6 +105,12 @@ namespace Games.Controllers {
         }
 
         [HttpPost]
+        public void AtualizarOrdemWishlistJquery(int game, int posicao) {
+            GameRepository gameRepository = new GameRepository();
+            gameRepository.AtualizarOrdemWishlist(game, posicao);
+        }
+
+        [HttpPost]
         public void ExcluirJogoJquery(int id) {
             GameRepository gameRepository = new GameRepository();
             GameEntity game = gameRepository.BuscarDados(id);
