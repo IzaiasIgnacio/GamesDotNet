@@ -23,9 +23,12 @@
 <ul class="nav navbar-nav navbar-right">
     @foreach (var platform in Model.listaPlatform) {
         string classe = "";
-        if(Model.ativos.IndexOf(platform.id) != -1) {
+        if (Model.ativos.IndexOf(platform.id) != -1) {
             classe = "ativo";
         }
         <li class="li_plataforma @classe" id="@platform.id">@platform.name</li>
+        <!--<li class="li_plataforma @classe" id="@platform.id">
+            <img class="icone_plataforma" src="~/Content/@(platform.sigla+".png")" />
+        </li>-->
     }
 </ul>

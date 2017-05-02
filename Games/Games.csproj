@@ -137,7 +137,14 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\eyes.jpg" />
+    <Content Include="Content\pc.png" />
     <Content Include="Content\ps.png" />
+    <Content Include="Content\ps1.png" />
+    <Content Include="Content\ps2.png" />
+    <Content Include="Content\Ps3.png" />
+    <Content Include="Content\ps4.png" />
+    <Content Include="Content\psp.png" />
+    <Content Include="Content\psvita.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
