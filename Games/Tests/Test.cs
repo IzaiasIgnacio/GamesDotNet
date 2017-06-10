@@ -174,5 +174,71 @@ namespace Games.Test {
             var json = j.AlterarJogoJquery(view);
         }
 
+        /*public void gerar_planilha(string aba, List<string> colunas, List<GameView> jogos, Workbook arquivo) {
+            var tamanho = jogos.Count;
+            var num = colunas.Count;
+
+            Worksheet planilha = (Worksheet)arquivo.Worksheets.get_Item(arquivo.Worksheets.Count);
+            Range formatRange;
+            formatRange = planilha.get_Range("a1");
+            formatRange.EntireRow.Font.Bold = true;
+            formatRange.EntireRow.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.DarkGray);
+            formatRange.EntireRow.Borders[XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlContinuous;
+
+            planilha.Name = aba;
+            for (int i = 1; i <= num; i++) {
+                planilha.Cells[1, i] = colunas[i - 1];
+            }
+            planilha.Columns.AutoFit();
+
+            for (int i = 2; i <= tamanho + 1; i++) {
+                int index = i - 2;
+                formatRange = planilha.get_Range("a" + i);
+                if (i % 2 == 0) {
+                    formatRange.EntireRow.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightGray);
+                }
+                formatRange.EntireRow.Borders[XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlContinuous;
+
+                planilha.Cells[i, 1] = jogos[index].Name;
+                if (colunas.Count > 1) {
+                    planilha.Cells[i, 2] = jogos[index].ReleaseDate;
+                }
+            }
+            Marshal.ReleaseComObject(planilha);
+        }
+
+        [TestMethod]
+        public void TesteExcel() {
+            //http://csharp.net-informations.com/excel/worksheet.htm
+            var lista = new List<GameView>();
+            lista.Add(new GameView { Name = "teste", ReleaseDate = new DateTime(2017, 05, 05) });
+            lista.Add(new GameView { Name = "teste", ReleaseDate = new DateTime(2017, 05, 05) });
+            lista.Add(new GameView { Name = "teste", ReleaseDate = new DateTime(2017, 05, 05) });
+            lista.Add(new GameView { Name = "teste", ReleaseDate = new DateTime(2017, 05, 05) });
+            lista.Add(new GameView { Name = "teste", ReleaseDate = new DateTime(2017, 05, 05) });
+            var tamanho = lista.Count;
+
+            Application app = new Application();
+            object missing = System.Reflection.Missing.Value;
+
+            Workbook arquivo = app.Workbooks.Add();
+
+            gerar_planilha("Wishlist", new List<string> { "Título", "Lançamento" }, lista, arquivo);
+            arquivo.Worksheets.Add(After: arquivo.Sheets[arquivo.Sheets.Count]);
+            gerar_planilha("Watchlist", new List<string> { "Título", "Lançamento" }, lista, arquivo);
+            arquivo.Worksheets.Add(After: arquivo.Sheets[arquivo.Sheets.Count]);
+            gerar_planilha("PS4", new List<string> { "Título" }, lista, arquivo);
+
+            ((Worksheet)app.ActiveWorkbook.Sheets[1]).Select();
+
+            app.DisplayAlerts = false;
+            arquivo.SaveAs("f:\\new\\csharp-Excel.xls", XlFileFormat.xlWorkbookNormal, missing, missing, missing, missing, XlSaveAsAccessMode.xlExclusive);
+            arquivo.Close(true, missing, missing);
+            app.Quit();
+
+            Marshal.ReleaseComObject(arquivo);
+            Marshal.ReleaseComObject(app);
+        }*/
+
     }
 }
