@@ -193,10 +193,15 @@ namespace Games.Models.Repository {
         private void SaveImagemGame() {
             if (dadosGame.CloudnaryId != null) {
                 WebClient webClient = new WebClient();
-                webClient.DownloadFile(dadosGame.BigCoverUrl + dadosGame.CloudnaryId, dadosGame.Imagesfolder + game.id + "_BigCover_" + game.cloudnary_id + ".jpg");
-                webClient.DownloadFile(dadosGame.BigCoverUrl2x + dadosGame.CloudnaryId, dadosGame.Imagesfolder + game.id + "_BigCover2x_" + game.cloudnary_id + ".jpg");
-                webClient.DownloadFile(dadosGame.SmallCoverUrl + dadosGame.CloudnaryId, dadosGame.Imagesfolder + game.id + "_SmallCover_" + game.cloudnary_id + ".jpg");
-                webClient.DownloadFile(dadosGame.MicroCoverUrl2x + dadosGame.CloudnaryId, dadosGame.Imagesfolder + game.id + "_MicroCover2x_" + game.cloudnary_id + ".jpg");
+                try {
+                    webClient.DownloadFile(dadosGame.BigCoverUrl + dadosGame.CloudnaryId + ".jpg", dadosGame.Imagesfolder + game.id + "_BigCover_" + game.cloudnary_id + ".jpg");
+                    webClient.DownloadFile(dadosGame.BigCoverUrl2x + dadosGame.CloudnaryId + ".jpg", dadosGame.Imagesfolder + game.id + "_BigCover2x_" + game.cloudnary_id + ".jpg");
+                    webClient.DownloadFile(dadosGame.SmallCoverUrl + dadosGame.CloudnaryId + ".jpg", dadosGame.Imagesfolder + game.id + "_SmallCover_" + game.cloudnary_id + ".jpg");
+                    webClient.DownloadFile(dadosGame.MicroCoverUrl2x + dadosGame.CloudnaryId + ".jpg", dadosGame.Imagesfolder + game.id + "_MicroCover2x_" + game.cloudnary_id + ".jpg");
+                }
+                catch (Exception ex) {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
 

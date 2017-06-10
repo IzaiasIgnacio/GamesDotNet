@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Igdb.Services;
 using Igdb.ResponseModels;
-using Igdb.RequestModels;
 using Games.Models.Entity;
-using Newtonsoft.Json;
 using Games.Models.Repository;
 using Games.Models.ViewModel;
-using System.Net;
 using Games.Controllers;
-using System.Web.Mvc;
-using System.ComponentModel.DataAnnotations;
+using Google.Apis.Sheets.v4;
+using Google.Apis.Auth.OAuth2;
+using System.IO;
+using System.Threading;
+using Google.Apis.Util.Store;
+using Google.Apis.Services;
+using Google.Apis.Sheets.v4.Data;
+using System.Net;
 
 namespace Games.Test {
     [TestClass]
@@ -67,8 +69,8 @@ namespace Games.Test {
             List<DadosDeveloperPublisherResponse> pubs = igdb.DadosDeveloperPublisher(response.Publishers.ToArray());
 
             GameDataView gameDataView = GameDataView.init();
-            
-            foreach(DadosDeveloperPublisherResponse dev in devs){
+
+            foreach (DadosDeveloperPublisherResponse dev in devs) {
                 gameDataView.ListaDeveloper.Add(new developerPublisher {
                     name = dev.Name
                 });
@@ -99,7 +101,7 @@ namespace Games.Test {
         }
 
         [TestMethod]
-        public void TesteCarregarExcluirJogo(){
+        public void TesteCarregarExcluirJogo() {
             GameRepository gameRepository = new GameRepository();
             GameEntity game = gameRepository.BuscarDados(2);
 
@@ -174,71 +176,64 @@ namespace Games.Test {
             var json = j.AlterarJogoJquery(view);
         }
 
-        /*public void gerar_planilha(string aba, List<string> colunas, List<GameView> jogos, Workbook arquivo) {
-            var tamanho = jogos.Count;
-            var num = colunas.Count;
-
-            Worksheet planilha = (Worksheet)arquivo.Worksheets.get_Item(arquivo.Worksheets.Count);
-            Range formatRange;
-            formatRange = planilha.get_Range("a1");
-            formatRange.EntireRow.Font.Bold = true;
-            formatRange.EntireRow.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.DarkGray);
-            formatRange.EntireRow.Borders[XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlContinuous;
-
-            planilha.Name = aba;
-            for (int i = 1; i <= num; i++) {
-                planilha.Cells[1, i] = colunas[i - 1];
+        [TestMethod]
+        public void TesteSalvarImagens() {
+            GameDataView dadosGame = new GameDataView();
+            dadosGame.CloudnaryId = "zfuftanzlr4yvkq7dedr";
+            dadosGame.Imagesfolder = "I:\\Documents\\Visual Studio 2015\\Projects\\Games\\Games\\images";
+            var game = new GameEntity();
+            game.id = 0;
+            game.cloudnary_id = "zfuftanzlr4yvkq7dedr";
+            WebClient webClient = new WebClient();
+            try {
+                webClient.DownloadFile(dadosGame.BigCoverUrl + dadosGame.CloudnaryId + ".jpg", dadosGame.Imagesfolder + game.id + "_BigCover_" + game.cloudnary_id + ".jpg");
+                webClient.DownloadFile(dadosGame.BigCoverUrl2x + dadosGame.CloudnaryId + ".jpg", dadosGame.Imagesfolder + game.id + "_BigCover2x_" + game.cloudnary_id + ".jpg");
+                webClient.DownloadFile(dadosGame.SmallCoverUrl + dadosGame.CloudnaryId + ".jpg", dadosGame.Imagesfolder + game.id + "_SmallCover_" + game.cloudnary_id + ".jpg");
+                webClient.DownloadFile(dadosGame.MicroCoverUrl2x + dadosGame.CloudnaryId + ".jpg", dadosGame.Imagesfolder + game.id + "_MicroCover2x_" + game.cloudnary_id + ".jpg");
             }
-            planilha.Columns.AutoFit();
-
-            for (int i = 2; i <= tamanho + 1; i++) {
-                int index = i - 2;
-                formatRange = planilha.get_Range("a" + i);
-                if (i % 2 == 0) {
-                    formatRange.EntireRow.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightGray);
-                }
-                formatRange.EntireRow.Borders[XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlContinuous;
-
-                planilha.Cells[i, 1] = jogos[index].Name;
-                if (colunas.Count > 1) {
-                    planilha.Cells[i, 2] = jogos[index].ReleaseDate;
-                }
+            catch (Exception ex) {
+                Console.WriteLine(ex.Message);
             }
-            Marshal.ReleaseComObject(planilha);
         }
 
+    static string[] Scopes = { SheetsService.Scope.Spreadsheets };
+
         [TestMethod]
-        public void TesteExcel() {
-            //http://csharp.net-informations.com/excel/worksheet.htm
-            var lista = new List<GameView>();
-            lista.Add(new GameView { Name = "teste", ReleaseDate = new DateTime(2017, 05, 05) });
-            lista.Add(new GameView { Name = "teste", ReleaseDate = new DateTime(2017, 05, 05) });
-            lista.Add(new GameView { Name = "teste", ReleaseDate = new DateTime(2017, 05, 05) });
-            lista.Add(new GameView { Name = "teste", ReleaseDate = new DateTime(2017, 05, 05) });
-            lista.Add(new GameView { Name = "teste", ReleaseDate = new DateTime(2017, 05, 05) });
-            var tamanho = lista.Count;
+        public void TesteSheet() {
+            UserCredential credential;
 
-            Application app = new Application();
-            object missing = System.Reflection.Missing.Value;
+            using (var stream =
+                new FileStream("client_secret.json", FileMode.Open, FileAccess.Read)) {
+                string credPath = System.Environment.GetFolderPath(
+                    System.Environment.SpecialFolder.Personal);
+                credPath = Path.Combine(credPath, ".credentials/games.json");
 
-            Workbook arquivo = app.Workbooks.Add();
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    GoogleClientSecrets.Load(stream).Secrets,
+                    Scopes,
+                    "user",
+                    CancellationToken.None,
+                    new FileDataStore(credPath, true)).Result;
+            }
 
-            gerar_planilha("Wishlist", new List<string> { "Título", "Lançamento" }, lista, arquivo);
-            arquivo.Worksheets.Add(After: arquivo.Sheets[arquivo.Sheets.Count]);
-            gerar_planilha("Watchlist", new List<string> { "Título", "Lançamento" }, lista, arquivo);
-            arquivo.Worksheets.Add(After: arquivo.Sheets[arquivo.Sheets.Count]);
-            gerar_planilha("PS4", new List<string> { "Título" }, lista, arquivo);
+            // Create Google Sheets API service.
+            SheetsService sheetsService = new SheetsService(new BaseClientService.Initializer {
+                HttpClientInitializer = credential,
+                ApplicationName = "Google-SheetsSample/0.1",
+            });
 
-            ((Worksheet)app.ActiveWorkbook.Sheets[1]).Select();
+            // TODO: Assign values to desired properties of `requestBody`:
+            Spreadsheet requestBody = new Spreadsheet();
 
-            app.DisplayAlerts = false;
-            arquivo.SaveAs("f:\\new\\csharp-Excel.xls", XlFileFormat.xlWorkbookNormal, missing, missing, missing, missing, XlSaveAsAccessMode.xlExclusive);
-            arquivo.Close(true, missing, missing);
-            app.Quit();
+            SpreadsheetsResource.CreateRequest request = sheetsService.Spreadsheets.Create(requestBody);
 
-            Marshal.ReleaseComObject(arquivo);
-            Marshal.ReleaseComObject(app);
-        }*/
+            // To execute asynchronously in an async method, replace `request.Execute()` as shown:
+            Spreadsheet response = request.Execute();
+            // Data.Spreadsheet response = await request.ExecuteAsync();
+
+            // TODO: Change code below to process the `response` object:
+            Console.WriteLine(response);
+        }
 
     }
 }

@@ -159,12 +159,14 @@ namespace Games.Controllers {
             gameDataView.Descricao = response.Summary;
 
             if (response.Cover != null) {
-                gameDataView.Imagem = gameDataView.BigCoverUrl+response.Cover.CloudinaryId;
+                gameDataView.Imagem = gameDataView.BigCoverUrl+response.Cover.CloudinaryId+".jpg";
                 gameDataView.CloudnaryId = response.Cover.CloudinaryId;
             }
             else {
                 gameDataView.Imagem = "/Content/ps.png";
             }
+
+            gameDataView.InitListas();
 
             foreach (DadosDeveloperPublisherResponse dev in devs) {
                 gameDataView.ListaDeveloper.Add(new developerPublisher {

@@ -22,7 +22,7 @@ namespace Games.Models.ViewModel {
 
         public BasegameView() {
             gameRepository = new GameRepository();
-            CloudnaryUrl = "https://res.cloudinary.com/igdb/image/upload/t_";
+            CloudnaryUrl = "https://images.igdb.com/igdb/image/upload/t_";
             BigCoverUrl = CloudnaryUrl + "cover_big/";
             BigCoverUrl2x = CloudnaryUrl + "cover_big_2x/";
             MicroCoverUrl = CloudnaryUrl + "micro/";
@@ -164,6 +164,12 @@ namespace Games.Models.ViewModel {
 
         public enum tipoDeveloperPublisher { Developer = 1, Publisher = 2 };
         public tipoDeveloperPublisher TipoDeveloperPublisher { get; set; }
+
+        public void InitListas() {
+            listaPublisher = new List<developerPublisher>();
+            listaDeveloper = new List<developerPublisher>();
+            listaGenre = new List<genre>();
+        }
 
         private List<developerPublisher> listaPublisher;
         [Display(Name = "Publisher(s)")]
