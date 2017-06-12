@@ -222,17 +222,77 @@ namespace Games.Test {
                 ApplicationName = "Google-SheetsSample/0.1",
             });
 
-            // TODO: Assign values to desired properties of `requestBody`:
-            Spreadsheet requestBody = new Spreadsheet();
+            string id = "1k7Reqz1ZqGXwr8lTy5Y5r6bX53hxWv4kJSWTs3ptAuc";
 
-            SpreadsheetsResource.CreateRequest request = sheetsService.Spreadsheets.Create(requestBody);
+            #region limpar e preencher abas
+            SpreadsheetsResource.GetRequest get = sheetsService.Spreadsheets.Get(id);
+            var g = get.Execute();
+
+            SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum valueInputOption = (SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum)1;
+
+            foreach (var sheet in g.Sheets) {
+                var aba = sheet.Properties.Title;
+                ClearValuesRequest requestBody = new ClearValuesRequest();
+                SpreadsheetsResource.ValuesResource.ClearRequest request = sheetsService.Spreadsheets.Values.Clear(requestBody, id, aba);
+                ClearValuesResponse response = request.Execute();
+                
+                string range = aba+"!A1:B1";
+                
+                ValueRange requestBody2 = new ValueRange();
+                requestBody2.MajorDimension = "ROWS";
+                var oblist = new List<object>();
+                oblist.Add(new List<object>(){ "Título", "Data" });
+                oblist.Add(new List<object>(){"aaa","aaa" });
+
+                requestBody2.Values = new List<IList<object>> { oblist };
+
+                SpreadsheetsResource.ValuesResource.UpdateRequest request2 = sheetsService.Spreadsheets.Values.Update(requestBody2, id, range);
+                request2.ValueInputOption = valueInputOption;
+
+                // To execute asynchronously in an async method, replace `request.Execute()` as shown:
+                UpdateValuesResponse response2 = request2.Execute();
+            }
+            #endregion
+
+            #region deletar aba
+            // A list of updates to apply to the spreadsheet.
+            // Requests will be applied in the order they are specified.
+            // If any request is not valid, no requests will be applied.
+            /*List<Request> requests = new List<Request>();  // TODO: Update placeholder value.
+            var a = new DeleteSheetRequest();
+            a.SheetId = 0;
+
+            var t = new Request();
+            t.DeleteSheet = a;
+
+            requests.Add(t);
+
+            // TODO: Assign values to desired properties of `requestBody`:
+            BatchUpdateSpreadsheetRequest requestBody = new BatchUpdateSpreadsheetRequest();
+            requestBody.Requests = requests;
+
+            SpreadsheetsResource.BatchUpdateRequest req = sheetsService.Spreadsheets.BatchUpdate(requestBody, id);
 
             // To execute asynchronously in an async method, replace `request.Execute()` as shown:
-            Spreadsheet response = request.Execute();
+            BatchUpdateSpreadsheetResponse response = req.Execute();*/
+            #endregion
+
+            #region criar planilha
+            // TODO: Assign values to desired properties of `requestBody`:
+            /*Spreadsheet requestBody3 = new Spreadsheet();
+            var propriedades = new SpreadsheetProperties();
+            propriedades.Title = "Games";
+            requestBody3.Properties = propriedades;
+
+            SpreadsheetsResource.CreateRequest request3 = sheetsService.Spreadsheets.Create(requestBody3);
+
+            // To execute asynchronously in an async method, replace `request.Execute()` as shown:
+            Spreadsheet response3 = request3.Execute();
             // Data.Spreadsheet response = await request.ExecuteAsync();
 
             // TODO: Change code below to process the `response` object:
-            Console.WriteLine(response);
+            Console.WriteLine(response3);*/
+            #endregion
         }
 
     }
