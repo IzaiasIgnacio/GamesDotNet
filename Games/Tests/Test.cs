@@ -247,10 +247,10 @@ namespace Games.Test {
                 var aba = planilha.Properties.Title;
 
                 ClearValuesRequest clearRequest = new ClearValuesRequest();
-                SpreadsheetsResource.ValuesResource.ClearRequest request = sheetsService.Spreadsheets.Values.Clear(clearRequest, id, aba);
+                SpreadsheetsResource.ValuesResource.ClearRequest request = sheetsService.Spreadsheets.Values.Clear(clearRequest, id, aba+"!A1:Z1000");
                 ClearValuesResponse response = request.Execute();
 
-                /*List<GameView> lista = new List<GameView>();
+                List<GameView> lista = new List<GameView>();
                 lista = lista_mock;
                 /*List<int> plat = new List<int>();
 
@@ -264,7 +264,7 @@ namespace Games.Test {
 
                 //lista = game.ListarJogos(new List<int>() { 7 });*/
 
-                /*string range = aba+"!A1:B"+lista.Count+1;
+                string range = aba+"!A1:B"+lista.Count+1;
 
                 List<IList<object>> dados = new List<IList<object>>();
                 dados.Add(new List<object>() { "Título" });
@@ -281,16 +281,16 @@ namespace Games.Test {
                 
                 UpdateValuesResponse resposta = updateRequest.Execute();
 
-                /*var a = new Request();
-                a.AutoResizeDimensions = new AutoResizeDimensionsRequest();
-                a.AutoResizeDimensions.Dimensions = new DimensionRange { SheetId = 0, Dimension = "COLUMNS", StartIndex = 0, EndIndex = 1 };
+                var resizeRequest = new Request();
+                resizeRequest.AutoResizeDimensions = new AutoResizeDimensionsRequest();
+                resizeRequest.AutoResizeDimensions.Dimensions = new DimensionRange { SheetId = planilha.Properties.SheetId, Dimension = "COLUMNS", StartIndex = 0, EndIndex = 1 };
 
-                BatchUpdateSpreadsheetRequest body = new BatchUpdateSpreadsheetRequest();
-                body.Requests = new List<Request>();
-                body.Requests.Add(a);
+                BatchUpdateSpreadsheetRequest batch = new BatchUpdateSpreadsheetRequest();
+                batch.Requests = new List<Request>();
+                batch.Requests.Add(resizeRequest);
 
-                SpreadsheetsResource.BatchUpdateRequest u = sheetsService.Spreadsheets.BatchUpdate(body, id);
-                BatchUpdateSpreadsheetResponse response2 = u.Execute();*/
+                SpreadsheetsResource.BatchUpdateRequest u = sheetsService.Spreadsheets.BatchUpdate(batch, id);
+                BatchUpdateSpreadsheetResponse responseResize = u.Execute();
             }
             #endregion
 
