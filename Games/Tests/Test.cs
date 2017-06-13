@@ -16,6 +16,7 @@ using Google.Apis.Util.Store;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4.Data;
 using System.Net;
+using static Games.Models.ViewModel.GameListView;
 
 namespace Games.Test {
     [TestClass]
@@ -196,7 +197,7 @@ namespace Games.Test {
             }
         }
 
-    static string[] Scopes = { SheetsService.Scope.Spreadsheets };
+        static string[] Scopes = { SheetsService.Scope.Spreadsheets };
 
         [TestMethod]
         public void TesteSheet() {
@@ -226,31 +227,35 @@ namespace Games.Test {
 
             #region limpar e preencher abas
             SpreadsheetsResource.GetRequest get = sheetsService.Spreadsheets.Get(id);
-            var g = get.Execute();
+            Spreadsheet planilhas = get.Execute();
 
             SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum valueInputOption = (SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum)1;
 
-            foreach (var sheet in g.Sheets) {
-                var aba = sheet.Properties.Title;
-                ClearValuesRequest requestBody = new ClearValuesRequest();
-                SpreadsheetsResource.ValuesResource.ClearRequest request = sheetsService.Spreadsheets.Values.Clear(requestBody, id, aba);
+            foreach (Sheet planilha in planilhas.Sheets) {
+                var aba = planilha.Properties.Title;
+                ClearValuesRequest clearRequest = new ClearValuesRequest();
+                SpreadsheetsResource.ValuesResource.ClearRequest request = sheetsService.Spreadsheets.Values.Clear(clearRequest, id, aba);
                 ClearValuesResponse response = request.Execute();
+
+                GameRepository game = new GameRepository();
+                List<GameView> lista = game.ListarJogos(new List<int>() { 7 });
+
+                string range = aba+"!A1:B"+lista.Count+1;
+
+                List<IList<object>> dados = new List<IList<object>>();
+                dados.Add(new List<object>() { "Título" });
+
+                foreach (GameView jogo in lista) {
+                    dados.Add(new List<object>() { jogo.Name });
+                }
+
+                ValueRange valueRange = new ValueRange();
+                valueRange.Values = dados;
+
+                SpreadsheetsResource.ValuesResource.UpdateRequest updateRequest = sheetsService.Spreadsheets.Values.Update(valueRange, id, range);
+                updateRequest.ValueInputOption = valueInputOption;
                 
-                string range = aba+"!A1:B1";
-                
-                ValueRange requestBody2 = new ValueRange();
-                requestBody2.MajorDimension = "ROWS";
-                var oblist = new List<object>();
-                oblist.Add(new List<object>(){ "Título", "Data" });
-                oblist.Add(new List<object>(){"aaa","aaa" });
-
-                requestBody2.Values = new List<IList<object>> { oblist };
-
-                SpreadsheetsResource.ValuesResource.UpdateRequest request2 = sheetsService.Spreadsheets.Values.Update(requestBody2, id, range);
-                request2.ValueInputOption = valueInputOption;
-
-                // To execute asynchronously in an async method, replace `request.Execute()` as shown:
-                UpdateValuesResponse response2 = request2.Execute();
+                UpdateValuesResponse resposta = updateRequest.Execute();
             }
             #endregion
 
