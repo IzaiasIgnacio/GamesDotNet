@@ -201,6 +201,7 @@ namespace Games.Test {
 
         [TestMethod]
         public void TesteSheet() {
+            #region setup
             UserCredential credential;
 
             using (var stream =
@@ -225,7 +226,18 @@ namespace Games.Test {
 
             string id = "1k7Reqz1ZqGXwr8lTy5Y5r6bX53hxWv4kJSWTs3ptAuc";
 
-            #region limpar e preencher abas
+            List<GameView> lista_mock = new List<GameView>();
+            lista_mock.Add(new GameView { Name = "teste" });
+            lista_mock.Add(new GameView { Name = "teste" });
+            lista_mock.Add(new GameView { Name = "teste" });
+            lista_mock.Add(new GameView { Name = "teste" });
+            lista_mock.Add(new GameView { Name = "teste teste teste teste teste teste teste" });
+
+            //GameRepository game = new GameRepository();
+            PlatformRepository plataforma = new PlatformRepository();
+            #endregion
+
+            #region limpar, preencher e formatar abas
             SpreadsheetsResource.GetRequest get = sheetsService.Spreadsheets.Get(id);
             Spreadsheet planilhas = get.Execute();
 
@@ -233,14 +245,26 @@ namespace Games.Test {
 
             foreach (Sheet planilha in planilhas.Sheets) {
                 var aba = planilha.Properties.Title;
+
                 ClearValuesRequest clearRequest = new ClearValuesRequest();
                 SpreadsheetsResource.ValuesResource.ClearRequest request = sheetsService.Spreadsheets.Values.Clear(clearRequest, id, aba);
                 ClearValuesResponse response = request.Execute();
 
-                GameRepository game = new GameRepository();
-                List<GameView> lista = game.ListarJogos(new List<int>() { 7 });
+                /*List<GameView> lista = new List<GameView>();
+                lista = lista_mock;
+                /*List<int> plat = new List<int>();
 
-                string range = aba+"!A1:B"+lista.Count+1;
+                int? plataformas = plataforma.GetIdBySigla(aba);
+                if (plataformas == null) {
+                    plat = new List<int> { 1, 2, 3, 4, 5, 6, 7 };
+                }
+                else {
+                    plat = new List<int> { plataformas.Value };
+                }*/
+
+                //lista = game.ListarJogos(new List<int>() { 7 });*/
+
+                /*string range = aba+"!A1:B"+lista.Count+1;
 
                 List<IList<object>> dados = new List<IList<object>>();
                 dados.Add(new List<object>() { "Título" });
@@ -256,6 +280,17 @@ namespace Games.Test {
                 updateRequest.ValueInputOption = valueInputOption;
                 
                 UpdateValuesResponse resposta = updateRequest.Execute();
+
+                /*var a = new Request();
+                a.AutoResizeDimensions = new AutoResizeDimensionsRequest();
+                a.AutoResizeDimensions.Dimensions = new DimensionRange { SheetId = 0, Dimension = "COLUMNS", StartIndex = 0, EndIndex = 1 };
+
+                BatchUpdateSpreadsheetRequest body = new BatchUpdateSpreadsheetRequest();
+                body.Requests = new List<Request>();
+                body.Requests.Add(a);
+
+                SpreadsheetsResource.BatchUpdateRequest u = sheetsService.Spreadsheets.BatchUpdate(body, id);
+                BatchUpdateSpreadsheetResponse response2 = u.Execute();*/
             }
             #endregion
 

@@ -21,5 +21,10 @@ namespace Games.Models.Repository {
             return null;
         }
 
+        public int? GetIdBySigla(string sigla) {
+            platform plataforma = db.platform.Where(p => p.sigla == sigla).FirstOrDefault();
+            return plataforma.id;
+        }
+
     }
 }
