@@ -245,6 +245,7 @@ namespace Games.Models.Repository {
                               Name = g.FirstOrDefault().name,
                               CloudnaryId = g.FirstOrDefault().cloudnary_id,
                               ReleaseDate = g.FirstOrDefault().game_platform.FirstOrDefault().release_date,
+                              Plataformas = g.FirstOrDefault().game_platform.Select(gp => gp.platform.name).ToList(),
                               Ordem = g.FirstOrDefault().wishlist_order.FirstOrDefault().ordem
                           })
                           .OrderBy(game=>game.Name)

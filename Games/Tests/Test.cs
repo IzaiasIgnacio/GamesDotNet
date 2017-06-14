@@ -260,7 +260,7 @@ namespace Games.Test {
                         cabecalho = new List<object>() { "", "Título", "Lançamento", "Plataformas" };
                     break;
                     case "Watchlist":
-                        lista = game.ListarJogos(new List<int> { 1, 2, 3, 4, 5, 6, 7 }, 4);
+                        lista = game.ListarJogos(new List<int> { 1, 2, 3, 4, 5, 6, 7 }, 3);
                         cabecalho = new List<object>() { "", "Título", "Lançamento", "Plataformas" };
                     break;
                     default:
@@ -281,7 +281,11 @@ namespace Games.Test {
                         dados.Add(new List<object>() { "=IMAGE(\"https://images.igdb.com/igdb/image/upload/t_micro/" + jogo.CloudnaryId+".jpg\")", jogo.Name });
                     }
                     else {
-                        dados.Add(new List<object>() { "=IMAGE(\"https://images.igdb.com/igdb/image/upload/t_micro/" + jogo.CloudnaryId+".jpg\")", jogo.Name, jogo.ReleaseDate.Value.ToShortDateString(), String.Join(", ",jogo.Plataformas) });
+                        string data = null;
+                        if (jogo.ReleaseDate != null) {
+                            data = jogo.ReleaseDate.Value.ToShortDateString();
+                        }
+                        dados.Add(new List<object>() { "=IMAGE(\"https://images.igdb.com/igdb/image/upload/t_micro/" + jogo.CloudnaryId+".jpg\")", jogo.Name, data, String.Join(", ",jogo.Plataformas) });
                     }
                 }
 
@@ -292,11 +296,7 @@ namespace Games.Test {
                 updateRequest.ValueInputOption = valueInputOption;
                 
                 UpdateValuesResponse resposta = updateRequest.Execute();
-
-                Request resizeRequest = new Request();
-                resizeRequest.AutoResizeDimensions = new AutoResizeDimensionsRequest();
-                resizeRequest.AutoResizeDimensions.Dimensions = new DimensionRange { SheetId = planilha.Properties.SheetId, Dimension = "COLUMNS", StartIndex = 1, EndIndex = cabecalho.Count-1 };
-
+                
                 Request alignLeftRequest = new Request();
                 alignLeftRequest.RepeatCell = new RepeatCellRequest();
                 alignLeftRequest.RepeatCell.Fields = "userEnteredFormat(HorizontalAlignment)";
@@ -308,12 +308,16 @@ namespace Games.Test {
                 alignCenterRequest.RepeatCell.Fields = "userEnteredFormat(HorizontalAlignment)";
                 alignCenterRequest.RepeatCell.Range = new GridRange { SheetId = planilha.Properties.SheetId, StartColumnIndex = 0, EndColumnIndex = 1 };
                 alignCenterRequest.RepeatCell.Cell = new CellData { UserEnteredFormat = new CellFormat { HorizontalAlignment = "Center" } };
+
+                Request resizeRequest = new Request();
+                resizeRequest.AutoResizeDimensions = new AutoResizeDimensionsRequest();
+                resizeRequest.AutoResizeDimensions.Dimensions = new DimensionRange { SheetId = planilha.Properties.SheetId, Dimension = "COLUMNS", StartIndex = 1, EndIndex = cabecalho.Count };
                 
                 BatchUpdateSpreadsheetRequest batch = new BatchUpdateSpreadsheetRequest();
                 batch.Requests = new List<Request>();
-                batch.Requests.Add(resizeRequest);
                 batch.Requests.Add(alignLeftRequest);
                 batch.Requests.Add(alignCenterRequest);
+                batch.Requests.Add(resizeRequest);
 
                 SpreadsheetsResource.BatchUpdateRequest u = sheetsService.Spreadsheets.BatchUpdate(batch, id);
                 BatchUpdateSpreadsheetResponse responseResize = u.Execute();
