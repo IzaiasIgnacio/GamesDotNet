@@ -23,6 +23,9 @@ namespace Games.Models.Repository {
 
         public int? GetIdBySigla(string sigla) {
             platform plataforma = db.platform.Where(p => p.sigla == sigla).FirstOrDefault();
+            if (plataforma == null) {
+                return null;
+            }
             return plataforma.id;
         }
 

@@ -233,7 +233,7 @@ namespace Games.Test {
             lista_mock.Add(new GameView { Name = "teste" });
             lista_mock.Add(new GameView { Name = "teste teste teste teste teste teste teste" });
 
-            //GameRepository game = new GameRepository();
+            GameRepository game = new GameRepository();
             PlatformRepository plataforma = new PlatformRepository();
             #endregion
 
@@ -251,19 +251,22 @@ namespace Games.Test {
                 ClearValuesResponse response = request.Execute();
 
                 List<GameView> lista = new List<GameView>();
-                lista = lista_mock;
-                /*List<int> plat = new List<int>();
-
-                int? plataformas = plataforma.GetIdBySigla(aba);
-                if (plataformas == null) {
-                    plat = new List<int> { 1, 2, 3, 4, 5, 6, 7 };
+                List<int> plat = new List<int>();
+                
+                switch (aba) {
+                    case "Wishlist":
+                        lista = game.ListarJogosWishlist();
+                    break;
+                    case "Watchlist":
+                        lista = game.ListarJogos(new List<int> { 1, 2, 3, 4, 5, 6, 7 }, 4);
+                    break;
+                    default:
+                        int? plataformas = plataforma.GetIdBySigla(aba);
+                        plat = new List<int> { plataformas.Value };
+                        lista = game.ListarJogos(plat, 1);
+                    break;
                 }
-                else {
-                    plat = new List<int> { plataformas.Value };
-                }*/
-
-                //lista = game.ListarJogos(new List<int>() { 7 });*/
-
+                
                 string range = aba+"!A1:B"+lista.Count+1;
 
                 List<IList<object>> dados = new List<IList<object>>();

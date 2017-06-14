@@ -33,11 +33,17 @@ namespace Games.Controllers {
             string tipo = null;
             GameRepository gameRepository = new GameRepository();
             GameListView view = new GameListView();
-            if (status == "wishlist") {
-                view.ListaJogos = gameRepository.ListarJogosWishlist();
-            }
-            else {
-                view.ListaJogos = gameRepository.ListarJogos(layoutView.ativos, (int)Enum.Parse(typeof(GameListView.status), status));
+
+            switch (status) {
+                case "wishlist":
+                    view.ListaJogos = gameRepository.ListarJogosWishlist();
+                break;
+                case "watchlist":
+                    view.ListaJogos = gameRepository.ListarJogos(new List<int> { 1, 2, 3, 4, 5, 6, 7 }, 3);
+                break;
+                default:
+                    view.ListaJogos = gameRepository.ListarJogos(layoutView.ativos, (int)Enum.Parse(typeof(GameListView.status), status));
+                break;
             }
 
             if (tipo == null) {
