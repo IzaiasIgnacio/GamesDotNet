@@ -241,7 +241,7 @@ namespace Games.Test {
             SpreadsheetsResource.GetRequest get = sheetsService.Spreadsheets.Get(id);
             Spreadsheet planilhas = get.Execute();
 
-            SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum valueInputOption = (SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum)1;
+            SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum valueInputOption = (SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum)2;
 
             foreach (Sheet planilha in planilhas.Sheets) {
                 var aba = planilha.Properties.Title;
@@ -252,28 +252,37 @@ namespace Games.Test {
 
                 List<GameView> lista = new List<GameView>();
                 List<int> plat = new List<int>();
-                
+                List<object> cabecalho = null;
+
                 switch (aba) {
                     case "Wishlist":
                         lista = game.ListarJogosWishlist();
+                        cabecalho = new List<object>() { "", "Título", "Lançamento", "Plataformas" };
                     break;
                     case "Watchlist":
                         lista = game.ListarJogos(new List<int> { 1, 2, 3, 4, 5, 6, 7 }, 4);
+                        cabecalho = new List<object>() { "", "Título", "Lançamento", "Plataformas" };
                     break;
                     default:
                         int? plataformas = plataforma.GetIdBySigla(aba);
                         plat = new List<int> { plataformas.Value };
                         lista = game.ListarJogos(plat, 1);
+                        cabecalho = new List<object>() { "", "Título" };
                     break;
                 }
                 
-                string range = aba+"!A1:B"+lista.Count+1;
+                string range = aba+"!A1:D"+lista.Count+1;
 
                 List<IList<object>> dados = new List<IList<object>>();
-                dados.Add(new List<object>() { "Título" });
+                dados.Add(cabecalho);
 
                 foreach (GameView jogo in lista) {
-                    dados.Add(new List<object>() { jogo.Name });
+                    if (cabecalho.Count == 2) {
+                        dados.Add(new List<object>() { "=IMAGE(\"https://images.igdb.com/igdb/image/upload/t_micro/" + jogo.CloudnaryId+".jpg\")", jogo.Name });
+                    }
+                    else {
+                        dados.Add(new List<object>() { "=IMAGE(\"https://images.igdb.com/igdb/image/upload/t_micro/" + jogo.CloudnaryId+".jpg\")", jogo.Name, jogo.ReleaseDate.Value.ToShortDateString(), String.Join(", ",jogo.Plataformas) });
+                    }
                 }
 
                 ValueRange valueRange = new ValueRange();
@@ -284,13 +293,27 @@ namespace Games.Test {
                 
                 UpdateValuesResponse resposta = updateRequest.Execute();
 
-                var resizeRequest = new Request();
+                Request resizeRequest = new Request();
                 resizeRequest.AutoResizeDimensions = new AutoResizeDimensionsRequest();
-                resizeRequest.AutoResizeDimensions.Dimensions = new DimensionRange { SheetId = planilha.Properties.SheetId, Dimension = "COLUMNS", StartIndex = 0, EndIndex = 1 };
+                resizeRequest.AutoResizeDimensions.Dimensions = new DimensionRange { SheetId = planilha.Properties.SheetId, Dimension = "COLUMNS", StartIndex = 1, EndIndex = cabecalho.Count-1 };
 
+                Request alignLeftRequest = new Request();
+                alignLeftRequest.RepeatCell = new RepeatCellRequest();
+                alignLeftRequest.RepeatCell.Fields = "userEnteredFormat(HorizontalAlignment)";
+                alignLeftRequest.RepeatCell.Range = new GridRange { SheetId = planilha.Properties.SheetId, StartColumnIndex = 2, EndColumnIndex = 3 };
+                alignLeftRequest.RepeatCell.Cell = new CellData { UserEnteredFormat = new CellFormat { HorizontalAlignment = "LEFT" } };
+
+                Request alignCenterRequest = new Request();
+                alignCenterRequest.RepeatCell = new RepeatCellRequest();
+                alignCenterRequest.RepeatCell.Fields = "userEnteredFormat(HorizontalAlignment)";
+                alignCenterRequest.RepeatCell.Range = new GridRange { SheetId = planilha.Properties.SheetId, StartColumnIndex = 0, EndColumnIndex = 1 };
+                alignCenterRequest.RepeatCell.Cell = new CellData { UserEnteredFormat = new CellFormat { HorizontalAlignment = "Center" } };
+                
                 BatchUpdateSpreadsheetRequest batch = new BatchUpdateSpreadsheetRequest();
                 batch.Requests = new List<Request>();
                 batch.Requests.Add(resizeRequest);
+                batch.Requests.Add(alignLeftRequest);
+                batch.Requests.Add(alignCenterRequest);
 
                 SpreadsheetsResource.BatchUpdateRequest u = sheetsService.Spreadsheets.BatchUpdate(batch, id);
                 BatchUpdateSpreadsheetResponse responseResize = u.Execute();

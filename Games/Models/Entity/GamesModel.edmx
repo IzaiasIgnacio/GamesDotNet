@@ -4,331 +4,325 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="GamesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="developerPublisher">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_igdb" Type="int" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="game">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_igdb" Type="int" />
-          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="nota" Type="decimal" Precision="3" Scale="1" />
-          <Property Name="completo" Type="bit" Nullable="false" />
-          <Property Name="summary" Type="text" />
-          <Property Name="cloudnary_id" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="game_developerPublisher">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_game" Type="int" Nullable="false" />
-          <Property Name="id_developerPublisher" Type="int" Nullable="false" />
-          <Property Name="tipo" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="game_genre">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_game" Type="int" Nullable="false" />
-          <Property Name="id_genre" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="game_platform">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="release_date" Type="date" />
-          <Property Name="metacritic" Type="int" />
-          <Property Name="preco" Type="decimal" Precision="5" Scale="2" />
-          <Property Name="formato" Type="int" />
-          <Property Name="tamanho" Type="decimal" Precision="5" Scale="2" />
-          <Property Name="id_store" Type="int" />
-          <Property Name="id_game" Type="int" Nullable="false" />
-          <Property Name="id_platform" Type="int" Nullable="false" />
-          <Property Name="id_status" Type="int" Nullable="false" />
-          <Property Name="id_region" Type="int" />
-          <Property Name="id_rating" Type="int" />
-        </EntityType>
-        <EntityType Name="genre">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_igdb" Type="int" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="platform">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_igdb" Type="int" />
-          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="sigla" Type="nchar" MaxLength="6" Nullable="false" />
-          <Property Name="ordem" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="rating">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="50" />
-          <Property Name="idade" Type="int" />
-          <Property Name="id_regiao" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="region">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="sigla" Type="char" MaxLength="2" Nullable="false" />
-        </EntityType>
-        <EntityType Name="status">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nchar" MaxLength="10" Nullable="false" />
-        </EntityType>
-        <EntityType Name="store">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="wishlist_order">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="id_game" Type="int" Nullable="false" />
-          <Property Name="ordem" Type="int" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_game_developerPublisher_developerPublisher">
-          <End Role="developerPublisher" Type="Self.developerPublisher" Multiplicity="1" />
-          <End Role="game_developerPublisher" Type="Self.game_developerPublisher" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="developerPublisher">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="game_developerPublisher">
-              <PropertyRef Name="id_developerPublisher" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_game_developerPublisher_game">
-          <End Role="game" Type="Self.game" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="game_developerPublisher" Type="Self.game_developerPublisher" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="game">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="game_developerPublisher">
-              <PropertyRef Name="id_game" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_game_genre_game">
-          <End Role="game" Type="Self.game" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="game_genre" Type="Self.game_genre" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="game">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="game_genre">
-              <PropertyRef Name="id_game" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_game_genre_genre">
-          <End Role="genre" Type="Self.genre" Multiplicity="1" />
-          <End Role="game_genre" Type="Self.game_genre" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="genre">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="game_genre">
-              <PropertyRef Name="id_genre" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_game_platform_game">
-          <End Role="game" Type="Self.game" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="game_platform" Type="Self.game_platform" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="game">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="game_platform">
-              <PropertyRef Name="id_game" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_game_platform_platform">
-          <End Role="platform" Type="Self.platform" Multiplicity="1" />
-          <End Role="game_platform" Type="Self.game_platform" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="platform">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="game_platform">
-              <PropertyRef Name="id_platform" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_game_platform_rating">
-          <End Role="rating" Type="Self.rating" Multiplicity="0..1" />
-          <End Role="game_platform" Type="Self.game_platform" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="rating">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="game_platform">
-              <PropertyRef Name="id_rating" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_game_platform_region">
-          <End Role="region" Type="Self.region" Multiplicity="0..1" />
-          <End Role="game_platform" Type="Self.game_platform" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="region">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="game_platform">
-              <PropertyRef Name="id_region" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_game_platform_status">
-          <End Role="store" Type="Self.store" Multiplicity="0..1" />
-          <End Role="game_platform" Type="Self.game_platform" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="store">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="game_platform">
-              <PropertyRef Name="id_store" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_game_platform_store">
-          <End Role="store" Type="Self.store" Multiplicity="0..1" />
-          <End Role="game_platform" Type="Self.game_platform" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="store">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="game_platform">
-              <PropertyRef Name="id_store" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_rating_region">
-          <End Role="region" Type="Self.region" Multiplicity="1" />
-          <End Role="rating" Type="Self.rating" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="region">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="rating">
-              <PropertyRef Name="id_regiao" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_wishlist_order_game">
-          <End Role="game" Type="Self.game" Multiplicity="1" />
-          <End Role="wishlist_order" Type="Self.wishlist_order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="game">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="wishlist_order">
-              <PropertyRef Name="id_game" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="GamesModelStoreContainer">
-          <EntitySet Name="developerPublisher" EntityType="Self.developerPublisher" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="game" EntityType="Self.game" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="game_developerPublisher" EntityType="Self.game_developerPublisher" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="game_genre" EntityType="Self.game_genre" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="game_platform" EntityType="Self.game_platform" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="genre" EntityType="Self.genre" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="platform" EntityType="Self.platform" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="rating" EntityType="Self.rating" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="region" EntityType="Self.region" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="status" EntityType="Self.status" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="store" EntityType="Self.store" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="wishlist_order" EntityType="Self.wishlist_order" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_game_developerPublisher_developerPublisher" Association="Self.FK_game_developerPublisher_developerPublisher">
-            <End Role="developerPublisher" EntitySet="developerPublisher" />
-            <End Role="game_developerPublisher" EntitySet="game_developerPublisher" />
-          </AssociationSet>
-          <AssociationSet Name="FK_game_developerPublisher_game" Association="Self.FK_game_developerPublisher_game">
-            <End Role="game" EntitySet="game" />
-            <End Role="game_developerPublisher" EntitySet="game_developerPublisher" />
-          </AssociationSet>
-          <AssociationSet Name="FK_game_genre_game" Association="Self.FK_game_genre_game">
-            <End Role="game" EntitySet="game" />
-            <End Role="game_genre" EntitySet="game_genre" />
-          </AssociationSet>
-          <AssociationSet Name="FK_game_genre_genre" Association="Self.FK_game_genre_genre">
-            <End Role="genre" EntitySet="genre" />
-            <End Role="game_genre" EntitySet="game_genre" />
-          </AssociationSet>
-          <AssociationSet Name="FK_game_platform_game" Association="Self.FK_game_platform_game">
-            <End Role="game" EntitySet="game" />
-            <End Role="game_platform" EntitySet="game_platform" />
-          </AssociationSet>
-          <AssociationSet Name="FK_game_platform_platform" Association="Self.FK_game_platform_platform">
-            <End Role="platform" EntitySet="platform" />
-            <End Role="game_platform" EntitySet="game_platform" />
-          </AssociationSet>
-          <AssociationSet Name="FK_game_platform_rating" Association="Self.FK_game_platform_rating">
-            <End Role="rating" EntitySet="rating" />
-            <End Role="game_platform" EntitySet="game_platform" />
-          </AssociationSet>
-          <AssociationSet Name="FK_game_platform_region" Association="Self.FK_game_platform_region">
-            <End Role="region" EntitySet="region" />
-            <End Role="game_platform" EntitySet="game_platform" />
-          </AssociationSet>
-          <AssociationSet Name="FK_game_platform_status" Association="Self.FK_game_platform_status">
-            <End Role="store" EntitySet="store" />
-            <End Role="game_platform" EntitySet="game_platform" />
-          </AssociationSet>
-          <AssociationSet Name="FK_game_platform_store" Association="Self.FK_game_platform_store">
-            <End Role="store" EntitySet="store" />
-            <End Role="game_platform" EntitySet="game_platform" />
-          </AssociationSet>
-          <AssociationSet Name="FK_rating_region" Association="Self.FK_rating_region">
-            <End Role="region" EntitySet="region" />
-            <End Role="rating" EntitySet="rating" />
-          </AssociationSet>
-          <AssociationSet Name="FK_wishlist_order_game" Association="Self.FK_wishlist_order_game">
-            <End Role="game" EntitySet="game" />
-            <End Role="wishlist_order" EntitySet="wishlist_order" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
+    <Schema Namespace="GamesModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="GamesModelStoreContainer">
+    <EntitySet Name="developerPublisher" EntityType="GamesModel.Store.developerPublisher" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="game" EntityType="GamesModel.Store.game" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="game_developerPublisher" EntityType="GamesModel.Store.game_developerPublisher" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="game_platform" EntityType="GamesModel.Store.game_platform" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="platform" EntityType="GamesModel.Store.platform" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="rating" EntityType="GamesModel.Store.rating" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="region" EntityType="GamesModel.Store.region" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="store" EntityType="GamesModel.Store.store" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="status" EntityType="GamesModel.Store.status" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="game_genre" EntityType="GamesModel.Store.game_genre" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="genre" EntityType="GamesModel.Store.genre" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="wishlist_order" EntityType="GamesModel.Store.wishlist_order" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_game_developerPublisher_developerPublisher" Association="GamesModel.Store.FK_game_developerPublisher_developerPublisher">
+      <End Role="developerPublisher" EntitySet="developerPublisher" />
+      <End Role="game_developerPublisher" EntitySet="game_developerPublisher" />
+    </AssociationSet>
+    <AssociationSet Name="FK_game_developerPublisher_game" Association="GamesModel.Store.FK_game_developerPublisher_game">
+      <End Role="game" EntitySet="game" />
+      <End Role="game_developerPublisher" EntitySet="game_developerPublisher" />
+    </AssociationSet>
+    <AssociationSet Name="FK_game_platform_game" Association="GamesModel.Store.FK_game_platform_game">
+      <End Role="game" EntitySet="game" />
+      <End Role="game_platform" EntitySet="game_platform" />
+    </AssociationSet>
+    <AssociationSet Name="FK_game_platform_platform" Association="GamesModel.Store.FK_game_platform_platform">
+      <End Role="platform" EntitySet="platform" />
+      <End Role="game_platform" EntitySet="game_platform" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rating_region" Association="GamesModel.Store.FK_rating_region">
+      <End Role="region" EntitySet="region" />
+      <End Role="rating" EntitySet="rating" />
+    </AssociationSet>
+    <AssociationSet Name="FK_game_platform_status" Association="GamesModel.Store.FK_game_platform_status">
+      <End Role="status" EntitySet="status" />
+      <End Role="game_platform" EntitySet="game_platform" />
+    </AssociationSet>
+    <AssociationSet Name="FK_game_platform_rating" Association="GamesModel.Store.FK_game_platform_rating">
+      <End Role="rating" EntitySet="rating" />
+      <End Role="game_platform" EntitySet="game_platform" />
+    </AssociationSet>
+    <AssociationSet Name="FK_game_platform_region" Association="GamesModel.Store.FK_game_platform_region">
+      <End Role="region" EntitySet="region" />
+      <End Role="game_platform" EntitySet="game_platform" />
+    </AssociationSet>
+    <AssociationSet Name="FK_game_genre_game" Association="GamesModel.Store.FK_game_genre_game">
+      <End Role="GameEntity" EntitySet="game" />
+      <End Role="game_genre" EntitySet="game_genre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_game_genre_genre" Association="GamesModel.Store.FK_game_genre_genre">
+      <End Role="genre" EntitySet="genre" />
+      <End Role="game_genre" EntitySet="game_genre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_game_platform_store" Association="GamesModel.Store.FK_game_platform_store">
+      <End Role="store" EntitySet="store" />
+      <End Role="game_platform" EntitySet="game_platform" />
+    </AssociationSet>
+    <AssociationSet Name="FK_wishlist_order_game" Association="GamesModel.Store.FK_wishlist_order_game">
+      <End Role="GameEntity" EntitySet="game" />
+      <End Role="wishlist_order" EntitySet="wishlist_order" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="developerPublisher">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="id_igdb" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="game">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="summary" Type="varchar(max)" Nullable="true" />
+    <Property Name="cloudnary_id" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="id_igdb" Type="int" Nullable="true" />
+    <Property Name="completo" Type="bit" Nullable="false" />
+    <Property Name="nota" Type="decimal" Nullable="true" Precision="3" Scale="1" />
+  </EntityType>
+  <EntityType Name="game_developerPublisher">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_game" Type="int" Nullable="false" />
+    <Property Name="id_developerPublisher" Type="int" Nullable="false" />
+    <Property Name="tipo" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="game_platform">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_game" Type="int" Nullable="false" />
+    <Property Name="id_platform" Type="int" Nullable="false" />
+    <Property Name="id_status" Type="int" Nullable="false" />
+    <Property Name="release_date" Type="datetime" Nullable="true" />
+    <Property Name="id_region" Type="int" Nullable="true" />
+    <Property Name="id_rating" Type="int" Nullable="true" />
+    <Property Name="metacritic" Type="int" Nullable="true" />
+    <Property Name="preco" Type="decimal" Nullable="true" Precision="5" Scale="2" />
+    <Property Name="formato" Type="int" Nullable="true" />
+    <Property Name="tamanho" Type="decimal" Nullable="true" Precision="5" Scale="2" />
+    <Property Name="id_store" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="platform">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="sigla" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="ordem" Type="int" Nullable="false" />
+    <Property Name="id_igdb" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="rating">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idade" Type="int" Nullable="true" />
+    <Property Name="id_regiao" Type="int" Nullable="false" />
+    <Property Name="name" Type="nvarchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="region">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="sigla" Type="char" Nullable="false" MaxLength="2" />
+  </EntityType>
+  <EntityType Name="store">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="status">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nchar" Nullable="false" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="game_genre">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_game" Type="int" Nullable="false" />
+    <Property Name="id_genre" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="genre">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="id_igdb" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="wishlist_order">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id_game" Type="int" Nullable="false" />
+    <Property Name="ordem" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_game_developerPublisher_developerPublisher">
+    <End Role="developerPublisher" Type="GamesModel.Store.developerPublisher" Multiplicity="1" />
+    <End Role="game_developerPublisher" Type="GamesModel.Store.game_developerPublisher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="developerPublisher">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="game_developerPublisher">
+        <PropertyRef Name="id_developerPublisher" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_game_developerPublisher_game">
+    <End Role="game" Type="GamesModel.Store.game" Multiplicity="1" />
+    <End Role="game_developerPublisher" Type="GamesModel.Store.game_developerPublisher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="game">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="game_developerPublisher">
+        <PropertyRef Name="id_game" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_game_platform_game">
+    <End Role="game" Type="GamesModel.Store.game" Multiplicity="1" />
+    <End Role="game_platform" Type="GamesModel.Store.game_platform" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="game">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="game_platform">
+        <PropertyRef Name="id_game" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_game_platform_platform">
+    <End Role="platform" Type="GamesModel.Store.platform" Multiplicity="1" />
+    <End Role="game_platform" Type="GamesModel.Store.game_platform" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="platform">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="game_platform">
+        <PropertyRef Name="id_platform" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rating_region">
+    <End Role="region" Type="GamesModel.Store.region" Multiplicity="1" />
+    <End Role="rating" Type="GamesModel.Store.rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="region">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="rating">
+        <PropertyRef Name="id_regiao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_game_platform_status">
+    <End Role="status" Type="GamesModel.Store.status" Multiplicity="1" />
+    <End Role="game_platform" Type="GamesModel.Store.game_platform" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="status">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="game_platform">
+        <PropertyRef Name="id_status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_game_platform_rating">
+    <End Role="rating" Type="GamesModel.Store.rating" Multiplicity="0..1" />
+    <End Role="game_platform" Type="GamesModel.Store.game_platform" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="rating">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="game_platform">
+        <PropertyRef Name="id_rating" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_game_platform_region">
+    <End Role="region" Type="GamesModel.Store.region" Multiplicity="0..1" />
+    <End Role="game_platform" Type="GamesModel.Store.game_platform" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="region">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="game_platform">
+        <PropertyRef Name="id_region" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_game_genre_game">
+    <End Role="GameEntity" Type="GamesModel.Store.game" Multiplicity="1" />
+    <End Role="game_genre" Type="GamesModel.Store.game_genre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GameEntity">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="game_genre">
+        <PropertyRef Name="id_game" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_game_genre_genre">
+    <End Role="genre" Type="GamesModel.Store.genre" Multiplicity="1" />
+    <End Role="game_genre" Type="GamesModel.Store.game_genre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="genre">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="game_genre">
+        <PropertyRef Name="id_genre" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_game_platform_store">
+    <End Role="store" Type="GamesModel.Store.store" Multiplicity="0..1" />
+    <End Role="game_platform" Type="GamesModel.Store.game_platform" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="store">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="game_platform">
+        <PropertyRef Name="id_store" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_wishlist_order_game">
+    <End Role="GameEntity" Type="GamesModel.Store.game" Multiplicity="1" />
+    <End Role="wishlist_order" Type="GamesModel.Store.wishlist_order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GameEntity">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="wishlist_order">
+        <PropertyRef Name="id_game" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GamesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -793,15 +787,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-          <EntitySetMapping Name="wishlist_order">
-            <EntityTypeMapping TypeName="GamesModel.wishlist_order">
-              <MappingFragment StoreEntitySet="wishlist_order">
-                <ScalarProperty Name="ordem" ColumnName="ordem" />
-                <ScalarProperty Name="id_game" ColumnName="id_game" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+    <EntitySetMapping Name="wishlist_order">
+      <EntityTypeMapping TypeName="IsTypeOf(GamesModel.wishlist_order)">
+        <MappingFragment StoreEntitySet="wishlist_order">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_game" ColumnName="id_game" />
+          <ScalarProperty Name="ordem" ColumnName="ordem" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

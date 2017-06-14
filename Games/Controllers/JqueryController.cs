@@ -2,15 +2,23 @@
 using Games.Models.Repository;
 using Games.Models.Validacao;
 using Games.Models.ViewModel;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Services;
+using Google.Apis.Sheets.v4;
+using Google.Apis.Sheets.v4.Data;
+using Google.Apis.Util.Store;
 using Igdb.ResponseModels;
 using Igdb.Services;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using static Games.Models.ViewModel.GameListView;
 
 namespace Games.Controllers {
     public class JqueryController : BaseController {
@@ -272,6 +280,123 @@ namespace Games.Controllers {
             }
             
             return PartialView("DadosGameView", gameDataView);
+        }
+
+        [HttpPost]
+        public void ExportarJogosJquery() {
+            string[] Scopes = { SheetsService.Scope.Spreadsheets };
+
+            UserCredential credential;
+
+            using (var stream =
+                new FileStream("client_secret.json", FileMode.Open, FileAccess.Read)) {
+                string credPath = System.Environment.GetFolderPath(
+                    System.Environment.SpecialFolder.Personal);
+                credPath = Path.Combine(credPath, ".credentials/games.json");
+
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    GoogleClientSecrets.Load(stream).Secrets,
+                    Scopes,
+                    "user",
+                    CancellationToken.None,
+                    new FileDataStore(credPath, true)).Result;
+            }
+
+            // Create Google Sheets API service.
+            SheetsService sheetsService = new SheetsService(new BaseClientService.Initializer {
+                HttpClientInitializer = credential,
+                ApplicationName = "Google-SheetsSample/0.1",
+            });
+
+            string id = "1k7Reqz1ZqGXwr8lTy5Y5r6bX53hxWv4kJSWTs3ptAuc";
+            
+            GameRepository game = new GameRepository();
+            PlatformRepository plataforma = new PlatformRepository();
+
+            SpreadsheetsResource.GetRequest get = sheetsService.Spreadsheets.Get(id);
+            Spreadsheet planilhas = get.Execute();
+
+            SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum valueInputOption = (SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum)2;
+
+            foreach (Sheet planilha in planilhas.Sheets) {
+                var aba = planilha.Properties.Title;
+
+                ClearValuesRequest clearRequest = new ClearValuesRequest();
+                SpreadsheetsResource.ValuesResource.ClearRequest request = sheetsService.Spreadsheets.Values.Clear(clearRequest, id, aba + "!A1:Z1000");
+                ClearValuesResponse response = request.Execute();
+
+                List<GameView> lista = new List<GameView>();
+                List<int> plat = new List<int>();
+                List<object> cabecalho = null;
+
+                switch (aba)
+                {
+                    case "Wishlist":
+                        lista = game.ListarJogosWishlist();
+                        cabecalho = new List<object>() { "", "Título", "Lançamento", "Plataformas" };
+                        break;
+                    case "Watchlist":
+                        lista = game.ListarJogos(new List<int> { 1, 2, 3, 4, 5, 6, 7 }, 4);
+                        cabecalho = new List<object>() { "", "Título", "Lançamento", "Plataformas" };
+                        break;
+                    default:
+                        int? plataformas = plataforma.GetIdBySigla(aba);
+                        plat = new List<int> { plataformas.Value };
+                        lista = game.ListarJogos(plat, 1);
+                        cabecalho = new List<object>() { "", "Título" };
+                        break;
+                }
+
+                string range = aba + "!A1:D" + lista.Count + 1;
+
+                List<IList<object>> dados = new List<IList<object>>();
+                dados.Add(cabecalho);
+
+                foreach (GameView jogo in lista)
+                {
+                    if (cabecalho.Count == 2)
+                    {
+                        dados.Add(new List<object>() { "=IMAGE(\"https://images.igdb.com/igdb/image/upload/t_micro/" + jogo.CloudnaryId + ".jpg\")", jogo.Name });
+                    }
+                    else
+                    {
+                        dados.Add(new List<object>() { "=IMAGE(\"https://images.igdb.com/igdb/image/upload/t_micro/" + jogo.CloudnaryId + ".jpg\")", jogo.Name, jogo.ReleaseDate.Value.ToShortDateString(), String.Join(", ", jogo.Plataformas) });
+                    }
+                }
+
+                ValueRange valueRange = new ValueRange();
+                valueRange.Values = dados;
+
+                SpreadsheetsResource.ValuesResource.UpdateRequest updateRequest = sheetsService.Spreadsheets.Values.Update(valueRange, id, range);
+                updateRequest.ValueInputOption = valueInputOption;
+
+                UpdateValuesResponse resposta = updateRequest.Execute();
+
+                Request resizeRequest = new Request();
+                resizeRequest.AutoResizeDimensions = new AutoResizeDimensionsRequest();
+                resizeRequest.AutoResizeDimensions.Dimensions = new DimensionRange { SheetId = planilha.Properties.SheetId, Dimension = "COLUMNS", StartIndex = 1, EndIndex = cabecalho.Count - 1 };
+
+                Request alignLeftRequest = new Request();
+                alignLeftRequest.RepeatCell = new RepeatCellRequest();
+                alignLeftRequest.RepeatCell.Fields = "userEnteredFormat(HorizontalAlignment)";
+                alignLeftRequest.RepeatCell.Range = new GridRange { SheetId = planilha.Properties.SheetId, StartColumnIndex = 2, EndColumnIndex = 3 };
+                alignLeftRequest.RepeatCell.Cell = new CellData { UserEnteredFormat = new CellFormat { HorizontalAlignment = "LEFT" } };
+
+                Request alignCenterRequest = new Request();
+                alignCenterRequest.RepeatCell = new RepeatCellRequest();
+                alignCenterRequest.RepeatCell.Fields = "userEnteredFormat(HorizontalAlignment)";
+                alignCenterRequest.RepeatCell.Range = new GridRange { SheetId = planilha.Properties.SheetId, StartColumnIndex = 0, EndColumnIndex = 1 };
+                alignCenterRequest.RepeatCell.Cell = new CellData { UserEnteredFormat = new CellFormat { HorizontalAlignment = "Center" } };
+
+                BatchUpdateSpreadsheetRequest batch = new BatchUpdateSpreadsheetRequest();
+                batch.Requests = new List<Request>();
+                batch.Requests.Add(resizeRequest);
+                batch.Requests.Add(alignLeftRequest);
+                batch.Requests.Add(alignCenterRequest);
+
+                SpreadsheetsResource.BatchUpdateRequest u = sheetsService.Spreadsheets.BatchUpdate(batch, id);
+                BatchUpdateSpreadsheetResponse responseResize = u.Execute();
+            }
         }
 
     }

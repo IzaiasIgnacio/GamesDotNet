@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/28/2016 12:05:14
+-- Date Created: 06/14/2017 12:01:00
 -- Generated from EDMX file: F:\new\Games\Models\Entity\GamesModel.edmx
 -- --------------------------------------------------
 
@@ -50,6 +50,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_rating_region]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[rating] DROP CONSTRAINT [FK_rating_region];
 GO
+IF OBJECT_ID(N'[dbo].[FK_wishlist_order_game]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[wishlist_order] DROP CONSTRAINT [FK_wishlist_order_game];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -87,6 +90,9 @@ IF OBJECT_ID(N'[dbo].[status]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[store]', 'U') IS NOT NULL
     DROP TABLE [dbo].[store];
+GO
+IF OBJECT_ID(N'[dbo].[wishlist_order]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[wishlist_order];
 GO
 
 -- --------------------------------------------------
@@ -196,6 +202,14 @@ CREATE TABLE [dbo].[genre] (
 );
 GO
 
+-- Creating table 'wishlist_order'
+CREATE TABLE [dbo].[wishlist_order] (
+    [id] int  NOT NULL,
+    [id_game] int  NOT NULL,
+    [ordem] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -263,6 +277,12 @@ GO
 -- Creating primary key on [id] in table 'genre'
 ALTER TABLE [dbo].[genre]
 ADD CONSTRAINT [PK_genre]
+    PRIMARY KEY CLUSTERED ([id] ASC);
+GO
+
+-- Creating primary key on [id] in table 'wishlist_order'
+ALTER TABLE [dbo].[wishlist_order]
+ADD CONSTRAINT [PK_wishlist_order]
     PRIMARY KEY CLUSTERED ([id] ASC);
 GO
 
@@ -433,6 +453,21 @@ GO
 CREATE INDEX [IX_FK_game_platform_store]
 ON [dbo].[game_platform]
     ([id_store]);
+GO
+
+-- Creating foreign key on [id_game] in table 'wishlist_order'
+ALTER TABLE [dbo].[wishlist_order]
+ADD CONSTRAINT [FK_wishlist_order_game]
+    FOREIGN KEY ([id_game])
+    REFERENCES [dbo].[game]
+        ([id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_wishlist_order_game'
+CREATE INDEX [IX_FK_wishlist_order_game]
+ON [dbo].[wishlist_order]
+    ([id_game]);
 GO
 
 -- --------------------------------------------------

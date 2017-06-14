@@ -11,6 +11,11 @@
                     $("#lista_resultados_busca").slideDown();
                 });
             });
+            $("#exportar").click(function () {
+                $.post('@Url.Action("ExportarJogosJquery", "Jquery")', { search: $(this).val() },
+                function (resposta) {
+                });
+            });
         </script>
     </head>
     <body>

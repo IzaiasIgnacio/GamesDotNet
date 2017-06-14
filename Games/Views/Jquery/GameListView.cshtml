@@ -67,6 +67,7 @@
                 </div>
                 <div class="col-sm-9">
                     <label>@game.Name</label>
+                    <label>@String.Join(", ",game.Plataformas)</label>
                     @if (game.ReleaseDate != null) {
                         <label>@game.ReleaseDate.Value.ToShortDateString()</label>
                     }
