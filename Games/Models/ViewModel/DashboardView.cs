@@ -34,9 +34,6 @@ namespace Games.Models.ViewModel {
         private int totalJogosFisicos;
         private int totalJogosDigitais;
         private decimal? totalPreco;
-        private Dictionary<string, int> totalJogosColecaoPlataforma;
-        private Dictionary<string, int> totalJogosWishlistPlataforma;
-        private Dictionary<string, int> totalJogosWatchlistPlataforma;
         private Dictionary<string, int> totalJogosStatus;
         private Dictionary<string, int> totalJogosPlataforma;
         private Dictionary<string, int> totalJogosGenero;
@@ -44,6 +41,7 @@ namespace Games.Models.ViewModel {
         private Dictionary<string, int> totalJogosPublisher;
         private Dictionary<string, int> totalJogosAno;
         private Dictionary<string, int> totalJogosFaixaPreco;
+        private Dictionary<string, int> totalJogosFaixaMetacritic;
         private Dictionary<string, int> totalJogosLoja;
 
         public DashboardView() {
@@ -60,6 +58,7 @@ namespace Games.Models.ViewModel {
             totalJogosPublisher = gameRepository.GetTotalJogosPublisher();
             totalJogosAno = gameRepository.GetTotalJogosAno();
             totalJogosFaixaPreco = gameRepository.GetTotalJogosFaixaPreco();
+            totalJogosFaixaMetacritic = gameRepository.GetTotalJogosFaixaMetacritic();
             totalJogosLoja = gameRepository.GetTotalJogosLoja();
         }
 
@@ -134,10 +133,15 @@ namespace Games.Models.ViewModel {
             }
         }
 
-        public Dictionary<string, int> TotalJogosFaixaPreco
-        {
+        public Dictionary<string, int> TotalJogosFaixaPreco {
             get {
                 return totalJogosFaixaPreco;
+            }
+        }
+
+        public Dictionary<string, int> TotalJogosFaixaMetacritic {
+            get {
+                return totalJogosFaixaMetacritic;
             }
         }
 

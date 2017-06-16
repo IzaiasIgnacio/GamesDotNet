@@ -428,12 +428,75 @@ namespace Games.Models.Repository {
         }
 
         public Dictionary<string, int> GetTotalJogosFaixaPreco() {
-            /*Dictionary<string, int> total = new Dictionary<string, int>();
-            var query = db.GroupBy(gp => gp.name).Select(g => new { status = g.Key, total = g.Count() }).OrderByDescending(g=>g.total);;
-            foreach (var gp in query) {
-                total.Add(gp, gp.total);
-            }*/
-            return null;
+            Dictionary<string, int> resposta = new Dictionary<string, int>();
+            resposta.Add("Menos que 10", 0);
+            resposta.Add("Entre 10 e 50", 0);
+            resposta.Add("Entre 51 e 100", 0);
+            resposta.Add("Entre 101 e 150", 0);
+            resposta.Add("Entre 151 e 200", 0);
+            resposta.Add("Mais que 200", 0);
+            resposta.Add("Não informado", 0);
+
+            List<game_platform> lista = db.game_platform.Where(gp => gp.id_status == 1).ToList();
+
+            foreach (game_platform gp in lista) {
+                if (gp.preco == null) {
+                    resposta["Não informado"] = resposta["Não informado"] += 1;
+                }
+                if (gp.preco < 10) {
+                    resposta["Menos que 10"] = resposta["Menos que 10"] += 1;
+                }
+                if (gp.preco >= 10 && gp.preco <= 50) {
+                    resposta["Entre 10 e 50"] = resposta["Entre 10 e 50"] += 1;
+                }
+                if (gp.preco >= 51 && gp.preco <= 100) {
+                    resposta["Entre 51 e 100"] = resposta["Entre 51 e 100"] += 1;
+                }
+                if (gp.preco >= 101 && gp.preco <= 150) {
+                    resposta["Entre 101 e 150"] = resposta["Entre 101 e 150"] += 1;
+                }
+                if (gp.preco >= 151 && gp.preco <= 200) {
+                    resposta["Entre 151 e 200"] = resposta["Entre 151 e 200"] += 1;
+                }
+                if (gp.preco > 200) {
+                    resposta["Mais que 200"] = resposta["Mais que 200"] += 1;
+                }
+            }
+            return resposta;
+        }
+
+        public Dictionary<string, int> GetTotalJogosFaixaMetacritic() {
+            Dictionary<string, int> resposta = new Dictionary<string, int>();
+            resposta.Add("Menos que 50", 0);
+            resposta.Add("Entre 51 e 70", 0);
+            resposta.Add("Entre 71 e 80", 0);
+            resposta.Add("Entre 81 e 90", 0);
+            resposta.Add("Mais que 90", 0);
+            resposta.Add("Não informado", 0);
+
+            List<game_platform> lista = db.game_platform.Where(gp => gp.id_status == 1).ToList();
+
+            foreach (game_platform gp in lista) {
+                if (gp.metacritic == null) {
+                    resposta["Não informado"] = resposta["Não informado"] += 1;
+                }
+                if (gp.metacritic < 50) {
+                    resposta["Menos que 50"] = resposta["Menos que 50"] += 1;
+                }
+                if (gp.metacritic >= 51 && gp.metacritic <= 70) {
+                    resposta["Entre 51 e 70"] = resposta["Entre 51 e 70"] += 1;
+                }
+                if (gp.metacritic >= 71 && gp.metacritic <= 80) {
+                    resposta["Entre 71 e 80"] = resposta["Entre 71 e 80"] += 1;
+                }
+                if (gp.metacritic >= 81 && gp.metacritic < 90) {
+                    resposta["Entre 81 e 90"] = resposta["Entre 81 e 90"] += 1;
+                }
+                if (gp.metacritic > 90) {
+                    resposta["Mais que 90"] = resposta["Mais que 90"] += 1;
+                }
+            }
+            return resposta;
         }
 
         public Dictionary<string, int> GetTotalJogosAno() {

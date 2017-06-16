@@ -27,11 +27,13 @@
             </div>
         </div>
         @Html.Partial("DashboardTableReport", Model.GetDashboardTableReportView("Plataformas", Model.TotalJogosPlataforma))
+        @Html.Partial("DashboardTableReport", Model.GetDashboardTableReportView("Preços", Model.TotalJogosFaixaPreco))
         @Html.Partial("DashboardTableReport", Model.GetDashboardTableReportView("Status", Model.TotalJogosStatus))
         @Html.Partial("DashboardTableReport", Model.GetDashboardTableReportView("Anos", Model.TotalJogosAno))
-        @Html.Partial("DashboardTableReport", Model.GetDashboardTableReportView("Lojas", Model.TotalJogosLoja))
+        @Html.Partial("DashboardTableReport", Model.GetDashboardTableReportView("Metacritic", Model.TotalJogosFaixaMetacritic))
         @Html.Partial("DashboardTableReport", Model.GetDashboardTableReportView("Developers", Model.TotalJogosDeveloper))
         @Html.Partial("DashboardTableReport", Model.GetDashboardTableReportView("Publishers", Model.TotalJogosPublisher))
+        @Html.Partial("DashboardTableReport", Model.GetDashboardTableReportView("Lojas", Model.TotalJogosLoja))
         @Html.Partial("DashboardTableReport", Model.GetDashboardTableReportView("Gêneros", Model.TotalJogosGenero))
     </div>
 </div>
