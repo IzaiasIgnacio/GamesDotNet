@@ -14,6 +14,7 @@
             $("#exportar").click(function () {
                 $.post('@Url.Action("ExportarJogosJquery", "Jquery")', { search: $(this).val() },
                 function (resposta) {
+                    alert('foi');
                 });
             });
         </script>

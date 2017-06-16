@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
-using Newtonsoft.Json;
+﻿using System.Runtime.Serialization;
 
 namespace Igdb.ResponseModels {
     [DataContract(Name = "ReleaseDate")]
@@ -13,5 +11,8 @@ namespace Igdb.ResponseModels {
 
         [DataMember(Name = "region")]
         public int Region { get; set; }
+
+        [DataMember(Name = "human")]
+        public string Human { get; set; }
     }
 }

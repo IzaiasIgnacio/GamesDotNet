@@ -82,7 +82,11 @@
     <Compile Include="ResponseModels\Cover.cs" />
     <Compile Include="ResponseModels\DadosGenreResponse.cs" />
     <Compile Include="ResponseModels\DadosPlatformResponse.cs" />
+    <Compile Include="ResponseModels\Esrb.cs" />
+    <Compile Include="ResponseModels\GameEngine.cs" />
+    <Compile Include="ResponseModels\Pegi.cs" />
     <Compile Include="ResponseModels\ReleaseDate.cs" />
+    <Compile Include="ResponseModels\TimeToBeat.cs" />
     <Compile Include="ResponseModels\Video.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseModels\DadosDeveloperPublisherResponse.cs" />

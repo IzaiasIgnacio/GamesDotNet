@@ -346,7 +346,7 @@ textarea {
     border-top: 1px solid rgba(255, 255, 255, 0.54);
 }
 .dashboard .col-md-3 {
-    min-height: 25em;
+    min-height: 29em;
 }
 
 .dashboard .titulo, .dashboard .conteudo {    

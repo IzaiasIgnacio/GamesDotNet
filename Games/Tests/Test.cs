@@ -17,6 +17,7 @@ using Google.Apis.Services;
 using Google.Apis.Sheets.v4.Data;
 using System.Net;
 using static Games.Models.ViewModel.GameListView;
+using System.Data.Entity;
 
 namespace Games.Test {
     [TestClass]
@@ -363,6 +364,42 @@ namespace Games.Test {
             // TODO: Change code below to process the `response` object:
             Console.WriteLine(response3);*/
             #endregion
+        }
+
+        [TestMethod]
+        public void TesteDatas() {
+            GamesEntities db = new GamesEntities();
+            IgdbService igdb = new IgdbService();
+            List<game_platform> games = db.game_platform.Where(gp => gp.release_date == null).ToList();
+            foreach (game_platform g in games) {
+                GameEntity jogo = db.game.Find(g.id_game);
+                try {
+                    platform plataforma = db.platform.Find(g.id_platform);
+                    DadosGameResponse dados = igdb.DadosJogo(jogo.id_igdb.Value).FirstOrDefault();
+                    ReleaseDate lancamento;
+                    if (g.id_region == null) {
+                        lancamento = dados.ReleaseDates.Where(r => r.Region == 8).Where(r => r.Platform == plataforma.id_igdb).FirstOrDefault();
+                        if (lancamento == null) {
+                            lancamento = dados.ReleaseDates.Where(r => r.Region == 2).Where(r => r.Platform == plataforma.id_igdb).FirstOrDefault();
+                        }
+                        g.id_region = lancamento.Region;
+                    }
+                    else {
+                        lancamento = dados.ReleaseDates.Where(r => r.Region == g.id_region).Where(r => r.Platform == plataforma.id_igdb).FirstOrDefault();
+                    }
+                    if (lancamento != null) {
+                        if (lancamento.Date != null) {
+                            DateTime data = new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(Convert.ToDouble(lancamento.Date)));
+                            g.release_date = data;
+                        }
+                        db.Entry(g).State = EntityState.Modified;
+                    }
+                }
+                catch (Exception ex) {
+                    Console.Write(jogo.name+" "+ex.Message);
+                }
+            }
+            db.SaveChanges();
         }
 
     }

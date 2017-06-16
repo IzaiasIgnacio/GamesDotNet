@@ -32,5 +32,17 @@ namespace Igdb.ResponseModels {
 
         [DataMember(Name = "collection")]
         public int Collection { get; set; }
+
+        [DataMember(Name = "game_engines")]
+        public List<GameEngine> GameEngines { get; set; }
+
+        [DataMember(Name = "time_to_beat")]
+        public TimeToBeat TimeToBeat { get; set; }
+
+        [DataMember(Name = "esrb")]
+        public Esrb Esrb { get; set; }
+
+        [DataMember(Name = "pegi")]
+        public Pegi Pegi { get; set; }
     }
 }
