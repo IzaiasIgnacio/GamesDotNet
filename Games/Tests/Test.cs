@@ -18,6 +18,8 @@ using Google.Apis.Sheets.v4.Data;
 using System.Net;
 using static Games.Models.ViewModel.GameListView;
 using System.Data.Entity;
+using FluentMetacritic;
+using System.Threading.Tasks;
 
 namespace Games.Test {
     [TestClass]
@@ -400,6 +402,11 @@ namespace Games.Test {
                 }
             }
             db.SaveChanges();
+        }
+
+        [TestMethod]
+        public async Task TesteMetacritic() {
+            var searchResults = await Metacritic.SearchFor().Games().UsingTextAsync("Tekken");
         }
 
     }
