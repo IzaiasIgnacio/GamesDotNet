@@ -60,10 +60,16 @@ namespace Games.Models.Repository {
 
             SetDevelopersGame();
 
+            RemoveDevelopersGame();
+
             SetPublishersGame();
 
+            RemovePublishersGame();
+
             SetGenresGame();
-            
+
+            RemoveGenresGame();
+
             db.SaveChanges();
 
             SaveImagemGame();
@@ -116,8 +122,14 @@ namespace Games.Models.Repository {
 
         private void SetDevelopersGame() {
             foreach (developerPublisher dev in dadosGame.ListaDeveloper) {
-                if (dev.id == 0) {
-                    dev.id = developerPublisher.GetIdByIgdb(dev.id_igdb, dev.name);
+                dev.id = developerPublisher.GetIdByIgdb(dev.id_igdb, dev.name);
+
+                game_developerPublisher game_dev = db.game_developerPublisher.
+                    Where(gd => gd.id_developerPublisher == dev.id).
+                    Where(gd => gd.tipo == (int)GameDataView.tipoDeveloperPublisher.Developer).
+                    Where(gd => gd.id_game == game.id).FirstOrDefault();
+
+                if (game_dev == null) {
                     db.game_developerPublisher.Add(new game_developerPublisher {
                         id_developerPublisher = dev.id,
                         id_game = game.id,
@@ -130,7 +142,7 @@ namespace Games.Models.Repository {
         private void RemoveDevelopersGame() {
             int[] devs = dadosGame.ListaDeveloper.Select(d => d.id).ToArray();
             List<game_developerPublisher> excluirDevelopers = db.game_developerPublisher.
-                Where(d => !devs.Contains(d.id)).
+                Where(d => !devs.Contains(d.id_developerPublisher)).
                 Where(d => d.id_game == game.id).
                 Where(d => d.tipo == (int)GameDataView.tipoDeveloperPublisher.Developer).
                 ToList();
@@ -142,8 +154,14 @@ namespace Games.Models.Repository {
 
         private void SetPublishersGame() {
             foreach (developerPublisher pub in dadosGame.ListaPublisher) {
-                if (pub.id == 0) {
-                    pub.id = developerPublisher.GetIdByIgdb(pub.id_igdb, pub.name);
+                pub.id = developerPublisher.GetIdByIgdb(pub.id_igdb, pub.name);
+
+                game_developerPublisher game_pub = db.game_developerPublisher.
+                    Where(gp => gp.id_developerPublisher == pub.id).
+                    Where(gp => gp.tipo == (int)GameDataView.tipoDeveloperPublisher.Publisher).
+                    Where(gp => gp.id_game == game.id).FirstOrDefault();
+
+                if (game_pub == null) {
                     db.game_developerPublisher.Add(new game_developerPublisher {
                         id_developerPublisher = pub.id,
                         id_game = game.id,
@@ -156,7 +174,7 @@ namespace Games.Models.Repository {
         private void RemovePublishersGame() {
             int[] pubs = dadosGame.ListaPublisher.Select(d => d.id).ToArray();
             List<game_developerPublisher> excluirPublishers = db.game_developerPublisher.
-                Where(d => !pubs.Contains(d.id)).
+                Where(d => !pubs.Contains(d.id_developerPublisher)).
                 Where(d => d.id_game == game.id).
                 Where(d => d.tipo == (int)GameDataView.tipoDeveloperPublisher.Publisher).
                 ToList();
@@ -168,8 +186,13 @@ namespace Games.Models.Repository {
 
         private void SetGenresGame() {
             foreach (genre genero in dadosGame.ListaGenre) {
-                if (genero.id == 0) {
-                    genero.id = genre.GetIdByIgdb(genero.id_igdb, genero.name);
+                genero.id = genre.GetIdByIgdb(genero.id_igdb, genero.name);
+
+                game_genre game_ge = db.game_genre.
+                    Where(ge => ge.id == genero.id).
+                    Where(ge => ge.id_game == game.id).FirstOrDefault();
+
+                if (game_ge == null) {
                     db.game_genre.Add(new game_genre {
                         id_game = game.id,
                         id_genre = genero.id

@@ -221,6 +221,7 @@ namespace Games.Controllers {
         [HttpPost]
         public ActionResult PreencherDadosGameEntityJquery(int id) {
             GameRepository gameRepository = new GameRepository();
+            DeveloperPublisherRepository devPubRepository = new DeveloperPublisherRepository();
             GameEntity game = gameRepository.BuscarDados(id);
 
             List<game_developerPublisher> devs = game.game_developerPublisher.Where(d => d.tipo == (int)GameDataView.tipoDeveloperPublisher.Developer).ToList();
@@ -244,6 +245,7 @@ namespace Games.Controllers {
             foreach (game_developerPublisher dev in devs) {
                 gameDataView.ListaDeveloper.Add(new developerPublisher {
                     id = dev.id,
+                    id_igdb = devPubRepository.GetIgdbById(dev.id_developerPublisher),
                     name = dev.developerPublisher.name
                 });
             }
@@ -251,6 +253,7 @@ namespace Games.Controllers {
             foreach (game_developerPublisher pub in pubs) {
                 gameDataView.ListaPublisher.Add(new developerPublisher {
                     id = pub.id,
+                    id_igdb = devPubRepository.GetIgdbById(pub.id_developerPublisher),
                     name = pub.developerPublisher.name
                 });
             }

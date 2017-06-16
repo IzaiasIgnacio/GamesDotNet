@@ -4,6 +4,12 @@ using System.Linq;
 namespace Games.Models.Repository {
     public class DeveloperPublisherRepository : BaseRepository {
 
+        public int GetIgdbById(int id) {
+            developerPublisher developerPublisher = db.developerPublisher.Where(l => l.id == id).FirstOrDefault();
+
+            return developerPublisher.id_igdb;
+        }
+
         public int GetIdByIgdb(int id_igdb, string name) {
             developerPublisher developerPublisher = db.developerPublisher.Where(l => l.id_igdb == id_igdb).FirstOrDefault();
             if (developerPublisher == null) {
