@@ -1,4 +1,5 @@
-﻿using Games.Models.Entity;
+﻿using FluentMetacritic;
+using Games.Models.Entity;
 using Games.Models.Repository;
 using Games.Models.Validacao;
 using Games.Models.ViewModel;
@@ -16,6 +17,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using static Games.Models.ViewModel.GameListView;
@@ -147,7 +149,7 @@ namespace Games.Controllers {
         }
 
         [HttpPost]
-        public ActionResult PreencherDadosGameIgdbJquery(int id_igdb, int Id = 0) {
+        public async Task<ActionResult> PreencherDadosGameIgdbJquery(int id_igdb, int Id = 0) {
             IgdbService igdb = new IgdbService();
             DadosGameResponse response = igdb.DadosJogo(id_igdb).FirstOrDefault();
             List<DadosDeveloperPublisherResponse> devs = new List<DadosDeveloperPublisherResponse>();
@@ -203,13 +205,38 @@ namespace Games.Controllers {
                 });
             }
 
+            var metacritic = await Metacritic.SearchFor().Games().UsingTextAsync(response.Name);
+
             foreach (ReleaseDate lancamento in lancamentos) {
-                int? plataforma = pr.GetIdByIgdb(lancamento.Platform);
+                platform plataforma = pr.GetPlatformByIgdb(lancamento.Platform);
+                int? meta = null;
                 if (plataforma != null) {
+                    string sigla;
+                    switch (plataforma.sigla) {
+                        case "PS1":
+                            sigla = "PS";
+                        break;
+                        case "PSVITA":
+                            sigla = "VITA";
+                        break;
+                        default:
+                            sigla = plataforma.sigla;
+                        break;
+                    }
+                    try {
+                        var resultado = metacritic.Where(m => m.Platform == sigla).Where(m => m.Name.ToLowerInvariant() == response.Name.ToLowerInvariant()).FirstOrDefault();
+                        if (resultado != null) {
+                            meta = resultado.Score;
+                        }
+                    }
+                    catch (Exception ex) {
+
+                    }
                     DateTime data = new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(Convert.ToDouble(lancamento.Date)));
                     gameDataView.Platforms.Add(new game_platform {
-                        id_platform = plataforma.Value,
+                        id_platform = plataforma.id,
                         release_date = data,
+                        metacritic = meta.Value,
                         id_region = lancamento.Region
                     });
                 }

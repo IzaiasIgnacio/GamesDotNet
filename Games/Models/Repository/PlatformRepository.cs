@@ -12,11 +12,11 @@ namespace Games.Models.Repository {
             List<platform> listaPlatform = db.platform.OrderBy(platform => platform.ordem).ToList();
             return listaPlatform;
         }
-
-        public int? GetIdByIgdb(int id_igdb) {
+        
+        public platform GetPlatformByIgdb(int id_igdb) {
             platform plataforma = db.platform.Where(p => p.id_igdb == id_igdb).FirstOrDefault();
             if (plataforma != null) {
-                return plataforma.id;
+                return plataforma;
             }
             return null;
         }
