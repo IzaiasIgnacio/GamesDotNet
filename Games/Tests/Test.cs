@@ -406,7 +406,24 @@ namespace Games.Test {
 
         [TestMethod]
         public async Task TesteMetacritic() {
-            var searchResults = await Metacritic.SearchFor().Games().UsingTextAsync("Tekken");
+            GamesEntities db = new GamesEntities();
+            List<game_platform> games = db.game_platform.Where(gp => gp.metacritic == null).ToList();
+            foreach (game_platform g in games) {
+                GameEntity jogo = db.game.Find(g.id_game);
+                platform plataforma = db.platform.Find(g.id_platform);
+                try {
+                    var metacritic = await Metacritic.SearchFor().Games().UsingTextAsync(jogo.name);
+                    var resultado = metacritic.Where(m => m.Platform == plataforma.sigla).Where(m => m.Name == jogo.name).FirstOrDefault();
+                    if (resultado != null) {
+                        g.metacritic = resultado.Score;
+                        db.Entry(g).State = EntityState.Modified;
+                    }
+                }
+                catch (Exception ex) {
+
+                }
+            }
+            db.SaveChanges();
         }
 
     }

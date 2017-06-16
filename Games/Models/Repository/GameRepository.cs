@@ -58,6 +58,8 @@ namespace Games.Models.Repository {
 
             RemovePlataformasGame();
 
+            AtualizarWishlist();
+
             SetDevelopersGame();
 
             RemoveDevelopersGame();
@@ -236,6 +238,22 @@ namespace Games.Models.Repository {
             File.Delete(view.Imagesfolder + id + "_MicroCover2x_" + cloudnary_id + ".jpg");
         }
         #endregion
+
+        public void AtualizarWishlist() {
+            game_platform wish = game.game_platform.Where(gp => gp.id_status == 2).Where(gp => gp.id_game == game.id).FirstOrDefault();
+            if (wish == null) {
+                wishlist_order ordem = db.wishlist_order.Where(w => w.id_game == game.id).FirstOrDefault();
+                if (ordem != null) {
+                    db.wishlist_order.Remove(ordem);
+                }
+            }
+            else {
+                wishlist_order ordem = db.wishlist_order.Where(w => w.id_game == wish.id_game).FirstOrDefault();
+                if (ordem == null) {
+                    db.wishlist_order.Add(new wishlist_order { id_game = game.id, ordem = 0 });
+                }
+            }
+        }
 
         public GameEntity BuscarDados(int id) {
             GameEntity game = db.game.Find(id);
