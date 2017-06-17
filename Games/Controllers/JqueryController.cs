@@ -205,7 +205,7 @@ namespace Games.Controllers {
                 });
             }
 
-            var metacritic = await Metacritic.SearchFor().Games().UsingTextAsync(response.Name);
+            var buscaMetacritic = await Metacritic.SearchFor().Games().UsingTextAsync(response.Name);
 
             foreach (ReleaseDate lancamento in lancamentos) {
                 platform plataforma = pr.GetPlatformByIgdb(lancamento.Platform);
@@ -224,7 +224,7 @@ namespace Games.Controllers {
                         break;
                     }
                     try {
-                        var resultado = metacritic.Where(m => m.Platform == sigla).Where(m => m.Name.ToLowerInvariant() == response.Name.ToLowerInvariant()).FirstOrDefault();
+                        var resultado = buscaMetacritic.Where(m => m.Platform == sigla).Where(m => m.Name.ToLowerInvariant() == response.Name.ToLowerInvariant()).FirstOrDefault();
                         if (resultado != null) {
                             meta = resultado.Score;
                         }
@@ -236,7 +236,7 @@ namespace Games.Controllers {
                     gameDataView.Platforms.Add(new game_platform {
                         id_platform = plataforma.id,
                         release_date = data,
-                        metacritic = meta.Value,
+                        metacritic = meta,
                         id_region = lancamento.Region
                     });
                 }
