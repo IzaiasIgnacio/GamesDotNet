@@ -11,7 +11,7 @@ namespace Games.Controllers {
 
         public ActionResult Index() {
             LayoutView layoutView = LayoutView.init();
-            layoutView.ativos.Add(4);
+            layoutView.ativos.Add(0);
             return View();
         }
 

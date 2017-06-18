@@ -21,6 +21,19 @@
 <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
         <li class="sidebar-brand">Plataformas</li>
+        @{string classe_todas = "li_plataforma";}
+        @if (Model.ativos.IndexOf(0) != -1) {
+            classe_todas = "li_plataforma ativo";
+        }
+        <li class="@classe_todas" id="0">
+            Todas as plataformas
+            <span class="fa-stack circulo-sidebar">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <span class="fa-stack-1x icon-text">
+                    @Model.totais.Where(t => t.status == ViewContext.RouteData.Values["status"].ToString()).Sum(t => t.total)
+                </span>
+            </span>
+        </li>
         @foreach (var platform in Model.listaPlatform) {
             string classe = "li_plataforma";
             if (Model.ativos.IndexOf(platform.id) != -1) {
