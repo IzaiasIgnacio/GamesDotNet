@@ -4,14 +4,12 @@
     //atualizar menu de plataformas e lista de jogos
     $("#MenuPlataforma").off().on("click",".li_plataforma",function () {
         var element = $(this);
+        $(".li_plataforma").each(function () {
+            $(this).removeClass("ativo");
+        });
+        element.addClass("ativo");
         $.post('@Url.Action("MenuPlataformas", "Jquery")', { plataforma: element.attr("id") },
         function (resposta) {
-            if (element.hasClass("ativo")) {
-                element.removeClass("ativo");
-            }
-            else {
-                element.addClass("ativo");
-            }
             $("#MenuPlataforma").html(resposta);
             $.post('@Url.Action("ListaJogosIndex", "Jquery")', { status: status },
             function (resposta) {
@@ -20,15 +18,23 @@
         });
     });
 </script>
-<ul class="nav navbar-nav navbar-right">
-    @foreach (var platform in Model.listaPlatform) {
-        string classe = "";
-        if (Model.ativos.IndexOf(platform.id) != -1) {
-            classe = "ativo";
+<div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand">Plataformas</li>
+        @foreach (var platform in Model.listaPlatform) {
+            string classe = "li_plataforma";
+            if (Model.ativos.IndexOf(platform.id) != -1) {
+                classe = "li_plataforma ativo";
+            }
+            <li class="@classe" id="@platform.id">
+                @platform.name
+                <span class="fa-stack circulo-sidebar">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <span class="fa-stack-1x icon-text">
+                        @Model.totais.Where(t => t.plataforma == platform.sigla).Where(t => t.status == ViewContext.RouteData.Values["status"].ToString()).FirstOrDefault().total
+                    </span>
+                </span>
+            </li>
         }
-        <li class="li_plataforma @classe" id="@platform.id">@platform.name</li>
-        <!--<li class="li_plataforma @classe" id="@platform.id">
-            <img class="icone_plataforma" src="~/Content/@(platform.sigla+".png")" />
-        </li>-->
-    }
-</ul>
+    </ul>
+</div>

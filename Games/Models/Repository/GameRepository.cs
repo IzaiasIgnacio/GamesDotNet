@@ -5,9 +5,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using static Games.Models.ViewModel.GameListView;
-using Igdb.ResponseModels;
 using System.IO;
 
 namespace Games.Models.Repository {
@@ -316,6 +314,10 @@ namespace Games.Models.Repository {
 
         public int GetTotalJogos() {
             return db.game.Count();
+        }
+
+        public List<game_platform> GetListaGeral() {
+            return db.game_platform.ToList();
         }
 
         public int GetTotalJogosCompletos() {

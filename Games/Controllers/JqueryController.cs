@@ -12,31 +12,26 @@ using Igdb.ResponseModels;
 using Igdb.Services;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.Mvc.Html;
 using static Games.Models.ViewModel.GameListView;
 
 namespace Games.Controllers {
     public class JqueryController : BaseController {
 
         public ActionResult MenuPlataformas(int? plataforma) {
-            PlatformRepository platformRepository = new PlatformRepository();
-            layoutView.listaPlatform = platformRepository.Listar();
             if (plataforma.HasValue) {
-                if (layoutView.ativos.IndexOf(plataforma.Value) != -1) {
-                    layoutView.ativos.Remove(plataforma.Value);
-                }
-                else {
-                    layoutView.ativos.Add(plataforma.Value);
-                }
+                layoutView.ativos = new List<int>();
+                layoutView.ativos.Add(plataforma.Value);
             }
             return PartialView("PlatformMenuView", layoutView);
+        }
+
+        public ActionResult Menu() {
+            return PartialView("MenuView", layoutView);
         }
 
         public ActionResult ListaJogosIndex(string status) {

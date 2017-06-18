@@ -8,7 +8,8 @@
         <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <link href="~/Content/themes/base/all.css" rel="stylesheet" />
-        <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/sidebar.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/site.css" rel="stylesheet" type="text/css" />
         <script src="~/Scripts/jquery-3.1.1.min.js"></script>
         <script src="~/Scripts/bootstrap.js"></script>
         <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
@@ -19,6 +20,9 @@
                 <p><span class="glyphicon glyphicon-th-list"></span> <span class="glyphicon glyphicon-th-large"></span></p>
             </div>
             <nav class="navbar navbar-inverse navbar-fixed-top">
+                <ul class="nav navbar-brand">
+                    <li class="add_game">Games</li>
+                </ul>
                 <div class="container">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -27,18 +31,9 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <ul class="nav navbar-brand">
-                            <li class="add_game">Games</li>
-                        </ul>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li>@Html.ActionLink("Dashboard", "Dashboard", "Home")</li>
-                            <li>@Html.ActionLink("Coleção", "Index/colecao", "Home")</li>
-                            <li>@Html.ActionLink("Wishlist", "Index/wishlist", "Home")</li>
-                            <li>@Html.ActionLink("Watchlist", "Index/watchlist", "Home")</li>
-                            <li>@Html.ActionLink("Plus", "Index/plus", "Home")</li>
-                        </ul>
+                        @{Html.RenderAction("Menu", "Jquery");}
                         <div class="col-sm-2 col-md-2">
                             <form class="navbar-form" role="search">
                                 <div class="form-group">
@@ -48,9 +43,6 @@
                             </form>
                         </div>
                         <i class="fa fa-table fa-inverse fa-2x" id="exportar" style="margin-top: 13px; cursor: pointer"></i>>
-                        <span id="MenuPlataforma">
-                            @{Html.RenderAction("MenuPlataformas", "Jquery");}
-                        </span>
                     </div>
                 </div>
             </nav>

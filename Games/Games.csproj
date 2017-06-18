@@ -168,7 +168,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\eyes.jpg" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\pc.png" />
@@ -179,7 +178,8 @@
     <Content Include="Content\ps4.png" />
     <Content Include="Content\psp.png" />
     <Content Include="Content\psvita.png" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\sidebar.css" />
+    <Content Include="Content\site.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -370,6 +370,7 @@
     <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\Home\DashboardTableReport.cshtml" />
     <Content Include="Views\Jquery\BuscaResultView.cshtml" />
+    <Content Include="Views\Shared\MenuView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
