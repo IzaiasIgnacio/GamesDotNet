@@ -1,7 +1,7 @@
 ﻿@model Games.Models.ViewModel.LayoutView
 <ul class="nav navbar-nav">
     <li class="li_dashboard">
-        <a href="/">Dashboard</a></li>
+        <a href="@Url.Action("dashboard", "Home")">Dashboard</a></li>
     <li>
         <a href="@Url.Action("Index/colecao", "Home")">
             Coleção
