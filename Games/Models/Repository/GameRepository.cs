@@ -5,9 +5,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using static Games.Models.ViewModel.GameListView;
-using Igdb.ResponseModels;
 using System.IO;
 
 namespace Games.Models.Repository {
@@ -275,6 +273,9 @@ namespace Games.Models.Repository {
 
         public List<GameView> ListarJogos(List<int> plataformas, int status = 1) {
             List<GameView> ListaJogos;
+            if (plataformas.Contains(0)) {
+                plataformas = new List<int> { 1, 2, 3, 4, 5, 6, 7 };
+            }
             int[] plats = plataformas.ToArray();
             ListaJogos = (from game in db.game
                           join game_platform in db.game_platform on game.id equals game_platform.id_game
@@ -286,20 +287,24 @@ namespace Games.Models.Repository {
                               Name = g.FirstOrDefault().name,
                               CloudnaryId = g.FirstOrDefault().cloudnary_id,
                               ReleaseDate = g.FirstOrDefault().game_platform.FirstOrDefault().release_date,
-                              Plataformas = g.FirstOrDefault().game_platform.Select(gp => gp.platform.name).ToList(),
-                              Ordem = g.FirstOrDefault().wishlist_order.FirstOrDefault().ordem
+                              Plataformas = g.FirstOrDefault().game_platform.Select(gp => gp.platform.name).ToList()
                           })
                           .OrderBy(game=>game.Name)
                           .ToList();
             return ListaJogos;
         }
 
-        public List<GameView> ListarJogosWishlist() {
+        public List<GameView> ListarJogosWishlist(List<int> plataformas) {
             List<GameView> ListaJogos;
+            if (plataformas.Contains(0)) {
+                plataformas = new List<int> { 1, 2, 3, 4, 5, 6, 7 };
+            }
+            int[] plats = plataformas.ToArray();
             ListaJogos = (from game in db.game
                           join game_platform in db.game_platform on game.id equals game_platform.id_game
                           join wishlist_order in db.wishlist_order on game_platform.id_game equals wishlist_order.id_game
                           where game_platform.id_status == 2
+                          where plats.Contains(game_platform.id_platform)
                           group game by game.id into g
                           select new GameView {
                               Id = g.FirstOrDefault().id,
@@ -315,7 +320,11 @@ namespace Games.Models.Repository {
         }
 
         public int GetTotalJogos() {
-            return db.game.Count();
+            return db.game_platform.Where(gp => gp.id_status == 1).Count();
+        }
+
+        public List<game_platform> GetListaGeral() {
+            return db.game_platform.ToList();
         }
 
         public int GetTotalJogosCompletos() {

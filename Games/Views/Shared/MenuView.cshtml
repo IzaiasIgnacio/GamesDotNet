@@ -1,0 +1,41 @@
+﻿@model Games.Models.ViewModel.LayoutView
+<ul class="nav navbar-nav">
+    <li class="li_dashboard">
+        <a href="@Url.Action("dashboard", "Home")">Dashboard</a></li>
+    <li>
+        <a href="@Url.Action("Index/colecao", "Home")">
+            Coleção
+            <span class="fa-stack">
+                <i class="fa fa-circle fa-stack-2x circulo"></i>
+                <span class="fa-stack-1x icon-text">@Model.total_colecao</span>
+            </span>
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index/wishlist", "Home")">
+            Wishlist
+            <span class="fa-stack">
+                <i class="fa fa-circle fa-stack-2x circulo"></i>
+                <span class="fa-stack-1x icon-text">@Model.total_wishlist</span>
+            </span>
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index/watchlist", "Home")">
+            Watchlist
+            <span class="fa-stack">
+                <i class="fa fa-circle fa-stack-2x circulo"></i>
+                <span class="fa-stack-1x icon-text">@Model.total_watchlist</span>
+            </span>
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index/plus", "Home")">
+            Plus
+            <span class="fa-stack">
+                <i class="fa fa-circle fa-stack-2x circulo"></i>
+                <span class="fa-stack-1x icon-text">@Model.total_plus</span>
+            </span>
+        </a>
+    </li>
+</ul>

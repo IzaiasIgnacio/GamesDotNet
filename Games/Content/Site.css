@@ -22,6 +22,13 @@ textarea {
     display: none;
 }
 
+.page-header {
+    padding-bottom: 0;
+    margin: 0;
+    color: #ddd;
+    text-align: center;
+}
+
 .caption {
     width:100%;
     bottom: 0;
@@ -82,8 +89,8 @@ textarea {
 }
 
 .game_list {
-    width: 100%;
-    border: 2px solid #555;
+    width: 85%;
+    border: 2px solid #777;
     margin-bottom: 2px;
 }
 
@@ -222,13 +229,13 @@ textarea {
 
 .game_list_container {
     width: 100%;
-    margin-top: 15px;
 }
 
 .left_container {
     width: 45%;
-    margin-left: 0;
+    margin-left: 15px;
     float: left;
+    margin-top: 15px;
 }
 
 .game_list_dados {
@@ -273,27 +280,85 @@ textarea {
     margin-left: -15px;
 }
 
-
 .plataformas {
     padding: 15px;
     padding-top: 0;
     width: 100%;
 }
 
+.li_dashboard {
+    margin-top: 3px;
+}
+
 .form-group p {
     font-style: italic;
 }
 
+.navbar-inverse {
+    background-color: #0c1b93;
+    border-color: #ddd;
+}
+
+.navbar-brand {
+    color: #eee !important;
+    text-align: center;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #eee;
+}
+
+.sidebar-nav {
+    width: 200px;
+}
+
+.sidebar-nav li {
+    text-indent: 0;
+    padding-right: 0.3em;
+    padding-left: 0.5em;
+}
+
+#sidebar-wrapper {
+    width: 200px;
+    left: 200px;
+    margin-left: -200px;
+    box-shadow: 1px 0px 5px #fff;
+    overflow-y: hidden;
+}
+
+.sidebar-nav > .sidebar-brand {
+    text-align: right;
+    padding-right: 0.5em;
+    color: #ddd;
+    border-bottom: 1px solid #ddd;
+    height: 55px;
+    font-size: 18px;
+    line-height: 62px;
+}
+
 .li_plataforma {
     color: #ddd;
-    padding-top: 15px;
-    padding-bottom: 15px;
     display: block;
     cursor: pointer;
-    padding-right: 0.5em;
-    padding-left: 0.5em;
-    border-right: 1px solid #ddd;
-    border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.circulo {
+    color: #000;
+}
+
+.circulo-sidebar {
+    float: right;
+    margin-top: 6px;
+}
+
+.circulo-sidebar > .icon-text {
+    color: #000;
+}
+
+.icon-text {
+    font-size: 10px;
+    font-weight: bold;
 }
 
 .ativo {
@@ -302,6 +367,7 @@ textarea {
 
 .navbar-brand {
     cursor: pointer;
+    margin-top: 4px;
 }
 
 .estilo_exibicao {
@@ -320,8 +386,10 @@ textarea {
 
 .dashboard {
     color:#ccc;
-    margin-top: 15px;
-    width: 100%;
+    margin-top: 25px;
+    width: 90%;
+    position: absolute;
+    margin-left: -5%;
 }
 
 .dashboard .border {
@@ -345,7 +413,7 @@ textarea {
     font-size: 1.2em;
     border-top: 1px solid rgba(255, 255, 255, 0.54);
 }
-.dashboard .col-md-3 {
+.dashboard .col-md-2 {
     min-height: 29em;
 }
 
