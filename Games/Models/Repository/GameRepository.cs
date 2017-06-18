@@ -294,7 +294,7 @@ namespace Games.Models.Repository {
             return ListaJogos;
         }
 
-        public List<GameView> ListarJogosWishlist(List<int> plataformas = null) {
+        public List<GameView> ListarJogosWishlist(List<int> plataformas) {
             List<GameView> ListaJogos;
             if (plataformas.Contains(0)) {
                 plataformas = new List<int> { 1, 2, 3, 4, 5, 6, 7 };

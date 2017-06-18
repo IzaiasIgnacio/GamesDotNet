@@ -259,7 +259,7 @@ namespace Games.Test {
 
                 switch (aba) {
                     case "Wishlist":
-                        lista = game.ListarJogosWishlist();
+                        lista = game.ListarJogosWishlist(new List<int> { 0 });
                         cabecalho = new List<object>() { "", "Título", "Lançamento", "Plataformas" };
                     break;
                     case "Watchlist":
