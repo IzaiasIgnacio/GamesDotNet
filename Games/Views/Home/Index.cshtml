@@ -4,6 +4,21 @@
         <meta name="viewport" content="width=device-width" />
         <script>
             var status = "@(ViewContext.RouteData.Values["status"])";
+            var titulo;
+            switch (status) {
+                case 'colecao':
+                    titulo = 'Coleção';
+                break
+                case 'wishlist':
+                    titulo = 'Wishlist';
+                break
+                case 'watchlist':
+                    titulo = 'Watchlist';
+                break
+                case 'plus':
+                    titulo = 'Plus';
+                break
+            }
             $("#busca").keyup(function () {
                 $.post('@Url.Action("BuscarJogoEntityJquery", "Jquery")', { search: $(this).val() },
                 function (resposta) {
@@ -72,6 +87,9 @@
             @{Html.RenderAction("MenuPlataformas", "Jquery");}
         </span>
         <div class="container game_list_container">
+            <div class="page-header">
+                <h1>&nbsp;</h1>
+            </div>
             <span id="GameListView">
                 @{Html.RenderAction("ListaJogosIndex", "Jquery");}
             </span>
