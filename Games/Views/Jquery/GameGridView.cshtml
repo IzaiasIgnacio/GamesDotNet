@@ -20,7 +20,12 @@
                 $("#modal_game").modal('show');
             });
         });
-        $(".page-header h1").html(titulo);
+        var elemento = $(".ativo");
+        var plataforma_ativa = "";
+        if (elemento.attr("id") != 0) {
+            plataforma_ativa = " ("+$(".ativo").html().split("<")[0].trim()+")";
+        }
+        $(".page-header h1").html(titulo+plataforma_ativa);
     });
 </script>
 <div class="modal fade" id="modal_jquery" role="dialog">
