@@ -320,7 +320,7 @@ namespace Games.Models.Repository {
         }
 
         public int GetTotalJogos() {
-            return db.game_platform.Where(gp => gp.id_status == 1).Count();
+            return db.game_platform.Count();
         }
 
         public List<game_platform> GetListaGeral() {
@@ -332,11 +332,11 @@ namespace Games.Models.Repository {
         }
 
         public int GetTotalJogosFormato(int formato) {
-            return db.game_platform.Where(gp => gp.formato == formato).Count();
+            return db.game_platform.Where(gp => gp.formato == formato).Where(gp => gp.id_status == 1).Count();
         }
 
         public decimal? GetTotalPreco() {
-            return db.game_platform.Sum(gp => gp.preco);
+            return db.game_platform.Where(gp => gp.id_status == 1).Sum(gp => gp.preco);
         }
         
         public Dictionary<string, int> GetTotalJogosPlataforma() {
@@ -513,6 +513,7 @@ namespace Games.Models.Repository {
             Dictionary<string, int> resposta = new Dictionary<string, int>();
             int valor = 0;
             var query = db.game_platform.
+                        Where(gp => gp.id_status == 1).
                         GroupBy(gp => gp.release_date.Value.Year).
                         Select(g => new { ano = (int?)g.Key, total = g.Count() }).
                         OrderByDescending(g => g.total);

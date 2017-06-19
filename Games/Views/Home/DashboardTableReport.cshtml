@@ -3,9 +3,10 @@
     <div class="border row dashboard_box">
         <div class="titulo">@Model.titulo</div>
         @foreach (var info in Model.dados) {
-            <div class="conteudo" style="background: -webkit-linear-gradient(left, #0000ff 0, #252830 @Model.porcentagem(Model.totalJogos,info.Value), transparent 75%);">
+            string porcentagem = @Model.porcentagem(Model.totalJogos, info.Value);
+            <div class="conteudo" style="background: -webkit-linear-gradient(left, #0c1b93 0, #0c1b93 @porcentagem, transparent @porcentagem);">
                 <span class="descricao">@Model.texto(info.Key)</span>
-                <span class="valor">@info.Value (@Model.porcentagem(Model.totalJogos, info.Value))</span>
+                <span class="valor">@info.Value (@porcentagem)</span>
             </div>
         }
     </div>
