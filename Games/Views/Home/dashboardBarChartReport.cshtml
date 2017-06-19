@@ -1,0 +1,74 @@
+﻿@model Games.Models.ViewModel.DashboardReportView
+<script src="~/Scripts/Chart.min.js"></script>
+<script>
+    $(function () {
+        var ctx = document.getElementById("bar_chart").getContext('2d');
+        Chart.defaults.global.title.display = false;
+        Chart.defaults.scale.gridLines.display = false;
+        Chart.defaults.scale.ticks.beginAtZero = true;
+        Chart.defaults.scale.ticks.fontColor = "white";
+
+        var bar_chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels:[@Html.Raw(String.Join(",", Model.dados.Keys.ToArray().Select(k => "'"+k+"'")))],
+                datasets:[
+                 {
+                    data:[@Html.Raw(String.Join(",", Model.dados.Values.ToArray().Select(k => "'"+k+"'")))],
+                    fill:false,
+                    backgroundColor:[
+                       "rgba(255, 99, 132, 0.2)",
+                       "rgba(255, 159, 64, 0.2)"
+                    ],
+                    borderColor:[
+                       "rgb(255, 99, 132)",
+                       "rgb(255, 159, 64)"
+                    ],
+                    borderWidth:1
+                 }
+              ]
+           },
+           options: {
+                scales: {
+                    yAxes: [{
+                        display: false
+                    }],
+                    xAxes: [{
+                        categoryPercentage: 1.0,
+                        barPercentage: .9
+                        //barThickness: 30
+                    }]
+                },
+                legend: {
+                    display: false
+                },
+                maintainAspectRatio: false,
+                animation: {
+                    onComplete: function() {
+                        var chartInstance = this.chart,
+                            ctx = chartInstance.ctx;
+                        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'bottom';
+
+                        this.data.datasets.forEach(function (dataset, i) {
+                            var meta = chartInstance.controller.getDatasetMeta(i);
+                            meta.data.forEach(function (bar, index) {
+                                var data = dataset.data[index];
+                                ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                            });
+                        });
+                    }
+                }
+           }
+        });
+    });
+</script>
+<div class="col-md-6">
+    <div class="border row">
+        <div class="titulo">@Model.titulo</div>
+        <div class="canvas_row">
+            <canvas id="bar_chart"></canvas>
+        </div>
+    </div>
+</div>

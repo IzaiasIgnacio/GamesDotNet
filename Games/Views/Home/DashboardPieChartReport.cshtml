@@ -1,0 +1,37 @@
+﻿@model Games.Models.ViewModel.DashboardReportView
+<script src="~/Scripts/Chart.min.js"></script>
+<script>
+    $(function () {
+        var ctx = document.getElementById("pie_chart").getContext('2d');
+        Chart.defaults.global.legend.position = "right";
+        Chart.defaults.global.legend.labels.boxWidth = 10;
+        Chart.defaults.global.title.display = false;
+
+        var pie_chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [@Html.Raw(String.Join(",", Model.dados.Values.ToArray().Select(k => "'" + k + "'")))],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)'
+                    ]
+                }],
+                // These labels appear in the legend and in the tooltips when hovering different arcs
+                labels: [@Html.Raw(String.Join(",", Model.dados.Keys.ToArray().Select(k => "'"+k+"'")))]
+            },
+            options: {
+                legend: { labels: { fontColor: "#ddd" } }
+            }
+        });
+    });
+</script>
+<div class="col-md-2">
+    <div class="border row">
+        <div class="titulo">@Model.titulo</div>
+        <div class="canvas">
+            <canvas id="pie_chart"></canvas>
+        </div>
+    </div>
+</div>

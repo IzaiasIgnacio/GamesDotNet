@@ -439,6 +439,26 @@ textarea {
     border-bottom-left-radius: 4px;
 }
 
+.canvas, .canvas_row {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.canvas {
+    margin-top: 10px;
+    width: 200px;
+}
+
+.canvas_row {
+    width: 100%;
+    height: 150px;
+    margin-top: 35px;
+}
+
+.canvas_row > #bar_chart {
+    height: 200px;
+}
+
 .background {
     position: absolute;
     right: 10%;

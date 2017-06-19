@@ -5,12 +5,12 @@ using System.Globalization;
 
 namespace Games.Models.ViewModel {
 
-    public class DashboardTableReportView {
+    public class DashboardReportView {
         public int totalJogos;
         public string titulo;
         public Dictionary<string, int> dados;
 
-        public DashboardTableReportView(string titulo, Dictionary<string, int> dados, int totalJogos) {
+        public DashboardReportView(string titulo, Dictionary<string, int> dados, int totalJogos) {
             this.titulo = titulo;
             this.dados = dados;
             this.totalJogos = totalJogos;
@@ -64,8 +64,8 @@ namespace Games.Models.ViewModel {
             totalJogosLoja = gameRepository.GetTotalJogosLoja();
         }
 
-        public DashboardTableReportView GetDashboardTableReportView(string titulo, Dictionary<string, int> dados, int total) {
-            return new DashboardTableReportView(titulo, dados, total);
+        public DashboardReportView GetDashboardReportView(string titulo, Dictionary<string, int> dados, int total) {
+            return new DashboardReportView(titulo, dados, total);
         }
 
         public int TotalJogos {
