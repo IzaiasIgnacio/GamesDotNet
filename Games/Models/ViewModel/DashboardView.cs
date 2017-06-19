@@ -1,13 +1,7 @@
-﻿using Games.Models.Entity;
-using Games.Models.Repository;
-using Igdb.ResponseModels;
-using Newtonsoft.Json;
+﻿using Games.Models.Repository;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using System.Web.Mvc;
-using System.Web.Mvc.Html;
 
 namespace Games.Models.ViewModel {
 
@@ -33,7 +27,6 @@ namespace Games.Models.ViewModel {
             }
             return texto;
         }
-
     }
 
     public class DashboardView {
@@ -71,8 +64,8 @@ namespace Games.Models.ViewModel {
             totalJogosLoja = gameRepository.GetTotalJogosLoja();
         }
 
-        public DashboardTableReportView GetDashboardTableReportView(string titulo, Dictionary<string, int> dados) {
-            return new DashboardTableReportView(titulo, dados, totalJogos);
+        public DashboardTableReportView GetDashboardTableReportView(string titulo, Dictionary<string, int> dados, int total) {
+            return new DashboardTableReportView(titulo, dados, total);
         }
 
         public int TotalJogos {
