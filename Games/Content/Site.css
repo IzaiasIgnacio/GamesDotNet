@@ -89,7 +89,7 @@ textarea {
 }
 
 .game_list {
-    width: 85%;
+    width: 100%;
     border: 2px solid #777;
     margin-bottom: 2px;
 }
@@ -232,15 +232,16 @@ textarea {
 }
 
 .left_container {
-    width: 45%;
+    width: 38%;
     margin-left: 15px;
     float: left;
     margin-top: 15px;
 }
 
 .game_list_dados {
-    width: 55%;
+    width: 65%;
     margin-right: 0;
+    margin-top: 10px;
 }
 
 .dados_titulo {
@@ -413,12 +414,17 @@ textarea {
     font-size: 1.2em;
     border-top: 1px solid rgba(255, 255, 255, 0.54);
 }
-.dashboard .col-md-2 {
-    min-height: 29em;
+
+.dashboard_row {
+    margin-bottom: 20px;
 }
 
-.dashboard .titulo, .dashboard .conteudo {    
-    
+.dashboard .titulo {
+    background-color: #000;
+}
+
+.dashboard_box {
+    box-shadow: 1px 1px 5px #fff;
 }
 
 .dashboard .conteudo .valor {

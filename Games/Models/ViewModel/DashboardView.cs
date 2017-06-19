@@ -25,6 +25,15 @@ namespace Games.Models.ViewModel {
         public string porcentagem(int total, int valor) {
             return (((Double)valor / (Double)total)).ToString("0.00%", CultureInfo.InvariantCulture);
         }
+
+        public string texto(string texto) {
+            int tamanho = 100;
+            if (texto.Length > tamanho) {
+                texto = texto.Substring(0, tamanho);
+            }
+            return texto;
+        }
+
     }
 
     public class DashboardView {
@@ -150,7 +159,7 @@ namespace Games.Models.ViewModel {
                 return totalJogosLoja;
             }
         }
-        
+
     }
 
 }
