@@ -439,24 +439,20 @@ textarea {
     border-bottom-left-radius: 4px;
 }
 
-.canvas, .canvas_row {
+.canvas {
     margin-left: auto;
     margin-right: auto;
-}
-
-.canvas {
     margin-top: -25px;
     width: 370px;
     margin-bottom: -25px;
 }
 
-.canvas_row {
-    width: 100%;
+.canvas_bar {
+    width: 90%;
     height: 150px;
-    margin-top: 35px;
 }
 
-.canvas_row > #bar_chart {
+.canvas_bar > #bar_chart {
     height: 200px;
 }
 

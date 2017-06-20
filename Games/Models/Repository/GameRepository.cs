@@ -367,7 +367,6 @@ namespace Games.Models.Repository {
         public Dictionary<string, int> GetTotalJogosDeveloper() {
             Dictionary<string, int> total = new Dictionary<string, int>();
             Dictionary<string, int> resposta = new Dictionary<string, int>();
-            int valor = 0;
             var query = (from game in db.game
                          join game_developerPublisher in db.game_developerPublisher on game.id equals game_developerPublisher.id_game into developer
                          from dev in developer.DefaultIfEmpty()
@@ -380,19 +379,14 @@ namespace Games.Models.Repository {
                 if (gp.developer != null) {
                     total.Add(gp.developer, gp.total);
                 }
-                else {
-                    valor = gp.total;
-                }
             }
             resposta = total.Take(14).ToDictionary(x => x.Key, x => x.Value);
-            resposta.Add("Não informado", valor);
             return resposta;
         }
 
         public Dictionary<string, int> GetTotalJogosPublisher() {
             Dictionary<string, int> total = new Dictionary<string, int>();
             Dictionary<string, int> resposta = new Dictionary<string, int>();
-            int valor = 0;
             var query = (from game in db.game
                         join game_developerPublisher in db.game_developerPublisher on game.id equals game_developerPublisher.id_game into publisher
                         from pub in publisher.DefaultIfEmpty()
@@ -405,19 +399,14 @@ namespace Games.Models.Repository {
                 if (gp.publisher != null) {
                     total.Add(gp.publisher, gp.total);
                 }
-                else {
-                    valor = gp.total;
-                }
             }
             resposta = total.Take(14).ToDictionary(x=>x.Key, x=>x.Value);
-            resposta.Add("Não informado", valor);
             return resposta;
         }
         
         public Dictionary<string, int> GetTotalJogosLoja() {
             Dictionary<string, int> total = new Dictionary<string, int>();
             Dictionary<string, int> resposta = new Dictionary<string, int>();
-            int valor = 0;
             var query = db.game_platform.
                         Where(gp=>gp.id_status == 1).
                         GroupBy(gp => gp.store.name).
@@ -427,12 +416,8 @@ namespace Games.Models.Repository {
                 if (gp.loja != null) {
                     total.Add(gp.loja, gp.total);
                 }
-                else {
-                    valor = gp.total;
-                }
             }
             resposta = total.Take(14).ToDictionary(x => x.Key, x => x.Value);
-            resposta.Add("Não informado", valor);
             return resposta;
         }
 
@@ -503,7 +488,6 @@ namespace Games.Models.Repository {
         public Dictionary<string, int> GetTotalJogosAno() {
             Dictionary<string, int> total = new Dictionary<string, int>();
             Dictionary<string, int> resposta = new Dictionary<string, int>();
-            int valor = 0;
             var query = db.game_platform.
                         Where(gp => gp.id_status == 1).
                         GroupBy(gp => gp.release_date.Value.Year).
@@ -513,19 +497,14 @@ namespace Games.Models.Repository {
                 if (gp.ano != null) {
                     total.Add(gp.ano.ToString(), gp.total);
                 }
-                else {
-                    valor = gp.total;
-                }
             }
             resposta = total.Take(14).ToDictionary(x => x.Key, x => x.Value);
-            resposta.Add("Não informado", valor);
             return resposta;
         }
         
         public Dictionary<string, int> GetTotalJogosGenero() {
             Dictionary<string, int> total = new Dictionary<string, int>();
             Dictionary<string, int> resposta = new Dictionary<string, int>();
-            int valor = 0;
             var query = (from game in db.game
                          join game_genre in db.game_genre on game.id equals game_genre.id_game into genre
                          from genero in genre.DefaultIfEmpty()
@@ -537,12 +516,8 @@ namespace Games.Models.Repository {
                 if (gp.genre != null) {
                     total.Add(gp.genre, gp.total);
                 }
-                else {
-                    valor = gp.total;
-                }
             }
             resposta = total.Take(14).ToDictionary(x => x.Key, x => x.Value);
-            resposta.Add("Não informado", valor);
             return resposta;
         }
         

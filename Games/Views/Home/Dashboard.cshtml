@@ -29,20 +29,17 @@
     </div>
     <div class="row dashboard_row">
         @Html.Partial("DashboardPieChartReport", Model.GetDashboardReportView("Plataformas", Model.TotalJogosPlataforma, Model.TotalJogosStatus["Coleção"]))
-        @Html.Partial("DashboardPieChartReport", Model.GetDashboardReportView("Precos", Model.TotalJogosFaixaPreco, Model.TotalJogosStatus["Coleção"]))
+        @Html.Partial("DashboardPieChartReport", Model.GetDashboardReportView("Preços", Model.TotalJogosFaixaPreco, Model.TotalJogosStatus["Coleção"]))
         @Html.Partial("DashboardPieChartReport", Model.GetDashboardReportView("Status", Model.TotalJogosStatus, Model.TotalJogos))
         @Html.Partial("DashboardPieChartReport", Model.GetDashboardReportView("Metacritic", Model.TotalJogosFaixaMetacritic, Model.TotalJogosStatus["Coleção"]))
     </div>
     <div class="row dashboard_row">
-        @Html.Partial("DashboardTableReport", Model.GetDashboardReportView("Anos", Model.TotalJogosAno, Model.TotalJogosStatus["Coleção"]))
-        @Html.Partial("DashboardTableReport", Model.GetDashboardReportView("Developers", Model.TotalJogosDeveloper, Model.TotalJogos))
-        @Html.Partial("DashboardTableReport", Model.GetDashboardReportView("Publishers", Model.TotalJogosPublisher, Model.TotalJogos))
-        @Html.Partial("DashboardTableReport", Model.GetDashboardReportView("Lojas", Model.TotalJogosLoja, Model.TotalJogosStatus["Coleção"]))
+        @Html.Partial("DashboardBarChartReport", Model.GetDashboardReportView("Anos", Model.TotalJogosAno, Model.TotalJogosStatus["Coleção"]))
+        @Html.Partial("DashboardBarChartReport", Model.GetDashboardReportView("Developers", Model.TotalJogosDeveloper, Model.TotalJogos))
+        @Html.Partial("DashboardBarChartReport", Model.GetDashboardReportView("Publishers", Model.TotalJogosPublisher, Model.TotalJogos))
+        @Html.Partial("DashboardBarChartReport", Model.GetDashboardReportView("Lojas", Model.TotalJogosLoja, Model.TotalJogosStatus["Coleção"]))
     </div>
     <div class="row dashboard_row">
-        @Html.Partial("DashboardTableReport", Model.GetDashboardReportView("Gêneros", Model.TotalJogosGenero, Model.TotalJogos))
-    </div>
-    <div class="row dashboard_row">
-        @Html.Partial("DashboardBarChartReport", Model.GetDashboardReportView("Teste", Model.TotalJogosPublisher, Model.TotalJogos))
+        @Html.Partial("DashboardBarChartReport", Model.GetDashboardReportView("Gêneros", Model.TotalJogosGenero, Model.TotalJogos))
     </div>
 </div>

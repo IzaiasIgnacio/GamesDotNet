@@ -1,16 +1,16 @@
 ﻿@model Games.Models.ViewModel.DashboardReportView
 <script>
     $(function () {
-        var ctx = document.getElementById("bar_chart").getContext('2d');
+        var ctx = document.getElementById("bar_chart_@Model.GetHashCode()").getContext('2d');
         Chart.defaults.global.title.display = false;
         Chart.defaults.scale.gridLines.display = false;
         Chart.defaults.scale.ticks.beginAtZero = true;
         Chart.defaults.scale.ticks.fontColor = "white";
 
         var bar_chart = new Chart(ctx, {
-            type: 'bar',
+            type: 'horizontalBar',
             data: {
-                labels:[@Html.Raw(String.Join(",", Model.dados.Keys.ToArray().Select(k => "'"+k+"'")))],
+                labels:[@Html.Raw(String.Join(",", Model.dados.Select(k => "'"+k.Key+" ("+k.Value+")'")))],
                 datasets:[
                  {
                     data:[@Html.Raw(String.Join(",", Model.dados.Values.ToArray().Select(k => "'"+k+"'")))],
@@ -30,44 +30,31 @@
            options: {
                 scales: {
                     yAxes: [{
-                        display: false
+                        //barThickness: 30
+                        categoryPercentage: 1.0,
+                        barPercentage: .9,
+                        ticks: {
+                            mirror: true,
+                            max: 2
+                        }
                     }],
                     xAxes: [{
-                        categoryPercentage: 1.0,
-                        barPercentage: .9
-                        //barThickness: 30
+                        display: false
                     }]
                 },
                 legend: {
                     display: false
                 },
-                maintainAspectRatio: false,
-                animation: {
-                    onComplete: function() {
-                        var chartInstance = this.chart,
-                            ctx = chartInstance.ctx;
-                        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
-                        ctx.textAlign = 'center';
-                        ctx.textBaseline = 'bottom';
-
-                        this.data.datasets.forEach(function (dataset, i) {
-                            var meta = chartInstance.controller.getDatasetMeta(i);
-                            meta.data.forEach(function (bar, index) {
-                                var data = dataset.data[index];
-                                ctx.fillText(data, bar._model.x, bar._model.y - 5);
-                            });
-                        });
-                    }
-                }
+                maintainAspectRatio: false
            }
         });
     });
 </script>
-<div class="col-md-12">
+<div class="col-md-3">
     <div class="border row">
         <div class="titulo">@Model.titulo</div>
-        <div class="canvas_row">
-            <canvas id="bar_chart"></canvas>
+        <div class="canvas_bar">
+            <canvas id="bar_chart_@Model.GetHashCode()"></canvas>
         </div>
     </div>
 </div>
