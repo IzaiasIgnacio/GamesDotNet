@@ -445,8 +445,9 @@ textarea {
 }
 
 .canvas {
-    margin-top: 10px;
-    width: 200px;
+    margin-top: -25px;
+    width: 370px;
+    margin-bottom: -25px;
 }
 
 .canvas_row {

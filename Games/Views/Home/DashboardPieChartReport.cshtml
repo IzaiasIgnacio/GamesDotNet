@@ -1,8 +1,7 @@
 ﻿@model Games.Models.ViewModel.DashboardReportView
-<script src="~/Scripts/Chart.min.js"></script>
 <script>
     $(function () {
-        var ctx = document.getElementById("pie_chart").getContext('2d');
+        var ctx = document.getElementById("pie_chart_@Model.titulo").getContext('2d');
         Chart.defaults.global.legend.position = "right";
         Chart.defaults.global.legend.labels.boxWidth = 10;
         Chart.defaults.global.title.display = false;
@@ -22,16 +21,27 @@
                 labels: [@Html.Raw(String.Join(",", Model.dados.Keys.ToArray().Select(k => "'"+k+"'")))]
             },
             options: {
-                legend: { labels: { fontColor: "#ddd" } }
+                legend: {
+                    labels: {
+                        fontColor: "#ddd",
+                        fontSize: 14
+                    }
+                },
+                legendCallback: function (chart) {
+                    chart.legend.left = chart.legend.left + 10;
+                    chart.legend.top = chart.legend.top + 30;
+                    return chart;
+                }
             }
         });
+        pie_chart.generateLegend();
     });
 </script>
-<div class="col-md-2">
-    <div class="border row">
+<div class="col-md-3">
+    <div class="border row dashboard_box">
         <div class="titulo">@Model.titulo</div>
         <div class="canvas">
-            <canvas id="pie_chart"></canvas>
+            <canvas id="pie_chart_@Model.titulo"></canvas>
         </div>
     </div>
 </div>
