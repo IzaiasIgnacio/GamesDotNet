@@ -40,19 +40,19 @@ namespace Games.Models.ViewModel {
 
             switch (icone) {
                 case "jogos":
-                    this.icone = "fa-gamepad fa-inverse";
+                    this.icone = "<i class=\"fa fa-gamepad fa-inverse fa-2x\"></i>";
                 break;
                 case "completos":
-                    this.icone = "fa-check fa-inverse";
+                    this.icone = "<i class=\"fa fa-check fa-inverse fa-2x\"></i>"; ;
                 break;
                 case "preco":
-                    this.icone = "fa-money fa-inverse";
+                    this.icone = "<i class=\"fa fa-money fa-2x\"></i>"; ;
                 break;
                 case "fisicos":
-                    this.icone = "fa-hdd-o fa-inverse";
+                    this.icone = "<span class=\"glyphicon glyphicon-cd\" aria-hidden=\"true\"></span>";
                 break;
                 case "digitais":
-                    this.icone = "fa-cloud fa-inverse";
+                    this.icone = "<i class=\"fa fa-cloud fa-inverse fa-2x\"></i>";
                 break;
             }
         }

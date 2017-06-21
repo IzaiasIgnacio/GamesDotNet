@@ -424,10 +424,10 @@ namespace Games.Models.Repository {
         public Dictionary<string, int> GetTotalJogosFaixaPreco() {
             Dictionary<string, int> resposta = new Dictionary<string, int>();
             resposta.Add("< 10", 0);
-            resposta.Add("10 .. 50", 0);
-            resposta.Add("51 .. 100", 0);
-            resposta.Add("101 .. 150", 0);
-            resposta.Add("151 .. 200", 0);
+            resposta.Add("10..50", 0);
+            resposta.Add("51..100", 0);
+            resposta.Add("101..150", 0);
+            resposta.Add("151..200", 0);
             resposta.Add("> 200", 0);
 
             List<game_platform> lista = db.game_platform.Where(gp => gp.id_status == 1).ToList();
@@ -437,16 +437,16 @@ namespace Games.Models.Repository {
                     resposta["< 10"] = resposta["< 10"] += 1;
                 }
                 if (gp.preco >= 10 && gp.preco <= 50) {
-                    resposta["10 .. 50"] = resposta["10 .. 50"] += 1;
+                    resposta["10..50"] = resposta["10..50"] += 1;
                 }
                 if (gp.preco >= 51 && gp.preco <= 100) {
-                    resposta["51 .. 100"] = resposta["51 .. 100"] += 1;
+                    resposta["51..100"] = resposta["51..100"] += 1;
                 }
                 if (gp.preco >= 101 && gp.preco <= 150) {
-                    resposta["101 .. 150"] = resposta["101 .. 150"] += 1;
+                    resposta["101..150"] = resposta["101..150"] += 1;
                 }
                 if (gp.preco >= 151 && gp.preco <= 200) {
-                    resposta["151 .. 200"] = resposta["151 .. 200"] += 1;
+                    resposta["151..200"] = resposta["151..200"] += 1;
                 }
                 if (gp.preco > 200) {
                     resposta["> 200"] = resposta["> 200"] += 1;
@@ -458,9 +458,9 @@ namespace Games.Models.Repository {
         public Dictionary<string, int> GetTotalJogosFaixaMetacritic() {
             Dictionary<string, int> resposta = new Dictionary<string, int>();
             resposta.Add("< 50", 0);
-            resposta.Add("51 .. 70", 0);
-            resposta.Add("71 .. 80", 0);
-            resposta.Add("81 .. 90", 0);
+            resposta.Add("51..70", 0);
+            resposta.Add("71..80", 0);
+            resposta.Add("81..90", 0);
             resposta.Add("> 90", 0);
 
             List<game_platform> lista = db.game_platform.Where(gp => gp.id_status == 1).ToList();
@@ -470,13 +470,13 @@ namespace Games.Models.Repository {
                     resposta["< 50"] = resposta["< 50"] += 1;
                 }
                 if (gp.metacritic >= 51 && gp.metacritic <= 70) {
-                    resposta["51 .. 70"] = resposta["51 .. 70"] += 1;
+                    resposta["51..70"] = resposta["51..70"] += 1;
                 }
                 if (gp.metacritic >= 71 && gp.metacritic <= 80) {
-                    resposta["71 .. 80"] = resposta["71 .. 80"] += 1;
+                    resposta["71..80"] = resposta["71..80"] += 1;
                 }
                 if (gp.metacritic >= 81 && gp.metacritic < 90) {
-                    resposta["81 .. 90"] = resposta["81 .. 90"] += 1;
+                    resposta["81..90"] = resposta["81..90"] += 1;
                 }
                 if (gp.metacritic > 90) {
                     resposta["> 90"] = resposta["> 90"] += 1;
