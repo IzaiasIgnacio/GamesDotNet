@@ -473,8 +473,11 @@ textarea {
 
 .icone_dashboard .glyphicon-cd {
     font-size: 22px;
-    color: #fff;
     padding-top: 0.1em;
+}
+
+.icone_dashboard > i, .icone_dashboard > .glyphicon-cd {
+    color: #eee;
 }
 
 .valor_dashboard {
