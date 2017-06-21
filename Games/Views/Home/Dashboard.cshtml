@@ -1,30 +1,12 @@
 ﻿@model Games.Models.ViewModel.DashboardView
 <div class="container dashboard">
     <div class="row dashboard_row">
-        <div class="col-md-3">
-            <div class="border row dashboard_box">
-                <div class="titulo">Totais da coleção</div>
-                <div class="conteudo">
-                    <span class="descricao">Jogos</span>
-                    <span class="valor">@Model.TotalJogosStatus["Coleção"]</span>
-                </div>
-                <div class="conteudo">
-                    <span class="descricao">Preço</span>
-                    <span class="valor">@Model.TotalPreco</span>
-                </div>
-                <div class="conteudo">
-                    <span class="descricao">Completos</span>
-                    <span class="valor">@Model.TotalJogosCompletos</span>
-                </div>
-                <div class="conteudo">
-                    <span class="descricao">Físicos</span>
-                    <span class="valor">@Model.TotalJogosFisicos</span>
-                </div>
-                <div class="conteudo">
-                    <span class="descricao">Digitais</span>
-                    <span class="valor">@Model.TotalJogosDigitais</span>
-                </div>
-            </div>
+        <div class="summary">
+            @Html.Partial("DashboardSummaryView", Model.GetDashboardSummaryView(@Model.TotalJogosStatus["Coleção"].ToString(), "Jogos", "jogos"))
+            @Html.Partial("DashboardSummaryView", Model.GetDashboardSummaryView(@Model.TotalJogosCompletos.ToString(), "Completos", "completos"))
+            @Html.Partial("DashboardSummaryView", Model.GetDashboardSummaryView(@Model.TotalPreco.ToString(), "Preço", "preco"))
+            @Html.Partial("DashboardSummaryView", Model.GetDashboardSummaryView(@Model.TotalJogosFisicos.ToString(), "Físicos", "fisicos"))
+            @Html.Partial("DashboardSummaryView", Model.GetDashboardSummaryView(@Model.TotalJogosDigitais.ToString(), "Digitais", "digitais"))
         </div>
     </div>
     <div class="row dashboard_row">

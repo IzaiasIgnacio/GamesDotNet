@@ -10,11 +10,15 @@
             type: 'pie',
             data: {
                 datasets: [{
-                    data: [@Html.Raw(String.Join(",", Model.dados.Values.ToArray().Select(k => "'" + k + "'")))],
+                    data: [@Html.Raw(String.Join(",", Model.dados.Values.ToArray().Select(k => "'"+k+"'")))],
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)'
+                        '#DB1414', //vermelho
+                        '#2318C3', //azul
+                        '#037613', //verde
+                        '#870598', //roxo
+                        '#F31BBD', //rosa
+                        '#306EE2', //azul claro
+                        '#C53E40' //vermelho claro
                     ]
                 }],
                 // These labels appear in the legend and in the tooltips when hovering different arcs
@@ -45,7 +49,7 @@
                     //fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
                     // position to draw label, available value is 'default', 'border' and 'outside'
                     // default is 'default'
-                    position: 'default',
+                    position: 'border',
                     // format text, work when mode is 'value'
                     format: function (value) {
                         return value;

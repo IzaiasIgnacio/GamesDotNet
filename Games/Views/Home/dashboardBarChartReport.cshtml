@@ -5,24 +5,19 @@
         Chart.defaults.global.title.display = false;
         Chart.defaults.scale.gridLines.display = false;
         Chart.defaults.scale.ticks.beginAtZero = true;
-        Chart.defaults.scale.ticks.fontColor = "white";
+        Chart.defaults.scale.ticks.fontColor = "#fff";
+        Chart.defaults.global.defaultFontSize = 14;
 
         var bar_chart = new Chart(ctx, {
             type: 'horizontalBar',
             data: {
-                labels:[@Html.Raw(String.Join(",", Model.dados.Select(k => "'"+k.Key+" ("+k.Value+")'")))],
+                labels:[@Html.Raw(String.Join(",", Model.dados.Select(k => "\""+k.Key+" ("+k.Value+")\"")))],
                 datasets:[
                  {
                     data:[@Html.Raw(String.Join(",", Model.dados.Values.ToArray().Select(k => "'"+k+"'")))],
                     fill:false,
-                    backgroundColor:[
-                       "rgba(255, 99, 132, 0.2)",
-                       "rgba(255, 159, 64, 0.2)"
-                    ],
-                    borderColor:[
-                       "rgb(255, 99, 132)",
-                       "rgb(255, 159, 64)"
-                    ],
+                    backgroundColor: "rgba(12, 27, 147, 0.6)",
+                    borderColor: "#fff",
                     borderWidth:1
                  }
               ]
@@ -30,12 +25,10 @@
            options: {
                 scales: {
                     yAxes: [{
-                        //barThickness: 30
                         categoryPercentage: 1.0,
-                        barPercentage: .9,
+                        barPercentage: 0.9,
                         ticks: {
-                            mirror: true,
-                            max: 2
+                            display: false
                         }
                     }],
                     xAxes: [{
@@ -45,13 +38,32 @@
                 legend: {
                     display: false
                 },
-                maintainAspectRatio: false
+                maintainAspectRatio: false,
+                animation: {
+                    onProgress () {
+                        const chartInstance = this.chart;
+                        const ctx = chartInstance.ctx;
+                        const dataset = this.data.datasets[0];
+                        const meta = chartInstance.controller.getDatasetMeta(0);
+
+                        Chart.helpers.each(meta.data.forEach((bar, index) => {
+                            const label = this.data.labels[index];
+                            const labelPositionX = 15;
+                            const labelWidth = ctx.measureText(label).width + labelPositionX;
+
+                            ctx.textBaseline = 'middle';
+                            ctx.textAlign = 'left';
+                            ctx.fillStyle = '#fff';
+                            ctx.fillText(label, labelPositionX, bar._model.y);
+                        }));
+                    }
+                }
            }
         });
     });
 </script>
 <div class="col-md-3">
-    <div class="border row">
+    <div class="border row dashboard_box">
         <div class="titulo">@Model.titulo</div>
         <div class="canvas_bar">
             <canvas id="bar_chart_@Model.GetHashCode()"></canvas>

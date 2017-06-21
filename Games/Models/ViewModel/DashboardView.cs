@@ -29,6 +29,35 @@ namespace Games.Models.ViewModel {
         }
     }
 
+    public class DashboardSummaryView {
+        public string valor;
+        public string descricao;
+        public string icone;
+
+        public DashboardSummaryView(string valor, string descricao, string icone) {
+            this.valor = valor;
+            this.descricao = descricao;
+
+            switch (icone) {
+                case "jogos":
+                    this.icone = "fa-gamepad fa-inverse";
+                break;
+                case "completos":
+                    this.icone = "fa-check fa-inverse";
+                break;
+                case "preco":
+                    this.icone = "fa-money fa-inverse";
+                break;
+                case "fisicos":
+                    this.icone = "fa-hdd-o fa-inverse";
+                break;
+                case "digitais":
+                    this.icone = "fa-cloud fa-inverse";
+                break;
+            }
+        }
+    }
+
     public class DashboardView {
         private GameRepository gameRepository;
         private int totalJogos;
@@ -66,6 +95,10 @@ namespace Games.Models.ViewModel {
 
         public DashboardReportView GetDashboardReportView(string titulo, Dictionary<string, int> dados, int total) {
             return new DashboardReportView(titulo, dados, total);
+        }
+
+        public DashboardSummaryView GetDashboardSummaryView(string valor, string descricao,string icone) {
+            return new DashboardSummaryView(valor, descricao, icone);
         }
 
         public int TotalJogos {
