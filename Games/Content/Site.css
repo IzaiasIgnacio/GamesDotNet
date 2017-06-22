@@ -146,7 +146,8 @@ textarea {
 }
 
 .container {
-    width: 80%;
+    width: 90%;
+    margin-right: 0!important;
 }
 
 .modal-dialog {
