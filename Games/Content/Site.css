@@ -89,7 +89,7 @@ textarea {
 }
 
 .game_list {
-    width: 85%;
+    width: 100%;
     border: 2px solid #777;
     margin-bottom: 2px;
 }
@@ -146,7 +146,8 @@ textarea {
 }
 
 .container {
-    width: 80%;
+    width: 90%;
+    margin-right: 0!important;
 }
 
 .modal-dialog {
@@ -232,15 +233,16 @@ textarea {
 }
 
 .left_container {
-    width: 45%;
+    width: 38%;
     margin-left: 15px;
     float: left;
     margin-top: 15px;
 }
 
 .game_list_dados {
-    width: 55%;
+    width: 65%;
     margin-right: 0;
+    margin-top: 10px;
 }
 
 .dados_titulo {
@@ -407,18 +409,20 @@ textarea {
     color: #ddd;
     font-size: 1.3em;
     padding-left: 0.5em;
+    background: #0c1b93;
 }
 
 .dashboard .conteudo {
     font-size: 1.2em;
     border-top: 1px solid rgba(255, 255, 255, 0.54);
 }
-.dashboard .col-md-2 {
-    min-height: 29em;
+
+.dashboard_row {
+    margin-bottom: 20px;
 }
 
-.dashboard .titulo, .dashboard .conteudo {    
-    
+.dashboard_box {
+    box-shadow: 1px 1px 5px #fff;
 }
 
 .dashboard .conteudo .valor {
@@ -433,6 +437,26 @@ textarea {
     border-bottom-left-radius: 4px;
 }
 
+.canvas {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -25px;
+    width: 370px;
+    margin-bottom: -25px;
+}
+
+.canvas_bar {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: -10px;
+    width: 100%;
+    height: 350px;
+}
+
+.canvas_bar > #bar_chart {
+    height: 200px;
+}
+
 .background {
     position: absolute;
     right: 10%;
@@ -441,4 +465,42 @@ textarea {
 
 .background #img_background {
     opacity: 0.2;
+}
+
+.icone_dashboard {
+    padding-left: 0.3em;
+    padding-top: 0.1em;
+}
+
+.icone_dashboard .glyphicon-cd {
+    font-size: 22px;
+    padding-top: 0.1em;
+}
+
+.icone_dashboard > i, .icone_dashboard > .glyphicon-cd {
+    color: #eee;
+}
+
+.valor_dashboard {
+    font-size: 60px;
+    font-weight: bold;
+    font-family: 'Allura', cursive;
+    color: #eee;
+    text-align: center;
+    margin-top: -5px;
+    margin-bottom: -10px;
+}
+
+.descricao_dashboard {
+    font-size: 20px;
+    color: #eee;
+    padding-left: 0.2em;
+}
+
+.summary {
+    padding-left: 260px;
+}
+
+.dashboard_box {
+    background-color: #000;
 }

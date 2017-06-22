@@ -1,0 +1,72 @@
+﻿@model Games.Models.ViewModel.DashboardReportView
+<script>
+    $(function () {
+        var ctx = document.getElementById("bar_chart_@Model.GetHashCode()").getContext('2d');
+        Chart.defaults.global.title.display = false;
+        Chart.defaults.scale.gridLines.display = false;
+        Chart.defaults.scale.ticks.beginAtZero = true;
+        Chart.defaults.scale.ticks.fontColor = "#fff";
+        Chart.defaults.global.defaultFontSize = 14;
+
+        var bar_chart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                labels:[@Html.Raw(String.Join(",", Model.dados.Select(k => "\""+k.Key+" ("+k.Value+")\"")))],
+                datasets:[
+                 {
+                    data:[@Html.Raw(String.Join(",", Model.dados.Values.ToArray().Select(k => "'"+k+"'")))],
+                    fill:false,
+                    backgroundColor: "rgba(12, 27, 147, 0.6)",
+                    borderColor: "#fff",
+                    borderWidth:1
+                 }
+              ]
+           },
+           options: {
+                scales: {
+                    yAxes: [{
+                        categoryPercentage: 1.0,
+                        barPercentage: 0.9,
+                        ticks: {
+                            display: false
+                        }
+                    }],
+                    xAxes: [{
+                        display: false
+                    }]
+                },
+                legend: {
+                    display: false
+                },
+                maintainAspectRatio: false,
+                animation: {
+                    onProgress () {
+                        const chartInstance = this.chart;
+                        const ctx = chartInstance.ctx;
+                        const dataset = this.data.datasets[0];
+                        const meta = chartInstance.controller.getDatasetMeta(0);
+
+                        Chart.helpers.each(meta.data.forEach((bar, index) => {
+                            const label = this.data.labels[index];
+                            const labelPositionX = 15;
+                            const labelWidth = ctx.measureText(label).width + labelPositionX;
+
+                            ctx.textBaseline = 'middle';
+                            ctx.textAlign = 'left';
+                            ctx.fillStyle = '#fff';
+                            ctx.fillText(label, labelPositionX, bar._model.y);
+                        }));
+                    }
+                }
+           }
+        });
+    });
+</script>
+<div class="col-md-3">
+    <div class="border row dashboard_box">
+        <div class="titulo">@Model.titulo</div>
+        <div class="canvas_bar">
+            <canvas id="bar_chart_@Model.GetHashCode()"></canvas>
+        </div>
+    </div>
+</div>

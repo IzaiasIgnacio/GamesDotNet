@@ -320,7 +320,7 @@ namespace Games.Models.Repository {
         }
 
         public int GetTotalJogos() {
-            return db.game_platform.Where(gp => gp.id_status == 1).Count();
+            return db.game_platform.Count();
         }
 
         public List<game_platform> GetListaGeral() {
@@ -332,18 +332,18 @@ namespace Games.Models.Repository {
         }
 
         public int GetTotalJogosFormato(int formato) {
-            return db.game_platform.Where(gp => gp.formato == formato).Count();
+            return db.game_platform.Where(gp => gp.formato == formato).Where(gp => gp.id_status == 1).Count();
         }
 
         public decimal? GetTotalPreco() {
-            return db.game_platform.Sum(gp => gp.preco);
+            return db.game_platform.Where(gp => gp.id_status == 1).Sum(gp => gp.preco);
         }
         
         public Dictionary<string, int> GetTotalJogosPlataforma() {
             Dictionary<string, int> total = new Dictionary<string, int>();
             var query = db.game_platform.
                         Where(gp=>gp.id_status == 1).
-                        GroupBy(gp => gp.platform.name).
+                        GroupBy(gp => gp.platform.sigla).
                         Select(g => new { plataforma = g.Key, total = g.Count() }).
                         OrderByDescending(g=>g.total);
             foreach (var gp in query) {
@@ -367,7 +367,6 @@ namespace Games.Models.Repository {
         public Dictionary<string, int> GetTotalJogosDeveloper() {
             Dictionary<string, int> total = new Dictionary<string, int>();
             Dictionary<string, int> resposta = new Dictionary<string, int>();
-            int valor = 0;
             var query = (from game in db.game
                          join game_developerPublisher in db.game_developerPublisher on game.id equals game_developerPublisher.id_game into developer
                          from dev in developer.DefaultIfEmpty()
@@ -380,19 +379,14 @@ namespace Games.Models.Repository {
                 if (gp.developer != null) {
                     total.Add(gp.developer, gp.total);
                 }
-                else {
-                    valor = gp.total;
-                }
             }
             resposta = total.Take(14).ToDictionary(x => x.Key, x => x.Value);
-            resposta.Add("Não informado", valor);
             return resposta;
         }
 
         public Dictionary<string, int> GetTotalJogosPublisher() {
             Dictionary<string, int> total = new Dictionary<string, int>();
             Dictionary<string, int> resposta = new Dictionary<string, int>();
-            int valor = 0;
             var query = (from game in db.game
                         join game_developerPublisher in db.game_developerPublisher on game.id equals game_developerPublisher.id_game into publisher
                         from pub in publisher.DefaultIfEmpty()
@@ -405,19 +399,14 @@ namespace Games.Models.Repository {
                 if (gp.publisher != null) {
                     total.Add(gp.publisher, gp.total);
                 }
-                else {
-                    valor = gp.total;
-                }
             }
             resposta = total.Take(14).ToDictionary(x=>x.Key, x=>x.Value);
-            resposta.Add("Não informado", valor);
             return resposta;
         }
         
         public Dictionary<string, int> GetTotalJogosLoja() {
             Dictionary<string, int> total = new Dictionary<string, int>();
             Dictionary<string, int> resposta = new Dictionary<string, int>();
-            int valor = 0;
             var query = db.game_platform.
                         Where(gp=>gp.id_status == 1).
                         GroupBy(gp => gp.store.name).
@@ -427,48 +416,40 @@ namespace Games.Models.Repository {
                 if (gp.loja != null) {
                     total.Add(gp.loja, gp.total);
                 }
-                else {
-                    valor = gp.total;
-                }
             }
             resposta = total.Take(14).ToDictionary(x => x.Key, x => x.Value);
-            resposta.Add("Não informado", valor);
             return resposta;
         }
 
         public Dictionary<string, int> GetTotalJogosFaixaPreco() {
             Dictionary<string, int> resposta = new Dictionary<string, int>();
-            resposta.Add("Menos que 10", 0);
-            resposta.Add("Entre 10 e 50", 0);
-            resposta.Add("Entre 51 e 100", 0);
-            resposta.Add("Entre 101 e 150", 0);
-            resposta.Add("Entre 151 e 200", 0);
-            resposta.Add("Mais que 200", 0);
-            resposta.Add("Não informado", 0);
+            resposta.Add("< 10", 0);
+            resposta.Add("10..50", 0);
+            resposta.Add("51..100", 0);
+            resposta.Add("101..150", 0);
+            resposta.Add("151..200", 0);
+            resposta.Add("> 200", 0);
 
             List<game_platform> lista = db.game_platform.Where(gp => gp.id_status == 1).ToList();
 
             foreach (game_platform gp in lista) {
-                if (gp.preco == null) {
-                    resposta["Não informado"] = resposta["Não informado"] += 1;
-                }
                 if (gp.preco < 10) {
-                    resposta["Menos que 10"] = resposta["Menos que 10"] += 1;
+                    resposta["< 10"] = resposta["< 10"] += 1;
                 }
                 if (gp.preco >= 10 && gp.preco <= 50) {
-                    resposta["Entre 10 e 50"] = resposta["Entre 10 e 50"] += 1;
+                    resposta["10..50"] = resposta["10..50"] += 1;
                 }
                 if (gp.preco >= 51 && gp.preco <= 100) {
-                    resposta["Entre 51 e 100"] = resposta["Entre 51 e 100"] += 1;
+                    resposta["51..100"] = resposta["51..100"] += 1;
                 }
                 if (gp.preco >= 101 && gp.preco <= 150) {
-                    resposta["Entre 101 e 150"] = resposta["Entre 101 e 150"] += 1;
+                    resposta["101..150"] = resposta["101..150"] += 1;
                 }
                 if (gp.preco >= 151 && gp.preco <= 200) {
-                    resposta["Entre 151 e 200"] = resposta["Entre 151 e 200"] += 1;
+                    resposta["151..200"] = resposta["151..200"] += 1;
                 }
                 if (gp.preco > 200) {
-                    resposta["Mais que 200"] = resposta["Mais que 200"] += 1;
+                    resposta["> 200"] = resposta["> 200"] += 1;
                 }
             }
             return resposta;
@@ -476,33 +457,29 @@ namespace Games.Models.Repository {
 
         public Dictionary<string, int> GetTotalJogosFaixaMetacritic() {
             Dictionary<string, int> resposta = new Dictionary<string, int>();
-            resposta.Add("Menos que 50", 0);
-            resposta.Add("Entre 51 e 70", 0);
-            resposta.Add("Entre 71 e 80", 0);
-            resposta.Add("Entre 81 e 90", 0);
-            resposta.Add("Mais que 90", 0);
-            resposta.Add("Não informado", 0);
+            resposta.Add("< 50", 0);
+            resposta.Add("51..70", 0);
+            resposta.Add("71..80", 0);
+            resposta.Add("81..90", 0);
+            resposta.Add("> 90", 0);
 
             List<game_platform> lista = db.game_platform.Where(gp => gp.id_status == 1).ToList();
 
             foreach (game_platform gp in lista) {
-                if (gp.metacritic == null) {
-                    resposta["Não informado"] = resposta["Não informado"] += 1;
-                }
                 if (gp.metacritic < 50) {
-                    resposta["Menos que 50"] = resposta["Menos que 50"] += 1;
+                    resposta["< 50"] = resposta["< 50"] += 1;
                 }
                 if (gp.metacritic >= 51 && gp.metacritic <= 70) {
-                    resposta["Entre 51 e 70"] = resposta["Entre 51 e 70"] += 1;
+                    resposta["51..70"] = resposta["51..70"] += 1;
                 }
                 if (gp.metacritic >= 71 && gp.metacritic <= 80) {
-                    resposta["Entre 71 e 80"] = resposta["Entre 71 e 80"] += 1;
+                    resposta["71..80"] = resposta["71..80"] += 1;
                 }
                 if (gp.metacritic >= 81 && gp.metacritic < 90) {
-                    resposta["Entre 81 e 90"] = resposta["Entre 81 e 90"] += 1;
+                    resposta["81..90"] = resposta["81..90"] += 1;
                 }
                 if (gp.metacritic > 90) {
-                    resposta["Mais que 90"] = resposta["Mais que 90"] += 1;
+                    resposta["> 90"] = resposta["> 90"] += 1;
                 }
             }
             return resposta;
@@ -511,8 +488,8 @@ namespace Games.Models.Repository {
         public Dictionary<string, int> GetTotalJogosAno() {
             Dictionary<string, int> total = new Dictionary<string, int>();
             Dictionary<string, int> resposta = new Dictionary<string, int>();
-            int valor = 0;
             var query = db.game_platform.
+                        Where(gp => gp.id_status == 1).
                         GroupBy(gp => gp.release_date.Value.Year).
                         Select(g => new { ano = (int?)g.Key, total = g.Count() }).
                         OrderByDescending(g => g.total);
@@ -520,19 +497,14 @@ namespace Games.Models.Repository {
                 if (gp.ano != null) {
                     total.Add(gp.ano.ToString(), gp.total);
                 }
-                else {
-                    valor = gp.total;
-                }
             }
             resposta = total.Take(14).ToDictionary(x => x.Key, x => x.Value);
-            resposta.Add("Não informado", valor);
             return resposta;
         }
         
         public Dictionary<string, int> GetTotalJogosGenero() {
             Dictionary<string, int> total = new Dictionary<string, int>();
             Dictionary<string, int> resposta = new Dictionary<string, int>();
-            int valor = 0;
             var query = (from game in db.game
                          join game_genre in db.game_genre on game.id equals game_genre.id_game into genre
                          from genero in genre.DefaultIfEmpty()
@@ -544,12 +516,8 @@ namespace Games.Models.Repository {
                 if (gp.genre != null) {
                     total.Add(gp.genre, gp.total);
                 }
-                else {
-                    valor = gp.total;
-                }
             }
             resposta = total.Take(14).ToDictionary(x => x.Key, x => x.Value);
-            resposta.Add("Não informado", valor);
             return resposta;
         }
         

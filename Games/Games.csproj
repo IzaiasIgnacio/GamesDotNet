@@ -170,14 +170,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\pc.png" />
     <Content Include="Content\ps.png" />
-    <Content Include="Content\ps1.png" />
-    <Content Include="Content\ps2.png" />
-    <Content Include="Content\Ps3.png" />
-    <Content Include="Content\ps4.png" />
-    <Content Include="Content\psp.png" />
-    <Content Include="Content\psvita.png" />
     <Content Include="Content\sidebar.css" />
     <Content Include="Content\site.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -255,6 +248,9 @@
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Chart.min.js" />
+    <Content Include="Scripts\Chart.PieceLabel.min.js" />
     <Content Include="Scripts\funcoes.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -368,9 +364,11 @@
     <Content Include="Views\Jquery\GameGridView.cshtml" />
     <Content Include="Views\Jquery\GameListView.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
-    <Content Include="Views\Home\DashboardTableReport.cshtml" />
     <Content Include="Views\Jquery\BuscaResultView.cshtml" />
     <Content Include="Views\Shared\MenuView.cshtml" />
+    <Content Include="Views\Home\DashboardPieChartReport.cshtml" />
+    <Content Include="Views\Home\DashboardBarChartReport.cshtml" />
+    <Content Include="Views\Home\DashboardSummaryView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

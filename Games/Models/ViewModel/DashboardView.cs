@@ -1,22 +1,16 @@
-﻿using Games.Models.Entity;
-using Games.Models.Repository;
-using Igdb.ResponseModels;
-using Newtonsoft.Json;
+﻿using Games.Models.Repository;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using System.Web.Mvc;
-using System.Web.Mvc.Html;
 
 namespace Games.Models.ViewModel {
 
-    public class DashboardTableReportView {
+    public class DashboardReportView {
         public int totalJogos;
         public string titulo;
         public Dictionary<string, int> dados;
 
-        public DashboardTableReportView(string titulo, Dictionary<string, int> dados, int totalJogos) {
+        public DashboardReportView(string titulo, Dictionary<string, int> dados, int totalJogos) {
             this.titulo = titulo;
             this.dados = dados;
             this.totalJogos = totalJogos;
@@ -24,6 +18,43 @@ namespace Games.Models.ViewModel {
 
         public string porcentagem(int total, int valor) {
             return (((Double)valor / (Double)total)).ToString("0.00%", CultureInfo.InvariantCulture);
+        }
+
+        public string texto(string texto) {
+            int tamanho = 100;
+            if (texto.Length > tamanho) {
+                texto = texto.Substring(0, tamanho);
+            }
+            return texto;
+        }
+    }
+
+    public class DashboardSummaryView {
+        public string valor;
+        public string descricao;
+        public string icone;
+
+        public DashboardSummaryView(string valor, string descricao, string icone) {
+            this.valor = valor;
+            this.descricao = descricao;
+
+            switch (icone) {
+                case "jogos":
+                    this.icone = "<i class=\"fa fa-gamepad fa-inverse fa-2x\"></i>";
+                break;
+                case "completos":
+                    this.icone = "<i class=\"fa fa-check fa-inverse fa-2x\"></i>"; ;
+                break;
+                case "preco":
+                    this.icone = "<i class=\"fa fa-money fa-2x\"></i>"; ;
+                break;
+                case "fisicos":
+                    this.icone = "<span class=\"glyphicon glyphicon-cd\" aria-hidden=\"true\"></span>";
+                break;
+                case "digitais":
+                    this.icone = "<i class=\"fa fa-cloud fa-inverse fa-2x\"></i>";
+                break;
+            }
         }
     }
 
@@ -62,8 +93,12 @@ namespace Games.Models.ViewModel {
             totalJogosLoja = gameRepository.GetTotalJogosLoja();
         }
 
-        public DashboardTableReportView GetDashboardTableReportView(string titulo, Dictionary<string, int> dados) {
-            return new DashboardTableReportView(titulo, dados, totalJogos);
+        public DashboardReportView GetDashboardReportView(string titulo, Dictionary<string, int> dados, int total) {
+            return new DashboardReportView(titulo, dados, total);
+        }
+
+        public DashboardSummaryView GetDashboardSummaryView(string valor, string descricao,string icone) {
+            return new DashboardSummaryView(valor, descricao, icone);
         }
 
         public int TotalJogos {
@@ -150,7 +185,7 @@ namespace Games.Models.ViewModel {
                 return totalJogosLoja;
             }
         }
-        
+
     }
 
 }
