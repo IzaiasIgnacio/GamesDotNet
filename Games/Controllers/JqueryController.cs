@@ -342,6 +342,20 @@ namespace Games.Controllers {
                 });
             }
 
+            foreach (game_platform lancamento in game.game_platform) {
+                dadosGameView.Platforms.Add(new game_platform {
+                    release_date = lancamento.release_date,
+                    metacritic = lancamento.metacritic,
+                    preco = lancamento.preco,
+                    formato = lancamento.formato,
+                    tamanho = lancamento.tamanho,
+                    status = lancamento.status,
+                    region = lancamento.region,
+                    rating = lancamento.rating,
+                    store = lancamento.store
+                });
+            }
+
             return PartialView("DadosGameView", dadosGameView);
         }
 

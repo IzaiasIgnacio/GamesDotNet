@@ -53,30 +53,20 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>#</td>
-            <td>Wishlist</td>
-            <td>02/06/2017</td>
-            <td>Worldwide</td>
-            <td>E10+</td>
-            <td>80</td>
-            <td>129,90</td>
-            <td>25</td>
-            <td>Digital</td>
-            <td>Steam</td>
-        </tr>
-        <tr>
-            <td>#</td>
-            <td>Wishlist</td>
-            <td>02/06/2017</td>
-            <td>Worldwide</td>
-            <td>E10+</td>
-            <td>80</td>
-            <td>129,90</td>
-            <td>25</td>
-            <td>Digital</td>
-            <td>Steam</td>
-        </tr>
+        @foreach (var plataforma in Model.Platforms) {
+            <tr>
+                <td>#</td>
+                <td>@plataforma.status.name</td>
+                <td>@(plataforma.release_date != null ? plataforma.release_date.Value.ToShortDateString() : "")</td>
+                <td>@(plataforma.region != null ? plataforma.region.name : "")</td>
+                <td>@(plataforma.rating != null ? plataforma.rating.name : "")</td>
+                <td>@plataforma.metacritic</td>
+                <td>@plataforma.preco</td>
+                <td>@plataforma.tamanho</td>
+                <td>@plataforma.formato</td>
+                <td>@(plataforma.store != null ? plataforma.store.name : "")</td>
+            </tr>
+        }
     </tbody>
 </table>
 <div class="form-group">
