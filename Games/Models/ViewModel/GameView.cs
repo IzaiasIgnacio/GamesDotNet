@@ -32,6 +32,31 @@ namespace Games.Models.ViewModel {
         }
     }
 
+    public class DadosGameView : BasegameView {
+        public DadosGameView() {
+            ListaDeveloper = new List<developerPublisher>();
+            ListaPublisher = new List<developerPublisher>();
+            ListaGenre = new List<genre>();
+            Platforms = new List<game_platform>();
+        }
+        public int Id { get; set; }
+        public string Titulo { get; set; }
+        public string CloudnaryId { get; set; }
+        public List<developerPublisher> ListaDeveloper { get; set; }
+        public List<developerPublisher> ListaPublisher { get; set; }
+        public List<genre> ListaGenre { get; set; }
+        public decimal? Nota { get; set; }
+        public Boolean Completo { get; set; }
+        public string GetCompleto() {
+            if (Completo) {
+                return "Sim";
+            }
+            return "Não";
+        }
+        public List<game_platform> Platforms { get; set; }
+        public string Descricao { get; set; }
+    }
+
     public class GameListView : BasegameView {
         public enum status { colecao = 1, wishlist = 2, watchlist = 3, plus = 4 }
         public status Status { get; set; }
@@ -212,7 +237,5 @@ namespace Games.Models.ViewModel {
                 listaGenre = value;
             }
         }
-
     }
-
 }

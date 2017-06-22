@@ -358,7 +358,7 @@
     <Content Include="Views\Shared\PlatformMenuView.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
-    <Content Include="Views\Jquery\DadosGameView.cshtml" />
+    <Content Include="Views\Jquery\FormGameView.cshtml" />
     <Content Include="Views\Jquery\PlatformStatusView.cshtml" />
     <Content Include="Views\Jquery\GameResultView.cshtml" />
     <Content Include="Views\Jquery\GameGridView.cshtml" />
@@ -369,6 +369,7 @@
     <Content Include="Views\Home\DashboardPieChartReport.cshtml" />
     <Content Include="Views\Home\DashboardBarChartReport.cshtml" />
     <Content Include="Views\Home\DashboardSummaryView.cshtml" />
+    <Content Include="Views\Jquery\DadosGameView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

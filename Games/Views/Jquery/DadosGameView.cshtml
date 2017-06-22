@@ -1,185 +1,87 @@
-﻿@model Games.Models.ViewModel.GameDataView
-<script>
-    var acaoIncluir = '@Url.Action("SalvarNovoJogoJquery", "Jquery")';
-    var acaoAlterar = '@Url.Action("AlterarJogoJquery", "Jquery")';
-    $(function () {
-        //incluir linha de plataforma
-        $("#btn_add").click(function () {
-            $.post('@Url.Action("AdicionarPlataformaJquery", "Jquery")',
-            function (resposta) {
-                $(".span_plataformas").html(resposta);
-            });
-        });
-        //remover linha de plataforma
-        $(".fieldset_plataformas").on("click", ".remover_plataforma", function () {
-            var element = $(this).closest(".plataforma_status");
-            element.fadeOut('normal', function () {
-                $.post('@Url.Action("RemoverPlataformaJquery", "Jquery")', { index: $(this).find(".index").val() },
-                function (resposta) {
-                    $(".span_plataformas").html(resposta);
-                });
-            });
-        });
-        //buscar jogos no igdb por titulo
-        $(".btn_buscar_igdb").click(function () {
-            $.post('@Url.Action("BuscarJogoIgdbJquery", "Jquery")', { search: $("#Titulo").val() },
-            function (resposta) {
-                $("#lista_resultados").html(resposta);
-                $("#lista_resultados").slideDown();
-            });
-        });
-        //carregar formulario com dados do igdb
-        $("#lista_resultados").on("click", ".div_resultados .row", function () {
-            $.post('@Url.Action("PreencherDadosGameIgdbJquery", "Jquery")', { id_igdb: $(this).find(".id_igdb").val(), Id: $("#modal_game #Id").val() },
-            function (resposta) {
-                $("#form_game").html(resposta);
-                $("#lista_resultados").fadeOut();
-            });
-        });
-        //salvar jogo
-        $("#modal_game").off().on("click", ".salvar", function () {
-            var acao = '';
-            if ($("#modal_game #Id").val() == '' || $("#modal_game #Id").val() == '0') {
-                acao = acaoIncluir;
-            }
-            else {
-                acao = acaoAlterar;
-            }
-
-            var array = $("#form_game").serializeArray();
-            var json = {};
-
-            jQuery.each(array, function () {
-                json[this.name] = this.value || '';
-            });
-
-            $.ajax({
-                url: acao,
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(json),
-                success: function (resposta) {
-                    if (resposta['Valido']) {
-                        $("#modal_game").modal('hide');
-                        $.post('@Url.Action("ListaJogosIndex", "Jquery")', { status: status },
-                        function (resposta) {
-                            $("#GameListView").html(resposta);
-                        });
-                    }
-                    else {
-                        alert(resposta['Mensagem']);
-                    }
-                }
-            });
-        });
-        //excluir jogo
-        $("#modal_game").on("click", ".excluir", function () {
-            $.post('@Url.Action("ExcluirJogoJquery", "Jquery")', { id: $("#modal_game #Id").val() },
-            function (resposta) {
-                $("#modal_game").modal('hide');
-                $.post('@Url.Action("ListaJogosIndex", "Jquery")', { status: status },
-                function (resposta) {
-                    $("#GameListView").html(resposta);
-                });
-            });
-        });
-
-        $("#modal_game").on("click", ".cancelar", function () {
-            $("#modal_game").modal('hide');
-        });
-
-        $(document).keyup(function (e) {
-            if (e.keyCode == 27) {
-                $("#modal_game").modal('hide');
-            }
-        });
-    });
-</script>
-@Html.HiddenFor(model => Model.Id, new { @Value = Model.Id })
-@Html.HiddenFor(model=>model.id_igdb,new { @Value = Model.id_igdb })
-<div class="modal-body row">
-    <div class="col-md-4">
-        <div class="form-group">
-            @Html.LabelFor(model => model.Titulo, new { @style = "display:block" })
-            @Html.TextBoxFor(model => model.Titulo, new { @class = "form-control", @placeholder = "Título", @Value = Model.Titulo })
-            @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
-            <button type="button" class="btn btn-primary btn_buscar_igdb"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-            <span id="lista_resultados" style="display:none"></span>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Descricao)
-            <br />
-            @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control", @html = Model.Descricao, @rows = "4" })
-            @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.ListaDeveloper)
-            <p>
-                @string.Join(", ", Model.ListaDeveloper.Select(d=>d.name).ToList())
-            </p>
-            @for (int i = 0; i < Model.ListaDeveloper.Count; i++) {
-                @Html.HiddenFor(model => Model.ListaDeveloper[i].id, new { @Value = Model.ListaDeveloper[i].id })
-                @Html.HiddenFor(model => Model.ListaDeveloper[i].id_igdb,new { @Value = Model.ListaDeveloper[i].id_igdb })
-                @Html.HiddenFor(model => Model.ListaDeveloper[i].name, new { @Value = Model.ListaDeveloper[i].name })
-            }
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.ListaPublisher)
-            <p>
-                @string.Join(", ", Model.ListaPublisher.Select(p => p.name).ToList())
-            </p>
-            @for (int i = 0; i < Model.ListaPublisher.Count; i++) {
-                @Html.HiddenFor(model => Model.ListaPublisher[i].id, new { @Value = Model.ListaPublisher[i].id })
-                @Html.HiddenFor(model => Model.ListaPublisher[i].id_igdb, new { @Value = Model.ListaPublisher[i].id_igdb })
-                @Html.HiddenFor(model => Model.ListaPublisher[i].name, new { @Value = Model.ListaPublisher[i].name })
-            }
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.ListaGenre)
-            <p>
-                @string.Join(", ", Model.ListaGenre.Select(g => g.name).ToList())
-            </p>
-            @for (int i = 0; i < Model.ListaGenre.Count; i++) {
-                @Html.HiddenFor(model => Model.ListaGenre[i].id, new { @Value = Model.ListaGenre[i].id })
-                @Html.HiddenFor(model => Model.ListaGenre[i].id_igdb, new { @Value = Model.ListaGenre[i].id_igdb })
-                @Html.HiddenFor(model => Model.ListaGenre[i].name, new { @Value = Model.ListaGenre[i].name })
-            }
-        </div>
+﻿@model Games.Models.ViewModel.DadosGameView
+<label class="dados_titulo">@Model.Titulo</label>
+<br />
+<div class="dados_capa">
+    <img class="img-rounded img-responsive" src="~/images/@(Model.Id)_BigCover_@(Model.CloudnaryId).jpg" />
+</div>
+<div>
+    <div class="form-group">
+        <label>Developer(s)</label>
+        <p>
+            @string.Join(", ", Model.ListaDeveloper.Select(p => p.name).ToList())
+        </p>
     </div>
-    <div class="col-md-4">
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nota)
-            @Html.EditorFor(model => model.Nota, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nota", @Value = Model.Nota } })
-            @Html.ValidationMessageFor(model => model.Nota, "", new { @class = "text-danger" })
-        </div>
-        <div>
-            <input class="form-check-input" data-val="true" id="Completo" name="Completo" type="checkbox" value="true" @(Model.Completo == true ? "checked" : "")>
-            @Html.LabelFor(model => model.Completo)
-        </div>
+    <div class="form-group">
+        <label>Publisher(s)</label>
+        <p>
+            @string.Join(", ", Model.ListaPublisher.Select(p => p.name).ToList())
+        </p>
     </div>
-    <div class="col-md-4">
-        <fieldset class="form-group">
-            <legend><label>Capa</label></legend>
-            @if (!@Model.Imagem.IsEmpty()) {
-                @Html.HiddenFor(model => model.CloudnaryId, @Model.CloudnaryId);
-                @Html.HiddenFor(model => model.Imagem, @Model.Imagem);
-                <img class="img-rounded img-responsive" style="position:absolute" src="@Url.Content(Model.Imagem)">
-            }
-            else {
-                @Html.LabelFor(model => model.CloudnaryId)
-                @Html.EditorFor(model => model.CloudnaryId, new { htmlAttributes = new { @class = "form-control", @placeholder = "Cloudnary Id", @Value = Model.CloudnaryId } })
-            }
-        </fieldset>
+    <div class="form-group">
+        <label>Gênero(s)</label>
+        <p>
+            @string.Join(", ", Model.ListaGenre.Select(p => p.name).ToList())
+        </p>
+    </div>
+    <div class="form-group">
+        <label>Nota</label>
+        <p>
+            @Model.Nota
+        </p>
+    </div>
+    <div class="form-group">
+        <label>Completo</label>
+        <p>
+            @Model.GetCompleto()
+        </p>
     </div>
 </div>
-<div class="plataformas row">
-    <div class="col-md-12">
-        <fieldset class="form-group fieldset_plataformas">
-            <legend><label>Plataformas</label></legend>
-            <span class="span_plataformas">
-                @{Html.RenderPartial("~/Views/Jquery/PlatformStatusView.cshtml", Model);}
-            </span>
-            <input type="button" id="btn_add" value="+" class="btn btn-primary" />
-        </fieldset>
-    </div>
+<br />
+<table class="table table-responsive table-condensed">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th><i class="fa fa-bookmark"></i></th>
+            <th><i class="fa fa-calendar"></i></th>
+            <th><i class="fa fa-globe"></i></th>
+            <th><i class="fa fa-filter"></i></th>
+            <th><i class="fa fa-star"></i></th>
+            <th><i class="fa fa-money"></i></th>
+            <th><i class="fa fa-hdd-o"></i></th>
+            <th><i class="fa fa-cloud"></i></th>
+            <th><i class="fa fa-shopping-cart"></i></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>#</td>
+            <td>Wishlist</td>
+            <td>02/06/2017</td>
+            <td>Worldwide</td>
+            <td>E10+</td>
+            <td>80</td>
+            <td>129,90</td>
+            <td>25</td>
+            <td>Digital</td>
+            <td>Steam</td>
+        </tr>
+        <tr>
+            <td>#</td>
+            <td>Wishlist</td>
+            <td>02/06/2017</td>
+            <td>Worldwide</td>
+            <td>E10+</td>
+            <td>80</td>
+            <td>129,90</td>
+            <td>25</td>
+            <td>Digital</td>
+            <td>Steam</td>
+        </tr>
+    </tbody>
+</table>
+<div class="form-group">
+    <label>Descrição</label>
+    <p>
+        @Model.Descricao
+    </p>
 </div>

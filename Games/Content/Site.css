@@ -117,7 +117,8 @@ textarea {
 .dados_capa {
     display: block;
     float: left;
-    margin-right: 5px;
+    margin-right: 10px;
+    min-height: 300px;
 }
 
 .game_list_dados {
@@ -244,9 +245,10 @@ textarea {
 }
 
 .game_list_dados {
-    width: 68%;
-    margin-right: 0;
+    width: 60%;
     margin-top: 10px;
+    position: fixed;
+    right:14px;
 }
 
 .dados_titulo {

@@ -1,14 +1,9 @@
 ﻿<script>
     $(function () {
-        /*========== grid de jogos ================*/
-        //exibir modal para alterar jogo
         $(".thumbnail").click(function () {
-            //$("#modal_game_info_list").modal("show");
-            $.post('@Url.Action("PreencherDadosGameEntityJquery", "Jquery")', { id: $(this).find(".id").val() },
+            $.post('@Url.Action("ExibirDadosGameJquery", "Jquery")', { id: $(this).find(".id").val() },
             function (resposta) {
-                $(".excluir").css('display', '');
-                $("#form_game").html(resposta);
-                $("#modal_game").modal('show');
+                $(".game_list_dados").html(resposta);
             });
         });
         //exibir inclusao de jogo
@@ -82,91 +77,4 @@
         }
     </div>
 </div>
-<div class="container game_list_dados">
-    <label class="dados_titulo">Dead or Alive 5 Plus</label>
-    <br />
-    <div class="dados_capa">
-        <img class="img-rounded img-responsive" src="~/images/264_BigCover_miw4lms0usrizvvyresl.jpg" />
-    </div>
-    <div>
-        <div class="form-group">
-            <label>Developer(s)</label>
-            <p>
-                Team Ninja
-            </p>
-        </div>
-        <div class="form-group">
-            <label>Publisher(s)</label>
-            <p>
-                Koei Tecmo Games Co., Ltd.
-            </p>
-        </div>
-        <div class="form-group">
-            <label>Gênero(s)</label>
-            <p>
-                Fighting
-            </p>
-        </div>
-        <div class="form-group">
-            <label>Nota</label>
-            <p>
-                10
-            </p>
-        </div>
-        <div class="form-group">
-            <label>Completo</label>
-            <p>
-                Sim
-            </p>
-        </div>
-    </div>
-    <br />
-    <table class="table table-responsive table-condensed">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th><i class="fa fa-bookmark"></i></th>
-                <th><i class="fa fa-calendar"></i></th>
-                <th><i class="fa fa-globe"></i></th>
-                <th><i class="fa fa-filter"></i></th>
-                <th><i class="fa fa-star"></i></th>
-                <th><i class="fa fa-money"></i></th>
-                <th><i class="fa fa-hdd-o"></i></th>
-                <th><i class="fa fa-cloud"></i></th>
-                <th><i class="fa fa-shopping-cart"></i></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>#</td>
-                <td>Wishlist</td>
-                <td>02/06/2017</td>
-                <td>Worldwide</td>
-                <td>E10+</td>
-                <td>80</td>
-                <td>129,90</td>
-                <td>25</td>
-                <td>Digital</td>
-                <td>Steam</td>
-            </tr>
-            <tr>
-                <td>#</td>
-                <td>Wishlist</td>
-                <td>02/06/2017</td>
-                <td>Worldwide</td>
-                <td>E10+</td>
-                <td>80</td>
-                <td>129,90</td>
-                <td>25</td>
-                <td>Digital</td>
-                <td>Steam</td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="form-group">
-        <label>Descrição</label>
-        <p>
-            Dead or Alive 5 Plus is a fighting game in the Dead or Alive series and the enhanced port of Dead or Alive 5. DOA5+ introduces new training options, such as Command Training to practice attacks, Combo Challenge to master combos, and a free training mode enabling players to focus on the particular attacks they want to learn. It also features cross-platform abilities, enabling the users of different PlayStation systems to fight online matches, to share downloadable content from the PlayStation Store with the original version, and to swap the save data between the PS3 and Vita. In addition to the normal control system, Plus features optional touchscreen-based moves in the Touch Play Mode, where the fights are seen via a first-person perspective view and the players touch, flick, and pinch the screen to attack their opponents. It also offers to the game's breast motion physics with three settings: stilled, "Natural", and "DOA".
-        </p>
-    </div>
-</div>
+<div class="container game_list_dados"></div>

@@ -92,7 +92,7 @@ namespace Games.Controllers {
 
         [HttpPost]
         public ActionResult ExibirFormGame() {
-            return PartialView("DadosGameView", GameDataView.init());
+            return PartialView("FormGameView", GameDataView.init());
         }
         
         [HttpPost]
@@ -237,7 +237,7 @@ namespace Games.Controllers {
                 }
             }
             
-            return PartialView("DadosGameView", gameDataView);
+            return PartialView("FormGameView", gameDataView);
         }
 
         [HttpPost]
@@ -304,7 +304,45 @@ namespace Games.Controllers {
                 });
             }
             
-            return PartialView("DadosGameView", gameDataView);
+            return PartialView("FormGameView", gameDataView);
+        }
+
+        [HttpPost]
+        public ActionResult ExibirDadosGameJquery(int id) {
+            GameRepository gameRepository = new GameRepository();
+            GameEntity game = gameRepository.BuscarDados(id);
+
+            List<game_developerPublisher> devs = game.game_developerPublisher.Where(d => d.tipo == (int)GameDataView.tipoDeveloperPublisher.Developer).ToList();
+            List<game_developerPublisher> pubs = game.game_developerPublisher.Where(p => p.tipo == (int)GameDataView.tipoDeveloperPublisher.Publisher).ToList();
+            List<game_genre> genres = game.game_genre.ToList();
+
+            DadosGameView dadosGameView = new DadosGameView();
+            dadosGameView.Id = id;
+            dadosGameView.Titulo = game.name;
+            dadosGameView.CloudnaryId = game.cloudnary_id;
+            dadosGameView.Nota = game.nota;
+            dadosGameView.Completo = game.completo;
+            dadosGameView.Descricao = game.summary;
+
+            foreach (game_developerPublisher dev in devs) {
+                dadosGameView.ListaDeveloper.Add(new developerPublisher {
+                    name = dev.developerPublisher.name
+                });
+            }
+
+            foreach (game_developerPublisher pub in pubs) {
+                dadosGameView.ListaPublisher.Add(new developerPublisher {
+                    name = pub.developerPublisher.name
+                });
+            }
+
+            foreach (game_genre genre in genres) {
+                dadosGameView.ListaGenre.Add(new genre {
+                    name = genre.genre.name
+                });
+            }
+
+            return PartialView("DadosGameView", dadosGameView);
         }
 
         [HttpPost]
