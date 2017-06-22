@@ -94,6 +94,10 @@ textarea {
     margin-bottom: 2px;
 }
 
+.table th, table td {
+    text-align: center;
+}
+
 .dados_plataformas {
     border-bottom: 2px solid #555;
 }
@@ -233,14 +237,14 @@ textarea {
 }
 
 .left_container {
-    width: 38%;
+    width: 32%;
     margin-left: 15px;
     float: left;
     margin-top: 15px;
 }
 
 .game_list_dados {
-    width: 65%;
+    width: 68%;
     margin-right: 0;
     margin-top: 10px;
 }
