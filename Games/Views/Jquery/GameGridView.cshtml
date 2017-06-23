@@ -3,7 +3,6 @@
         /*========== grid de jogos ================*/
         //exibir modal para alterar jogo
         $(".thumbnail").click(function () {
-            //$("#modal_game_info_grid").modal("show");
             $.post('@Url.Action("PreencherDadosGameEntityJquery", "Jquery")', { id: $(this).find(".id").val() },
             function (resposta) {
                 $(".excluir").css('display', '');

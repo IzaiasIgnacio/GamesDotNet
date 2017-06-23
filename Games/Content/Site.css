@@ -94,8 +94,34 @@ textarea {
     margin-bottom: 2px;
 }
 
-.table th, table td {
+.table {
+    margin-bottom: 10px;
+}
+
+.table th, .table td {
     text-align: center;
+}
+
+.table th {
+    color: #eee;
+    width: 8%;
+}
+
+.table td {
+    color: #ddd;
+}
+
+.th_regiao {
+    width: 12%!important;
+}
+
+.th_loja {
+    width: 12%!important;
+}
+
+.icone_editar_game {
+    float: right;
+    cursor: pointer;
 }
 
 .dados_plataformas {
@@ -119,6 +145,7 @@ textarea {
     float: left;
     margin-right: 10px;
     min-height: 300px;
+    margin-bottom: 10px;
 }
 
 .game_list_dados {
@@ -249,6 +276,7 @@ textarea {
     margin-top: 10px;
     position: fixed;
     right:14px;
+    color: #ddd;
 }
 
 .dados_titulo {

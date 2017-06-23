@@ -55,6 +55,17 @@ namespace Games.Models.ViewModel {
         }
         public List<game_platform> Platforms { get; set; }
         public string Descricao { get; set; }
+        public string GetFormato(int? formato) {
+            if (formato == null) {
+                return "";
+            }
+
+            if (formato == 1) {
+                return "Físico";
+            }
+
+            return "Digital";
+        }
     }
 
     public class GameListView : BasegameView {

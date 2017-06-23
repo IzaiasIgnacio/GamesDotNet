@@ -352,7 +352,8 @@ namespace Games.Controllers {
                     status = lancamento.status,
                     region = lancamento.region,
                     rating = lancamento.rating,
-                    store = lancamento.store
+                    store = lancamento.store,
+                    platform = lancamento.platform
                 });
             }
 

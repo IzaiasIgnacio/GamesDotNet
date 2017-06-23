@@ -1,9 +1,20 @@
 ﻿<script>
     $(function () {
+        var id;
         $(".thumbnail").click(function () {
-            $.post('@Url.Action("ExibirDadosGameJquery", "Jquery")', { id: $(this).find(".id").val() },
+            id = $(this).find(".id").val();
+            $.post('@Url.Action("ExibirDadosGameJquery", "Jquery")', { id: id },
             function (resposta) {
                 $(".game_list_dados").html(resposta);
+            });
+        });
+        $(".game_list_container").on("click", ".icone_editar_game", function () {
+            console.log($(".game_list_container").find(".id_game_list"));
+            $.post('@Url.Action("PreencherDadosGameEntityJquery", "Jquery")', { id: id },
+            function (resposta) {
+                $(".excluir").css('display', '');
+                $("#form_game").html(resposta);
+                $("#modal_game").modal('show');
             });
         });
         //exibir inclusao de jogo
