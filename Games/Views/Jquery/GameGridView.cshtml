@@ -1,9 +1,29 @@
 ﻿<script>
     $(function () {
-        /*========== grid de jogos ================*/
-        //exibir modal para alterar jogo
+        var id;
         $(".thumbnail").click(function () {
-            $.post('@Url.Action("PreencherDadosGameEntityJquery", "Jquery")', { id: $(this).find(".id").val() },
+            id = $(this).find(".id").val();
+            $.post('@Url.Action("ExibirDadosGameJquery", "Jquery")', { id: id, full: true },
+            function (resposta) {
+                $(".dados_full_view").html(resposta);
+                $(".grid_view").fadeOut('normal', function () {
+                    $(".page-header h1").fadeOut(function () {
+                        $(this).html($(".dados_full_view").find(".titulo_game").val() + "<i class=\"fa fa-arrow-circle-left\"></i>").fadeIn();
+                    });
+                    $(".dados_full_view").fadeIn();
+                });
+            });
+        });
+        $(".game_list_container").on("click", ".page-header .fa", function() {
+            $(".dados_full_view").fadeOut('normal', function () {
+                $(".page-header h1").fadeOut(function () {
+                    $(this).html(titulo + plataforma_ativa).fadeIn();
+                });
+                $(".grid_view").fadeIn();
+            });
+        });
+        $(".dados_full_view").on("click", ".icone_editar_game", function() {
+            $.post('@Url.Action("PreencherDadosGameEntityJquery", "Jquery")', { id: id },
             function (resposta) {
                 $(".excluir").css('display', '');
                 $("#form_game").html(resposta);
@@ -11,7 +31,7 @@
             });
         });
         //exibir inclusao de jogo
-        $(".navbar-brand").click(function () {
+        $(".navbar-brand").click(function() {
             $.post('@Url.Action("ExibirFormGame", "Jquery")',
             function (resposta) {
                 $(".excluir").css('display', 'none');
@@ -19,6 +39,7 @@
                 $("#modal_game").modal('show');
             });
         });
+
         var elemento = $(".ativo");
         var plataforma_ativa = "";
         if (elemento.attr("id") != 0) {
@@ -43,20 +64,23 @@
         </div>
     </div>
 </div>
-@model Games.Models.ViewModel.GameListView
-@foreach (var game in Model.ListaJogos) {
-    <div class="col-sm-2">
-        <div class="col-sm-12 thumbnail text-center">
-            <input type="hidden" class="id" value="@game.Id" />
-            @if (File.Exists(Model.Imagesfolder+game.Id + "_SmallCover_"+game.CloudnaryId + ".jpg")) {
-                <img class="img-rounded img-responsive capa" src="~/images/@(game.Id+"_SmallCover_"+@game.CloudnaryId+".jpg")" />
-            }
-            else {
-                <img class="img-rounded img-responsive capa" src="~/Content/ps.png" />
-            }
-            <div class="caption">
-                <h4>@game.Name</h4>
+<div class="dados_full_view" style="display: none"></div>
+<div class="grid_view">
+    @model Games.Models.ViewModel.GameListView
+    @foreach (var game in Model.ListaJogos) {
+        <div class="col-sm-2">
+            <div class="col-sm-12 thumbnail text-center">
+                <input type="hidden" class="id" value="@game.Id" />
+                @if (File.Exists(Model.Imagesfolder + game.Id + "_SmallCover_" + game.CloudnaryId + ".jpg")) {
+                    <img class="img-rounded img-responsive capa" src="~/images/@(game.Id+"_SmallCover_"+@game.CloudnaryId+".jpg")" />
+                }
+                else {
+                    <img class="img-rounded img-responsive capa" src="~/Content/ps.png" />
+                }
+                <div class="caption">
+                    <h4>@game.Name</h4>
+                </div>
             </div>
         </div>
-    </div>
-}
+    }
+</div>

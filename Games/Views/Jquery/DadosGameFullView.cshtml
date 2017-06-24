@@ -1,0 +1,77 @@
+﻿@model Games.Models.ViewModel.DadosGameView
+<input type="hidden" class="titulo_game" value="@Model.Titulo" />
+<div class="icone_editar_game"><i class="fa fa-pencil-square-o fa-2x"></i></div> 
+<br />
+<div class="dados_capa">
+    <img class="img-rounded img-responsive" src="~/images/@(Model.Id)_BigCover2x_@(Model.CloudnaryId).jpg" />
+</div>
+<div>
+    <div class="form-group">
+        <label>Developer(s)</label>
+        <p>
+            @string.Join(", ", Model.ListaDeveloper.Select(p => p.name).ToList())
+        </p>
+    </div>
+    <div class="form-group">
+        <label>Publisher(s)</label>
+        <p>
+            @string.Join(", ", Model.ListaPublisher.Select(p => p.name).ToList())
+        </p>
+    </div>
+    <div class="form-group">
+        <label>Gênero(s)</label>
+        <p>
+            @string.Join(", ", Model.ListaGenre.Select(p => p.name).ToList())
+        </p>
+    </div>
+    <div class="form-group">
+        <label>Nota</label>
+        <p>
+            @Model.Nota
+        </p>
+    </div>
+    <div class="form-group">
+        <label>Completo</label>
+        <p>
+            @Model.GetCompleto()
+        </p>
+    </div>
+    <div class="form-group">
+        <label>Descrição</label>
+        <p>
+            @Model.Descricao
+        </p>
+    </div>
+</div>
+<table class="table table-responsive table-condensed table-dados">
+    <thead>
+        <tr>
+            <th><i class="fa fa-gamepad"></i></th>
+            <th><span class="glyphicon glyphicon-list" aria-hidden="true"></span></th>
+            <th><i class="fa fa-calendar"></i></th>
+            <th class="th_regiao"><i class="fa fa-globe"></i></th>
+            <th><i class="fa fa-filter"></i></th>
+            <th><i class="fa fa-star"></i></th>
+            <th><i class="fa fa-money"></i></th>
+            <th><i class="fa fa-hdd-o"></i></th>
+            <th><span class="glyphicon glyphicon-cd" aria-hidden="true"></span> / <i class="fa fa-cloud"></i></th>
+            <th class="th_loja"><i class="fa fa-shopping-cart"></i></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var plataforma in Model.Platforms) {
+            <tr>
+                <td>@plataforma.platform.sigla</td>
+                <td>@plataforma.status.name</td>
+                <td>@(plataforma.release_date != null ? plataforma.release_date.Value.ToShortDateString() : "")</td>
+                <td>@(plataforma.region != null ? plataforma.region.name : "")</td>
+                <td>@(plataforma.rating != null ? plataforma.rating.name : "")</td>
+                <td>@plataforma.metacritic</td>
+                <td>@plataforma.preco</td>
+                <td>@plataforma.tamanho</td>
+                <td>@Model.GetFormato(plataforma.formato)</td>
+                <td>@(plataforma.store != null ? plataforma.store.name : "")</td>
+            </tr>
+        }
+    </tbody>
+</table>

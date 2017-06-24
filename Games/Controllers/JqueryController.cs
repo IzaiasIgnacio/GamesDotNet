@@ -308,7 +308,7 @@ namespace Games.Controllers {
         }
 
         [HttpPost]
-        public ActionResult ExibirDadosGameJquery(int id) {
+        public ActionResult ExibirDadosGameJquery(int id, bool full = false) {
             GameRepository gameRepository = new GameRepository();
             GameEntity game = gameRepository.BuscarDados(id);
 
@@ -357,7 +357,11 @@ namespace Games.Controllers {
                 });
             }
 
-            return PartialView("DadosGameView", dadosGameView);
+            string destino = "DadosGameView";
+            if (full) {
+                destino = "DadosGameFullView";
+            }
+            return PartialView(destino, dadosGameView);
         }
 
         [HttpPost]

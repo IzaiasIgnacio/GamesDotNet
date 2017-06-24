@@ -370,6 +370,7 @@
     <Content Include="Views\Home\DashboardBarChartReport.cshtml" />
     <Content Include="Views\Home\DashboardSummaryView.cshtml" />
     <Content Include="Views\Jquery\DadosGameView.cshtml" />
+    <Content Include="Views\Jquery\DadosGameFullView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

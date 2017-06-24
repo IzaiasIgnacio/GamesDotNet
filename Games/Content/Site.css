@@ -292,6 +292,22 @@ legend {
     color: #ddd;
 }
 
+.dados_full_view {
+    margin-top: -5px;
+    color: #ddd;
+    font-size: 1.2em;
+}
+
+.page-header .fa {
+    float: right;
+    cursor: pointer;
+    padding-right: 0.1em;
+}
+
+.dados_full_view .icone_editar_game {
+    margin-top: 15px
+}
+
 .dados_titulo {
     color: #fff;
     font-size: 22px;
