@@ -29,6 +29,8 @@ namespace Games.Models.Repository {
 
             SetPlataformasGame();
 
+            AtualizarWishlist();
+
             SetDevelopersGame();
 
             SetPublishersGame();
@@ -238,7 +240,8 @@ namespace Games.Models.Repository {
         #endregion
 
         public void AtualizarWishlist() {
-            game_platform wish = game.game_platform.Where(gp => gp.id_status == 2).Where(gp => gp.id_game == game.id).FirstOrDefault();
+            game_platform wish = dadosGame.Platforms.Where(dg => dg.id_status == 2).FirstOrDefault();
+            //game_platform wish = game.game_platform.Where(gp => gp.id_status == 2).Where(gp => gp.id_game == game.id).FirstOrDefault();
             if (wish == null) {
                 wishlist_order ordem = db.wishlist_order.Where(w => w.id_game == game.id).FirstOrDefault();
                 if (ordem != null) {
