@@ -94,29 +94,50 @@ textarea {
     margin-bottom: 2px;
 }
 
-.table {
+.table-dados {
     margin-bottom: 10px;
 }
 
-.table th, .table td {
+.table-dados th, .table-dados td, .table-form th, .table-form td {
     text-align: center;
 }
 
-.table th {
+.table-dados th, .table-form th {
     color: #eee;
     width: 8%;
 }
 
-.table td {
+.table-dados td {
     color: #ddd;
 }
 
-.th_regiao {
+.table-dados .th_regiao {
     width: 12%!important;
 }
 
-.th_loja {
+.table-dados .th_loja {
     width: 12%!important;
+}
+
+.table-form .th_plataforma { width: 15%; }
+.table-form .th_lista { width: 12%; }
+.table-form .th_calendar { width: 9%; }
+.table-form .th_regiao { width: 11%; }
+.table-form .th_classificacao { width: 10%; }
+.table-form .th_metacritic { width: 6%; }
+.table-form .th_preco { width: 7%; }
+.table-form .th_tamanho { width: 6% }
+.table-form .th_formato { width: 8%; }
+.table-form .th_loja { width: 13%; }
+.table-form .th_remover { width: 5% }
+
+.modal-header {
+    background-color: #0c1b93;
+    color: #fff;
+}
+
+legend {
+    color: rgba(255, 255, 255, 0.54);
 }
 
 .icone_editar_game {
@@ -208,6 +229,10 @@ textarea {
     min-width: 100%;
 }
 
+.fieldset_plataformas label {
+    color: #ddd;
+}
+
 .fieldset_plataformas .form-group {
     margin-bottom: 5px;
 }
@@ -216,18 +241,6 @@ textarea {
     float: right;
     font-weight: bold;
     min-width: 35px;
-}
-
-#modal_game .modal-content .select_plataforma {
-    min-width: 8%;
-    width: 8%;
-    clear:both;
-    display: inline;
-}
-
-#modal_game .modal-content .maior {
-    min-width: 12%;
-    width: 12%;
 }
 
 .modal-content {

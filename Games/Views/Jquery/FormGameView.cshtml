@@ -7,7 +7,7 @@
         $("#btn_add").click(function () {
             $.post('@Url.Action("AdicionarPlataformaJquery", "Jquery")',
             function (resposta) {
-                $(".span_plataformas").html(resposta);
+                $(".body_plataformas").html(resposta);
             });
         });
         //remover linha de plataforma
@@ -16,7 +16,7 @@
             element.fadeOut('normal', function () {
                 $.post('@Url.Action("RemoverPlataformaJquery", "Jquery")', { index: $(this).find(".index").val() },
                 function (resposta) {
-                    $(".span_plataformas").html(resposta);
+                    $(".body_plataformas").html(resposta);
                 });
             });
         });
@@ -176,9 +176,28 @@
     <div class="col-md-12">
         <fieldset class="form-group fieldset_plataformas">
             <legend><label>Plataformas</label></legend>
-            <span class="span_plataformas">
-                @{Html.RenderPartial("~/Views/Jquery/PlatformStatusView.cshtml", Model);}
-            </span>
+            <div class="div_plataformas">
+                <table class="table table-responsive table-condensed table-form">
+                    <thead>
+                        <tr>
+                            <th class="th_plataforma"><i class="fa fa-gamepad"></i></th>
+                            <th class="th_lista"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></th>
+                            <th class="th_calendar"><i class="fa fa-calendar"></i></th>
+                            <th class="th_regiao"><i class="fa fa-globe"></i></th>
+                            <th class="th_classificacao"><i class="fa fa-filter"></i></th>
+                            <th class="th_metacritic"><i class="fa fa-star"></i></th>
+                            <th class="th_preco"><i class="fa fa-money"></i></th>
+                            <th class="th_tamanho"><i class="fa fa-hdd-o"></i></th>
+                            <th class="th_formato"><span class="glyphicon glyphicon-cd" aria-hidden="true"></span> / <i class="fa fa-cloud"></i></thclass="th_tamanho">
+                            <th class="th_loja"><i class="fa fa-shopping-cart"></i></th>
+                            <th class="th_remover"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="body_plataformas">
+                        @{Html.RenderPartial("~/Views/Jquery/PlatformStatusView.cshtml", Model);}
+                    </tbody>
+                </table>
+            </div>
             <input type="button" id="btn_add" value="+" class="btn btn-primary" />
         </fieldset>
     </div>
