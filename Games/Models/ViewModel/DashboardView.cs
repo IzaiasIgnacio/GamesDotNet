@@ -61,6 +61,7 @@ namespace Games.Models.ViewModel {
     public class DashboardView {
         private GameRepository gameRepository;
         private int totalJogos;
+        private int totalJogosUnicos;
         private int totalJogosCompletos;
         private int totalJogosFisicos;
         private int totalJogosDigitais;
@@ -78,6 +79,7 @@ namespace Games.Models.ViewModel {
         public DashboardView() {
             gameRepository = new GameRepository();
             totalJogos = gameRepository.GetTotalJogos();
+            totalJogosUnicos = gameRepository.GetTotalJogosUnicos();
             totalPreco = gameRepository.GetTotalPreco();
             totalJogosCompletos = gameRepository.GetTotalJogosCompletos();
             totalJogosFisicos = gameRepository.GetTotalJogosFormato(1);
@@ -104,6 +106,12 @@ namespace Games.Models.ViewModel {
         public int TotalJogos {
             get {
                 return totalJogos;
+            }
+        }
+
+        public int TotalJogosUnicos {
+            get {
+                return totalJogosUnicos;
             }
         }
 

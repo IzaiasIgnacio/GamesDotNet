@@ -2,7 +2,7 @@
 <div class="container dashboard">
     <div class="row dashboard_row">
         <div class="summary">
-            @Html.Partial("DashboardSummaryView", Model.GetDashboardSummaryView(@Model.TotalJogosStatus["Coleção"].ToString(), "Jogos", "jogos"))
+            @Html.Partial("DashboardSummaryView", Model.GetDashboardSummaryView(@Model.TotalJogosUnicos.ToString(), "Jogos", "jogos"))
             @Html.Partial("DashboardSummaryView", Model.GetDashboardSummaryView(@Model.TotalJogosCompletos.ToString(), "Completos", "completos"))
             @Html.Partial("DashboardSummaryView", Model.GetDashboardSummaryView(@Model.TotalPreco.ToString(), "Preço", "preco"))
             @Html.Partial("DashboardSummaryView", Model.GetDashboardSummaryView(@Model.TotalJogosFisicos.ToString(), "Físicos", "fisicos"))

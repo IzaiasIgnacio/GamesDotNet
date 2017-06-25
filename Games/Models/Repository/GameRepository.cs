@@ -241,7 +241,6 @@ namespace Games.Models.Repository {
 
         public void AtualizarWishlist() {
             game_platform wish = dadosGame.Platforms.Where(dg => dg.id_status == 2).FirstOrDefault();
-            //game_platform wish = game.game_platform.Where(gp => gp.id_status == 2).Where(gp => gp.id_game == game.id).FirstOrDefault();
             if (wish == null) {
                 wishlist_order ordem = db.wishlist_order.Where(w => w.id_game == game.id).FirstOrDefault();
                 if (ordem != null) {
@@ -324,6 +323,13 @@ namespace Games.Models.Repository {
 
         public int GetTotalJogos() {
             return db.game_platform.Count();
+        }
+
+        public int GetTotalJogosUnicos() {
+            return (from game in db.game
+                    join game_platform in db.game_platform on game.id equals game_platform.id_game
+                    where game_platform.id_status == 1
+                    group game by game.id).Count();
         }
 
         public List<game_platform> GetListaGeral() {

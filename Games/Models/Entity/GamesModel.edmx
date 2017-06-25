@@ -255,7 +255,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_wishlist_order_game">
-          <End Role="game" Type="Self.game" Multiplicity="1" />
+          <End Role="game" Type="Self.game" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="wishlist_order" Type="Self.wishlist_order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="game">
