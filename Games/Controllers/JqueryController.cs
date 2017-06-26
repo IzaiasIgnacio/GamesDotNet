@@ -165,12 +165,12 @@ namespace Games.Controllers {
 
             GameDataView gameDataView = GameDataView.GetGameDataView();
             gameDataView.Id = Id;
-            gameDataView.id_igdb = id_igdb;            
+            gameDataView.id_igdb = id_igdb;
             gameDataView.Titulo = response.Name;
             gameDataView.Descricao = response.Summary;
 
             if (response.Cover != null) {
-                gameDataView.Imagem = gameDataView.BigCoverUrl+response.Cover.CloudinaryId+".jpg";
+                gameDataView.Imagem = gameDataView.BigCoverUrl + response.Cover.CloudinaryId + ".jpg";
                 gameDataView.CloudnaryId = response.Cover.CloudinaryId;
             }
             else {
@@ -200,32 +200,29 @@ namespace Games.Controllers {
                 });
             }
 
-            var buscaMetacritic = await Metacritic.SearchFor().Games().UsingTextAsync(response.Name);
+            try {
+                var buscaMetacritic = await Metacritic.SearchFor().Games().UsingTextAsync(response.Name);
 
-            foreach (ReleaseDate lancamento in lancamentos) {
-                platform plataforma = pr.GetPlatformByIgdb(lancamento.Platform);
-                int? meta = null;
-                if (plataforma != null) {
-                    string sigla;
-                    switch (plataforma.sigla) {
-                        case "PS1":
+                foreach (ReleaseDate lancamento in lancamentos) {
+                    platform plataforma = pr.GetPlatformByIgdb(lancamento.Platform);
+                    int? meta = null;
+                    if (plataforma != null) {
+                        string sigla;
+                        switch (plataforma.sigla) {
+                            case "PS1":
                             sigla = "PS";
-                        break;
-                        case "PSVITA":
+                            break;
+                            case "PSVITA":
                             sigla = "VITA";
-                        break;
-                        default:
+                            break;
+                            default:
                             sigla = plataforma.sigla;
-                        break;
-                    }
-                    try {
+                            break;
+                        }
                         var resultado = buscaMetacritic.Where(m => m.Platform == sigla).Where(m => m.Name.ToLowerInvariant() == response.Name.ToLowerInvariant()).FirstOrDefault();
                         if (resultado != null) {
                             meta = resultado.Score;
                         }
-                    }
-                    catch (Exception ex) {
-
                     }
                     DateTime data = new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(Convert.ToDouble(lancamento.Date)));
                     gameDataView.Platforms.Add(new game_platform {
@@ -236,7 +233,10 @@ namespace Games.Controllers {
                     });
                 }
             }
-            
+            catch (Exception ex) {
+
+            }
+
             return PartialView("FormGameView", gameDataView);
         }
 

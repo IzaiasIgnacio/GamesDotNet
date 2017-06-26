@@ -64,6 +64,7 @@
                         $.post('@Url.Action("ListaJogosIndex", "Jquery")', { status: status },
                         function (resposta) {
                             $("#GameListView").html(resposta);
+                            $(window).scrollTop(sessionStorage.scrollTop);
                         });
                     }
                     else {
