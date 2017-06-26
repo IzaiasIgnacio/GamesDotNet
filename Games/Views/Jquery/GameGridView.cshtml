@@ -2,6 +2,7 @@
     $(function () {
         var id;
         $(".thumbnail").click(function () {
+            sessionStorage.scrollTop = $(window).scrollTop();
             id = $(this).find(".id").val();
             $.post('@Url.Action("ExibirDadosGameJquery", "Jquery")', { id: id, full: true },
             function (resposta) {
@@ -20,6 +21,7 @@
                     $(this).html(titulo + plataforma_ativa).fadeIn();
                 });
                 $(".grid_view").fadeIn();
+                $(window).scrollTop(sessionStorage.scrollTop);
             });
         });
         $(".dados_full_view").on("click", ".icone_editar_game", function() {

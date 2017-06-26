@@ -35,7 +35,6 @@
         $(".grid").sortable({
             revert: 'true',
             handle: ".order",
-            /*placeholder: 'span4 well placeholder tile',*/
             stop: function (event, ui) {
                 $(ui.item.parent().children()).each(function (i) {
                     var posicao = $(this).find(".posicao").val();

@@ -337,7 +337,11 @@ namespace Games.Models.Repository {
         }
 
         public int GetTotalJogosCompletos() {
-            return db.game.Where(gp => gp.completo == true).Count();
+            return (from game in db.game
+                    join game_platform in db.game_platform on game.id equals game_platform.id_game
+                    where game_platform.id_status == 1
+                    where game.completo == true
+                    group game by game.id).Count();
         }
 
         public int GetTotalJogosFormato(int formato) {
