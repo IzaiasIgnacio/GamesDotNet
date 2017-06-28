@@ -38,6 +38,7 @@
         });
         //salvar jogo
         $("#modal_game").off().on("click", ".salvar", function () {
+            $(".slow-spin").fadeIn();
             var acao = '';
             if ($("#modal_game #Id").val() == '' || $("#modal_game #Id").val() == '0') {
                 acao = acaoIncluir;
@@ -63,6 +64,7 @@
                         $("#modal_game").modal('hide');
                         $.post('@Url.Action("ListaJogosIndex", "Jquery")', { status: status },
                         function (resposta) {
+                            $(".slow-spin").fadeOut();
                             $("#GameListView").html(resposta);
                             $(window).scrollTop(sessionStorage.scrollTop);
                         });

@@ -568,3 +568,9 @@ legend {
 .dashboard_box {
     background-color: #000;
 }
+
+.slow-spin {
+  -webkit-animation: fa-spin 3s infinite linear;
+  animation: fa-spin 3s infinite linear;
+  font-size: 20px;
+}
