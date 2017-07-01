@@ -572,5 +572,10 @@ legend {
 .slow-spin {
   -webkit-animation: fa-spin 3s infinite linear;
   animation: fa-spin 3s infinite linear;
-  font-size: 20px;
+  font-size: 15px;
+  vertical-align: super;
+}
+
+.slow-spin-form {
+    vertical-align: middle;
 }

@@ -1,7 +1,7 @@
 ﻿<script>
     $(function () {
         var id;
-        $(".thumbnail").click(function () {
+        $(".thumbnail").click(function() {
             sessionStorage.scrollTop = $(window).scrollTop();
             id = $(this).find(".id").val();
             $.post('@Url.Action("ExibirDadosGameJquery", "Jquery")', { id: id, full: true },
@@ -12,12 +12,13 @@
                         $(this).html($(".dados_full_view").find(".titulo_game").val() + "<i class=\"fa fa-arrow-circle-left\"></i>").fadeIn();
                     });
                     $(".dados_full_view").fadeIn();
+                    $(window).scrollTop(0);
                 });
             });
         });
         $(".game_list_container").on("click", ".page-header .fa", function() {
-            $(".dados_full_view").fadeOut('normal', function () {
-                $(".page-header h1").fadeOut(function () {
+            $(".dados_full_view").fadeOut('normal', function() {
+                $(".page-header h1").fadeOut(function() {
                     $(this).html(titulo + plataforma_ativa).fadeIn();
                 });
                 $(".grid_view").fadeIn();
