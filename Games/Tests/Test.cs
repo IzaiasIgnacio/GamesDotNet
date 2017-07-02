@@ -393,8 +393,8 @@ namespace Games.Test {
                         if (lancamento.Date != null) {
                             DateTime data = new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(Convert.ToDouble(lancamento.Date)));
                             g.release_date = data;
+                            db.Entry(g).State = EntityState.Modified;
                         }
-                        db.Entry(g).State = EntityState.Modified;
                     }
                 }
                 catch (Exception ex) {

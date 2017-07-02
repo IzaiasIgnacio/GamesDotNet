@@ -33,6 +33,14 @@
                     $(".slow-spin").fadeOut();
                 });
             });
+            $(document).ajaxComplete(function() {
+                $(".txt_preco").each(function() {
+                    $(this).arcnetmask("money");
+                });
+                $(".txt_data").each(function() {
+                    $(this).arcnetmask("date");
+                });
+            });
         </script>
     </head>
     <body>

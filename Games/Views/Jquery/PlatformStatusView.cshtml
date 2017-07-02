@@ -13,7 +13,7 @@
             @Html.DropDownListFor(model => Model.Platforms[i].id_status, new SelectList(Model.ListaStatus, "id", "name", Model.Platforms[i].id_status), "Status", new { @class = "form-control" })
         </td>
         <td>
-            @Html.EditorFor(model => Model.Platforms[i].release_date, new { htmlAttributes = new { @class = "form-control", @placeholder = "Lançamento", @Value = string.Format("{0:d}", Model.Platforms[i].release_date) } })
+            @Html.EditorFor(model => Model.Platforms[i].release_date, new { htmlAttributes = new { @class = "form-control txt_data", @placeholder = "Lançamento", @Value = string.Format("{0:d}", Model.Platforms[i].release_date) } })
         </td>
         <td>
             @Html.DropDownListFor(model => Model.Platforms[i].id_region, new SelectList(Model.ListaRegion, "id", "name", Model.Platforms[i].id_region), "Região", new { @class = "form-control" })
@@ -25,7 +25,7 @@
             @Html.EditorFor(model => model.Platforms[i].metacritic, new { htmlAttributes = new { @class = "form-control", @placeholder = "Metacritic", @Value = Model.Platforms[i].metacritic } })
         </td>
         <td>
-            @Html.EditorFor(model => model.Platforms[i].preco, new { htmlAttributes = new { @class = "form-control", @placeholder = "Preço", @Value = Model.Platforms[i].preco } })
+            @Html.EditorFor(model => model.Platforms[i].preco, new { htmlAttributes = new { @class = "form-control txt_preco", @placeholder = "Preço", @Value = Model.Platforms[i].preco } })
         </td>
         <td>
             @Html.EditorFor(model => model.Platforms[i].tamanho, new { htmlAttributes = new { @class = "form-control", @placeholder = "Tamanho", @Value = Model.Platforms[i].tamanho } })

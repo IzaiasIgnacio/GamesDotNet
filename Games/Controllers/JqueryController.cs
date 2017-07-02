@@ -210,27 +210,29 @@ namespace Games.Controllers {
                         string sigla;
                         switch (plataforma.sigla) {
                             case "PS1":
-                            sigla = "PS";
+                                sigla = "PS";
                             break;
                             case "PSVITA":
-                            sigla = "VITA";
+                                sigla = "VITA";
                             break;
                             default:
-                            sigla = plataforma.sigla;
+                                sigla = plataforma.sigla;
                             break;
                         }
+
                         var resultado = buscaMetacritic.Where(m => m.Platform == sigla).Where(m => m.Name.ToLowerInvariant() == response.Name.ToLowerInvariant()).FirstOrDefault();
                         if (resultado != null) {
                             meta = resultado.Score;
                         }
+
+                        DateTime data = new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(Convert.ToDouble(lancamento.Date)));
+                        gameDataView.Platforms.Add(new game_platform {
+                            id_platform = plataforma.id,
+                            release_date = data,
+                            metacritic = meta,
+                            id_region = lancamento.Region
+                        });
                     }
-                    DateTime data = new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(Convert.ToDouble(lancamento.Date)));
-                    gameDataView.Platforms.Add(new game_platform {
-                        id_platform = plataforma.id,
-                        release_date = data,
-                        metacritic = meta,
-                        id_region = lancamento.Region
-                    });
                 }
             }
             catch (Exception ex) {
