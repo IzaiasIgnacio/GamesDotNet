@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Igdb.Services;
 using Igdb.ResponseModels;
-using Igdb.RequestModels;
-using Newtonsoft.Json;
-using Games.Models.Repository;
 using System.Net;
 
 namespace Igdb.Test {

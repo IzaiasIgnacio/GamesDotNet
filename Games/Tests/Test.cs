@@ -372,7 +372,7 @@ namespace Games.Test {
         public void TesteDatas() {
             GamesEntities db = new GamesEntities();
             IgdbService igdb = new IgdbService();
-            List<game_platform> games = db.game_platform.Where(gp => gp.release_date == null).ToList();
+            List<game_platform> games = db.game_platform.Where(gp => gp.release_date == null).Where(gp => gp.id_status == 1).ToList();
             foreach (game_platform g in games) {
                 GameEntity jogo = db.game.Find(g.id_game);
                 try {
@@ -384,10 +384,26 @@ namespace Games.Test {
                         if (lancamento == null) {
                             lancamento = dados.ReleaseDates.Where(r => r.Region == 2).Where(r => r.Platform == plataforma.id_igdb).FirstOrDefault();
                         }
-                        g.id_region = lancamento.Region;
+                        if (lancamento != null) {
+                            g.id_region = lancamento.Region;
+                        }
                     }
                     else {
                         lancamento = dados.ReleaseDates.Where(r => r.Region == g.id_region).Where(r => r.Platform == plataforma.id_igdb).FirstOrDefault();
+                        if (lancamento == null) {
+                            lancamento = dados.ReleaseDates.Where(r => r.Region == 8).Where(r => r.Platform == plataforma.id_igdb).FirstOrDefault();
+                        }
+                        if (lancamento == null) {
+                            lancamento = dados.ReleaseDates.Where(r => r.Region == 2).Where(r => r.Platform == plataforma.id_igdb).FirstOrDefault();
+                        }
+                        if (lancamento == null) {
+                            if (plataforma.id != 7) {
+                                lancamento = dados.ReleaseDates.Where(r => r.Region == 8).Where(r => r.Platform == 45).FirstOrDefault();
+                                if (lancamento == null) {
+                                    lancamento = dados.ReleaseDates.Where(r => r.Region == 2).Where(r => r.Platform == 45).FirstOrDefault();
+                                }
+                            }
+                        }
                     }
                     if (lancamento != null) {
                         if (lancamento.Date != null) {
