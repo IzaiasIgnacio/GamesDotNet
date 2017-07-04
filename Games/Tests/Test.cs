@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Igdb.Services;
-using Igdb.ResponseModels;
+using GamesApi.Services;
+using GamesApi.ResponseModels.Igdb;
 using Games.Models.Entity;
 using Games.Models.Repository;
 using Games.Models.ViewModel;

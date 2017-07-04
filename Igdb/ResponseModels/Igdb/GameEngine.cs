@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Igdb.ResponseModels {
+namespace GamesApi.ResponseModels.Igdb {
     [DataContract(Name = "GameEngine")]
     public class GameEngine {
         

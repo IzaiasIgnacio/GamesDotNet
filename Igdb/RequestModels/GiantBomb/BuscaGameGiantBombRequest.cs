@@ -1,12 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
-using Newtonsoft.Json;
-
-namespace Igdb.RequestModels {
-    public class BuscaGameRequest {
+﻿namespace GamesApi.RequestModels.GiantBomb {
+    public class BuscaGameGiantBombRequest {
         public string Fields {
             get {
-                return "id,name,release_dates.platform,cover.cloudinary_id";
+                return "id,name,deck,platforms,image";
             }
         }
 

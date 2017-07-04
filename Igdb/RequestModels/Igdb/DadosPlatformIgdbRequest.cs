@@ -1,5 +1,5 @@
-﻿namespace Igdb.RequestModels {
-    public class DadosGenreRequest {
+﻿namespace GamesApi.RequestModels.Igdb {
+    public class DadosPlatformIgdbRequest {
         public string Fields {
             get {
                 return "id,name";

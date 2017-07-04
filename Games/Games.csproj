@@ -389,9 +389,9 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Igdb\Igdb.csproj">
+    <ProjectReference Include="..\Igdb\GamesApi.csproj">
       <Project>{2b8726ae-8562-48d6-994d-63c7cc1a7198}</Project>
-      <Name>Igdb</Name>
+      <Name>GamesApi</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

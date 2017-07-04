@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Igdb.ResponseModels {
+namespace GamesApi.ResponseModels.Igdb {
     [DataContract(Name = "DadosGameResponse")]
     public class DadosGameResponse : BaseJsonResponse {
         [DataMember(Name = "summary")]

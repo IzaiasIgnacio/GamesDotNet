@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Games", "Games\Games.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Games.Tests", "Games.Tests\Games.Tests.csproj", "{3588A1BC-F454-4F35-86D0-F7D4B50EC9EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Igdb", "Igdb\Igdb.csproj", "{2B8726AE-8562-48D6-994D-63C7CC1A7198}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesApi", "Igdb\GamesApi.csproj", "{2B8726AE-8562-48D6-994D-63C7CC1A7198}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

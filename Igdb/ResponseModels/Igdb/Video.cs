@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace Igdb.ResponseModels {
+namespace GamesApi.ResponseModels.Igdb {
     [DataContract(Name = "Video")]
     public class Video {
         [DataMember(Name = "name")]

@@ -1,13 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Igdb.Services;
-using Igdb.ResponseModels;
+using GamesApi.Services;
+using GamesApi.ResponseModels.Igdb;
 using System.Net;
+using GamesApi.ResponseModels.GiantBomb;
 
-namespace Igdb.Test {
+namespace GamesApi.Test {
     [TestClass]
     public class Test {
+        [TestMethod]
+        public void TesteBuscarJogoGiantBomb() {
+            GiantBombService gb = new GiantBombService();
+            List<BuscaGameGiantBombResponse> response = gb.BuscarJogo("infamous");
+
+            Assert.IsNotNull(response[0].Id);
+            Assert.IsNotNull(response[0].Name);
+        }
+
         [TestMethod]
         public void TesteBuscarJogo() {
             IgdbService igdb = new IgdbService();

@@ -1,5 +1,5 @@
 ﻿using Games.Models.Entity;
-using Igdb.ResponseModels;
+using GamesApi.ResponseModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

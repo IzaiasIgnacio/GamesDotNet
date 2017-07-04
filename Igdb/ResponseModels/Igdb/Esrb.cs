@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Igdb.ResponseModels {
+namespace GamesApi.ResponseModels.Igdb {
     [DataContract(Name = "Esrb")]
     public class Esrb {
         [DataMember(Name = "rating")]

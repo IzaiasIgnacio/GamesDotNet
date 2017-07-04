@@ -1,7 +1,6 @@
 ﻿using Games.Models.Entity;
 using Games.Models.Repository;
-using Igdb.ResponseModels;
-using Newtonsoft.Json;
+using GamesApi.ResponseModels.Igdb;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

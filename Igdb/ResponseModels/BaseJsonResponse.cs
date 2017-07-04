@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
-using Newtonsoft.Json;
+﻿using System.Runtime.Serialization;
 
-namespace Igdb.ResponseModels {
+namespace GamesApi.ResponseModels {
     [DataContract(Name = "BaseJsonResponse")]
     public class BaseJsonResponse {
         [DataMember(Name = "id")]

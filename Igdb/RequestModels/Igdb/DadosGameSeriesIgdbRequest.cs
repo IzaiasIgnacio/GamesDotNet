@@ -2,8 +2,8 @@
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace Igdb.RequestModels {
-    public class DadosGameSeriesRequest {
+namespace GamesApi.RequestModels.Igdb {
+    public class DadosGameSeriesIgdbRequest {
         public string Fields {
             get {
                 return "name,games";

@@ -1,31 +1,33 @@
 ﻿using System.Collections.Generic;
-using GamesApi.ResponseModels.Igdb;
-using GamesApi.RequestModels.Igdb;
+using GamesApi.ResponseModels.GiantBomb;
+using GamesApi.RequestModels.GiantBomb;
 using Newtonsoft.Json;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace GamesApi.Services {
-    public class IgdbService {
-        public List<BuscaGameResponse> BuscarJogo(string busca) {
-            RequestService requestService = new RequestService("igdb");
-            BuscaGameIgdbRequest request = new BuscaGameIgdbRequest {
+    public class GiantBombService {
+        public List<BuscaGameGiantBombResponse> BuscarJogo(string busca) {
+            RequestService requestService = new RequestService("giantbomb");
+            BuscaGameGiantBombRequest request = new BuscaGameGiantBombRequest {
                 Search = busca
             };
 
-            string resposta = requestService.RequestBuscaGameIgdb(request);
+            string resposta = requestService.RequestBuscaGameGiantBomb(request);
+            resposta = JObject.Parse(resposta).SelectToken("results").ToString();
 
-            List<BuscaGameResponse> response = JsonConvert.DeserializeObject<List<BuscaGameResponse>>(resposta);
+            List<BuscaGameGiantBombResponse> response = JsonConvert.DeserializeObject<List<BuscaGameGiantBombResponse>>(resposta);
                         
             return response;
         }
         
-        public List<DadosGameResponse> DadosJogo(int id) {
-            RequestService requestService = new RequestService("igdb");
+        /*public List<DadosGameResponse> DadosJogo(int id) {
+            RequestService requestService = new RequestService();
             DadosGameIgdbRequest request = new DadosGameIgdbRequest {
                 Id = id
             };
 
-            string resposta = requestService.RequestDadosGameIgdb(request);
+            string resposta = requestService.RequestDadosGame(request);
 
             List<DadosGameResponse> response = JsonConvert.DeserializeObject<List<DadosGameResponse>>(resposta);
 
@@ -41,12 +43,12 @@ namespace GamesApi.Services {
         }
 
         public List<DadosGameSeriesResponse> BuscaGameSeries(int id) {
-            RequestService requestService = new RequestService("igdb");
-            DadosGameSeriesIgdbRequest request = new DadosGameSeriesIgdbRequest {
+            RequestService requestService = new RequestService();
+            DadosGameSeriesRequest request = new DadosGameSeriesRequest {
                 Id = id
             };
 
-            string resposta = requestService.RequestGameSeriesIgdb(request);
+            string resposta = requestService.RequestGameSeries(request);
 
             List<DadosGameSeriesResponse> response = JsonConvert.DeserializeObject<List<DadosGameSeriesResponse>>(resposta);
 
@@ -54,12 +56,12 @@ namespace GamesApi.Services {
         }
 
         public List<DadosDeveloperPublisherResponse> DadosDeveloperPublisher(int[] devs) {
-            RequestService requestService = new RequestService("igdb");
+            RequestService requestService = new RequestService();
             DadosDeveloperPublisherIgdbRequest request = new DadosDeveloperPublisherIgdbRequest {
                 Ids = devs
             };
 
-            string resposta = requestService.RequestDadosDeveloperPublisherGameIgdb(request);
+            string resposta = requestService.RequestDadosDeveloperPublisherGame(request);
 
             List<DadosDeveloperPublisherResponse> response = JsonConvert.DeserializeObject<List<DadosDeveloperPublisherResponse>>(resposta);
 
@@ -67,12 +69,12 @@ namespace GamesApi.Services {
         }
 
         public List<DadosPlatformResponse> DadosPlatform(int[] plats) {
-            RequestService requestService = new RequestService("igdb");
-            DadosPlatformIgdbRequest request = new DadosPlatformIgdbRequest {
+            RequestService requestService = new RequestService();
+            DadosPlatformRequest request = new DadosPlatformRequest {
                 Ids = plats
             };
 
-            string resposta = requestService.RequestDadosPlatformIgdb(request);
+            string resposta = requestService.RequestDadosPlatform(request);
 
             List<DadosPlatformResponse> response = JsonConvert.DeserializeObject<List<DadosPlatformResponse>>(resposta);
 
@@ -80,16 +82,16 @@ namespace GamesApi.Services {
         }
 
         public List<DadosGenreResponse> DadosGenre(int[] genres) {
-            RequestService requestService = new RequestService("igdb");
-            DadosGenreIgdbRequest request = new DadosGenreIgdbRequest {
+            RequestService requestService = new RequestService();
+            DadosGenreRequest request = new DadosGenreRequest {
                 Ids = genres
             };
 
-            string resposta = requestService.RequestDadosGenreIgdb(request);
+            string resposta = requestService.RequestDadosGenre(request);
 
             List<DadosGenreResponse> response = JsonConvert.DeserializeObject<List<DadosGenreResponse>>(resposta);
 
             return response;
-        }
+        }*/
     }
 }
