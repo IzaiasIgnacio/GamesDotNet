@@ -251,8 +251,8 @@ legend {
 }
 
 #modal_game .modal-content #Titulo {
-    min-width: 90%;
-    width: 90%;
+    min-width: 84%;
+    width: 84%;
     clear:both;
     display: inline;
 }
@@ -578,4 +578,12 @@ legend {
 
 .slow-spin-form {
     vertical-align: middle;
+}
+
+.btn_buscar_igdb, .btn_buscar_gb {
+    padding: 0;
+}
+
+.capa_lista img {
+    max-width: 32px;
 }

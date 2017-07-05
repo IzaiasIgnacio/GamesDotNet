@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
-using GamesApi.ResponseModels.GiantBomb;
+using GamesApi.ResponseModels;
 using GamesApi.RequestModels.GiantBomb;
 using Newtonsoft.Json;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+using GamesApi.ResponseModels.GiantBomb;
 
 namespace GamesApi.Services {
     public class GiantBombService {

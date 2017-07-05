@@ -1,5 +1,7 @@
 ﻿using Games.Models.Entity;
 using Games.Models.Repository;
+using GamesApi.ResponseModels;
+using GamesApi.ResponseModels.GiantBomb;
 using GamesApi.ResponseModels.Igdb;
 using System;
 using System.Collections.Generic;
@@ -93,8 +95,15 @@ namespace Games.Models.ViewModel {
         }
     }
 
+    public class resultados {
+        public int id { get; set; }
+        public string name { get; set; }
+        public string thumb { get; set; }
+    }
+
     public class GameResultView : BasegameView {
-        public List<BuscaGameResponse> ListaJogos { get; set; }
+        public List<resultados> ListaJogos { get; set; }
+        public string api;
     }
 
     public class BuscaResultView : BasegameView {

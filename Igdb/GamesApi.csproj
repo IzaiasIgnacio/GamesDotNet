@@ -76,9 +76,10 @@
     <Compile Include="RequestModels\Igdb\DadosGameIgdbRequest.cs" />
     <Compile Include="RequestModels\Igdb\DadosGenreIgdbRequest.cs" />
     <Compile Include="ResponseModels\BaseJsonResponse.cs" />
-    <Compile Include="ResponseModels\GiantBomb\BuscaGameGiantBombResponse.cs" />
     <Compile Include="RequestModels\Igdb\BuscaGameIgdbRequest.cs" />
-    <Compile Include="ResponseModels\Igdb\BuscaGameResponse.cs" />
+    <Compile Include="ResponseModels\GiantBomb\BuscaGameGiantBombResponse.cs" />
+    <Compile Include="ResponseModels\GiantBomb\Image.cs" />
+    <Compile Include="ResponseModels\Igdb\BuscaGameIgdbResponse.cs" />
     <Compile Include="ResponseModels\Igdb\DadosGameSeriesResponse.cs" />
     <Compile Include="ResponseModels\Igdb\DadosGameResponse.cs" />
     <Compile Include="ResponseModels\Igdb\Cover.cs" />

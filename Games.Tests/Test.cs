@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GamesApi.Services;
 using GamesApi.ResponseModels.Igdb;
 using System.Net;
+using GamesApi.ResponseModels;
 using GamesApi.ResponseModels.GiantBomb;
 
 namespace GamesApi.Test {
@@ -21,12 +22,11 @@ namespace GamesApi.Test {
         [TestMethod]
         public void TesteBuscarJogo() {
             IgdbService igdb = new IgdbService();
-            List<BuscaGameResponse> response = igdb.BuscarJogo("infamous");
+            List<BuscaGameIgdbResponse> response = igdb.BuscarJogo("infamous");
 
             Assert.IsNotNull(response[0].Id);
             Assert.IsNotNull(response[0].Cover.CloudinaryId);
             Assert.IsNotNull(response[0].Name);
-            Assert.IsNotNull(response[0].ReleaseDates[0].Platform);
         }
 
         [TestMethod]

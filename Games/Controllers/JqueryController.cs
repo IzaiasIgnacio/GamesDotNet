@@ -76,7 +76,29 @@ namespace Games.Controllers {
             IgdbService igdb = new IgdbService();
             GameResultView view = new GameResultView();
 
-            view.ListaJogos = igdb.BuscarJogo(search);
+            view.api = "igdb";
+            view.ListaJogos = igdb.BuscarJogo(search).
+                Select(g => new resultados {
+                    id = g.Id,
+                    name = g.Name,
+                    thumb = (g.Cover != null ? view.MicroCoverUrl + "/" + g.Cover.CloudinaryId + ".jpg" :  "")
+                }).ToList();
+
+            return PartialView("GameResultView", view);
+        }
+
+        [HttpPost]
+        public ActionResult BuscarJogoGiantBombJquery(string search) {
+            GiantBombService gb = new GiantBombService();
+            GameResultView view = new GameResultView();
+
+            view.api = "giantbomb";
+            view.ListaJogos = gb.BuscarJogo(search).
+                Select(g => new resultados {
+                    id = g.Id,
+                    name = g.Name,
+                    thumb = g.Image.thumb_url
+                }).ToList();
 
             return PartialView("GameResultView", view);
         }

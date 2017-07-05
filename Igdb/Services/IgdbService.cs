@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
-using GamesApi.ResponseModels.Igdb;
+using GamesApi.ResponseModels;
 using GamesApi.RequestModels.Igdb;
 using Newtonsoft.Json;
 using System.Linq;
+using GamesApi.ResponseModels.Igdb;
 
 namespace GamesApi.Services {
     public class IgdbService {
-        public List<BuscaGameResponse> BuscarJogo(string busca) {
+        public List<BuscaGameIgdbResponse> BuscarJogo(string busca) {
             RequestService requestService = new RequestService("igdb");
             BuscaGameIgdbRequest request = new BuscaGameIgdbRequest {
                 Search = busca
@@ -14,7 +15,7 @@ namespace GamesApi.Services {
 
             string resposta = requestService.RequestBuscaGameIgdb(request);
 
-            List<BuscaGameResponse> response = JsonConvert.DeserializeObject<List<BuscaGameResponse>>(resposta);
+            List<BuscaGameIgdbResponse> response = JsonConvert.DeserializeObject<List<BuscaGameIgdbResponse>>(resposta);
                         
             return response;
         }

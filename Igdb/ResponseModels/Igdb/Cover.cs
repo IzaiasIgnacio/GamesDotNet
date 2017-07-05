@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
-using Newtonsoft.Json;
+﻿using System.Runtime.Serialization;
 
 namespace GamesApi.ResponseModels.Igdb {
     [DataContract(Name = "Cover")]
