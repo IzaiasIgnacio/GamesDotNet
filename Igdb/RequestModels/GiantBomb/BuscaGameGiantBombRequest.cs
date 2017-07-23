@@ -2,7 +2,7 @@
     public class BuscaGameGiantBombRequest {
         public string Fields {
             get {
-                return "id,name,deck,platforms,image";
+                return "id,name,platforms,image";
             }
         }
 

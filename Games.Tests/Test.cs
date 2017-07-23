@@ -13,14 +13,14 @@ namespace GamesApi.Test {
         [TestMethod]
         public void TesteBuscarJogoGiantBomb() {
             GiantBombService gb = new GiantBombService();
-            List<BuscaGameGiantBombResponse> response = gb.BuscarJogo("infamous");
+            List<BuscaGameGiantBombResponse> response = gb.BuscarJogo("dishonored");
 
             Assert.IsNotNull(response[0].Id);
             Assert.IsNotNull(response[0].Name);
         }
 
         [TestMethod]
-        public void TesteBuscarJogo() {
+        public void TesteBuscarJogoIgdb() {
             IgdbService igdb = new IgdbService();
             List<BuscaGameIgdbResponse> response = igdb.BuscarJogo("infamous");
 
