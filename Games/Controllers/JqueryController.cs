@@ -55,16 +55,12 @@ namespace Games.Controllers {
             if (tipo == null) {
                 switch (status) {
                     case "colecao":
+                    case "plus":
                         tipo = "GameGridView";
                     break;
                     case "wishlist":
-                        tipo = "GameListView";
-                    break;
                     case "watchlist":
                         tipo = "GameListView";
-                    break;
-                    case "plus":
-                        tipo = "GameGridView";
                     break;
                 }
             }

@@ -97,6 +97,10 @@
                 $("#modal_game").modal('hide');
             }
         });
+
+        $('#modal_game').on('shown.bs.modal', function() {
+            $(this).find('[autofocus]').focus();
+        });
     });
 </script>
 @Html.HiddenFor(model => Model.Id, new { @Value = Model.Id })
@@ -105,7 +109,7 @@
     <div class="col-md-4">
         <div class="form-group">
             @Html.LabelFor(model => model.Titulo, new { @style = "display:block" })
-            @Html.TextBoxFor(model => model.Titulo, new { @class = "form-control", @placeholder = "Título", @Value = Model.Titulo })
+            @Html.TextBoxFor(model => model.Titulo, new { @class = "form-control", @placeholder = "Título", @Value = Model.Titulo ,@autofocus = true})
             @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
             <button type="button" class="btn btn-primary btn_buscar_igdb"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
             <span id="lista_resultados" style="display:none"></span>

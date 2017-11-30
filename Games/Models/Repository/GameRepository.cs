@@ -436,7 +436,8 @@ namespace Games.Models.Repository {
 
         public Dictionary<string, int> GetTotalJogosFaixaPreco() {
             Dictionary<string, int> resposta = new Dictionary<string, int>();
-            resposta.Add("< 10", 0);
+            resposta.Add("0", 0);
+            resposta.Add("1..10", 0);
             resposta.Add("10..50", 0);
             resposta.Add("51..100", 0);
             resposta.Add("101..150", 0);
@@ -446,10 +447,13 @@ namespace Games.Models.Repository {
             List<game_platform> lista = db.game_platform.Where(gp => gp.id_status == 1).ToList();
 
             foreach (game_platform gp in lista) {
-                if (gp.preco < 10) {
-                    resposta["< 10"] = resposta["< 10"] += 1;
+                if (gp.preco == 0) {
+                    resposta["0"] = resposta["0"] += 1;
                 }
-                if (gp.preco >= 10 && gp.preco <= 50) {
+                if (gp.preco >= 1 && gp.preco <= 10) {
+                    resposta["1..10"] = resposta["1..10"] += 1;
+                }
+                if (gp.preco >= 11 && gp.preco <= 50) {
                     resposta["10..50"] = resposta["10..50"] += 1;
                 }
                 if (gp.preco >= 51 && gp.preco <= 100) {
