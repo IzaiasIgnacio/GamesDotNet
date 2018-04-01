@@ -25,7 +25,7 @@ namespace Games.Models.ViewModel {
             CloudnaryUrl = "https://images.igdb.com/igdb/image/upload/t_";
             BigCoverUrl = CloudnaryUrl + "cover_big/";
             BigCoverUrl2x = CloudnaryUrl + "cover_big_2x/";
-            MicroCoverUrl = CloudnaryUrl + "micro/";
+            MicroCoverUrl = CloudnaryUrl + "micro";
             MicroCoverUrl2x = CloudnaryUrl + "micro_2x/";
             SmallCoverUrl = CloudnaryUrl + "cover_small_2x/";
             Imagesfolder = AppDomain.CurrentDomain.BaseDirectory + "images\\";

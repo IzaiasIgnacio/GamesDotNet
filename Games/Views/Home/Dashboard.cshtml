@@ -17,11 +17,11 @@
     </div>
     <div class="row dashboard_row">
         @Html.Partial("DashboardBarChartReport", Model.GetDashboardReportView("Anos", Model.TotalJogosAno, Model.TotalJogosStatus["Coleção"]))
-        @Html.Partial("DashboardBarChartReport", Model.GetDashboardReportView("Developers", Model.TotalJogosDeveloper, Model.TotalJogos))
-        @Html.Partial("DashboardBarChartReport", Model.GetDashboardReportView("Publishers", Model.TotalJogosPublisher, Model.TotalJogos))
+        @Html.Partial("DashboardBarChartReport", Model.GetDashboardReportView("Developers", Model.TotalJogosDeveloper, Model.TotalJogosStatus["Coleção"]))
+        @Html.Partial("DashboardBarChartReport", Model.GetDashboardReportView("Publishers", Model.TotalJogosPublisher, Model.TotalJogosStatus["Coleção"]))
         @Html.Partial("DashboardBarChartReport", Model.GetDashboardReportView("Lojas", Model.TotalJogosLoja, Model.TotalJogosStatus["Coleção"]))
     </div>
     <div class="row dashboard_row">
-        @Html.Partial("DashboardBarChartReport", Model.GetDashboardReportView("Gêneros", Model.TotalJogosGenero, Model.TotalJogos))
+        @Html.Partial("DashboardBarChartReport", Model.GetDashboardReportView("Gêneros", Model.TotalJogosGenero, Model.TotalJogosStatus["Coleção"]))
     </div>
 </div>
