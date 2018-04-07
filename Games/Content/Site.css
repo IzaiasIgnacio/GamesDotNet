@@ -191,6 +191,7 @@ legend {
    left: 50%;
    top: 50%;
    transform: translate(-50%, -50%);
+   max-width: 91% !important;
 }
 
 .thumbnail .caption {

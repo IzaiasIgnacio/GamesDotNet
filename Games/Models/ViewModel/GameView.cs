@@ -26,7 +26,7 @@ namespace Games.Models.ViewModel {
             BigCoverUrl = CloudnaryUrl + "cover_big/";
             BigCoverUrl2x = CloudnaryUrl + "cover_big_2x/";
             MicroCoverUrl = CloudnaryUrl + "micro";
-            MicroCoverUrl2x = CloudnaryUrl + "micro_2x/";
+            MicroCoverUrl2x = CloudnaryUrl + "thumb/";
             SmallCoverUrl = CloudnaryUrl + "cover_small_2x/";
             Imagesfolder = AppDomain.CurrentDomain.BaseDirectory + "images\\";
         }
