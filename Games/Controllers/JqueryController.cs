@@ -151,14 +151,18 @@ namespace Games.Controllers {
 
             PlatformRepository pr = new PlatformRepository();
 
-            if (response.Developers != null)
+            if (response.Developers != null) {
                 devs = igdb.DadosDeveloperPublisher(response.Developers.ToArray());
-            if (response.Developers != null)
+            }
+            if (response.Publishers != null) {
                 pubs = igdb.DadosDeveloperPublisher(response.Publishers.ToArray());
-            if (response.Genres != null)
+            }
+            if (response.Genres != null) {
                 genres = igdb.DadosGenre(response.Genres.ToArray());
-            if (response.ReleaseDates != null)
+            }
+            if (response.ReleaseDates != null) {
                 lancamentos = response.ReleaseDates;
+            }
 
             GameDataView gameDataView = GameDataView.GetGameDataView();
             gameDataView.Id = Id;
@@ -176,26 +180,26 @@ namespace Games.Controllers {
 
             gameDataView.InitListas();
 
-            foreach (DadosDeveloperPublisherResponse dev in devs) {
-                gameDataView.ListaDeveloper.Add(new developerPublisher {
-                    name = dev.Name,
-                    id_igdb = dev.Id
-                });
-            }
+            //foreach (DadosDeveloperPublisherResponse dev in devs) {
+            //    gameDataView.ListaDeveloper.Add(new developerPublisher {
+            //        name = dev.Name,
+            //        id_igdb = dev.Id
+            //    });
+            //}
 
-            foreach (DadosDeveloperPublisherResponse pub in pubs) {
-                gameDataView.ListaPublisher.Add(new developerPublisher {
-                    name = pub.Name,
-                    id_igdb = pub.Id
-                });
-            }
+            //foreach (DadosDeveloperPublisherResponse pub in pubs) {
+            //    gameDataView.ListaPublisher.Add(new developerPublisher {
+            //        name = pub.Name,
+            //        id_igdb = pub.Id
+            //    });
+            //}
 
-            foreach (DadosGenreResponse genre in genres) {
-                gameDataView.ListaGenre.Add(new genre {
-                    id_igdb = genre.Id,
-                    name = genre.Name
-                });
-            }
+            //foreach (DadosGenreResponse genre in genres) {
+            //    gameDataView.ListaGenre.Add(new genre {
+            //        id_igdb = genre.Id,
+            //        name = genre.Name
+            //    });
+            //}
 
             try {
                 var buscaMetacritic = await Metacritic.SearchFor().Games().UsingTextAsync(response.Name);

@@ -6,7 +6,7 @@ namespace Igdb.RequestModels {
     public class BuscaGameRequest {
         public string Fields {
             get {
-                return "id,name,release_dates.platform,cover.cloudinary_id";
+                return "id,name,release_dates.platform,cover";
             }
         }
 

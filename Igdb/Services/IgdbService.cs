@@ -41,6 +41,7 @@ namespace Igdb.Services {
         }
 
         public List<DadosGameSeriesResponse> BuscaGameSeries(int id) {
+            return null;
             RequestService requestService = new RequestService();
             DadosGameSeriesRequest request = new DadosGameSeriesRequest {
                 Id = id
@@ -54,6 +55,7 @@ namespace Igdb.Services {
         }
 
         public List<DadosDeveloperPublisherResponse> DadosDeveloperPublisher(int[] devs) {
+            return null;
             RequestService requestService = new RequestService();
             DadosDeveloperPublisherRequest request = new DadosDeveloperPublisherRequest {
                 Ids = devs
@@ -67,6 +69,7 @@ namespace Igdb.Services {
         }
 
         public List<DadosPlatformResponse> DadosPlatform(int[] plats) {
+            return null;
             RequestService requestService = new RequestService();
             DadosPlatformRequest request = new DadosPlatformRequest {
                 Ids = plats
@@ -80,6 +83,7 @@ namespace Igdb.Services {
         }
 
         public List<DadosGenreResponse> DadosGenre(int[] genres) {
+            return null;
             RequestService requestService = new RequestService();
             DadosGenreRequest request = new DadosGenreRequest {
                 Ids = genres
