@@ -6,7 +6,7 @@ using System.Text;
 namespace Igdb.Services {
     public class RequestService {
 
-        public string requestUrl = "http://localhost:8080/ICIGames";
+        public string requestUrl = "http://localhost:8080/ICIGames/legado";
 
         public string DoRequest(string url) {
             string resposta = string.Empty;
@@ -50,9 +50,8 @@ namespace Igdb.Services {
         }
 
         public string RequestDadosDeveloperPublisherGame(DadosDeveloperPublisherRequest request) {
-            return null;
             string resposta = string.Empty;
-            string url = requestUrl + "/companies/" + string.Join(",",request.Ids)+"?fields=" + request.Fields;
+            string url = requestUrl + "/buscar_dados_empresas/" + string.Join(",",request.Ids);
 
             return DoRequest(url);
         }

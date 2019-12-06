@@ -55,7 +55,6 @@ namespace Igdb.Services {
         }
 
         public List<DadosDeveloperPublisherResponse> DadosDeveloperPublisher(int[] devs) {
-            return null;
             RequestService requestService = new RequestService();
             DadosDeveloperPublisherRequest request = new DadosDeveloperPublisherRequest {
                 Ids = devs

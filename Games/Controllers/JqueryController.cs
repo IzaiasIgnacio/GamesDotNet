@@ -180,19 +180,19 @@ namespace Games.Controllers {
 
             gameDataView.InitListas();
 
-            //foreach (DadosDeveloperPublisherResponse dev in devs) {
-            //    gameDataView.ListaDeveloper.Add(new developerPublisher {
-            //        name = dev.Name,
-            //        id_igdb = dev.Id
-            //    });
-            //}
+            foreach (DadosDeveloperPublisherResponse dev in devs) {
+                gameDataView.ListaDeveloper.Add(new developerPublisher {
+                    name = dev.Name,
+                    id_igdb = dev.Id
+                });
+            }
 
-            //foreach (DadosDeveloperPublisherResponse pub in pubs) {
-            //    gameDataView.ListaPublisher.Add(new developerPublisher {
-            //        name = pub.Name,
-            //        id_igdb = pub.Id
-            //    });
-            //}
+            foreach (DadosDeveloperPublisherResponse pub in pubs) {
+                gameDataView.ListaPublisher.Add(new developerPublisher {
+                    name = pub.Name,
+                    id_igdb = pub.Id
+                });
+            }
 
             //foreach (DadosGenreResponse genre in genres) {
             //    gameDataView.ListaGenre.Add(new genre {
@@ -226,7 +226,7 @@ namespace Games.Controllers {
                             meta = resultado.Score;
                         }
 
-                        DateTime data = new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(Convert.ToDouble(lancamento.Date)));
+                        DateTime data = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(Convert.ToDouble(lancamento.Date)));
                         gameDataView.Platforms.Add(new game_platform {
                             id_platform = plataforma.id,
                             release_date = data,
