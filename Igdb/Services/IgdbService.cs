@@ -82,7 +82,6 @@ namespace Igdb.Services {
         }
 
         public List<DadosGenreResponse> DadosGenre(int[] genres) {
-            return null;
             RequestService requestService = new RequestService();
             DadosGenreRequest request = new DadosGenreRequest {
                 Ids = genres

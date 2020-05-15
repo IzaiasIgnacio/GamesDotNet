@@ -65,9 +65,8 @@ namespace Igdb.Services {
         }
 
         public string RequestDadosGenre(DadosGenreRequest request) {
-            return null;
             string resposta = string.Empty;
-            string url = requestUrl + "/genres/" + string.Join(",", request.Ids) + "?fields=" + request.Fields;
+            string url = requestUrl + "/buscar_dados_generos/" + string.Join(",", request.Ids);
 
             return DoRequest(url);
         }

@@ -151,16 +151,16 @@ namespace Games.Controllers {
 
             PlatformRepository pr = new PlatformRepository();
 
-            if (response.Developers != null) {
+            if (response.Developers != null && response.Developers.Count > 0) {
                 devs = igdb.DadosDeveloperPublisher(response.Developers.ToArray());
             }
-            if (response.Publishers != null) {
+            if (response.Publishers != null && response.Publishers.Count > 0) {
                 pubs = igdb.DadosDeveloperPublisher(response.Publishers.ToArray());
             }
-            if (response.Genres != null) {
+            if (response.Genres != null && response.Genres.Count > 0) {
                 genres = igdb.DadosGenre(response.Genres.ToArray());
             }
-            if (response.ReleaseDates != null) {
+            if (response.ReleaseDates != null && response.ReleaseDates.Count > 0) {
                 lancamentos = response.ReleaseDates;
             }
 
@@ -194,12 +194,12 @@ namespace Games.Controllers {
                 });
             }
 
-            //foreach (DadosGenreResponse genre in genres) {
-            //    gameDataView.ListaGenre.Add(new genre {
-            //        id_igdb = genre.Id,
-            //        name = genre.Name
-            //    });
-            //}
+            foreach (DadosGenreResponse genre in genres) {
+                gameDataView.ListaGenre.Add(new genre {
+                    id_igdb = genre.Id,
+                    name = genre.Name
+                });
+            }
 
             try {
                 var buscaMetacritic = await Metacritic.SearchFor().Games().UsingTextAsync(response.Name);
